@@ -34,5 +34,5 @@ import Sidebar from '../components/Sidebar'
       )
   }
   
-  export default Home
+  export { Home }
   
