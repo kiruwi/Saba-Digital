@@ -1,21 +1,22 @@
 {
   "files": {
     "main.css": "/Saba-Digital/static/css/main.b69031e7.css",
-    "main.js": "/Saba-Digital/static/js/main.2d8a0c9b.js",
+    "main.js": "/Saba-Digital/static/js/main.6bd4f3d0.js",
     "static/media/video.mp4": "/Saba-Digital/static/media/video.fef58b575d92da7c03f6.mp4",
-    "static/media/me.png": "/Saba-Digital/static/media/me.87ade251dd2e35caa14f.png",
-    "static/media/work.png": "/Saba-Digital/static/media/work.20fe6a0f164076e1871d.png",
+    "static/media/work.png": "/Saba-Digital/static/media/work.bd57d6f4526590dde2b6.png",
+    "static/media/me.png": "/Saba-Digital/static/media/me.406e0e04a420be8071b5.png",
     "static/media/dsgncircles.svg": "/Saba-Digital/static/media/dsgncircles.805019129126d503b93166c768426940.svg",
     "static/media/contactform.svg": "/Saba-Digital/static/media/contactform.7aac3cfe4e516142c0c1349e7a31fb05.svg",
     "static/media/designprocess.svg": "/Saba-Digital/static/media/designprocess.0cd3271162d90cdb7e5885f18c87832a.svg",
     "static/media/onlineart.svg": "/Saba-Digital/static/media/onlineart.fa4db6f8a8a326486418766d980f180d.svg",
     "static/media/logodesign.svg": "/Saba-Digital/static/media/logodesign.bcb58880c935c98256c2cc98f25c0b3d.svg",
     "index.html": "/Saba-Digital/index.html",
+    "static/media/logo.svg": "/Saba-Digital/static/media/logo.7dd6ca09f88fc475032f875980e67b06.svg",
     "main.b69031e7.css.map": "/Saba-Digital/static/css/main.b69031e7.css.map",
-    "main.2d8a0c9b.js.map": "/Saba-Digital/static/js/main.2d8a0c9b.js.map"
+    "main.6bd4f3d0.js.map": "/Saba-Digital/static/js/main.6bd4f3d0.js.map"
   },
   "entrypoints": [
     "static/css/main.b69031e7.css",
-    "static/js/main.2d8a0c9b.js"
+    "static/js/main.6bd4f3d0.js"
   ]
 }
