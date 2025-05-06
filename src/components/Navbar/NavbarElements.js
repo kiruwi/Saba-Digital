@@ -35,8 +35,9 @@ export const NavLogo = styled(LinkR)`
   font-size: 1.5rem;
   display: flex;
   align-items: center;
-  /* margin-left: 24px; */
-  margin-top: 18px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 export const MobileIcon = styled.div`

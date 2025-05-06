@@ -39,8 +39,14 @@ const Navbar = ({ toggle }) => {
         <NavbarContainer>
           <NavLogo to="/" onClick={toggleHome}>
             <img
-              src={require("../../images/logo.png").default}
+              src={require("../../images/logo.svg").default}
               alt="SABA DIGITAL"
+              style={{
+                height: '40px',
+                width: 'auto',
+                objectFit: 'contain',
+                marginRight: '20px'
+              }}
             />
           </NavLogo>
           <MobileIcon onClick={toggle}>

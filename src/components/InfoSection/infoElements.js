@@ -100,6 +100,10 @@ export const ImgWrap = styled.div`
 `;
 export const Img = styled.img`
   width: 100%;
-  margin: 0 0 10px 0;
-  padding-right: 0;
+  height: auto;
+  object-fit: contain;
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  display: block;
 `;

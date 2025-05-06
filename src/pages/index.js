@@ -6,7 +6,7 @@ import { homeObjOne, homeObjOne2, homeObjOne3, homeObjOne0 } from '../components
 import Navbar from '../components/Navbar'
 import Services from '../components/Services'
 import Sidebar from '../components/Sidebar'
-  
+
   const Home = () => {
       const [isOpen, setIsOpen] = useState(false)
 
@@ -24,7 +24,7 @@ import Sidebar from '../components/Sidebar'
           <Services />
           <InfoSection {...homeObjOne} />
           <InfoSection {...homeObjOne2} />
-        
+          
           <InfoSection {...homeObjOne3} />
           <Footer />
 
