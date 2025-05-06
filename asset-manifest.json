@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Saba-Digital/static/css/main.b69031e7.css",
-    "main.js": "/Saba-Digital/static/js/main.ea55dc10.js",
+    "main.js": "/Saba-Digital/static/js/main.2d8a0c9b.js",
     "static/media/video.mp4": "/Saba-Digital/static/media/video.fef58b575d92da7c03f6.mp4",
     "static/media/me.png": "/Saba-Digital/static/media/me.87ade251dd2e35caa14f.png",
     "static/media/work.png": "/Saba-Digital/static/media/work.20fe6a0f164076e1871d.png",
@@ -12,10 +12,10 @@
     "static/media/logodesign.svg": "/Saba-Digital/static/media/logodesign.bcb58880c935c98256c2cc98f25c0b3d.svg",
     "index.html": "/Saba-Digital/index.html",
     "main.b69031e7.css.map": "/Saba-Digital/static/css/main.b69031e7.css.map",
-    "main.ea55dc10.js.map": "/Saba-Digital/static/js/main.ea55dc10.js.map"
+    "main.2d8a0c9b.js.map": "/Saba-Digital/static/js/main.2d8a0c9b.js.map"
   },
   "entrypoints": [
     "static/css/main.b69031e7.css",
-    "static/js/main.ea55dc10.js"
+    "static/js/main.2d8a0c9b.js"
   ]
 }
