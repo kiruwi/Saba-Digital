@@ -1,6 +1,19 @@
-# Getting Started with Create React App
+# My Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive portfolio website built with React and TypeScript.
+
+## Features
+
+- Dark/Light mode theme switching
+- Optimized performance with code splitting and lazy loading
+- Responsive design for all devices
+- Enhanced security with error boundaries and form validation
+- SEO optimized with proper meta tags
+- Smooth animations and transitions
+- Sentry integration for error tracking
+- TypeScript for better type safety
+- React Router v6 for modern routing
+- Styled Components for component-based styling
 
 ## Available Scripts
 
@@ -39,11 +52,60 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### `npm run deploy`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Deploys the app to GitHub Pages.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `npm run lint`
+
+Runs ESLint to check for code style issues.
+
+## Setup Instructions
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file in the root directory and add your configuration:
+   ```
+   REACT_APP_SENTRY_DSN=your_sentry_dsn
+   ```
+4. Start the development server:
+   ```bash
+   npm start
+   ```
+
+## Project Structure
+
+```
+src/
+├── components/      # Reusable UI components
+├── pages/          # Page components
+├── styles/         # Global styles and theme configuration
+├── themes/         # Theme configuration
+└── utils/          # Utility functions
+```
+
+## Technologies Used
+
+- React 18
+- TypeScript
+- React Router v6
+- Styled Components
+- React Icons
+- Sentry
+- React Helmet Async
+- Intersection Observer
+- React Spring
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ### Code Splitting
 
