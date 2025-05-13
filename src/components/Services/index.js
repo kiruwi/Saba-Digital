@@ -1,45 +1,43 @@
+// src/components/Services/index.js
 import React from "react";
-import Icon1 from "../../images/dsgncircles.svg";
-import Icon2 from "../../images/logodesign.svg";
-import Icon3 from "../../images/onlineart.svg";
 
 import {
   ServicesContainer,
-  ServicesH1,
   ServicesWrapper,
-  ServicesCard,
-  ServicesIcon,
+  ServicesCardHover as ServicesCard,
+  TextOverlay,
   ServicesH2,
   ServicesP,
 } from "./ServicesElements";
 
-const Services = () => {
-  return (
-    <ServicesContainer id="services">
-      <ServicesH1>Our Services</ServicesH1>
-      <ServicesWrapper>
-        <ServicesCard>
-          <ServicesIcon src={Icon1} />
+const Services = () => (
+  <ServicesContainer id="services">
+    <ServicesWrapper>
+      {/* Card 1 */}
+      <ServicesCard>
+        <TextOverlay>
           <ServicesH2>Branding</ServicesH2>
           <ServicesP>We help create ads to help boost your business.</ServicesP>
-        </ServicesCard>
-        <ServicesCard>
-          <ServicesIcon src={Icon2} />
+        </TextOverlay>
+      </ServicesCard>
+
+      {/* Card 2 */}
+      <ServicesCard>
+        <TextOverlay>
           <ServicesH2>Website Development</ServicesH2>
-          <ServicesP>
-            We did their business launch and website development
-          </ServicesP>
-        </ServicesCard>
-        <ServicesCard>
-          <ServicesIcon src={Icon3} />
+          <ServicesP>We design and develop websites for our clients.</ServicesP>
+        </TextOverlay>
+      </ServicesCard>
+
+      {/* Card 3 */}
+      <ServicesCard>
+        <TextOverlay>
           <ServicesH2>3D Graphics Design</ServicesH2>
-          <ServicesP>
-            We,ve been their main design consultants for two years
-          </ServicesP>
-        </ServicesCard>
-      </ServicesWrapper>
-    </ServicesContainer>
-  );
-};
+          <ServicesP>We’ve been designing for 10 years.</ServicesP>
+        </TextOverlay>
+      </ServicesCard>
+    </ServicesWrapper>
+  </ServicesContainer>
+);
 
 export default Services;

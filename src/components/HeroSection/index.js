@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import Video from "../../videos/video.mp4";
+import meImage from "../../images/me.png";
 import { Button } from "../ButtonElements";
+
 import {
   HeroContainer,
   HeroBg,
-  VideoGg,
+  VideoBg,
   HeroContent,
-  HeroH1,
-  HeroP,
+  HeroWrapper,
+  HeroText,
+  TitleBackground,
+  HeroTitleTop,
+  HeroTitleBottom,
+  HeroImage,
   HeroBtnWrapper,
   ArrowForward,
   ArrowRight,
@@ -15,28 +21,49 @@ import {
 
 const HeroSection = () => {
   const [hover, setHover] = useState(false);
-
-  const onHover = () => {
-    setHover(!hover);
-  };
+  const [titleHover, setTitleHover] = useState(false);
 
   return (
     <HeroContainer>
       <HeroBg>
-        <VideoGg autoPlay loop muted src={Video} type="video/mp4" />
+        <VideoBg
+          autoPlay
+          loop
+          muted
+          playsInline
+          src={Video}
+          type="video/mp4"
+        />
       </HeroBg>
+
       <HeroContent>
-        <HeroH1>Hi there, have you ever wanted to start a business?</HeroH1>
-        <HeroP>But you just didn't know where to start.</HeroP>
-        <HeroBtnWrapper>
-          <Button 
-          to="services" 
-          onMouseEnter={onHover} 
-          onMouseLeave={onHover}
-          primary='true'
-          dark='true'
+        <HeroWrapper>
+          <HeroText>
+            <TitleBackground
+              onMouseEnter={() => setTitleHover(true)}
+              onMouseLeave={() => setTitleHover(false)}
+            >
+              <HeroTitleTop>
+                Currently a product designer at Square.
+              </HeroTitleTop>
+              <HeroTitleBottom>
+                Living in Nairobi, designing features for Square Banking that empower sellers.
+              </HeroTitleBottom>
+            </TitleBackground>
+          </HeroText>
+
+          <HeroImage src={meImage} alt="Ian Cheruiyot" />
+        </HeroWrapper>
+
+        <HeroBtnWrapper visible={titleHover}>
+          <Button
+            to="services"
+            primary="true"
+            dark="true"
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
           >
-            Let's help {hover ? <ArrowForward /> : <ArrowRight />}
+            View Services {hover ? <ArrowForward /> : <ArrowRight />}
           </Button>
         </HeroBtnWrapper>
       </HeroContent>

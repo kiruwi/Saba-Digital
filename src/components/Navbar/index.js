@@ -38,16 +38,7 @@ const Navbar = ({ toggle }) => {
       <Nav scrollNav={scrollNav}>
         <NavbarContainer>
           <NavLogo to="/" onClick={toggleHome}>
-            <img
-              src={require("../../images/logo.svg").default}
-              alt="SABA DIGITAL"
-              style={{
-                height: '40px',
-                width: 'auto',
-                objectFit: 'contain',
-                marginRight: '20px'
-              }}
-            />
+            IAN CHERUIYOT
           </NavLogo>
           <MobileIcon onClick={toggle}>
             <IoIosArrowDown />
@@ -86,7 +77,7 @@ const Navbar = ({ toggle }) => {
             </NavItem>
           </NavMenu>
           <NavBtn>
-            <NavBtnLink to="./ContactUs">Contact Us</NavBtnLink>
+            <NavBtnLink to="./ContactUs">CONTACT US</NavBtnLink>
           </NavBtn>
         </NavbarContainer>
       </Nav>

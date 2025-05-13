@@ -2,6 +2,10 @@ import { createGlobalStyle } from 'styled-components';
 import { Theme } from '../themes/theme';
 
 export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
+  :root {
+    --nav-h: 64px; /* height of the fixed navbar */
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -70,9 +74,10 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
 
   /* Skeleton loading */
   .skeleton {
-    background: linear-gradient(90deg, 
-      rgba(255, 255, 255, 0.1), 
-      rgba(255, 255, 255, 0.3), 
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.3),
       rgba(255, 255, 255, 0.1)
     );
     background-size: 200% 100%;
@@ -80,26 +85,17 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
   }
 
   @keyframes shimmer {
-    0% {
-      background-position: -100% 0;
-    }
-    100% {
-      background-position: 100% 0;
-    }
+    0%   { background-position: -100% 0; }
+    100% { background-position: 100% 0; }
   }
 
   /* Responsive typography */
   @media (max-width: 768px) {
-    body {
-      font-size: ${({ theme }) => theme.fontSizes.sm};
-    }
+    body { font-size: ${({ theme }) => theme.fontSizes.sm}; }
   }
 
-  /* Performance optimization */
-  .will-change {
-    will-change: transform;
-  }
-
+  /* Performance optimisation */
+  .will-change { will-change: transform; }
   .backface-visibility {
     backface-visibility: hidden;
     transform: translateZ(0);

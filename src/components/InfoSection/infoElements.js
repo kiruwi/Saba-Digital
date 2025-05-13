@@ -52,7 +52,7 @@ export const TextWrapper = styled.div`
 
 export const TopLine = styled.p`
   color: #0bd147;
-  font-size: 16px;
+  font-size: 24px;
   line-height: 16px;
   font-weight: 700;
   letter-spacing: 1.4x;
@@ -72,7 +72,7 @@ export const TopLine2 = styled.p`
 
 export const Heading = styled.h1`
   margin-bottom: 16px;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 1.1;
   font-weight: 600;
   color: ${({ lightText }) => (lightText ? "#fff" : "#01244a")};
