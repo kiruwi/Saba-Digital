@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Video from "../../videos/video.mp4";
-import meImage from "../../images/me.png";
-import { Button } from "../ButtonElements";
+import React, { useState } from 'react';
+import Video from '../../videos/video.mp4';
+import meImage from '../../images/me.png';
+import { Button } from '../ButtonElements';
 
 import {
   HeroContainer,
@@ -17,11 +17,10 @@ import {
   HeroBtnWrapper,
   ArrowForward,
   ArrowRight,
-} from "./HeroElements";
+} from './HeroElements';
 
 const HeroSection = () => {
   const [hover, setHover] = useState(false);
-  const [titleHover, setTitleHover] = useState(false);
 
   return (
     <HeroContainer>
@@ -39,15 +38,12 @@ const HeroSection = () => {
       <HeroContent>
         <HeroWrapper>
           <HeroText>
-            <TitleBackground
-              onMouseEnter={() => setTitleHover(true)}
-              onMouseLeave={() => setTitleHover(false)}
-            >
+            <TitleBackground>
               <HeroTitleTop>
-                Currently a product designer at Square.
+                Currently a product designer at Saba Digital.
               </HeroTitleTop>
               <HeroTitleBottom>
-                Living in Nairobi, designing features for Square Banking that empower sellers.
+                Living in Nairobi, designing features for Saba Digital that empower sellers.
               </HeroTitleBottom>
             </TitleBackground>
           </HeroText>
@@ -55,7 +51,7 @@ const HeroSection = () => {
           <HeroImage src={meImage} alt="Ian Cheruiyot" />
         </HeroWrapper>
 
-        <HeroBtnWrapper visible={titleHover}>
+        <HeroBtnWrapper>
           <Button
             to="services"
             primary="true"

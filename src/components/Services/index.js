@@ -16,8 +16,8 @@ const Services = () => (
       {/* Card 1 */}
       <ServicesCard>
         <TextOverlay>
-          <ServicesH2>Branding</ServicesH2>
-          <ServicesP>We help create ads to help boost your business.</ServicesP>
+          <ServicesH2>UX/UI Design</ServicesH2>
+          <ServicesP>Creating user-friendly and visually appealing interfaces.</ServicesP>
         </TextOverlay>
       </ServicesCard>
 
@@ -32,8 +32,8 @@ const Services = () => (
       {/* Card 3 */}
       <ServicesCard>
         <TextOverlay>
-          <ServicesH2>3D Graphics Design</ServicesH2>
-          <ServicesP>We’ve been designing for 10 years.</ServicesP>
+          <ServicesH2>3D / Graphics Design</ServicesH2>
+          <ServicesP>Creating visually stunning and engaging graphics.</ServicesP>
         </TextOverlay>
       </ServicesCard>
     </ServicesWrapper>

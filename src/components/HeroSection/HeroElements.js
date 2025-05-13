@@ -4,7 +4,7 @@ import { MdKeyboardArrowRight, MdArrowForward } from 'react-icons/md';
 /* ── layout ─────────────────────────────────────────── */
 export const HeroContainer = styled.section`
   background: #000;
-  height: 100vh;           /* desktop/tablet */
+  height: 100vh;
   min-height: 700px;
   position: relative;
   overflow: hidden;
@@ -15,9 +15,10 @@ export const HeroContainer = styled.section`
 
   /* phones */
   @media (max-width: 768px) {
-    height: auto;                                    /* let content size itself */
-    min-height: calc(100vh - var(--nav-h));          /* still fill the screen */
-    padding-top: calc(var(--nav-h) + 16px);          /* clear the fixed bar */
+    --safe-nav: var(--nav-h, 80px);
+    height: auto;
+    min-height: calc(100vh - var(--safe-nav));
+    padding-top: calc(var(--safe-nav) + 16px);
   }
 `;
 
@@ -54,8 +55,9 @@ export const HeroWrapper = styled.div`
   flex-wrap: wrap;
 
   @media (max-width: 768px) {
-    flex-direction: column;      /* stack */
-    align-items: center;         /* centre in the column */
+    flex-direction: column;
+    align-items: center;
+    margin-top: 8px;
   }
 `;
 
@@ -85,10 +87,15 @@ export const TitleBackground = styled.div`
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
   padding: 0.7em 1.2em;
-  border-radius: 8px;
+  /* no border‑radius */
   display: inline-flex;
   flex-direction: column;
   gap: 0.3em;
+  z-index: 3;
+
+  @media (max-width: 768px) {
+    margin-top: 8px;
+  }
 `;
 
 /* ── typography ─────────────────────────────────────── */
@@ -109,23 +116,6 @@ export const HeroBtnWrapper = styled.div`
   margin-top: 48px;
   display: flex;
   align-items: center;
-  transform: ${({ visible }) =>
-    visible ? 'translateY(0)' : 'translateY(20px)'};
-  opacity: ${({ visible }) => (visible ? 1 : 0)};
-  transition: transform 0.3s ease, opacity 0.3s ease;
-`;
-
-/* ── image ──────────────────────────────────────────── */
-export const HeroImage = styled.img`
-  width: clamp(240px, 50vw, 420px);
-  height: clamp(240px, 50vw, 420px);
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-
-  @media (max-width: 768px) {
-    margin: 2rem auto 0;
-  }
 `;
 
 export const ArrowForward = styled(MdArrowForward)`
@@ -136,4 +126,16 @@ export const ArrowForward = styled(MdArrowForward)`
 export const ArrowRight = styled(MdKeyboardArrowRight)`
   margin-left: 8px;
   font-size: 20px;
+`;
+
+/* ── image ──────────────────────────────────────────── */
+export const HeroImage = styled.img`
+  width: clamp(240px, 50vw, 420px);
+  height: clamp(240px, 50vw, 420px);
+  object-fit: cover;   /* square photo, no round corners */
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    margin: 2rem auto 0;
+  }
 `;

@@ -6,22 +6,15 @@ import Bg3 from "../../images/service3-bg.jpg";
 
 /* — container — */
 export const ServicesContainer = styled.div`
-  height: 650px;
+  padding: 4rem 0;                  /* let height adjust */
   background: #01244a;
   display: flex;
   justify-content: center;
-  align-items: stretch;
-
-  /* let height grow when we stack cards */
-  @media (max-width: 768px) {
-    height: auto;
-  }
 `;
 
 /* — grid wrapper — */
 export const ServicesWrapper = styled.div`
   width: 100%;
-  height: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 
@@ -40,10 +33,12 @@ export const ServicesWrapper = styled.div`
 export const ServicesCard = styled.div`
   position: relative;
   overflow: hidden;
+  width: 90%;                       /* size down */
+  aspect-ratio: 1 / 1;              /* keep square */
+  margin: auto;                     /* centre in grid cell */
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 650px;                 /* keep each card tall when stacked */
 
   /* background layer */
   &::before {
@@ -70,22 +65,24 @@ export const ServicesCard = styled.div`
 /* — overlay — */
 export const TextOverlay = styled.div`
   position: absolute;
-  top: 20%;
-  right: 20%;
-  bottom: 20%;
-  left: 20%;
+  top: 15%;
+  right: 15%;
+  bottom: 15%;
+  left: 15%;
   background: #000;
   color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: center;    /* keep vertical centering */
+  align-items: flex-start;    /* align text to the left */
   padding: 2rem;
   transform: translateY(100%);
   opacity: 0;
   transition: transform 0.4s ease, opacity 0.4s ease;
   z-index: 1;
 `;
+
+
 
 /* — hover reveal — */
 export const ServicesCardHover = styled(ServicesCard)`
@@ -103,5 +100,6 @@ export const ServicesH2 = styled.h2`
 
 export const ServicesP = styled.p`
   font-size: 1rem;
-  text-align: center;
+  text-align: left;           /* was center */
 `;
+

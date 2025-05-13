@@ -38,24 +38,12 @@ const Navbar = ({ toggle }) => {
       <Nav scrollNav={scrollNav}>
         <NavbarContainer>
           <NavLogo to="/" onClick={toggleHome}>
-            IAN CHERUIYOT
+            Ian Cheruiyot
           </NavLogo>
           <MobileIcon onClick={toggle}>
             <IoIosArrowDown />
           </MobileIcon>
           <NavMenu>
-            <NavItem>
-              <NavLinks
-                to="about"
-                smooth={true}
-                duration={500}
-                spy={true}
-                exact="true"
-                offset={-80}
-              >
-                About
-              </NavLinks>
-            </NavItem>
             <NavItem>
               <NavLinks 
               to="services"
@@ -77,7 +65,7 @@ const Navbar = ({ toggle }) => {
             </NavItem>
           </NavMenu>
           <NavBtn>
-            <NavBtnLink to="./ContactUs">CONTACT US</NavBtnLink>
+            <NavBtnLink to="./ContactUs">Contact Me</NavBtnLink>
           </NavBtn>
         </NavbarContainer>
       </Nav>

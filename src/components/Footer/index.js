@@ -29,8 +29,8 @@ function Footer() {
             </FooterLinkItems>
             <FooterLinkItems>
               <FooterLinkTitle>Lets Talk</FooterLinkTitle>
-              <FooterLink to="/contactus">info@saba.co.ke</FooterLink>
-              <FooterLink to="/contactus">+254 710 911 168</FooterLink>
+              <FooterLink to="/contactus">iankcheruiyot@gmail.com</FooterLink>
+              <FooterLink to="/contactus">+254 704 456 165</FooterLink>
             </FooterLinkItems>
           </FooterLinksWrapper>
         </FooterLinksContainer>
@@ -52,7 +52,7 @@ function Footer() {
               <SocialIconLink href="//www.linkedin.com/company/sabadgtl/about/?viewAsMember=true" target="_blank" aria-label="Linkedin">
                 <FaLinkedin />
               </SocialIconLink>
-              <SocialIconLink href="/" target="_blank" aria-label="Behance">
+              <SocialIconLink href="//www.behance.net/iancheruiyot1" target="_blank" aria-label="Behance">
                 <FaBehance />
               </SocialIconLink>
             </SocialIcons>

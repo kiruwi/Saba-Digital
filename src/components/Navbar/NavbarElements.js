@@ -32,7 +32,7 @@ export const NavLogo = styled(LinkR)`
   justify-self: flex-start;
   cursor: pointer;
   font-size: 1 rem;
-  font-weight: bold;
+  font-weight: regular;
   color: #fff;
   text-decoration: none;
   display: flex;
@@ -101,12 +101,12 @@ export const NavBtn = styled.nav`
 `;
 
 export const NavBtnLink = styled(LinkR)`
-  border-radius: 50px;
+  border-radius: 0px;
   white-space: nowrap;
   padding: 8px 22px;
   color: rgb(255, 255, 255);
   font-size: 1 rem;
-  font-weight: bold;
+  font-weight: regular;
   outline: none;
   border: none;
   cursor: pointer;
