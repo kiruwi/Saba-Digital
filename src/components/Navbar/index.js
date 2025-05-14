@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { animateScroll as scroll } from "react-scroll";
+import { useLocation } from "react-router-dom";
 
 import {
   Nav,
@@ -14,8 +15,12 @@ import {
   NavBtnLink,
 } from "./NavbarElements";
 
-const Navbar = ({ toggle }) => {
+const Navbar = ({ toggle, isOpen }) => {
   const [scrollNav, setScrollNav] = useState(false);
+  const location = useLocation();
+  
+  // Check if current path is in the work section
+  const isWorkRoute = location.pathname.includes("/work/");
 
   const changeNav = () => {
     if (window.scrollY >= 80) {
@@ -27,6 +32,9 @@ const Navbar = ({ toggle }) => {
 
   useEffect(() => {
     window.addEventListener("scroll", changeNav);
+    return () => {
+      window.removeEventListener("scroll", changeNav);
+    }
   }, []);
 
   const toggleHome = () => {
@@ -35,12 +43,12 @@ const Navbar = ({ toggle }) => {
 
   return (
     <>
-      <Nav scrollNav={scrollNav}>
+      <Nav scrollNav={scrollNav || isWorkRoute}>
         <NavbarContainer>
           <NavLogo to="/" onClick={toggleHome}>
             Ian Cheruiyot
           </NavLogo>
-          <MobileIcon onClick={toggle}>
+          <MobileIcon onClick={toggle} isOpen={isOpen}>
             <IoIosArrowDown />
           </MobileIcon>
           <NavMenu>

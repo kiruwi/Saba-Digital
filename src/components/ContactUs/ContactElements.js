@@ -24,6 +24,7 @@ export const FormWrap = styled.div`
 /* Optional logo link */
 export const Icon = styled(Link)`
   margin-bottom: 24px;
+  margin-top: 24px;
 `;
 
 /* Keeps form centred */
@@ -83,8 +84,8 @@ export const FormButton = styled.button`
 /* Back‑to‑hero link */
 export const BackButton = styled(Link)`
   position: absolute;
-  top: 24px;
-  left: 24px;
+  margin-bottom: 24px;
+  margin-top: 24px;
   padding: 8px 16px;
   border: 2px solid #fff;
   background: transparent;

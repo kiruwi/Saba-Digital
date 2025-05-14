@@ -6,3 +6,18 @@
   sans-serif; */
   font-family: 'Roboto', sans-serif; 
 }
+
+/* Theme-related styles */
+body.light {
+  --background-color: #f8f9fa;
+  --text-color: #212529;
+  --link-color: #007bff;
+  transition: all 0.3s ease;
+}
+
+body.dark {
+  --background-color: #121212;
+  --text-color: #e9ecef;
+  --link-color: #00aeff;
+  transition: all 0.3s ease;
+}

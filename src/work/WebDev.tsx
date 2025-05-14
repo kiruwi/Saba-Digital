@@ -1,23 +1,21 @@
-// src/pages/ContactPage.jsx
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import ContactUs from "../components/ContactUs";
 import Footer from "../components/Footer";
 
-const ContactPage = () => {
+const WebDev: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   return (
     <>
       <Navbar toggle={toggle} isOpen={isOpen} />
-
-      {/* contact form */}
-      <ContactUs />
-
+      <main style={{ padding: "4rem 1.5rem" }}>
+        <h1>Web Development Projects</h1>
+        <p>Coming soon...</p>
+      </main>
       <Footer />
     </>
   );
 };
 
-export default ContactPage;
+export default WebDev;

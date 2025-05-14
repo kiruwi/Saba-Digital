@@ -108,30 +108,4 @@ export const lightTheme: Theme = {
   },
 };
 
-export const darkTheme: Theme = {
-  colors: {
-    primary: '#3b82f6',
-    secondary: '#2563eb',
-    background: '#1f2937',
-    text: '#f3f4f6',
-    border: '#374151',
-    shadow: '#4b5563',
-    error: '#f87171',
-    accent: '#60a5fa',
-    success: '#34d399',
-    warning: '#fbbf24',
-  },
-  fontSizes: lightTheme.fontSizes,
-  spacing: lightTheme.spacing,
-  breakpoints: lightTheme.breakpoints,
-  shadows: lightTheme.shadows,
-  transitions: lightTheme.transitions,
-  meta: lightTheme.meta,
-};
-
 export type ThemeType = typeof lightTheme;
-
-export const theme = {
-  light: lightTheme,
-  dark: darkTheme,
-};

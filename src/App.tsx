@@ -8,7 +8,7 @@ import { ErrorPage } from './pages/Error';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeToggle } from './components/ThemeToggle';
 import { BackToTop } from './components/BackToTop';
-import { SEO } from './components/SEO';
+import SEO from './components/SEO';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { ThemeUtils } from './utils/theme';
 import { routes } from './utils/routes';
@@ -34,7 +34,7 @@ function App() {
   }
 
   return (
-    <HelmetProvider>
+    <HelmetProvider context={{} as any}>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         <GlobalStyles />
         <Router>
@@ -52,7 +52,6 @@ function App() {
                       {route.element}
                     </Suspense>
                   }
-                  exact={route.exact}
                 />
               ))}
             </Routes>

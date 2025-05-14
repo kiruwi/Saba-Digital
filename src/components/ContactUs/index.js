@@ -40,7 +40,7 @@ function ContactUs() {
 
   return (
     <Container>
-      <BackButton to="/#hero">← Back to hero</BackButton>
+      <BackButton to="/#hero">Back to hero</BackButton>
 
       <FormWrap>
         <Icon to="/">
