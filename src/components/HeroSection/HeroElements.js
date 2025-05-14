@@ -1,80 +1,46 @@
-import styled from 'styled-components';
-import { MdKeyboardArrowRight, MdArrowForward } from 'react-icons/md';
+import styled from "styled-components";
+import { MdKeyboardArrowRight, MdArrowForward, MdKeyboardArrowDown } from "react-icons/md";
+import { ServicesWrapper } from "../Services/ServicesElements";
 
-/* ── layout ─────────────────────────────────────────── */
+/* ── layout grid ────────────────────────────────────── */
 export const HeroContainer = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  min-height: 100vh;
   background: #000;
-  height: 100vh;
-  min-height: 700px;
-  position: relative;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 30px;
 
-  /* phones */
-  @media (max-width: 768px) {
-    --safe-nav: var(--nav-h, 80px);
-    height: auto;
-    min-height: calc(100vh - var(--safe-nav));
-    padding-top: calc(var(--safe-nav) + 16px);
+  @media (max-width: 1000px) {
+    display: block;
   }
 `;
 
 export const HeroBg = styled.div`
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 0;
+  display: none; /* placeholder only */
 `;
 
-export const VideoBg = styled.video`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: #000;
-`;
-
-/* ── content ────────────────────────────────────────── */
-export const HeroContent = styled.div`
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 1400px;
-  padding: 0 24px;
-`;
-
-export const HeroWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 48px;
-  flex-wrap: wrap;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    margin-top: 8px;
-  }
-`;
-
+/* ── copy column (sticky) ───────────────────────────── */
 export const HeroText = styled.div`
-  flex: 1 1 560px;
-  max-width: 600px;
-  padding-left: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
+  position: sticky;
+  top: 0;
+  align-self: start;
+  max-width: 700px;
+  padding: 8rem 3rem 3rem;
 
-  @media (max-width: 768px) {
-    padding-left: 0;
+  @media (max-width: 1000px) {
+    padding: 4rem 1.5rem 2rem;
   }
 `;
 
-/* ── shared title styles ────────────────────────────── */
+export const TitleBackground = styled.div`
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  padding: 0.7em 1.2em;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.3em;
+`;
+
 const baseTitle = `
   font-family: 'Inter', sans-serif;
   font-weight: 500;
@@ -82,60 +48,106 @@ const baseTitle = `
   margin: 0;
 `;
 
-/* ── blurred wrapper for both titles ────────────────── */
-export const TitleBackground = styled.div`
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
-  padding: 0.7em 1.2em;
-  /* no border‑radius */
-  display: inline-flex;
-  flex-direction: column;
-  gap: 0.3em;
-  z-index: 3;
-
-  @media (max-width: 768px) {
-    margin-top: 8px;
-  }
-`;
-
-/* ── typography ─────────────────────────────────────── */
 export const HeroTitleTop = styled.h1`
-  ${baseTitle}
+  ${baseTitle};
   font-size: clamp(2.5rem, 4vw, 5rem);
-  color: #ffffff;
+  color: #fff;
 `;
 
 export const HeroTitleBottom = styled.h1`
-  ${baseTitle}
+  ${baseTitle};
   font-size: clamp(2.5rem, 4vw, 5rem);
   color: #00ab57;
 `;
 
-/* ── button + icons ─────────────────────────────────── */
-export const HeroBtnWrapper = styled.div`
-  margin-top: 48px;
+export const BtnWrap = styled.div`
+  margin-top: 3rem;
   display: flex;
-  align-items: center;
+  gap: 1rem;
 `;
 
-export const ArrowForward = styled(MdArrowForward)`
-  margin-left: 8px;
-  font-size: 20px;
+export const ArrowFwd = styled(MdArrowForward)`margin-left:8px;font-size:20px;`;
+export const ArrowRt  = styled(MdKeyboardArrowRight)`margin-left:8px;font-size:20px;`;
+
+/* ── rail column ───────────────────────────────────── */
+export const HeroRight = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1000px) {
+    display: none;
+  }
 `;
 
-export const ArrowRight = styled(MdKeyboardArrowRight)`
-  margin-left: 8px;
-  font-size: 20px;
+export const Rail = styled.div`
+  flex: 1 1 auto;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+
+  /* show one slide at a time */
+  & ${ServicesWrapper} {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    grid-template-columns: none;
+  }
 `;
 
-/* ── image ──────────────────────────────────────────── */
-export const HeroImage = styled.img`
-  width: clamp(240px, 50vw, 420px);
-  height: clamp(240px, 50vw, 420px);
-  object-fit: cover;   /* square photo, no round corners */
+export const DesktopImg = styled.img`
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   flex-shrink: 0;
+`;
 
-  @media (max-width: 768px) {
-    margin: 2rem auto 0;
+export const MobileImg = styled.img`
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+
+  @media (min-width: 1000px) { display: none; }
+`;
+
+/* ── scroll indicator ────────────────────────────────── */
+export const ScrollIndicatorWrapper = styled.div`
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: ${props => props.visible ? '1' : '0'};
+`;
+
+export const ScrollText = styled.div`
+  color: white;
+  margin-bottom: 5px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
+`;
+
+export const ScrollArrow = styled(MdKeyboardArrowDown)`
+  color: white;
+  font-size: 30px;
+  opacity: 0.8;
+  animation: bounce 2s infinite;
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
   }
 `;

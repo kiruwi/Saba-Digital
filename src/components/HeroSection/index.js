@@ -1,57 +1,86 @@
-import React, { useState } from 'react';
-import Video from '../../videos/video.mp4';
-import meImage from '../../images/me.png';
-import { Button } from '../ButtonElements';
+// src/components/HeroSection/index.js
+import React, { useState, useEffect, useRef } from "react";
+import meImage from "../../images/me.png";
+import { Button } from "../ButtonElements";
 
+/* Services */
+import { ServicesRail } from "../Services"; // Slide is the full‑height wrapper
+import { Slide } from "../Services/ServicesElements";
+/* styled parts */
 import {
   HeroContainer,
   HeroBg,
-  VideoBg,
-  HeroContent,
-  HeroWrapper,
   HeroText,
   TitleBackground,
   HeroTitleTop,
   HeroTitleBottom,
-  HeroImage,
-  HeroBtnWrapper,
-  ArrowForward,
-  ArrowRight,
-} from './HeroElements';
+  HeroRight,
+  Rail,
+  MobileImg,
+  DesktopImg,
+  BtnWrap,
+  ArrowFwd,
+  ArrowRt,
+  ScrollIndicatorWrapper,
+  ScrollText,
+  ScrollArrow,
+} from "./HeroElements";
 
 const HeroSection = () => {
   const [hover, setHover] = useState(false);
+  const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(true);
+  const railRef = useRef(null);
+  const hasScrolled = useRef(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (railRef.current) {
+        // Check if we're at the top of the rail
+        const atTop = railRef.current.scrollTop < 50;
+        
+        // If we haven't scrolled yet or we're back at the top
+        if (!hasScrolled.current || atTop) {
+          setScrollIndicatorVisible(true);
+        } else {
+          setScrollIndicatorVisible(false);
+        }
+        
+        // Mark that we've scrolled
+        if (railRef.current.scrollTop > 50 && !hasScrolled.current) {
+          hasScrolled.current = true;
+        }
+      }
+    };
+
+    const railElement = railRef.current;
+    if (railElement) {
+      railElement.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (railElement) {
+        railElement.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   return (
-    <HeroContainer>
-      <HeroBg>
-        <VideoBg
-          autoPlay
-          loop
-          muted
-          playsInline
-          src={Video}
-          type="video/mp4"
-        />
-      </HeroBg>
+    <HeroContainer id="home">
+      <HeroBg />
 
-      <HeroContent>
-        <HeroWrapper>
-          <HeroText>
-            <TitleBackground>
-              <HeroTitleTop>
-                Currently a product designer at Saba Digital.
-              </HeroTitleTop>
-              <HeroTitleBottom>
-                Living in Nairobi, designing features for Saba Digital that empower sellers.
-              </HeroTitleBottom>
-            </TitleBackground>
-          </HeroText>
+      {/* left column */}
+      <HeroText>
+        <TitleBackground>
+          <HeroTitleTop>
+            Currently a product designer at Saba Digital.
+          </HeroTitleTop>
+          <HeroTitleBottom>
+            Living in Nairobi, designing features for Saba Digital that empower
+            sellers.
+          </HeroTitleBottom>
+        </TitleBackground>
 
-          <HeroImage src={meImage} alt="Ian Cheruiyot" />
-        </HeroWrapper>
-
-        <HeroBtnWrapper>
+        <BtnWrap>
           <Button
             to="services"
             primary="true"
@@ -59,10 +88,30 @@ const HeroSection = () => {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
           >
-            View Services {hover ? <ArrowForward /> : <ArrowRight />}
+            View Services {hover ? <ArrowFwd /> : <ArrowRt />}
           </Button>
-        </HeroBtnWrapper>
-      </HeroContent>
+        </BtnWrap>
+      </HeroText>
+
+      {/* right rail */}
+      <HeroRight>
+        <Rail ref={railRef}>
+          {/* first slide = profile image */}
+          <Slide>
+            <DesktopImg src={meImage} alt="Ian Cheruiyot" />
+            <ScrollIndicatorWrapper visible={scrollIndicatorVisible}>
+              <ScrollText>Scroll Down</ScrollText>
+              <ScrollArrow />
+            </ScrollIndicatorWrapper>
+          </Slide>
+
+          {/* next slides = service cards */}
+          <ServicesRail />
+        </Rail>
+      </HeroRight>
+
+      {/* mobile photo */}
+      <MobileImg src={meImage} alt="Ian Cheruiyot" />
     </HeroContainer>
   );
 };
