@@ -1,32 +1,34 @@
 import React from 'react';
-import { ComponentType } from 'react';
 import { RouteObject } from 'react-router-dom';
 
+// Define route paths enum for consistency
 export enum RoutePaths {
   Home = '/',
   Contact = '/contactus',
   Error = '*',
 }
 
-export type RouteConfig = {
-  path: RoutePaths;
-  component: React.ComponentType<any>;
-  exact?: boolean;
+/**
+ * For type safety, this file doesn't define routes with elements anymore
+ * since React.LazyExoticComponent isn't compatible with ReactNode
+ * The routes are defined directly in App.tsx with proper Suspense wrapping
+ */
+export const ROUTE_PATHS = {
+  Home: RoutePaths.Home,
+  Contact: RoutePaths.Contact,
+  Error: RoutePaths.Error,
 };
 
+// Empty routes - routing is handled in App.tsx 
 export const routes: RouteObject[] = [
   {
     path: RoutePaths.Home,
-    element: React.lazy(() => import('../pages/Home').then((mod) => mod.default)),
-    exact: true,
   },
   {
     path: RoutePaths.Contact,
-    element: React.lazy(() => import('../pages/contactus').then((mod) => mod.default)),
-    exact: true,
   },
   {
     path: RoutePaths.Error,
-    element: React.lazy(() => import('../pages/Error').then((mod) => mod.default)),
   },
 ];
+

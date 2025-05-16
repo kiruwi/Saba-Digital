@@ -1,61 +1,73 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { Suspense, useState, useEffect } from 'react';
+import { HashRouter as Router, Routes, Route, useRoutes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './themes/theme';
-import { Home } from './pages';
-import ContactPage from './pages/contactus';
-import { ErrorPage } from './pages/Error';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeToggle } from './components/ThemeToggle';
 import { BackToTop } from './components/BackToTop';
 import SEO from './components/SEO';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { ThemeUtils } from './utils/theme';
-import { routes } from './utils/routes';
+import { RoutePaths } from './utils/routes';
 import { Skeleton } from './components/Skeleton';
 
+// Import pages directly to avoid routing issues
+const Home = React.lazy(() => import('./pages/Home'));
+const ContactPage = React.lazy(() => import('./pages/contactus'));
+const ErrorPage = React.lazy(() => import('./pages/Error'));
+
 function App() {
-  const [theme, setTheme] = React.useState<'light' | 'dark'>(
+  const [theme, setTheme] = useState<'light' | 'dark'>(
     ThemeUtils.getInitialTheme()
   );
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = useState(true);
 
-  React.useEffect(() => {
-    setLoading(false);
+  useEffect(() => {
+    // Handle theme initialization
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setTheme(storedTheme as 'light' | 'dark');
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(prefersDark ? 'dark' : 'light');
+    }
+    
+    // Simulate loading
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = ThemeUtils.toggleTheme(theme);
+    const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
   };
 
+  // If loading, show skeleton
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return (
+      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+        <GlobalStyles />
+        <div className="loading">Loading...</div>
+      </ThemeProvider>
+    );
   }
 
   return (
-    <HelmetProvider context={{} as any}>
+    <HelmetProvider>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         <GlobalStyles />
+        <SEO title="Home" description="Welcome to my portfolio" />
         <Router>
-          <div className="app">
-            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-            <SEO />
-            <BackToTop />
+          <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+          <BackToTop />
+          <Suspense fallback={<div>Loading...</div>}>
             <Routes>
-              {routes.map((route) => (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={
-                    <Suspense fallback={<Skeleton />}>
-                      {route.element}
-                    </Suspense>
-                  }
-                />
-              ))}
+              <Route path={RoutePaths.Home} element={<Home />} />
+              <Route path={RoutePaths.Contact} element={<ContactPage />} />
+              <Route path={RoutePaths.Error} element={<ErrorPage />} />
             </Routes>
-          </div>
+          </Suspense>
         </Router>
       </ThemeProvider>
     </HelmetProvider>

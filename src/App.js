@@ -6,13 +6,13 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme } from "./themes/theme";
 import { Home } from "./pages";
 import ContactPage from "./pages/contactus";
-import ErrorPage from "./pages/Error.tsx";
-import UXUI from "./work/UXUI.tsx";
-import WebDev from "./work/WebDev.tsx";
-import Graphics from "./work/Graphics.tsx";
-import UXUIDetail from "./work/UXUIDetail.tsx";
-import WebDevDetail from "./work/WebDevDetail.tsx";
-import GraphicsDetail from "./work/GraphicsDetail.tsx";
+import ErrorPage from "./pages/Error";
+import UXUI from "./work/UXUI";
+import WebDev from "./work/WebDev";
+import Graphics from "./work/Graphics";
+import UXUIDetail from "./work/UXUIDetail";
+import WebDevDetail from "./work/WebDevDetail";
+import GraphicsDetail from "./work/GraphicsDetail";
 import "./App.css";
 
 function App() {

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { lightTheme, darkTheme } from '../../themes/theme';
-import { SEO } from '../../components/SEO';
-import { constants } from '../../utils/constants';
+import { lightTheme, darkTheme } from '../themes/theme';
+import SEO from '../components/SEO';
+import { APP, SEO as SEOConstants } from '../utils/constants';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
       <SEO title="Home" description="Welcome to my portfolio" />
       <Title>Welcome to My Portfolio</Title>
       <Description>
-        {constants.APP.description}
+        {APP.description}
       </Description>
     </Container>
   );

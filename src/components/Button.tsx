@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ThemeType } from '../../themes/theme';
+import { ThemeType } from '../themes/theme';
 
 interface ButtonProps {
   onClick?: () => void;

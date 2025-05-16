@@ -21,6 +21,7 @@ export interface Theme {
     xl: string;
     xxl: string;
     heading: string;
+    base: string;
   };
   spacing: {
     xs: string;
@@ -75,6 +76,7 @@ export const lightTheme: Theme = {
     xl: '1.25rem',
     xxl: '1.5rem',
     heading: '2rem',
+    base: '1rem', // Added base font size to fix TypeScript errors
   },
   spacing: {
     xs: '0.25rem',
@@ -106,6 +108,18 @@ export const lightTheme: Theme = {
     image: '/og-image.png',
     url: 'https://kiruwi.github.io/Saba-Digital/',
   },
+};
+
+// Create dark theme as a variant of light theme
+export const darkTheme: Theme = {
+  ...lightTheme,
+  colors: {
+    ...lightTheme.colors,
+    background: '#121212',
+    text: '#f5f5f5',
+    border: '#333333',
+    shadow: '#000000'
+  }
 };
 
 export type ThemeType = typeof lightTheme;
