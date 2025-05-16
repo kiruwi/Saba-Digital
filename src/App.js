@@ -10,6 +10,9 @@ import ErrorPage from "./pages/Error.tsx";
 import UXUI from "./work/UXUI.tsx";
 import WebDev from "./work/WebDev.tsx";
 import Graphics from "./work/Graphics.tsx";
+import UXUIDetail from "./work/UXUIDetail.tsx";
+import WebDevDetail from "./work/WebDevDetail.tsx";
+import GraphicsDetail from "./work/GraphicsDetail.tsx";
 import "./App.css";
 
 function App() {
@@ -30,6 +33,11 @@ function App() {
             <Route path="/work/ux-ui" element={<UXUI />} />
             <Route path="/work/web-dev" element={<WebDev />} />
             <Route path="/work/graphics" element={<Graphics />} />
+
+            {/* project detail pages */}
+            <Route path="/work/ux-ui/:id" element={<UXUIDetail />} />
+            <Route path="/work/web-dev/:id" element={<WebDevDetail />} />
+            <Route path="/work/graphics/:id" element={<GraphicsDetail />} />
 
             {/* 404 route */}
             <Route path="*" element={<ErrorPage />} />

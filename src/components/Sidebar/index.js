@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   SidebarContainer,
   Icon,
@@ -7,7 +8,6 @@ import {
   SidebarMenu,
   SidebarLink,
   SideBtnWrap,
-  SidebarRoute,
 } from "./SidebarElements";
 
 const Sidebar=({isOpen, toggle}) => {
@@ -18,11 +18,12 @@ const Sidebar=({isOpen, toggle}) => {
       </Icon>
       <SidebarWrapper>
         <SidebarMenu>
-          <SidebarLink to='services' onClick={toggle}>Services</SidebarLink>
-          <SidebarLink to='portfolio' onClick={toggle}>Portfolio</SidebarLink>
+          <SidebarLink to='services' onClick={toggle}>Portfolio</SidebarLink>
+          <SidebarLink as={Link} to='/resume' onClick={toggle} style={{ textDecoration: 'none' }}>Resume</SidebarLink>
+          <SidebarLink as={Link} to='/ContactUs' onClick={toggle} style={{ textDecoration: 'none' }}>Contact Me</SidebarLink>
         </SidebarMenu>
         <SideBtnWrap>
-          <SidebarRoute to='/ContactUs'>Contact Us</SidebarRoute>
+          {/* Buttons moved to menu as text links */}
         </SideBtnWrap>
       </SidebarWrapper>
     </SidebarContainer>

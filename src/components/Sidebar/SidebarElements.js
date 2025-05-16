@@ -62,18 +62,23 @@ export const SidebarLink = styled(LinkS)`
 export const SideBtnWrap = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 `;
 
 export const SidebarRoute = styled(LinkR)`
-  border-radius: 50px;
+  border-radius: 0px;
   background: #0bd147;
   white-space: nowrap;
-  padding: 16px 64px;
+  padding: 12px 30px;
   color: #050c23;
   font-size: 16px;
   outline: none;
   border: none;
   cursor: pointer;
+  text-align: center;
+  min-width: 150px;
   transition: all 0.2s ease-in-out;
 
   &:hover {

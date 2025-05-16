@@ -64,6 +64,10 @@ export const BtnWrap = styled.div`
   margin-top: 3rem;
   display: flex;
   gap: 1rem;
+  
+  @media (max-width: 1000px) {
+    justify-content: center;
+  }
 `;
 
 export const ArrowFwd = styled(MdArrowForward)`margin-left:8px;font-size:20px;`;

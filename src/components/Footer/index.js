@@ -1,5 +1,5 @@
 import React from "react";
-import {FaInstagram, FaLinkedin, FaBehance} from 'react-icons/fa'
+import { FaInstagram, FaLinkedin, FaBehance, FaGithub } from "react-icons/fa";
 import {
   FooterContainer,
   FooterWrap,
@@ -49,10 +49,25 @@ function Footer() {
               >
                 <FaInstagram />
               </SocialIconLink>
-              <SocialIconLink href="//www.linkedin.com/company/sabadgtl/about/?viewAsMember=true" target="_blank" aria-label="Linkedin">
+              <SocialIconLink
+                href="//www.github.com/kiruwi/"
+                target="_blank"
+                aria-label="Github"
+              >
+                <FaGithub />
+              </SocialIconLink>
+              <SocialIconLink
+                href="//www.linkedin.com/company/sabadgtl/about/?viewAsMember=true"
+                target="_blank"
+                aria-label="Linkedin"
+              >
                 <FaLinkedin />
               </SocialIconLink>
-              <SocialIconLink href="//www.behance.net/iancheruiyot1" target="_blank" aria-label="Behance">
+              <SocialIconLink
+                href="//www.behance.net/iancheruiyot1"
+                target="_blank"
+                aria-label="Behance"
+              >
                 <FaBehance />
               </SocialIconLink>
             </SocialIcons>

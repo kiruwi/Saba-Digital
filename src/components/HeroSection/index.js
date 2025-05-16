@@ -31,6 +31,28 @@ const HeroSection = () => {
   const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(true);
   const railRef = useRef(null);
   const hasScrolled = useRef(false);
+  
+  // Function to handle the View Services button click
+  const handleViewServicesClick = () => {
+    // Check if we're on mobile (when railRef is not accessible)
+    const isMobile = window.innerWidth <= 1000;
+    
+    if (!isMobile && railRef.current) {
+      // Desktop: Smooth scroll in the rail
+      const slideHeight = window.innerHeight;
+      
+      railRef.current.scrollTo({
+        top: slideHeight,
+        behavior: 'smooth'
+      });
+      
+      // Update scroll indicator state
+      hasScrolled.current = true;
+      setScrollIndicatorVisible(false);
+    }
+    // For mobile devices, we'll use the default react-scroll behavior
+    // The Button component will handle this with its 'to' prop
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,23 +94,24 @@ const HeroSection = () => {
       <HeroText>
         <TitleBackground>
           <HeroTitleTop>
-            Currently a product designer at Saba Digital.
+            Currently a Graphic Designer.
           </HeroTitleTop>
           <HeroTitleBottom>
-            Living in Nairobi, designing features for Saba Digital that empower
-            sellers.
+            Living in Nairobi, designing products that empower
+            clients.
           </HeroTitleBottom>
         </TitleBackground>
 
         <BtnWrap>
           <Button
             to="services"
+            onClick={handleViewServicesClick}
             primary="true"
             dark="true"
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
           >
-            View Services {hover ? <ArrowFwd /> : <ArrowRt />}
+            View Portfolio {hover ? <ArrowFwd /> : <ArrowRt />}
           </Button>
         </BtnWrap>
       </HeroText>

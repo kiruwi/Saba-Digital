@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 import HeroSection from "../components/HeroSection";   // contains the Services rail
 import Services from "../components/Services";        // standalone Services section
 import Footer from "../components/Footer";            // optional footer
@@ -20,6 +21,7 @@ export const Home = () => {
 
   return (
     <>
+      <Sidebar isOpen={isOpen} toggle={toggle} />
       <Navbar toggle={toggle} isOpen={isOpen} />
       <HeroSection />
       <MobileOnlySection>

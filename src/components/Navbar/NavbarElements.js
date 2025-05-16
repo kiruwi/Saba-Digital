@@ -96,6 +96,7 @@ export const NavLinks = styled(LinkS)`
 export const NavBtn = styled.nav`
   display: flex;
   align-items: center;
+  gap: 15px; /* Add spacing between the buttons */
 
   @media screen and (max-width: 768px) {
     display: none;
@@ -114,6 +115,9 @@ export const NavBtnLink = styled(LinkR)`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     transition: all 0.2s ease-in-out;

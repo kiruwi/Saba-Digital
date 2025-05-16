@@ -16,13 +16,13 @@ import { Link } from "react-router-dom";
 /* card data */
 const items = [
   {
-    title: "UX/UI Design",
+    title: "Product Design",
     desc: "Creating user‑friendly and visually appealing interfaces.",
     path: "/work/ux-ui"
   },
   {
     title: "Website Development",
-    desc: "We design and develop websites for our clients.",
+    desc: "Mocking up and developing websites for our clients.",
     path: "/work/web-dev"
   },
   {

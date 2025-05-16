@@ -2,7 +2,14 @@
 import styled from 'styled-components';
 import { Link as LinkS } from 'react-scroll';
 
-export const Button = styled(LinkS)`
+export const Button = styled(LinkS).attrs(props => ({
+  to: props.to || '',
+  smooth: props.smooth !== undefined ? props.smooth : true,
+  duration: props.duration || 500,
+  spy: props.spy !== undefined ? props.spy : true,
+  exact: props.exact || 'true',
+  offset: props.offset || -80
+}))`
   border-radius: 0;  /* ← rectangular */
   background: ${({ primary }) => (primary ? '#01BF71' : '#010606')};
   white-space: nowrap;
