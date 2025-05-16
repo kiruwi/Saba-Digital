@@ -2,7 +2,7 @@
   "name": "myprofolio",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://kiruwi.github.io/Saba-Digital/",
+  "homepage": "./",
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
