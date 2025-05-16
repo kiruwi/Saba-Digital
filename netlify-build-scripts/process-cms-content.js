@@ -4,7 +4,7 @@ const path = require('path');
 const matter = require('gray-matter');
 
 // Create output directory if it doesn't exist
-const outputDir = path.join(__dirname, '../public/src/content');
+const outputDir = path.join(__dirname, '../public/content-api');
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }

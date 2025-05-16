@@ -4,9 +4,8 @@ import matter from 'gray-matter';
 // Function to fetch and parse all project markdown files
 export async function getProjects() {
   try {
-    // In development, we'll use fetch to get the files
-    // In production, this will access the built files via Netlify
-    const response = await fetch('/src/content/projects.json');
+    // Use a more reliable path that will work in both dev and production
+    const response = await fetch('/content-api/projects.json');
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -31,9 +30,8 @@ export async function getProjects() {
     }));
   } catch (error) {
     console.error("Error loading CMS projects:", error);
-    // If there's an error, fall back to the old data
-    const { uxProjects, webProjects, graphicsProjects } = await import('../data/projects');
-    return [...uxProjects, ...webProjects, ...graphicsProjects];
+    // Return empty array instead of falling back to hardcoded data
+    return [];
   }
 }
 
