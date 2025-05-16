@@ -1,22 +1,33 @@
-import { Theme } from '../themes/theme';
+import { ThemeType } from '../themes/theme';
 
-export const ThemeUtils = {
-  getSystemTheme: (): 'light' | 'dark' => {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  },
+class ThemeUtils {
+  /**
+   * Gets the initial theme from localStorage or system preferences
+   * @returns The initial theme ('light' | 'dark')
+   */
+  static getInitialTheme = (): ThemeType => {
+    // Check if theme is saved in localStorage
+    const savedTheme = localStorage.getItem('theme') as ThemeType;
+    
+    if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
+      return savedTheme;
+    }
+    
+    // Otherwise, check system preference
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDarkMode ? 'dark' : 'light';
+  };
 
-  persistTheme: (theme: 'light' | 'dark') => {
-    localStorage.setItem('theme', theme);
-  },
-
-  getInitialTheme: (): 'light' | 'dark' => {
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    return savedTheme || ThemeUtils.getSystemTheme();
-  },
-
-  toggleTheme: (currentTheme: 'light' | 'dark'): 'light' | 'dark' => {
+  /**
+   * Toggles between light and dark theme
+   * @param currentTheme The current theme
+   * @returns The new theme
+   */
+  static toggleTheme = (currentTheme: ThemeType): ThemeType => {
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    ThemeUtils.persistTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
     return newTheme;
-  },
-};
+  };
+}
+
+export default ThemeUtils;

@@ -1,39 +1,48 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Theme } from '../themes/theme';
-import { FaSun, FaMoon } from 'react-icons/fa';
-
-const ToggleContainer = styled.div<{ theme: Theme }>`
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 100;
-  cursor: pointer;
-  transition: all ${({ theme }) => theme.transitions.default};
-
-  &:hover {
-    transform: scale(1.1);
-  }
-
-  .icon {
-    font-size: 24px;
-    color: ${({ theme }) => theme.colors.primary};
-  }
-`;
+import { FaMoon, FaSun } from 'react-icons/fa';
+import { ThemeType } from '../themes/theme';
 
 interface ThemeToggleProps {
-  theme: string;
+  theme: ThemeType;
   toggleTheme: () => void;
 }
 
-export const ThemeToggle: React.FC<ThemeToggleProps> = ({ theme, toggleTheme }) => {
+const ToggleButton = styled.button`
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all ${({ theme }) => theme.transitions.default};
+  box-shadow: 0 2px 5px ${({ theme }) => theme.colors.shadow};
+  
+  &:hover {
+    transform: scale(1.1);
+    background-color: ${({ theme }) => theme.colors.secondary};
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary}50;
+  }
+`;
+
+const ThemeToggle: React.FC<ThemeToggleProps> = ({ theme, toggleTheme }) => {
   return (
-    <ToggleContainer onClick={toggleTheme}>
-      {theme === 'light' ? (
-        <FaMoon className="icon" />
-      ) : (
-        <FaSun className="icon" />
-      )}
-    </ToggleContainer>
+    <ToggleButton onClick={toggleTheme} aria-label="Toggle dark mode">
+      {theme === 'light' ? <FaMoon /> : <FaSun />}
+    </ToggleButton>
   );
 };
+
+export default ThemeToggle;

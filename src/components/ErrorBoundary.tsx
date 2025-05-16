@@ -14,9 +14,9 @@ const ErrorBoundaryContainer = styled.div<{ theme: Theme }>`
   color: ${({ theme }) => theme.colors.text};
 
   h1 {
-    font-size: ${({ theme }) => theme.fontSizes.heading};
+    font-size: ${({ theme }) => theme.fontSizes.xl};
     margin-bottom: 20px;
-    color: ${({ theme }) => theme.colors.error};
+    color: ${({ theme }) => theme.colors.accent || theme.colors.primary}; /* Using accent as error fallback */
   }
 
   p {
@@ -26,7 +26,7 @@ const ErrorBoundaryContainer = styled.div<{ theme: Theme }>`
 
   button {
     padding: 12px 24px;
-    font-size: ${({ theme }) => theme.fontSizes.base};
+    font-size: ${({ theme }) => theme.fontSizes.md};
     background-color: ${({ theme }) => theme.colors.primary};
     color: white;
     border: none;

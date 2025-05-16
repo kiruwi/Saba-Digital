@@ -3,18 +3,28 @@ import { HashRouter as Router, Routes, Route, useRoutes } from 'react-router-dom
 import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './themes/theme';
 import { HelmetProvider } from 'react-helmet-async';
-import { ThemeToggle } from './components/ThemeToggle';
+import ThemeToggle from './components/ThemeToggle';
 import { BackToTop } from './components/BackToTop';
 import SEO from './components/SEO';
 import { GlobalStyles } from './styles/GlobalStyles';
-import { ThemeUtils } from './utils/theme';
+import ThemeUtils from './utils/theme';
 import { RoutePaths } from './utils/routes';
 import { Skeleton } from './components/Skeleton';
+import Navigation from './components/Navigation';
 
 // Import pages directly to avoid routing issues
 const Home = React.lazy(() => import('./pages/Home'));
 const ContactPage = React.lazy(() => import('./pages/contactus'));
 const ErrorPage = React.lazy(() => import('./pages/Error'));
+const WorkPage = React.lazy(() => import('./pages/Work'));
+
+// Import work-related components
+const GraphicsWorkPage = React.lazy(() => import('./work/Graphics'));
+const GraphicsDetailPage = React.lazy(() => import('./work/GraphicsDetail'));
+const UXUIWorkPage = React.lazy(() => import('./work/UXUI'));
+const UXUIDetailPage = React.lazy(() => import('./work/UXUIDetail'));
+const WebDevWorkPage = React.lazy(() => import('./work/WebDev'));
+const WebDevDetailPage = React.lazy(() => import('./work/WebDevDetail'));
 
 function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>(
@@ -61,10 +71,23 @@ function App() {
         <Router>
           <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
           <BackToTop />
+          {/* Add Navigation */}
+          <Navigation />
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               <Route path={RoutePaths.Home} element={<Home />} />
               <Route path={RoutePaths.Contact} element={<ContactPage />} />
+              
+              {/* Work-related routes */}
+              <Route path={RoutePaths.Work} element={<WorkPage />} />
+              <Route path={RoutePaths.GraphicsWork} element={<GraphicsWorkPage />} />
+              <Route path={RoutePaths.GraphicsDetail} element={<GraphicsDetailPage />} />
+              <Route path={RoutePaths.UXUIWork} element={<UXUIWorkPage />} />
+              <Route path={RoutePaths.UXUIDetail} element={<UXUIDetailPage />} />
+              <Route path={RoutePaths.WebDevWork} element={<WebDevWorkPage />} />
+              <Route path={RoutePaths.WebDevDetail} element={<WebDevDetailPage />} />
+              
+              {/* Error route should always be last */}
               <Route path={RoutePaths.Error} element={<ErrorPage />} />
             </Routes>
           </Suspense>

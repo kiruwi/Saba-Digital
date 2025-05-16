@@ -1,0 +1,50 @@
+[
+  {
+    "id": "design",
+    "slug": "design",
+    "category": "Design",
+    "skills": [
+      "UI/UX Design",
+      "Figma",
+      "Adobe XD",
+      "Photoshop",
+      "Illustrator",
+      "Typography"
+    ],
+    "icon": "palette",
+    "order": 2,
+    "body": ""
+  },
+  {
+    "id": "development",
+    "slug": "development",
+    "category": "Development",
+    "skills": [
+      "JavaScript",
+      "React",
+      "HTML5",
+      "CSS3",
+      "Node.js",
+      "RESTful APIs"
+    ],
+    "icon": "code",
+    "order": 1,
+    "body": ""
+  },
+  {
+    "id": "other",
+    "slug": "other",
+    "category": "Other Skills",
+    "skills": [
+      "Project Management",
+      "SEO",
+      "Content Strategy",
+      "User Testing",
+      "Wireframing",
+      "Responsive Design"
+    ],
+    "icon": "lightbulb",
+    "order": 3,
+    "body": ""
+  }
+]

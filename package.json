@@ -42,7 +42,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "lint": "eslint src --ext js,jsx"
+    "lint": "eslint src --ext js,jsx",
+    "process-content": "node scripts/process-cms-content-local.js"
   },
   "eslintConfig": {
     "extends": [
