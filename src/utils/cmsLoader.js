@@ -1,5 +1,4 @@
 // src/utils/cmsLoader.js
-import matter from 'gray-matter';
 
 // Function to fetch and parse all project markdown files
 export async function getProjects() {
