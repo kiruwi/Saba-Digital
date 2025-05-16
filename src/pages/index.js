@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar";
 import HeroSection from "../components/HeroSection";   // contains the Services rail
 import Services from "../components/Services";        // standalone Services section
 import Footer from "../components/Footer";            // optional footer
-import CMSDebug from "../components/CMSDebug";       // debugging component for CMS
+// CMSDebug component removed
 
 // Only visible on mobile screens
 const MobileOnlySection = styled.div`
@@ -29,10 +29,7 @@ export const Home = () => {
         <Services />
       </MobileOnlySection>
       
-      {/* Add CMS Debug component for troubleshooting */}
-      <div style={{ padding: "0 2rem" }}>
-        <CMSDebug />
-      </div>
+      {/* CMSDebug component has been removed */}
       
       <Footer />
     </>
