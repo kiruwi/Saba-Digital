@@ -1,17 +1,20 @@
 {
   "files": {
     "main.css": "/Saba-Digital/static/css/main.2e0ace66.css",
-    "main.js": "/Saba-Digital/static/js/main.9840585e.js",
+    "main.js": "/Saba-Digital/static/js/main.76ecb419.js",
     "static/media/service1-bg.jpg": "/Saba-Digital/static/media/service1-bg.8fb4e188fa69f91e8c11.jpg",
-    "static/media/service2-bg.jpg": "/Saba-Digital/static/media/service2-bg.bf154873e7aafbd8bc35.jpg",
+    "static/media/u-r.jpg": "/Saba-Digital/static/media/u-r.8fb4e188fa69f91e8c11.jpg",
     "static/media/service3-bg.jpg": "/Saba-Digital/static/media/service3-bg.7cfea456b81ced15da73.jpg",
     "static/media/me.png": "/Saba-Digital/static/media/me.2ffef59f103a004c63a3.png",
+    "static/media/app1.jpg": "/Saba-Digital/static/media/app1.0aa052e1893d475b4c51.jpg",
+    "static/media/service2-bg.jpg": "/Saba-Digital/static/media/service2-bg.223777f5700e249d1fbe.jpg",
+    "static/media/signature.svg": "/Saba-Digital/static/media/signature.ebaa10094f8e56fb0d2601eb2acdaa3d.svg",
     "index.html": "/Saba-Digital/index.html",
     "main.2e0ace66.css.map": "/Saba-Digital/static/css/main.2e0ace66.css.map",
-    "main.9840585e.js.map": "/Saba-Digital/static/js/main.9840585e.js.map"
+    "main.76ecb419.js.map": "/Saba-Digital/static/js/main.76ecb419.js.map"
   },
   "entrypoints": [
     "static/css/main.2e0ace66.css",
-    "static/js/main.9840585e.js"
+    "static/js/main.76ecb419.js"
   ]
 }
