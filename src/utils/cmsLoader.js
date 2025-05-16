@@ -1,10 +1,19 @@
 // src/utils/cmsLoader.js
 
+// Helper function to determine the correct base path
+function getBasePath() {
+  // Check if we're in a GitHub Pages environment
+  const isGitHubPages = window.location.hostname.includes('github.io');
+  // For GitHub Pages, we need to prefix with the repo name
+  return isGitHubPages ? '/Saba-Digital' : '';
+}
+
 // Function to fetch and parse all project markdown files
 export async function getProjects() {
   try {
-    // Use a more reliable path that will work in both dev and production
-    const response = await fetch('/content-api/projects.json');
+    // Use a dynamic base path that works in both dev and production
+    const basePath = getBasePath();
+    const response = await fetch(`${basePath}/content-api/projects.json`);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

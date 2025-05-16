@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
+// Helper function to determine the correct base path
+function getBasePath() {
+  // Check if we're in a GitHub Pages environment
+  const isGitHubPages = window.location.hostname.includes('github.io');
+  // For GitHub Pages, we need to prefix with the repo name
+  return isGitHubPages ? '/Saba-Digital' : '';
+}
+
 const CMSDebug = () => {
   const [debugData, setDebugData] = useState({
     projectsData: null,
@@ -11,9 +19,10 @@ const CMSDebug = () => {
   useEffect(() => {
     const checkCMSData = async () => {
       try {
-        // Try to fetch from our new content-api location
-        console.log('Trying to fetch CMS data from /content-api/projects.json');
-        const response = await fetch('/content-api/projects.json');
+        // Use dynamic base path for GitHub Pages compatibility
+        const basePath = getBasePath();
+        console.log(`Trying to fetch CMS data from ${basePath}/content-api/projects.json`);
+        const response = await fetch(`${basePath}/content-api/projects.json`);
         
         if (!response.ok) {
           throw new Error(`Status: ${response.status}`);
