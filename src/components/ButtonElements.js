@@ -11,7 +11,7 @@ export const Button = styled(LinkS).attrs(props => ({
   offset: props.offset || -80
 }))`
   border-radius: 0;  /* ← rectangular */
-  background: ${({ primary }) => (primary ? '#01BF71' : '#010606')};
+  background: ${({ primary }) => (primary ? '#2db670' : '#010606')};
   white-space: nowrap;
   padding: ${({ big }) => (big ? '14px 48px' : '12px 30px')};
   color: ${({ dark }) => (dark ? '#010606' : '#fff')};
@@ -25,6 +25,6 @@ export const Button = styled(LinkS).attrs(props => ({
   transition: background 0.2s ease-in-out;
 
   &:hover {
-    background: ${({ primary }) => (primary ? '#fff' : '#01BF71')};
+    background: ${({ primary }) => (primary ? '#fff' : '#2db670')};
   }
 `;

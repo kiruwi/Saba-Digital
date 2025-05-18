@@ -9,14 +9,33 @@ export const CardContainer = styled(Link)`
   border-radius: 0px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
   text-decoration: none;
   color: #fff;
   height: 100%;
-
+  opacity: 0.9;
+  transform: translateY(10px);
+  
+  /* Initial animation starts right away */
+  animation: cardAppear 0.8s forwards;
+  
+  /* Add more pronounced hover effect */
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Class added by JS for additional animation if needed */
+  &.animated-in {
+    opacity: 1;
+    transform: translateY(0);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Define the animation */
+  @keyframes cardAppear {
+    from { opacity: 0.7; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 `;
 
@@ -31,9 +50,18 @@ export const ProjectImage = styled.img`
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
-
+  
+  /* Initial animation */
+  animation: imageScale 1.2s forwards;
+  
+  /* Hover effect */
   ${CardContainer}:hover & {
     transform: scale(1.05);
+  }
+  
+  @keyframes imageScale {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
   }
 `;
 
@@ -42,6 +70,16 @@ export const ContentWrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  
+  /* Animate content appearance with slight delay for a staggered effect */
+  animation: contentFadeIn 0.8s forwards;
+  animation-delay: 0.3s;  /* Slight delay after card appears */
+  opacity: 0;
+  
+  @keyframes contentFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 `;
 
 export const ProjectTitle = styled.h3`
@@ -68,7 +106,7 @@ export const Tag = styled.span`
   background: #1e1e1e;
   border-radius: 0px;
   font-size: 0.75rem;
-  color: #00ff00;
+  color: #2db670;
 `;
 
 export const ProjectGrid = styled.div`
@@ -121,7 +159,7 @@ export const BackButton = styled(Link)`
   align-items: center;
   padding: 0.5rem 1rem;
   background: #1e1e1e;
-  color: #00ff00;
+  color: #2db670;
   border-radius: 0px;
   text-decoration: none;
   font-size: 0.9rem;
@@ -141,5 +179,41 @@ export const SideBySideContainer = styled.div`
   
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
+  }
+`;
+
+// Container specifically for mobile order control
+export const MobileImageFirst = styled.div`
+  order: 1;
+  
+  @media screen and (max-width: 768px) {
+    order: 0;
+  }
+`;
+
+export const MobileTextSecond = styled.div`
+  order: 2;
+  
+  @media screen and (max-width: 768px) {
+    order: 1;
+  }
+`;
+
+// Container for images that only show on mobile
+export const MobileOnlyImage = styled.div`
+  display: none;
+  margin-bottom: 1rem;
+  
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+`;
+
+// Container for images that only show on desktop
+export const DesktopOnlyImage = styled.div`
+  display: block;
+  
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `;

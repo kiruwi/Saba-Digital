@@ -70,7 +70,7 @@ export const FormH1 = styled.h1`
     transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    background-color: #0bd147;
+    background-color: #2db670;
   }
 `;
 
@@ -83,7 +83,7 @@ export const FormLabel = styled.label`
   
   p {
     margin: 12px 0;
-    color: #0bd147;
+    color: #2db670;
     font-weight: 500;
     font-size: 16px;
   }
@@ -102,7 +102,7 @@ export const FormInput = styled.input`
   
   &:focus {
     outline: none;
-    border-bottom: 2px solid #0bd147;
+    border-bottom: 2px solid #2db670;
     background-color: rgba(255, 255, 255, 0.1);
   }
   
@@ -113,9 +113,9 @@ export const FormInput = styled.input`
 
 export const FormButton = styled.button`
   padding: 16px 0;
-  border: 2px solid #0bd147;
+  border: 2px solid #2db670;
   border-radius: 0;
-  background: #0bd147;
+  background: #2db670;
   color: #000;
   font-size: 18px;
   font-weight: 500;
@@ -127,7 +127,7 @@ export const FormButton = styled.button`
   
   &:hover {
     background: transparent;
-    color: #0bd147;
+    color: #2db670;
   }
   
   &:active {
@@ -141,9 +141,9 @@ export const BackButton = styled(Link)`
   top: 24px;
   left: 24px;
   padding: 10px 20px;
-  border: 2px solid #0bd147;
+  border: 2px solid #2db670;
   background: transparent;
-  color: #0bd147;
+  color: #2db670;
   font-size: 14px;
   text-decoration: none;
   cursor: pointer;
@@ -152,7 +152,7 @@ export const BackButton = styled(Link)`
   letter-spacing: 1px;
 
   &:hover {
-    background: #0bd147;
+    background: #2db670;
     color: #000;
   }
 `;

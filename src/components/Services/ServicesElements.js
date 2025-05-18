@@ -1,6 +1,6 @@
 // src/components/Services/ServicesElements.js
 import styled from "styled-components";
-import Bg1 from "../../images/service1-bg.jpg";
+import Bg1 from "../../images/ufanisi.jpg";
 import Bg2 from "../../images/service2-bg.jpg";
 import Bg3 from "../../images/service3-bg.jpg";
 

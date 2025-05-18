@@ -1,24 +1,27 @@
-// src/components/ProjectDetail/index.js
+// src/components/ProjectDetail/UXUIProjectDetail.js
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { 
-  ProjectDetailContainer, 
-  ProjectDetailHeader,
-  DetailTitle, 
-  DetailDescription,
-  DetailImage,
-  BackButton,
-  SideBySideContainer,
-  MobileImageFirst,
-  MobileTextSecond,
-  MobileOnlyImage,
-  DesktopOnlyImage
-} from '../ProjectCard/ProjectCardElements';
+  UXUIDetailContainer, 
+  UXUIDetailHeader,
+  UXUIDetailTitle,
+  UXUIDetailDescription,
+  UXUIDetailImage,
+  UXUIBackButton,
+  UXUISideBySideContainer,
+  UXUIMobileImageFirst,
+  UXUIMobileTextSecond,
+  UXUIMobileOnlyImage,
+  UXUIHeading,
+  DesignProcessContainer,
+  ProcessStepGrid,
+  ProcessStep,
+  StepTitle
+} from '../../work/UXUIElements';
 import ProcessSection from '../ProcessSection';
-import OsimLaiBrandGallery from '../OsimLaiBrandGallery';
 import { FaArrowLeft } from 'react-icons/fa';
 
-const ProjectDetail = ({ projects }) => {
+const UXUIProjectDetail = ({ projects }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
@@ -40,15 +43,10 @@ const ProjectDetail = ({ projects }) => {
   }, []);
   
   // Find the project by id
-  console.log('Current ID param:', id);
-  console.log('Available projects:', projects);
-  
-  // Directly hardcode Ufanisi Resort if the path is malformed
   let project = null;
   if (window.location.hash.includes('ufanisi-resort')) {
     // Force-load Ufanisi Resort from the uxProjects array
     project = projects.find(p => p.id === 'ufanisi-resort');
-    console.log('Forcing Ufanisi project:', project);
   } else {
     // Regular lookup by ID
     project = projects.find(project => project.id === id);
@@ -56,21 +54,21 @@ const ProjectDetail = ({ projects }) => {
   
   if (!project) {
     return (
-      <ProjectDetailContainer>
-        <BackButton to="" onClick={() => navigate(-1)}>
+      <UXUIDetailContainer>
+        <UXUIBackButton onClick={() => navigate(-1)}>
           <FaArrowLeft style={{ marginRight: '0.5rem' }} /> Go Back
-        </BackButton>
-        <DetailTitle>Project Not Found</DetailTitle>
-        <DetailDescription>The project you're looking for doesn't exist or has been moved.</DetailDescription>
-      </ProjectDetailContainer>
+        </UXUIBackButton>
+        <UXUIDetailTitle>Project Not Found</UXUIDetailTitle>
+        <UXUIDetailDescription>The project you're looking for doesn't exist or has been moved.</UXUIDetailDescription>
+      </UXUIDetailContainer>
     );
   }
 
   return (
-    <ProjectDetailContainer>
-      <BackButton to="" onClick={() => navigate(-1)}>
+    <UXUIDetailContainer>
+      <UXUIBackButton onClick={() => navigate(-1)}>
         <FaArrowLeft style={{ marginRight: '0.5rem' }} /> Go Back
-      </BackButton>
+      </UXUIBackButton>
       
       {/* Hero Image with Title Overlay */}
       <div style={{ position: 'relative', marginBottom: '2rem' }}>
@@ -78,7 +76,7 @@ const ProjectDetail = ({ projects }) => {
           {/* For Ufanisi project on desktop, don't show the image in the hero section */}
           {project.id !== 'ufanisi-resort' || isMobile ? (
             <>
-              <DetailImage 
+              <UXUIDetailImage 
                 src={project.image} 
                 alt={project.title} 
                 style={{ width: '100%', height: 'auto', display: 'block' }} 
@@ -92,20 +90,20 @@ const ProjectDetail = ({ projects }) => {
                 background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 100%)',
                 color: 'white'
               }}>
-                <DetailTitle style={{ color: 'white', margin: 0 }}>{project.title}</DetailTitle>
+                <UXUIDetailTitle style={{ color: 'white', margin: 0 }}>{project.title}</UXUIDetailTitle>
               </div>
             </>
           ) : (
             <div style={{ padding: '2rem 0', backgroundColor: '#111', textAlign: 'center' }}>
-              <DetailTitle>{project.title}</DetailTitle>
+              <UXUIDetailTitle>{project.title}</UXUIDetailTitle>
             </div>
           )}
         </div>
       </div>
 
       {/* Project Content Below Image */}
-      <ProjectDetailHeader style={{ width: '100%', maxWidth: '100%' }}>
-        <DetailDescription>
+      <UXUIDetailHeader style={{ width: '100%', maxWidth: '100%' }}>
+        <UXUIDetailDescription>
           {project.fullDescription.split('\n\n').map((paragraph, index) => {
             // Check if this paragraph is a heading or number marker
             const isHeading = /^\d+\.?$/.test(paragraph.trim());
@@ -138,9 +136,9 @@ const ProjectDetail = ({ projects }) => {
               <div key={`section-${index}`} style={{ marginTop: '1.5rem' }}>
                 {/* Show the image above the heading for "Previous Design Issues" on mobile */}
                 {isPreviousDesignIssues && (
-                  <MobileOnlyImage>
-                    <DetailImage src="/assets/projects/ux-ui/u-r.jpg" alt="Previous design issues" />
-                  </MobileOnlyImage>
+                  <UXUIMobileOnlyImage>
+                    <UXUIDetailImage src="/assets/projects/ux-ui/u-r.jpg" alt="Previous design issues" />
+                  </UXUIMobileOnlyImage>
                 )}
                 
                 <p 
@@ -159,17 +157,17 @@ const ProjectDetail = ({ projects }) => {
               </div>
             );
           })}
-        </DetailDescription>
-      </ProjectDetailHeader>
+        </UXUIDetailDescription>
+      </UXUIDetailHeader>
       
       {/* Add another side by side container for Ufanisi project */}
       {project.id === 'ufanisi-resort' && (
-        <SideBySideContainer style={{ marginTop: '3rem', marginBottom: '3rem' }}>
-          <MobileImageFirst>
-            <DetailImage src="/assets/projects/ux-ui/ufanisi.jpg" alt="Previous design issues" />
-          </MobileImageFirst>
-          <MobileTextSecond>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>My Design Transformation</h3>
+        <UXUISideBySideContainer style={{ marginTop: '3rem', marginBottom: '3rem' }}>
+          <UXUIMobileImageFirst>
+            <UXUIDetailImage src="/assets/projects/ux-ui/ufanisi.jpg" alt="Previous design issues" />
+          </UXUIMobileImageFirst>
+          <UXUIMobileTextSecond>
+            <UXUIHeading>My Design Transformation</UXUIHeading>
             <p style={{ lineHeight: '1.6', marginBottom: '1rem' }}>
               My previous design suffered from fundamental flaws in typography and layout that I needed to address. My original interface 
               featured a chaotic mix of font families—I had combined serif, sans-serif, and decorative fonts without clear purpose. 
@@ -185,8 +183,8 @@ const ProjectDetail = ({ projects }) => {
               contrast, and the navigation required users to hunt for basic functions. This second project served as a refresher for me, allowing me to 
               implement a consistent type system, thoughtful spacing hierarchy, and intuitive interaction patterns in my redesign.
             </p>
-          </MobileTextSecond>
-        </SideBySideContainer>
+          </UXUIMobileTextSecond>
+        </UXUISideBySideContainer>
       )}
       
       {/* Process Section - Only for Ufanisi project */}
@@ -194,31 +192,26 @@ const ProjectDetail = ({ projects }) => {
         <ProcessSection />
       )}
       
-      {/* OsimLaiBrandGallery - Only for Osim Lai project */}
-      {project.id === 'osim-lai-branding' && (
-        <OsimLaiBrandGallery />
-      )}
-      
       <div style={{ marginTop: '2rem' }}>
-        <h3>Features</h3>
+        <UXUIHeading>Features</UXUIHeading>
         <ul>
-          {project.features.map((feature, index) => (
+          {project.features && project.features.map((feature, index) => (
             <li key={index}>{feature}</li>
           ))}
         </ul>
       </div>
       
       <div style={{ marginTop: '2rem' }}>
-        <h3>Tools Used</h3>
-        <p>{project.tools.join(', ')}</p>
+        <UXUIHeading>Tools Used</UXUIHeading>
+        <p>{project.tools && project.tools.join(', ')}</p>
       </div>
       
       <div style={{ marginTop: '2rem' }}>
-        <h3>Year</h3>
+        <UXUIHeading>Year</UXUIHeading>
         <p>{project.year}</p>
       </div>
-    </ProjectDetailContainer>
+    </UXUIDetailContainer>
   );
 };
 
-export default ProjectDetail;
+export default UXUIProjectDetail;

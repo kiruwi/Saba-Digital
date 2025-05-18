@@ -26,6 +26,10 @@ const UXUIDetailPage = React.lazy(() => import('./work/UXUIDetail'));
 const WebDevWorkPage = React.lazy(() => import('./work/WebDev'));
 const WebDevDetailPage = React.lazy(() => import('./work/WebDevDetail'));
 
+// Import special pages
+const UfanisiSpecialPage = React.lazy(() => import('./pages/UfanisiSpecialPage'));
+const UfanisiResortPage = React.lazy(() => import('./work/UfanisiResort'));
+
 function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>(
     ThemeUtils.getInitialTheme()
@@ -68,6 +72,7 @@ function App() {
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         <GlobalStyles />
         <SEO title="Home" description="Welcome to my portfolio" />
+        {/* With HashRouter, we don't need a basename as it uses hash-based routing */}
         <Router>
           <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
           <BackToTop />
@@ -75,6 +80,10 @@ function App() {
           <Navigation />
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
+              {/* Improved routes for Ufanisi Resort that use proper styling */}
+              <Route path="/ufanisi" element={<UfanisiSpecialPage />} />
+              <Route path="ufanisi" element={<UfanisiSpecialPage />} />
+              
               <Route path={RoutePaths.Home} element={<Home />} />
               <Route path={RoutePaths.Contact} element={<ContactPage />} />
               
@@ -83,12 +92,19 @@ function App() {
               <Route path={RoutePaths.GraphicsWork} element={<GraphicsWorkPage />} />
               <Route path={RoutePaths.GraphicsDetail} element={<GraphicsDetailPage />} />
               <Route path={RoutePaths.UXUIWork} element={<UXUIWorkPage />} />
+              
+              {/* Special dedicated routes for Ufanisi Resort - all possible format variations */}
+              <Route path="/work/uxui/ufanisi-resort" element={<UfanisiResortPage />} />
+              <Route path="work/uxui/ufanisi-resort" element={<UfanisiResortPage />} />
+              <Route path="/ufanisi-resort-project" element={<UfanisiResortPage />} />
+              <Route path="ufanisi-resort-project" element={<UfanisiResortPage />} />
+              
               <Route path={RoutePaths.UXUIDetail} element={<UXUIDetailPage />} />
               <Route path={RoutePaths.WebDevWork} element={<WebDevWorkPage />} />
               <Route path={RoutePaths.WebDevDetail} element={<WebDevDetailPage />} />
               
               {/* Error route should always be last */}
-              <Route path={RoutePaths.Error} element={<ErrorPage />} />
+              <Route path="*" element={<ErrorPage />} />
             </Routes>
           </Suspense>
         </Router>

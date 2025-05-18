@@ -117,7 +117,7 @@ export const graphicsProjects = [
       "Brand guidelines document",
       "Digital and print applications"
     ],
-    tools: ["Adobe Illustrator", "Adobe Photoshop"],
+    tools: ["Adobe Illustrator", "Adobe Photoshop", "Adobe InDesign", "Figma"],
     year: "2022",
   }
 ];
