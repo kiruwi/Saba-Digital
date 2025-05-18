@@ -204,7 +204,7 @@ const UfanisiResort: React.FC = () => {
               
               <FoodDeliveryImageSection>
                 <FoodDeliveryImage 
-                  src={require('../assets/projects/ux-ui/ufanisi.jpg')} 
+                  src="./assets/projects/ux-ui/ufanisi.jpg" 
                   alt="Ufanisi Resort Food Delivery App" 
                 />
               </FoodDeliveryImageSection>

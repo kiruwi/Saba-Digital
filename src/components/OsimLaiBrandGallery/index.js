@@ -19,32 +19,32 @@ const OsimLaiBrandGallery = () => {
   
   const imageData = [
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/logo-page2x-100.jpg',
+      src: './assets/projects/3d-graphics/osim-lai-images/logo-page2x-100.jpg',
       alt: 'Osim Lai Logo Presentation',
       caption: 'Logo Design Presentation'
     },
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/logo-design2x-100.jpg',
+      src: './assets/projects/3d-graphics/osim-lai-images/logo-design2x-100.jpg',
       alt: 'Osim Lai Logo Design Process',
       caption: 'Logo Design Process & Concepts'
     },
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/color-and-mockup.2x-100.jpg',
+      src: './assets/projects/3d-graphics/osim-lai-images/color-and-mockup.2x-100.jpg',
       alt: 'Osim Lai Color Palette and Mockups',
       caption: 'Color Palette & Brand Applications'
     },
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/Font-type2x-100.jpg',
+      src: './assets/projects/3d-graphics/osim-lai-images/Font-type2x-100.jpg',
       alt: 'Osim Lai Typography System',
       caption: 'Typography System'
     },
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/assets2x-100.jpg',
+      src: './assets/projects/3d-graphics/osim-lai-images/assets2x-100.jpg',
       alt: 'Osim Lai Brand Assets',
       caption: 'Brand Assets'
     },
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/mockup2x-100.jpg',
+      src: './assets/projects/3d-graphics/osim-lai-images/mockup2x-100.jpg',
       alt: 'Osim Lai Brand Mockups',
       caption: 'Brand Applications & Mockups'
     }
