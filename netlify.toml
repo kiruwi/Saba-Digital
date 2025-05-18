@@ -1,6 +1,9 @@
 [build]
-  command = "node netlify-build-scripts/process-cms-content.js && npm run build"
+  command = "node netlify-build-scripts/process-cms-content.js && CI=false npm run build"
   publish = "build"
+
+[build.environment]
+  CI = "false"
 
 [[redirects]]
   from = "/*"
