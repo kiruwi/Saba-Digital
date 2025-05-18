@@ -27,27 +27,27 @@ const SynnefaGallery = () => {
   const gallery = [
     {
       id: 1,
-      image: '/assets/projects/3d-graphics/synnefa-images/mind-map.jpg',
+      image: require('../../assets/projects/3d-graphics/synnefa-images/mind-map.jpg'),
       caption: 'Brief & Brand Concept Mind Map'
     },
     {
       id: 2,
-      image: '/assets/projects/3d-graphics/synnefa-images/mood-board.jpg',
+      image: require('../../assets/projects/3d-graphics/synnefa-images/mood-board.jpg'),
       caption: 'Mood Board and Visual Direction'
     },
     {
       id: 3,
-      image: '/assets/projects/3d-graphics/synnefa-images/design-process.jpg',
+      image: require('../../assets/projects/3d-graphics/synnefa-images/design-process.jpg'),
       caption: 'Design Process and Development'
     },
     {
       id: 4,
-      image: '/assets/projects/3d-graphics/synnefa-images/logo-variations.jpg',
+      image: require('../../assets/projects/3d-graphics/synnefa-images/logo-variations.jpg'),
       caption: 'Logo Variations and Style Exploration'
     },
     {
       id: 5,
-      image: '/assets/projects/3d-graphics/synnefa-images/synnefa-logo.jpg',
+      image: require('../../assets/projects/3d-graphics/synnefa-images/synnefa-logo.jpg'),
       caption: 'Final Synnefa Logo Design'
     }
   ];

@@ -70,7 +70,7 @@ const GraphicsProjectCard: FC<GraphicsProjectCardProps> = ({ project }) => {
     >
       <GraphicsImageWrapper>
         <GraphicsProjectImage 
-          src={project.id === 'synnefa-rebrand' ? '/assets/projects/3d-graphics/synnefa-images/banner.jpg' : project.image} 
+          src={project.id === 'synnefa-rebrand' ? require('../../assets/projects/3d-graphics/synnefa-images/banner.jpg') : project.image} 
           alt={project.title} 
         />
       </GraphicsImageWrapper>
