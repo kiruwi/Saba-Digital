@@ -97,7 +97,7 @@ const GraphicsProjectDetail = ({ projects }) => {
       <div style={{ position: 'relative', marginBottom: '2rem' }}>
         <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
           <GraphicsDetailImage 
-            src={project.id === 'synnefa-rebrand' ? require('../../assets/projects/3d-graphics/synnefa-images/banner.jpg') : project.image} 
+            src={project.id === 'synnefa-rebrand' ? './assets/projects/3d-graphics/synnefa-images/banner.jpg' : project.image} 
             alt={project.title} 
             style={{ width: '100%', height: 'auto', display: 'block' }} 
           />
