@@ -1,9 +1,10 @@
 // src/App.js
-import React from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { HashRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "styled-components";
 import { lightTheme } from "./themes/theme";
+import { trackPageView } from "./utils/analytics";
 import { Home } from "./pages";
 import ContactPage from "./pages/contactus";
 import ErrorPage from "./pages/Error";
@@ -15,9 +16,21 @@ import WebDevDetail from "./work/WebDevDetail";
 import GraphicsDetail from "./work/GraphicsDetail";
 import "./App.css";
 
+// RouteChangeTracker component to track page views
+function RouteChangeTracker() {
+  const location = useLocation();
+  
+  useEffect(() => {
+    // Track page view with Google Analytics
+    trackPageView(location.pathname);
+  }, [location]);
+
+  return null;
+}
+
 function App() {
   // Setting a consistent light theme for the entire application
-  React.useEffect(() => {
+  useEffect(() => {
     document.body.className = 'light';
   }, []);
   
@@ -25,6 +38,7 @@ function App() {
     <HelmetProvider>
       <ThemeProvider theme={lightTheme}>
         <Router>
+          <RouteChangeTracker />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/contactus" element={<ContactPage />} />
