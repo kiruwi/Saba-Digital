@@ -8,45 +8,23 @@ import {
   GraphicsDetailDescription,
   GraphicsDetailImage,
   GraphicsBackButton,
-  GraphicsSideBySideContainer,
-  GraphicsMobileImageFirst,
-  GraphicsMobileTextSecond,
-  GraphicsMobileOnlyImage,
   GraphicsHeading,
   GraphicsGalleryContainer,
   GraphicsGalleryItem,
-  GraphicsGalleryImage,
-  GraphicsGalleryCaption
+  GraphicsGalleryImage
 } from '../../work/GraphicsElements';
 import OsimLaiBrandGallery from '../OsimLaiBrandGallery';
 import SynnefaGallery from '../SynnefaGallery';
+import GSCGallery from '../GSCGallery';
 import { FaArrowLeft } from 'react-icons/fa';
 
 const GraphicsProjectDetail = ({ projects }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const [isMobile, setIsMobile] = useState(false);
-  
   // Debug location information
   console.log('GraphicsDetail - Current location:', location);
   console.log('GraphicsDetail - ID param:', id);
-  
-  // Set up mobile detection
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    // Initial check
-    checkIsMobile();
-    
-    // Add resize listener
-    window.addEventListener('resize', checkIsMobile);
-    
-    // Cleanup
-    return () => window.removeEventListener('resize', checkIsMobile);
-  }, []);
   
   // Find the project by id with more robust URL handling
   let project = null;
@@ -172,6 +150,28 @@ const GraphicsProjectDetail = ({ projects }) => {
       {/* Synnefa Gallery - specific to this project */}
       {project.id === 'synnefa-rebrand' && (
         <SynnefaGallery />
+      )}
+      
+      {/* GSC Hauling Gallery */}
+      {project.id === 'gsc-hauling' && (
+        <GSCGallery />
+      )}
+      
+      {/* Generic gallery for projects with additionalImages */}
+      {project.additionalImages && project.additionalImages.length > 0 && (
+        <div style={{ marginTop: '3rem' }}>
+          <GraphicsHeading>Project Gallery</GraphicsHeading>
+          <GraphicsGalleryContainer>
+            {project.additionalImages.map((imgSrc, index) => (
+              <GraphicsGalleryItem key={`gallery-${index}`}>
+                <GraphicsGalleryImage 
+                  src={imgSrc} 
+                  alt={`${project.title} - Image ${index + 1}`} 
+                />
+              </GraphicsGalleryItem>
+            ))}
+          </GraphicsGalleryContainer>
+        </div>
       )}
       
       <div style={{ marginTop: '2rem' }}>

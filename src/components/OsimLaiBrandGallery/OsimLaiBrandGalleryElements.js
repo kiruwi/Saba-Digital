@@ -41,6 +41,7 @@ export const GalleryGrid = styled.div`
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 `;
 
@@ -53,6 +54,8 @@ export const ImageContainer = styled.div`
   transition: transform 0.3s ease;
   animation: imageContainerAppear 0.8s forwards;
   animation-delay: 0.2s;
+  opacity: 1;
+  height: 100%;
   
   /* Always make content visible, not just on hover */
   transform: translateY(0);
@@ -62,18 +65,7 @@ export const ImageContainer = styled.div`
     transform: translateY(-5px);
   }
   
-  &:after {
-    content: '${props => props.caption}';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 0.75rem;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
-    color: white;
-    opacity: 1; /* Always visible */
-    transition: opacity 0.3s ease;
-  }
+  /* Remove the problematic :after pseudo-element */
   
   @keyframes imageContainerAppear {
     from { opacity: 0.7; transform: translateY(10px); }
@@ -84,16 +76,18 @@ export const ImageContainer = styled.div`
 export const DetailImage = styled.img`
   width: 100%;
   height: auto;
+  min-height: 200px;
   object-fit: contain;
   transition: transform 0.5s ease;
-  image-rendering: -webkit-optimize-contrast; /* Improves image sharpness in Chrome */
-  image-rendering: crisp-edges; /* Improves image sharpness in Firefox */
-  transform: scale(1.02); /* Slightly scaled by default for better visibility */
+  display: block;
+  image-rendering: auto;
+  filter: none;
+  transform: scale(1); /* Reset to normal scale */
   animation: detailImageAppear 1s forwards;
   
   @keyframes detailImageAppear {
-    from { opacity: 0.7; transform: scale(1); }
-    to { opacity: 1; transform: scale(1.02); }
+    from { opacity: 0.7; }
+    to { opacity: 1; }
   }
   
   ${ImageContainer}:hover & {
@@ -128,15 +122,23 @@ export const FullscreenOverlay = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 999;
+  padding: 0;
+  overflow: hidden;
 `;
 
 export const FullscreenImage = styled.img`
   max-width: 90%;
   max-height: 85vh;
+  width: auto;
+  height: auto;
   object-fit: contain;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
+  image-rendering: auto;
+  filter: none;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  z-index: 1001; /* Ensure image is above other elements */
+  position: relative;
+  margin: 0 auto;
+  display: block;
 `;
 
 export const CloseButton = styled.button`
@@ -173,7 +175,13 @@ export const NavigationButton = styled.button`
   font-size: 1.5rem;
   cursor: pointer;
   transition: background 0.3s ease;
-  z-index: 1000;
+  z-index: 1002; /* Higher than the image for mobile tapping */
+  
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
   
   &:hover {
     background: rgba(45, 182, 112, 0.8);

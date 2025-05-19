@@ -1,4 +1,4 @@
-// src/components/OsimLaiBrandGallery/index.js
+// src/components/GSCGallery/index.js
 import React, { useState } from 'react';
 import { GraphicsHeading } from '../../work/GraphicsElements';
 import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -60,6 +60,8 @@ const ModalOverlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 0;
+  overflow: hidden;
 `;
 
 const ModalContent = styled.div`
@@ -115,33 +117,21 @@ const NavButton = styled.button`
   }
 `;
 
-const OsimLaiBrandGallery = () => {
+const GSCGallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   
   const imageData = [
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/logo-page2x-100.jpg',
-      alt: 'Osim Lai Logo Presentation',
+      src: '/assets/projects/3d-graphics/gsc-images/gsc-logo.jpg',
+      alt: 'GSC Hauling Logo',
     },
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/logo-design2x-100.jpg',
-      alt: 'Osim Lai Logo Design Process',
+      src: '/assets/projects/3d-graphics/gsc-images/gsc-AD.png',
+      alt: 'GSC Hauling Advertisement',
     },
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/color-and-mockup.2x-100.jpg',
-      alt: 'Osim Lai Color Palette and Mockups',
-    },
-    {
-      src: '/assets/projects/3d-graphics/osim-lai-images/Font-type2x-100.jpg',
-      alt: 'Osim Lai Typography System',
-    },
-    {
-      src: '/assets/projects/3d-graphics/osim-lai-images/assets2x-100.jpg',
-      alt: 'Osim Lai Brand Assets',
-    },
-    {
-      src: '/assets/projects/3d-graphics/osim-lai-images/mockup2x-100.jpg',
-      alt: 'Osim Lai Brand Mockups',
+      src: '/assets/projects/3d-graphics/gsc-images/gsc-water.jpg',
+      alt: 'GSC Hauling Water Mark Design',
     }
   ];
 
@@ -170,8 +160,8 @@ const OsimLaiBrandGallery = () => {
   return (
     <GalleryContainer>
       <GalleryHeader>
-        <GraphicsHeading>Osim Lai Brand Portfolio</GraphicsHeading>
-        <p>A complete brand identity for a hospitality brand located on Lake Naivasha</p>
+        <GraphicsHeading>GSC Hauling Portfolio</GraphicsHeading>
+        <p>Brand identity and design work for a Seattle-based hauling service company</p>
       </GalleryHeader>
       
       <GalleryGrid>
@@ -206,4 +196,4 @@ const OsimLaiBrandGallery = () => {
   );
 };
 
-export default OsimLaiBrandGallery;
+export default GSCGallery;

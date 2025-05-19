@@ -61,6 +61,8 @@ export const GraphicsProjectImage = styled.img`
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
+  filter: saturate(1); /* Ensure normal saturation */
+  image-rendering: auto;
   
   /* Initial animation */
   animation: graphicsImageScale 1.2s forwards;
@@ -152,8 +154,10 @@ export const GraphicsDetailDescription = styled.p`
 export const GraphicsDetailImage = styled.img`
   width: 100%;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
   margin-bottom: 2rem;
+  image-rendering: auto;
+  filter: none;
 `;
 
 export const GraphicsBackButton = styled.button`
@@ -245,9 +249,12 @@ export const GraphicsGalleryItem = styled.div`
 
 export const GraphicsGalleryImage = styled.img`
   width: 100%;
-  height: 220px;
-  object-fit: cover;
+  height: auto;
+  min-height: 220px;
+  object-fit: contain;
   transition: transform 0.5s ease;
+  image-rendering: auto;
+  filter: none;
 `;
 
 export const GraphicsGalleryCaption = styled.div`

@@ -71,6 +71,37 @@ export const webProjects = [
 
 export const graphicsProjects = [
   {
+    id: "gsc-hauling",
+    title: "GSC Hauling",
+    shortDescription: "In-house graphic design for a professional hauling service company.",
+    fullDescription: "I joined GSC Hauling, a Seattle-based hauling service company, as their in-house graphic designer to develop and implement a complete brand identity system. The company specializes in helping people transport items of all sizes across the greater Seattle area, and needed visual assets that would convey reliability, strength, and professionalism in the competitive hauling market.",
+    fullDescription2: "As part of the GSC team, I created a comprehensive visual identity system including logo design, branded vehicle graphics, advertising materials, and visual representations of their hauling services for customer communications.",
+    fullDescription3: [
+      { heading: "Brand Development", content: "Working closely with the company leadership, I developed a bold, distinctive logo that incorporates visual elements suggesting movement and transportation while maintaining a professional appearance. The color palette features strong blues and oranges that convey trust and energy, essential qualities for a hauling service." },
+      { heading: "Visual Identity", content: "I established brand guidelines to ensure the GSC visual identity would be instantly recognizable across all touchpoints. As the company's graphic designer, I created a system of complementary graphic elements that could be applied consistently across different media while maintaining brand recognition." },
+      { heading: "Advertising Materials", content: "I managed the design and production of all print and digital advertising materials featuring the new branding. This included vehicle wraps, business cards, flyers, social media graphics, and billboard designs that created a cohesive visual presence across all customer touchpoints." },
+      { heading: "Impact", content: "Since implementing the new branding and visual system, GSC Hauling has experienced a significant increase in brand recognition and customer engagement. The company has expanded its fleet and service area, with the new visual identity playing a key role in their growth strategy." }
+    ],
+    image: "/assets/projects/3d-graphics/gsc-images/gsc-logo.jpg",
+    additionalImages: [
+      "/assets/projects/3d-graphics/gsc-images/gsc-AD.png",
+      "/assets/projects/3d-graphics/gsc-images/gsc-water.jpg"
+    ],
+    tags: ["Brand Identity", "Logo Design", "Advertising Design"],
+    category: "graphics",
+    features: [
+      "Complete logo and visual identity system",
+      "Brand style guide",
+      "Vehicle wrap designs",
+      "Print and digital advertising materials",
+      "Social media graphics package",
+      "Brand guidelines document",
+      "Billboard and large format designs"
+    ],
+    tools: ["Adobe Illustrator", "Adobe Photoshop"],
+    year: "2023",
+  },
+  {
     id: "synnefa-rebrand",
     title: "Synnefa Rebrand & 3D",
     shortDescription: "Complete rebrand and 3D product visualization for an AgriTech innovator in Africa.",
