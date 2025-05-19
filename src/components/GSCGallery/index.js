@@ -19,11 +19,12 @@ const GalleryHeader = styled.div`
 
 const GalleryGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 `;
 
@@ -32,21 +33,32 @@ const GalleryItem = styled.div`
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   background: #1a1a1a;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   
   &:hover {
     transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.3);
   }
 `;
 
 const ItemImage = styled.img`
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   transition: transform 0.3s ease;
   filter: saturate(1); /* Ensure normal saturation */
   image-rendering: auto;
+  object-fit: cover;
+  flex: 1;
+  
+  @media (min-width: 1200px) {
+    /* Better quality on larger screens */
+    image-rendering: -webkit-optimize-contrast;
+  }
 `;
 
 const ModalOverlay = styled.div`
@@ -67,8 +79,11 @@ const ModalOverlay = styled.div`
 const ModalContent = styled.div`
   position: relative;
   width: 90%;
-  max-width: 1000px;
+  max-width: 1200px;
   max-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ModalImage = styled.img`
@@ -78,6 +93,11 @@ const ModalImage = styled.img`
   object-fit: contain;
   filter: saturate(1); /* Ensure normal saturation */
   image-rendering: auto;
+  
+  @media (min-width: 1200px) {
+    /* Better quality on larger screens */
+    image-rendering: -webkit-optimize-contrast;
+  }
 `;
 
 const CloseButton = styled.button`

@@ -82,7 +82,7 @@ export const graphicsProjects = [
       { heading: "Advertising Materials", content: "I managed the design and production of all print and digital advertising materials featuring the new branding. This included vehicle wraps, business cards, flyers, social media graphics, and billboard designs that created a cohesive visual presence across all customer touchpoints." },
       { heading: "Impact", content: "Since implementing the new branding and visual system, GSC Hauling has experienced a significant increase in brand recognition and customer engagement. The company has expanded its fleet and service area, with the new visual identity playing a key role in their growth strategy." }
     ],
-    image: "/assets/projects/3d-graphics/gsc-images/gsc-logo.jpg",
+    image: "/assets/projects/3d-graphics/gsc-images/gsc-water.jpg",
     additionalImages: [
       "/assets/projects/3d-graphics/gsc-images/gsc-AD.png",
       "/assets/projects/3d-graphics/gsc-images/gsc-water.jpg"
