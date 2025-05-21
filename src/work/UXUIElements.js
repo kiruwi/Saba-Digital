@@ -16,13 +16,13 @@ export const UXUIGrid = styled.div`
 export const UXUICardContainer = styled(Link)`
   display: flex;
   flex-direction: column;
-  background: #0c0c0c;
+  background: ${({ theme }) => theme.colors.background};
   border-radius: 0px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
   transition: all 0.5s ease-in-out;
   text-decoration: none;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
   height: 100%;
   opacity: 0.9;
   transform: translateY(10px);
@@ -96,12 +96,12 @@ export const UXUIContentWrapper = styled.div`
 export const UXUIProjectTitle = styled.h3`
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const UXUIProjectDescription = styled.p`
   font-size: 0.9rem;
-  color: #b8b8b8;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1rem;
 `;
 
@@ -114,10 +114,10 @@ export const UXUIProjectTags = styled.div`
 
 export const UXUITag = styled.span`
   padding: 0.25rem 0.75rem;
-  background: #1e1e1e;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
   border-radius: 0px;
   font-size: 0.75rem;
-  color: #2db670;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 // Styling for the UX/UI project detail page
@@ -125,9 +125,9 @@ export const UXUIDetailContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  background: #0c0c0c;
+  background: ${({ theme }) => theme.colors.background};
   border-radius: 0px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
 `;
 
 export const UXUIDetailHeader = styled.div`
@@ -139,12 +139,12 @@ export const UXUIDetailHeader = styled.div`
 export const UXUIDetailTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const UXUIDetailDescription = styled.p`
   font-size: 1.1rem;
-  color: #b8b8b8;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1.5rem;
   line-height: 1.6;
 `;
@@ -162,7 +162,7 @@ export const UXUIBackButton = styled.button`
   margin-bottom: 2rem;
   background: none;
   border: none;
-  color: #2db670;
+  color: ${({ theme }) => theme.colors.primary};
   text-decoration: none;
   cursor: pointer;
   font-size: 1rem;
@@ -215,7 +215,7 @@ export const UXUIMobileOnlyImage = styled.div`
 export const UXUIHeading = styled.h3`
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #2db670;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 // UX/UI specific components
@@ -235,7 +235,7 @@ export const ProcessStepGrid = styled.div`
 
 export const ProcessStep = styled.div`
   padding: 1.5rem;
-  background: #1e1e1e;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
   border-radius: 0px;
   position: relative;
   
@@ -246,8 +246,8 @@ export const ProcessStep = styled.div`
     left: 15px;
     width: 30px;
     height: 30px;
-    background: #2db670;
-    color: #0c0c0c;
+    background: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.theme === 'dark' ? '#0c0c0c' : '#ffffff'};
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -258,19 +258,19 @@ export const ProcessStep = styled.div`
 
 export const StepTitle = styled.h4`
   font-size: 1.2rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1rem;
 `;
 
 export const StepDescription = styled.p`
   font-size: 0.9rem;
-  color: #b8b8b8;
+  color: ${({ theme }) => theme.colors.text};
   line-height: 1.6;
 `;
 
 export const PrototypeContainer = styled.div`
   margin: 2rem 0;
-  background: #1e1e1e;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
   border-radius: 0px;
   padding: 1.5rem;
 `;
@@ -303,7 +303,7 @@ export const UserPersonaContainer = styled.div`
 `;
 
 export const PersonaCard = styled.div`
-  background: #1e1e1e;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
   border-radius: 0px;
   padding: 1.5rem;
   display: flex;
@@ -316,12 +316,12 @@ export const PersonaAvatar = styled.img`
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 1rem;
-  border: 2px solid #2db670;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
 `;
 
 export const PersonaName = styled.h4`
   font-size: 1.2rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 0.5rem;
 `;
 
@@ -332,11 +332,11 @@ export const PersonaDetails = styled.ul`
   
   li {
     margin-bottom: 0.5rem;
-    color: #b8b8b8;
+    color: ${({ theme }) => theme.colors.text};
     font-size: 0.9rem;
     
     strong {
-      color: #2db670;
+      color: ${({ theme }) => theme.colors.primary};
       margin-right: 0.5rem;
     }
   }

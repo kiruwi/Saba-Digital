@@ -90,7 +90,7 @@ export const ProjectTitle = styled.h3`
 
 export const ProjectDescription = styled.p`
   font-size: 0.9rem;
-  color: #b8b8b8;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1rem;
 `;
 
@@ -141,7 +141,7 @@ export const DetailTitle = styled.h2`
 
 export const DetailDescription = styled.p`
   font-size: 1.1rem;
-  color: #b8b8b8;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1.5rem;
   line-height: 1.6;
 `;

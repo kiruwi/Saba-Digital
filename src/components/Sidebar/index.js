@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ThemeToggle from "../ThemeToggle";
+import styled from "styled-components";
 import {
   SidebarContainer,
   Icon,
@@ -10,7 +12,24 @@ import {
   SideBtnWrap,
 } from "./SidebarElements";
 
-const Sidebar=({isOpen, toggle}) => {
+// Styled component for the theme toggle container in sidebar
+const SidebarThemeToggle = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  
+  button {
+    padding: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+`;
+
+const Sidebar=({isOpen, toggle, currentTheme, toggleTheme}) => {
   return (
     <SidebarContainer isOpen={isOpen} onClick={toggle}>
       <Icon onClick={toggle}>
@@ -23,7 +42,9 @@ const Sidebar=({isOpen, toggle}) => {
           <SidebarLink as={Link} to='/ContactUs' onClick={toggle} style={{ textDecoration: 'none' }}>Contact Me</SidebarLink>
         </SidebarMenu>
         <SideBtnWrap>
-          {/* Buttons moved to menu as text links */}
+          <SidebarThemeToggle>
+            <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} />
+          </SidebarThemeToggle>
         </SideBtnWrap>
       </SidebarWrapper>
     </SidebarContainer>

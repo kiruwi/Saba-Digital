@@ -199,7 +199,7 @@ export const UfanisiMobileTitle = styled.div`
 
 // Food Delivery App Section styling
 export const FoodDeliverySection = styled.div`
-  background-color: #1e1e1e;
+  background-color: #1e1e1e; /* Always dark background regardless of theme */
   border-radius: 12px;
   padding: 2rem;
   margin: 3rem 0;
@@ -241,14 +241,14 @@ export const FoodDeliveryImageSection = styled.div`
 export const FoodDeliveryHeading = styled.h2`
   font-size: 1.8rem;
   margin-bottom: 1rem;
-  color: #FF9800;
+  color: #FF9800; /* Orange color for headings */
   font-weight: 600;
 `;
 
 export const FoodDeliverySubheading = styled.h3`
-  font-size: 1.5rem;
-  margin: 1.5rem 0 0.75rem;
-  color: #FFC107;
+  font-size: 1.4rem;
+  margin: 1.5rem 0 1rem;
+  color: #FFC107; /* Yellow color for subheadings */
   font-weight: 500;
 `;
 
@@ -256,7 +256,7 @@ export const FoodDeliveryContent = styled.p`
   font-size: 1.1rem;
   line-height: 1.7;
   margin-bottom: 1.2rem;
-  color: #f0f0f0;
+  color: #f8f9fa; /* Always use light text on dark background */
 `;
 
 export const FoodDeliveryImage = styled.img`

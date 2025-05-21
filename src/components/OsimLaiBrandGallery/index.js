@@ -1,8 +1,8 @@
 // src/components/OsimLaiBrandGallery/index.js
-import React, { useState } from 'react';
+import React from 'react';
 import { GraphicsHeading } from '../../work/GraphicsElements';
-import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import styled from 'styled-components';
+import ZoomableGallery from '../ZoomableGallery';
 
 // Simple styled components defined here to avoid any conflicts
 const GalleryContainer = styled.div`
@@ -17,155 +17,39 @@ const GalleryHeader = styled.div`
   text-align: left;
 `;
 
-const GalleryGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const GalleryItem = styled.div`
-  cursor: pointer;
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
-  background: #1a1a1a;
-  
-  &:hover {
-    transform: translateY(-5px);
-  }
-`;
-
-const ItemImage = styled.img`
-  width: 100%;
-  height: auto;
-  display: block;
-  transition: transform 0.3s ease;
-  filter: saturate(1); /* Ensure normal saturation */
-  image-rendering: auto;
-`;
-
-const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-`;
-
-const ModalContent = styled.div`
-  position: relative;
-  width: 90%;
-  max-width: 1000px;
-  max-height: 90vh;
-`;
-
-const ModalImage = styled.img`
-  width: 100%;
-  height: auto;
-  max-height: 80vh;
-  object-fit: contain;
-  filter: saturate(1); /* Ensure normal saturation */
-  image-rendering: auto;
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: -40px;
-  right: 0;
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1001;
-`;
-
-const NavButton = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1001;
-  
-  &.prev {
-    left: 10px;
-  }
-  
-  &.next {
-    right: 10px;
-  }
-`;
-
 const OsimLaiBrandGallery = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
-  
   const imageData = [
     {
       src: '/assets/projects/3d-graphics/osim-lai-images/logo-page2x-100.jpg',
       alt: 'Osim Lai Logo Presentation',
+      caption: 'Osim Lai Logo Presentation'
     },
     {
       src: '/assets/projects/3d-graphics/osim-lai-images/logo-design2x-100.jpg',
       alt: 'Osim Lai Logo Design Process',
+      caption: 'Osim Lai Logo Design Process'
     },
     {
       src: '/assets/projects/3d-graphics/osim-lai-images/color-and-mockup.2x-100.jpg',
       alt: 'Osim Lai Color Palette and Mockups',
+      caption: 'Osim Lai Color Palette and Mockups'
     },
     {
       src: '/assets/projects/3d-graphics/osim-lai-images/Font-type2x-100.jpg',
       alt: 'Osim Lai Typography System',
+      caption: 'Osim Lai Typography System'
     },
     {
       src: '/assets/projects/3d-graphics/osim-lai-images/assets2x-100.jpg',
       alt: 'Osim Lai Brand Assets',
+      caption: 'Osim Lai Brand Assets'
     },
     {
       src: '/assets/projects/3d-graphics/osim-lai-images/mockup2x-100.jpg',
       alt: 'Osim Lai Brand Mockups',
+      caption: 'Osim Lai Brand Mockups'
     }
   ];
-
-  const openModal = (index) => {
-    setSelectedImage(index);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeModal = () => {
-    setSelectedImage(null);
-    document.body.style.overflow = 'auto';
-  };
-
-  const navigateImage = (direction) => {
-    const newIndex = (selectedImage + direction + imageData.length) % imageData.length;
-    setSelectedImage(newIndex);
-  };
-
-  const handleModalClick = (e) => {
-    // Only close if clicking the background, not the image
-    if (e.target === e.currentTarget) {
-      closeModal();
-    }
-  };
 
   return (
     <GalleryContainer>
@@ -174,34 +58,10 @@ const OsimLaiBrandGallery = () => {
         <p>A complete brand identity for a hospitality brand located on Lake Naivasha</p>
       </GalleryHeader>
       
-      <GalleryGrid>
-        {imageData.map((image, index) => (
-          <GalleryItem key={index} onClick={() => openModal(index)}>
-            <ItemImage src={image.src} alt={image.alt} />
-          </GalleryItem>
-        ))}
-      </GalleryGrid>
-
-      {selectedImage !== null && (
-        <ModalOverlay onClick={handleModalClick}>
-          <ModalContent>
-            <ModalImage 
-              src={imageData[selectedImage].src} 
-              alt={imageData[selectedImage].alt} 
-              onClick={(e) => e.stopPropagation()}
-            />
-            <CloseButton onClick={closeModal}>
-              <FaTimes />
-            </CloseButton>
-            <NavButton className="prev" onClick={(e) => { e.stopPropagation(); navigateImage(-1); }}>
-              <FaChevronLeft />
-            </NavButton>
-            <NavButton className="next" onClick={(e) => { e.stopPropagation(); navigateImage(1); }}>
-              <FaChevronRight />
-            </NavButton>
-          </ModalContent>
-        </ModalOverlay>
-      )}
+      <ZoomableGallery 
+        images={imageData}
+        showInstructions={true}
+      />
     </GalleryContainer>
   );
 };

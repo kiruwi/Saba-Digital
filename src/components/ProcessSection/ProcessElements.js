@@ -67,7 +67,7 @@ export const StepTitle = styled.h3`
 
 export const StepContent = styled.div`
   margin-top: 1rem;
-  color: #b8b8b8;
+  color: ${({ theme }) => theme.colors.text};
   line-height: 1.6;
   font-size: 1rem;
 `;
@@ -164,7 +164,7 @@ export const NextActions = styled.div`
   }
   
   ul {
-    color: #b8b8b8;
+    color: ${({ theme }) => theme.colors.text};
     line-height: 1.8;
     padding-left: 1.5rem;
     

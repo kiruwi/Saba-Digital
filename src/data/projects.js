@@ -47,6 +47,11 @@ export const webProjects = [
     fullDescription:
       "This was my first web development project, created for Makvo company. The website was built with a focus on responsive design principles and modern UI components. I implemented a clean, professional layout that effectively showcases the company's services and portfolio. The site features cross-browser compatibility, optimized performance, and SEO-friendly structure to improve search engine visibility.",
     image: webImage,
+    additionalImages: [
+      "/assets/projects/web-dev/app1.jpg",
+      "/assets/projects/web-dev/app1.jpg",
+      "/assets/projects/web-dev/app1.jpg"
+    ],
     tags: ["jQuery", "Bootstrap", "Apache"],
     category: "webdev",
     features: [
@@ -112,7 +117,14 @@ export const graphicsProjects = [
       { heading: "3D Product Visualization", content: "For the FarmShield™ device, I created detailed 3D models based on the engineering specifications, showing how the system connects with their proprietary FarmSpears sensors to monitor soil conditions, temperature, and humidity. The 3D renders demonstrate how the device serves as the central hub for farm automation, with visualizations of data flow and automated responses to changing farm conditions." },
       { heading: "Impact", content: "The new brand assets and 3D visualizations have been instrumental in Synnefa's marketing efforts, particularly for their expansion across Africa. The visual materials helped farmers understand complex technology in an accessible way, supporting Synnefa's mission to make agricultural technology more approachable to smallholder farmers." }
     ],
-    image: graphicsImage1,
+    image: "/assets/projects/3d-graphics/synnefa-images/banner.jpg",
+    additionalImages: [
+      "/assets/projects/3d-graphics/synnefa-images/mind-map.jpg",
+      "/assets/projects/3d-graphics/synnefa-images/mood-board.jpg",
+      "/assets/projects/3d-graphics/synnefa-images/design-process.jpg",
+      "/assets/projects/3d-graphics/synnefa-images/logo-variations.jpg",
+      "/assets/projects/3d-graphics/synnefa-images/synnefa-logo.jpg"
+    ],
     tags: ["3D Modeling", "Brand Identity", "Product Visualization"],
     category: "graphics",
     features: [
@@ -138,6 +150,13 @@ export const graphicsProjects = [
       { heading: "Brand Applications", content: "Beyond the core logo and color system, I created a comprehensive set of brand applications including stationery, signage mockups, digital assets, and marketing materials. Each application was designed to maintain brand consistency while adapting to the specific requirements of different media and contexts." }
     ],
     image: "/assets/projects/3d-graphics/osim-lai-images/logo-page2x-100.jpg",
+    additionalImages: [
+      "/assets/projects/3d-graphics/osim-lai-images/logo-design2x-100.jpg",
+      "/assets/projects/3d-graphics/osim-lai-images/Font-type2x-100.jpg",
+      "/assets/projects/3d-graphics/osim-lai-images/color-and-mockup.2x-100.jpg",
+      "/assets/projects/3d-graphics/osim-lai-images/assets2x-100.jpg",
+      "/assets/projects/3d-graphics/osim-lai-images/mockup2x-100.jpg"
+    ],
     tags: ["Logo Design", "Brand Identity", "Hospitality Branding"],
     category: "graphics",
     features: [

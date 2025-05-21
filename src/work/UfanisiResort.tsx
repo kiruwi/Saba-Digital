@@ -5,6 +5,7 @@ import { uxProjects } from "../data/projects";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import ProcessSection from "../components/ProcessSection";
+import { useTheme } from "../contexts/ThemeContext";
 import {
   UfanisiContainer,
   UfanisiTitle,
@@ -44,6 +45,9 @@ const UfanisiResort: React.FC = () => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
   
+  // Get theme from context
+  const { theme, toggleTheme } = useTheme();
+  
   // Set up mobile detection
   useEffect(() => {
     const checkIsMobile = () => {
@@ -71,7 +75,7 @@ const UfanisiResort: React.FC = () => {
   if (!project) {
     return (
       <>
-        <Navbar toggle={toggle} isOpen={isOpen} />
+        <Navbar toggle={toggle} isOpen={isOpen} currentTheme={theme} toggleTheme={toggleTheme} />
         <main style={{ padding: "7rem 1.5rem 4rem 1.5rem", marginTop: "10px", background: "#000", color: "#fff" }}>
           <UfanisiContainer>
             <UfanisiBackButton onClick={() => navigate(-1)}>
@@ -88,7 +92,7 @@ const UfanisiResort: React.FC = () => {
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} />
+      <Navbar toggle={toggle} isOpen={isOpen} currentTheme={theme} toggleTheme={toggleTheme} />
       <main style={{ padding: "7rem 1.5rem 4rem 1.5rem", marginTop: "10px", background: "#000", color: "#fff" }}>
         <UfanisiContainer>
           <UfanisiBackButton onClick={() => navigate(-1)}>

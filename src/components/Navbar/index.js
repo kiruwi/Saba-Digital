@@ -3,6 +3,8 @@ import { IoIosArrowDown } from "react-icons/io";
 import { animateScroll as scroll } from "react-scroll";
 import { useLocation } from "react-router-dom";
 import signature from "../../images/signature.svg";
+import ThemeToggle from "../ThemeToggle";
+import styled from "styled-components";
 
 import {
   Nav,
@@ -14,7 +16,28 @@ import {
   NavBtnLink,
 } from "./NavbarElements";
 
-const Navbar = ({ toggle, isOpen }) => {
+// Styled component for mobile theme toggle
+const MobileThemeToggle = styled.div`
+  position: absolute;
+  right: 60px;
+  top: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  
+  @media screen and (min-width: 769px) {
+    display: none;
+  }
+`;
+
+// Styled component for desktop theme toggle
+const DesktopThemeToggle = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+`;
+
+const Navbar = ({ toggle, isOpen, currentTheme, toggleTheme }) => {
   const [scrollNav, setScrollNav] = useState(false);
   const location = useLocation();
   
@@ -49,6 +72,10 @@ const Navbar = ({ toggle, isOpen }) => {
             <img src={signature} alt="Signature" style={{ height: '25px', marginRight: '10px' }} />
             Ian Cheruiyot
           </NavLogo>
+          {/* Theme toggle for mobile - positioned to the left of dropdown */}
+          <MobileThemeToggle>
+            <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} />
+          </MobileThemeToggle>
           <MobileIcon onClick={toggle} isOpen={isOpen}>
             <IoIosArrowDown />
           </MobileIcon>
@@ -56,6 +83,10 @@ const Navbar = ({ toggle, isOpen }) => {
             {/* No items in the middle nav menu now */}
           </NavMenu>
           <NavBtn>
+            {/* Theme toggle for desktop - positioned next to Resume button */}
+            <DesktopThemeToggle>
+              <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} />
+            </DesktopThemeToggle>
             <NavBtnLink to="/resume" target="_blank" rel="noopener noreferrer">Resume</NavBtnLink>
             <NavBtnLink to="/contactus">Contact Me</NavBtnLink>
           </NavBtn>

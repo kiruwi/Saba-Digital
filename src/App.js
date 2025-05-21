@@ -5,8 +5,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./themes/theme";
 import ThemeUtils from "./utils/theme";
-// Import commented out temporarily
-// import ThemeToggle from "./components/ThemeToggle";
+import ThemeToggle from "./components/ThemeToggle";
 import GlobalStyles from "./components/GlobalStyles";
 import { trackPageView } from "./utils/analytics";
 import { Home } from "./pages";
@@ -43,10 +42,10 @@ function App() {
     return 'light';
   });
 
-  // Toggle between light and dark theme - temporarily commented out
-  // const toggleTheme = () => {
-  //   setCurrentTheme(prevTheme => ThemeUtils.toggleTheme(prevTheme));
-  // };
+  // Toggle between light and dark theme
+  const toggleTheme = () => {
+    setCurrentTheme(prevTheme => ThemeUtils.toggleTheme(prevTheme));
+  };
   
   // Update body class when theme changes
   useEffect(() => {
@@ -60,23 +59,21 @@ function App() {
     <HelmetProvider>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        {/* Theme toggle temporarily commented out - will be added back later */}
-        {/* <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} /> */}
         <Router>
           <RouteChangeTracker />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/contactus" element={<ContactPage />} />
+            <Route path="/" element={<Home currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
+            <Route path="/contactus" element={<ContactPage currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
 
             {/* work pages */}
-            <Route path="/work/ux-ui" element={<UXUI />} />
-            <Route path="/work/web-dev" element={<WebDev />} />
-            <Route path="/work/graphics" element={<Graphics />} />
+            <Route path="/work/ux-ui" element={<UXUI currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
+            <Route path="/work/web-dev" element={<WebDev currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
+            <Route path="/work/graphics" element={<Graphics currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
 
             {/* project detail pages */}
-            <Route path="/work/ux-ui/:id" element={<UXUIDetail />} />
-            <Route path="/work/web-dev/:id" element={<WebDevDetail />} />
-            <Route path="/work/graphics/:id" element={<GraphicsDetail />} />
+            <Route path="/work/ux-ui/:id" element={<UXUIDetail currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
+            <Route path="/work/web-dev/:id" element={<WebDevDetail currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
+            <Route path="/work/graphics/:id" element={<GraphicsDetail currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
 
             {/* 404 route */}
             <Route path="*" element={<ErrorPage />} />

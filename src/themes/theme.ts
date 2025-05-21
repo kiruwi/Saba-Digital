@@ -1,5 +1,6 @@
 // Define the Theme interface directly in this file
 export interface Theme {
+  theme: ThemeType; // Add theme property to track current theme
   colors: {
     primary: string;
     secondary: string;
@@ -8,7 +9,9 @@ export interface Theme {
     border: string;
     shadow: string;
     accent: string;
-    error: string; // Added as required property
+    error: string;
+    cardBackground: string; // For card backgrounds
+    headingText: string; // For headings
   };
   fontSizes: {
     xs: string;
@@ -41,6 +44,7 @@ export type ThemeType = 'light' | 'dark';
 
 // Light theme configuration
 export const lightTheme: Theme = {
+  theme: 'light',
   colors: {
     primary: '#00ab57', // Green accent color (same in both themes)
     secondary: '#6c757d',
@@ -49,7 +53,9 @@ export const lightTheme: Theme = {
     border: '#dee2e6',
     shadow: 'rgba(0, 0, 0, 0.1)',
     accent: '#00ab57', // Same green for accent
-    error: '#dc3545'
+    error: '#dc3545',
+    cardBackground: '#f8f9fa', // Light card background
+    headingText: '#212529' // Dark heading text for light theme
   },
   fontSizes: {
     xs: '0.75rem',
@@ -80,6 +86,7 @@ export const lightTheme: Theme = {
 
 // Dark theme configuration
 export const darkTheme: Theme = {
+  theme: 'dark',
   colors: {
     primary: '#00ab57', // Green accent color (same in both themes)
     secondary: '#6c757d',
@@ -88,7 +95,9 @@ export const darkTheme: Theme = {
     border: '#495057',
     shadow: 'rgba(0, 0, 0, 0.5)',
     accent: '#00ab57', // Same green for accent
-    error: '#e35d6a'
+    error: '#e35d6a',
+    cardBackground: '#1e1e1e', // Dark card background
+    headingText: '#ffffff' // Light heading text for dark theme
   },
   fontSizes: {
     xs: '0.75rem',

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaMoon, FaSun } from 'react-icons/fa';
 import { ThemeType } from '../themes/theme';
 
 interface ThemeToggleProps {
@@ -8,50 +7,51 @@ interface ThemeToggleProps {
   toggleTheme: () => void;
 }
 
-const ToggleButton = styled.button`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+// Styled components for the theme toggle
+const ToggleContainer = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  cursor: pointer;
-  z-index: 100;
-  transition: all ${({ theme }) => theme.transitions.default};
-  box-shadow: 0 2px 5px ${({ theme }) => theme.colors.shadow};
+  padding: 8px;
+  transition: ${({ theme }) => theme.transitions.default};
+  color: ${({ theme }) => theme.colors.text};
   
   &:hover {
-    transform: scale(1.1);
-    background-color: ${({ theme }) => theme.colors.secondary};
+    opacity: 0.8;
   }
   
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px ${({ theme }) => theme.colors.primary}50;
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: ${({ theme }) => theme.colors.text};
   }
-`;
-
-const ToggleContainer = styled.div`
-  position: fixed;
-  top: 20px;
-  right: 90px;
-  z-index: 1000;
   
-  @media screen and (max-width: 768px) {
-    right: 70px; /* Adjusted to avoid overlap with mobile dropdown icon */
-    top: 20px;
+  @media (max-width: 768px) {
+    svg {
+      width: 18px;
+      height: 18px;
+      fill: ${({ theme }) => theme.colors.text};
+    }
   }
 `;
 
 const ThemeToggle: React.FC<ThemeToggleProps> = ({ theme, toggleTheme }) => {
   return (
-    <ToggleContainer>
-      <ToggleButton onClick={toggleTheme} aria-label="Toggle dark mode">
-        {theme === 'light' ? <FaMoon /> : <FaSun />}
-      </ToggleButton>
+    <ToggleContainer onClick={toggleTheme} aria-label="Toggle theme">
+      {theme === 'dark' ? (
+        // Sun icon for dark mode (to switch to light)
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z" />
+        </svg>
+      ) : (
+        // Moon icon for light mode (to switch to dark)
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M9.37 5.51c-.18.64-.27 1.31-.27 1.99 0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27C17.45 17.19 14.93 19 12 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49zM12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" />
+        </svg>
+      )}
     </ToggleContainer>
   );
 };

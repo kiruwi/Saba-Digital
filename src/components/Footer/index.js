@@ -24,8 +24,8 @@ function Footer() {
           <FooterLinksWrapper>
             <FooterLinkItems>
               <FooterLinkTitle>Nairobi</FooterLinkTitle>
-              <FooterLink to="/contactus">Karen, Silanga Rd</FooterLink>
-              <FooterLink to="/contactus">House 635</FooterLink>
+              <FooterLink to="/contactus">Kilimani, Naivasha Rd</FooterLink>
+              <FooterLink to="/contactus">305</FooterLink>
             </FooterLinkItems>
             <FooterLinkItems>
               <FooterLinkTitle>Lets Talk</FooterLinkTitle>

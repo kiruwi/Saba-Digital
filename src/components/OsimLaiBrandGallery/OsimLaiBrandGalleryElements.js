@@ -29,7 +29,7 @@ export const GalleryHeader = styled.div`
   }
   
   p {
-    color: #b8b8b8;
+    color: ${({ theme }) => theme.colors.text};
     font-size: 1.1rem;
   }
 `;

@@ -16,14 +16,14 @@ const MobileOnlySection = styled.div`
   }
 `;
 
-export const Home = () => {
+export const Home = ({ currentTheme, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   return (
     <>
-      <Sidebar isOpen={isOpen} toggle={toggle} />
-      <Navbar toggle={toggle} isOpen={isOpen} />
+      <Sidebar isOpen={isOpen} toggle={toggle} currentTheme={currentTheme} toggleTheme={toggleTheme} />
+      <Navbar toggle={toggle} isOpen={isOpen} currentTheme={currentTheme} toggleTheme={toggleTheme} />
       <HeroSection />
       <MobileOnlySection>
         <Services />

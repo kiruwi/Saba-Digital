@@ -16,13 +16,13 @@ export const WebDevGrid = styled.div`
 export const WebDevCardContainer = styled(Link)`
   display: flex;
   flex-direction: column;
-  background: #0c0c0c;
+  background: ${({ theme }) => theme.colors.background};
   border-radius: 0px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
   transition: all 0.5s ease-in-out;
   text-decoration: none;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
   height: 100%;
   opacity: 0.9;
   transform: translateY(10px);
@@ -96,12 +96,12 @@ export const WebDevContentWrapper = styled.div`
 export const WebDevProjectTitle = styled.h3`
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const WebDevProjectDescription = styled.p`
   font-size: 0.9rem;
-  color: #b8b8b8;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1rem;
 `;
 
@@ -114,10 +114,10 @@ export const WebDevProjectTags = styled.div`
 
 export const WebDevTag = styled.span`
   padding: 0.25rem 0.75rem;
-  background: #1e1e1e;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
   border-radius: 0px;
   font-size: 0.75rem;
-  color: #2db670;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 // Styling for the WebDev project detail page
@@ -125,9 +125,9 @@ export const WebDevDetailContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  background: #0c0c0c;
+  background: ${({ theme }) => theme.colors.background};
   border-radius: 0px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
 `;
 
 export const WebDevDetailHeader = styled.div`
@@ -139,12 +139,12 @@ export const WebDevDetailHeader = styled.div`
 export const WebDevDetailTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const WebDevDetailDescription = styled.p`
   font-size: 1.1rem;
-  color: #b8b8b8;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1.5rem;
   line-height: 1.6;
 `;
@@ -162,7 +162,7 @@ export const WebDevBackButton = styled.button`
   margin-bottom: 2rem;
   background: none;
   border: none;
-  color: #2db670;
+  color: ${({ theme }) => theme.colors.primary};
   text-decoration: none;
   cursor: pointer;
   font-size: 1rem;
@@ -215,7 +215,7 @@ export const WebDevMobileOnlyImage = styled.div`
 export const WebDevHeading = styled.h3`
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #2db670;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 // Web Development specific components
@@ -234,40 +234,40 @@ export const TechItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #1e1e1e;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
   padding: 1rem;
   border-radius: 0px;
   transition: transform 0.3s ease;
   
   &:hover {
     transform: translateY(-5px);
-    background: #252525;
+    background: ${({ theme }) => theme.theme === 'dark' ? '#252525' : '#e9e9e9'};
   }
 `;
 
 export const TechIcon = styled.div`
   font-size: 2rem;
   margin-bottom: 0.5rem;
-  color: #2db670;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const TechName = styled.p`
   font-size: 0.9rem;
   text-align: center;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const CodeSnippetContainer = styled.div`
   margin: 2rem 0;
-  background: #1e1e1e;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
   border-radius: 0px;
   overflow: hidden;
 `;
 
 export const CodeSnippetHeader = styled.div`
-  background: #252525;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#252525' : '#e9e9e9'};
   padding: 0.5rem 1rem;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid ${({ theme }) => theme.theme === 'dark' ? '#333' : '#ddd'};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -275,7 +275,7 @@ export const CodeSnippetHeader = styled.div`
 
 export const CodeSnippetTitle = styled.p`
   font-size: 0.9rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
   font-family: monospace;
 `;
 
@@ -283,7 +283,7 @@ export const CodeSnippetContent = styled.pre`
   padding: 1rem;
   overflow-x: auto;
   font-family: monospace;
-  color: #e0e0e0;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 0.9rem;
   line-height: 1.5;
 `;

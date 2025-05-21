@@ -1,85 +1,104 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect, lazy } from 'react';
 import { HashRouter as Router, Routes, Route, useRoutes } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import { lightTheme, darkTheme } from './themes/theme';
 import { HelmetProvider } from 'react-helmet-async';
-import ThemeToggle from './components/ThemeToggle';
 import { BackToTop } from './components/BackToTop';
 import SEO from './components/SEO';
 import { GlobalStyles } from './styles/GlobalStyles';
-import ThemeUtils from './utils/theme';
 import { RoutePaths } from './utils/routes';
 import { Skeleton } from './components/Skeleton';
 import Navigation from './components/Navigation';
+import LoadingFallback from './components/LoadingFallback';
+import { ThemeProvider } from './contexts/ThemeContext';
+import { useTheme } from './contexts/ThemeContext';
+import useRouteOptimization from './hooks/useRouteOptimization';
 
-// Import pages directly to avoid routing issues
-const Home = React.lazy(() => import('./pages/Home'));
-const ContactPage = React.lazy(() => import('./pages/contactus'));
-const ErrorPage = React.lazy(() => import('./pages/Error'));
-const WorkPage = React.lazy(() => import('./pages/Work'));
+// Import pages with improved code splitting and chunk naming
+const Home = lazy(() => import(/* webpackChunkName: "home" */ './pages/Home'));
+const ContactPage = lazy(() => import(/* webpackChunkName: "contact" */ './pages/contactus'));
+const ErrorPage = lazy(() => import(/* webpackChunkName: "error" */ './pages/Error'));
+const WorkPage = lazy(() => import(/* webpackChunkName: "work" */ './pages/Work'));
 
-// Import work-related components
-const GraphicsWorkPage = React.lazy(() => import('./work/Graphics'));
-const GraphicsDetailPage = React.lazy(() => import('./work/GraphicsDetail'));
-const UXUIWorkPage = React.lazy(() => import('./work/UXUI'));
-const UXUIDetailPage = React.lazy(() => import('./work/UXUIDetail'));
-const WebDevWorkPage = React.lazy(() => import('./work/WebDev'));
-const WebDevDetailPage = React.lazy(() => import('./work/WebDevDetail'));
+// Import work-related components with chunk grouping
+const GraphicsWorkPageBase = lazy(() => import(/* webpackChunkName: "graphics-work" */ './work/Graphics'));
+const GraphicsDetailPageBase = lazy(() => import(/* webpackChunkName: "graphics-detail" */ './work/GraphicsDetail'));
+const UXUIWorkPageBase = lazy(() => import(/* webpackChunkName: "uxui-work" */ './work/UXUI'));
+const UXUIDetailPageBase = lazy(() => import(/* webpackChunkName: "uxui-detail" */ './work/UXUIDetail'));
+const WebDevWorkPageBase = lazy(() => import(/* webpackChunkName: "webdev-work" */ './work/WebDev'));
+const WebDevDetailPageBase = lazy(() => import(/* webpackChunkName: "webdev-detail" */ './work/WebDevDetail'));
 
-// Import special pages
-const UfanisiSpecialPage = React.lazy(() => import('./pages/UfanisiSpecialPage'));
-const UfanisiResortPage = React.lazy(() => import('./work/UfanisiResort'));
+// Create wrapper components that use ThemeContext
+const WebDevWorkPage = () => {
+  const { theme, toggleTheme } = useTheme();
+  return <WebDevWorkPageBase currentTheme={theme} toggleTheme={toggleTheme} />;
+};
 
-function App() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(
-    ThemeUtils.getInitialTheme()
-  );
+const WebDevDetailPage = () => {
+  const { theme, toggleTheme } = useTheme();
+  return <WebDevDetailPageBase currentTheme={theme} toggleTheme={toggleTheme} />;
+};
+
+// Create wrapper components for UXUI pages
+const UXUIWorkPage = () => {
+  const { theme, toggleTheme } = useTheme();
+  return <UXUIWorkPageBase currentTheme={theme} toggleTheme={toggleTheme} />;
+};
+
+const UXUIDetailPage = () => {
+  const { theme, toggleTheme } = useTheme();
+  return <UXUIDetailPageBase currentTheme={theme} toggleTheme={toggleTheme} />;
+};
+
+// Create wrapper components for Graphics pages
+const GraphicsWorkPage = () => {
+  const { theme, toggleTheme } = useTheme();
+  return <GraphicsWorkPageBase currentTheme={theme} toggleTheme={toggleTheme} />;
+};
+
+const GraphicsDetailPage = () => {
+  const { theme, toggleTheme } = useTheme();
+  return <GraphicsDetailPageBase currentTheme={theme} toggleTheme={toggleTheme} />;
+};
+
+// Import special pages with their own chunks
+const UfanisiSpecialPage = lazy(() => import(/* webpackChunkName: "ufanisi-special" */ './pages/UfanisiSpecialPage'));
+const UfanisiResortPage = lazy(() => import(/* webpackChunkName: "ufanisi-resort" */ './work/UfanisiResort'));
+
+// AppContent component to use hooks that require Router context
+const AppContent: React.FC = () => {
+  // Use route optimization hook
+  useRouteOptimization();
+  
+  // Access theme context
+  const { theme, toggleTheme } = useTheme();
+  
+  // Loading state
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Handle theme initialization
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme) {
-      setTheme(storedTheme as 'light' | 'dark');
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(prefersDark ? 'dark' : 'light');
-    }
-    
     // Simulate loading
     const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
-
-  // If loading, show skeleton
+  // If loading, show improved loading fallback
   if (loading) {
     return (
-      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <>
         <GlobalStyles />
-        <div className="loading">Loading...</div>
-      </ThemeProvider>
+        <LoadingFallback message="Initializing application..." />
+      </>
     );
   }
 
   return (
-    <HelmetProvider>
-      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-        <GlobalStyles />
-        <SEO title="Home" description="Welcome to my portfolio" />
-        {/* With HashRouter, we don't need a basename as it uses hash-based routing */}
-        <Router>
-          <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-          <BackToTop />
-          {/* Add Navigation */}
-          <Navigation />
-          <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
+    <>
+      <GlobalStyles />
+      <SEO title="Home" description="Welcome to my portfolio" />
+      <BackToTop />
+      {/* Add Navigation */}
+      <Navigation />
+      <Suspense fallback={<LoadingFallback />}>
+        <Routes>
               {/* Improved routes for Ufanisi Resort that use proper styling */}
               <Route path="/ufanisi" element={<UfanisiSpecialPage />} />
               <Route path="ufanisi" element={<UfanisiSpecialPage />} />
@@ -105,8 +124,19 @@ function App() {
               
               {/* Error route should always be last */}
               <Route path="*" element={<ErrorPage />} />
-            </Routes>
-          </Suspense>
+        </Routes>
+      </Suspense>
+    </>
+  );
+};
+
+// Main App component
+function App() {
+  return (
+    <HelmetProvider>
+      <ThemeProvider>
+        <Router>
+          <AppContent />
         </Router>
       </ThemeProvider>
     </HelmetProvider>

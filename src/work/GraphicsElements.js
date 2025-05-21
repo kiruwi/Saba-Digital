@@ -103,7 +103,7 @@ export const GraphicsProjectTitle = styled.h3`
 
 export const GraphicsProjectDescription = styled.p`
   font-size: 0.9rem;
-  color: #b8b8b8;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1rem;
 `;
 
@@ -146,7 +146,7 @@ export const GraphicsDetailTitle = styled.h2`
 
 export const GraphicsDetailDescription = styled.p`
   font-size: 1.1rem;
-  color: #b8b8b8;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 1.5rem;
   line-height: 1.6;
 `;

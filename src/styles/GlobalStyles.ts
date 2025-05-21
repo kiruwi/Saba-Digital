@@ -21,7 +21,7 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 1.5;
     background-color: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
-    transition: background-color ${({ theme }) => theme.transitions.default};
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   a {
