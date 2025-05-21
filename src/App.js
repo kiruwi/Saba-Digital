@@ -5,7 +5,8 @@ import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./themes/theme";
 import ThemeUtils from "./utils/theme";
-import ThemeToggle from "./components/ThemeToggle";
+// Import commented out temporarily
+// import ThemeToggle from "./components/ThemeToggle";
 import GlobalStyles from "./components/GlobalStyles";
 import { trackPageView } from "./utils/analytics";
 import { Home } from "./pages";
@@ -33,6 +34,7 @@ function RouteChangeTracker() {
 
 function App() {
   // Get initial theme preference
+  // eslint-disable-next-line no-unused-vars
   const [currentTheme, setCurrentTheme] = useState(() => {
     // Use server-side rendering safe check
     if (typeof window !== 'undefined') {
@@ -41,10 +43,10 @@ function App() {
     return 'light';
   });
 
-  // Toggle between light and dark theme
-  const toggleTheme = () => {
-    setCurrentTheme(prevTheme => ThemeUtils.toggleTheme(prevTheme));
-  };
+  // Toggle between light and dark theme - temporarily commented out
+  // const toggleTheme = () => {
+  //   setCurrentTheme(prevTheme => ThemeUtils.toggleTheme(prevTheme));
+  // };
   
   // Update body class when theme changes
   useEffect(() => {
@@ -58,7 +60,8 @@ function App() {
     <HelmetProvider>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} />
+        {/* Theme toggle temporarily commented out - will be added back later */}
+        {/* <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} /> */}
         <Router>
           <RouteChangeTracker />
           <Routes>
