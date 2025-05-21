@@ -42,13 +42,13 @@ export type ThemeType = 'light' | 'dark';
 // Light theme configuration
 export const lightTheme: Theme = {
   colors: {
-    primary: '#007bff',
+    primary: '#00ab57', // Green accent color (same in both themes)
     secondary: '#6c757d',
     background: '#ffffff',
     text: '#343a40',
     border: '#dee2e6',
     shadow: 'rgba(0, 0, 0, 0.1)',
-    accent: '#17a2b8',
+    accent: '#00ab57', // Same green for accent
     error: '#dc3545'
   },
   fontSizes: {
@@ -81,13 +81,13 @@ export const lightTheme: Theme = {
 // Dark theme configuration
 export const darkTheme: Theme = {
   colors: {
-    primary: '#0d6efd',
+    primary: '#00ab57', // Green accent color (same in both themes)
     secondary: '#6c757d',
-    background: '#212529',
+    background: '#121212',
     text: '#f8f9fa',
     border: '#495057',
     shadow: 'rgba(0, 0, 0, 0.5)',
-    accent: '#0dcaf0',
+    accent: '#00ab57', // Same green for accent
     error: '#e35d6a'
   },
   fontSizes: {

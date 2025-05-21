@@ -1,9 +1,12 @@
 // src/App.js
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { HashRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "styled-components";
-import { lightTheme } from "./themes/theme";
+import { lightTheme, darkTheme } from "./themes/theme";
+import ThemeUtils from "./utils/theme";
+import ThemeToggle from "./components/ThemeToggle";
+import GlobalStyles from "./components/GlobalStyles";
 import { trackPageView } from "./utils/analytics";
 import { Home } from "./pages";
 import ContactPage from "./pages/contactus";
@@ -29,14 +32,33 @@ function RouteChangeTracker() {
 }
 
 function App() {
-  // Setting a consistent light theme for the entire application
+  // Get initial theme preference
+  const [currentTheme, setCurrentTheme] = useState(() => {
+    // Use server-side rendering safe check
+    if (typeof window !== 'undefined') {
+      return ThemeUtils.getInitialTheme();
+    }
+    return 'light';
+  });
+
+  // Toggle between light and dark theme
+  const toggleTheme = () => {
+    setCurrentTheme(prevTheme => ThemeUtils.toggleTheme(prevTheme));
+  };
+  
+  // Update body class when theme changes
   useEffect(() => {
-    document.body.className = 'light';
-  }, []);
+    document.body.className = currentTheme;
+  }, [currentTheme]);
+  
+  // Get the current theme object
+  const theme = currentTheme === 'light' ? lightTheme : darkTheme;
   
   return (
     <HelmetProvider>
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} />
         <Router>
           <RouteChangeTracker />
           <Routes>
