@@ -9,9 +9,6 @@ interface ThemeToggleProps {
 }
 
 const ToggleButton = styled.button`
-  position: fixed;
-  top: 20px;
-  right: 20px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -22,7 +19,7 @@ const ToggleButton = styled.button`
   color: white;
   border: none;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 100;
   transition: all ${({ theme }) => theme.transitions.default};
   box-shadow: 0 2px 5px ${({ theme }) => theme.colors.shadow};
   
@@ -37,11 +34,25 @@ const ToggleButton = styled.button`
   }
 `;
 
+const ToggleContainer = styled.div`
+  position: fixed;
+  top: 20px;
+  right: 90px;
+  z-index: 1000;
+  
+  @media screen and (max-width: 768px) {
+    right: 70px; /* Adjusted to avoid overlap with mobile dropdown icon */
+    top: 20px;
+  }
+`;
+
 const ThemeToggle: React.FC<ThemeToggleProps> = ({ theme, toggleTheme }) => {
   return (
-    <ToggleButton onClick={toggleTheme} aria-label="Toggle dark mode">
-      {theme === 'light' ? <FaMoon /> : <FaSun />}
-    </ToggleButton>
+    <ToggleContainer>
+      <ToggleButton onClick={toggleTheme} aria-label="Toggle dark mode">
+        {theme === 'light' ? <FaMoon /> : <FaSun />}
+      </ToggleButton>
+    </ToggleContainer>
   );
 };
 
