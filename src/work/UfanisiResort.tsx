@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { uxProjects } from "../data/projects";
@@ -6,6 +6,9 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import ProcessSection from "../components/ProcessSection";
 import { useTheme } from "../contexts/ThemeContext";
+import { Theme } from "../themes/theme";
+import LazyImage from "../components/LazyImage";
+import { preloadImage, preloadSectionImages } from "../utils/preloadImages";
 import {
   UfanisiContainer,
   UfanisiTitle,
@@ -44,6 +47,9 @@ const UfanisiResort: React.FC = () => {
   const toggle = () => setIsOpen(!isOpen);
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // Start visible by default
+  const contentRef = useRef<HTMLDivElement>(null);
   
   // Get theme from context
   const { theme, toggleTheme } = useTheme();
@@ -63,21 +69,42 @@ const UfanisiResort: React.FC = () => {
     // Cleanup
     return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
+
+  // Preload images when component mounts
+  useEffect(() => {
+    // Preload the main project image
+    const project = uxProjects.find(p => p.id === "ufanisi-resort");
+    if (project?.image) {
+      preloadImage(project.image)
+        .then(() => {
+          setIsLoaded(true);
+          console.log('Main image preloaded successfully');
+        })
+        .catch(err => console.warn('Failed to preload main image:', err));
+    }
+
+    // Preload other section images
+    preloadSectionImages('uxui')
+      .then(() => console.log('UXUI section images preloaded'))
+      .catch(err => console.warn('Failed to preload UXUI section images:', err));
+
+    // Force visibility after a short delay regardless of scroll position
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
   
   // Get the Ufanisi Resort project data
-  console.log('UfanisiResort page loaded');
   const project = uxProjects.find(p => p.id === "ufanisi-resort");
-  console.log('Loaded Ufanisi project:', project);
-  
-  // For debugging - log image path
-  console.log('Project image path:', project?.image);
   
   if (!project) {
     return (
       <>
         <Navbar toggle={toggle} isOpen={isOpen} currentTheme={theme} toggleTheme={toggleTheme} />
         <main style={{ padding: "7rem 1.5rem 4rem 1.5rem", marginTop: "10px", background: "#000", color: "#fff" }}>
-          <UfanisiContainer>
+          <UfanisiContainer ref={contentRef}>
             <UfanisiBackButton onClick={() => navigate(-1)}>
               <FaArrowLeft style={{ marginRight: '0.5rem' }} /> Go Back
             </UfanisiBackButton>
@@ -93,7 +120,14 @@ const UfanisiResort: React.FC = () => {
   return (
     <>
       <Navbar toggle={toggle} isOpen={isOpen} currentTheme={theme} toggleTheme={toggleTheme} />
-      <main style={{ padding: "7rem 1.5rem 4rem 1.5rem", marginTop: "10px", background: "#000", color: "#fff" }}>
+      <main style={{ 
+        padding: "7rem 1.5rem 4rem 1.5rem", 
+        marginTop: "10px", 
+        background: theme === 'dark' ? '#121212' : '#ffffff', 
+        color: theme === 'dark' ? '#f8f9fa' : '#343a40',
+        opacity: 1 // Animation commented out
+        /* transition: 'opacity 0.5s ease-in' */
+      }}>
         <UfanisiContainer>
           <UfanisiBackButton onClick={() => navigate(-1)}>
             <FaArrowLeft style={{ marginRight: '0.5rem' }} /> Go Back
@@ -104,10 +138,11 @@ const UfanisiResort: React.FC = () => {
             <UfanisiHeroContent>
               {!isMobile ? (
                 <>
-                  <UfanisiImage 
+                  <LazyImage 
                     src={project.image} 
                     alt={project.title} 
-                    style={{ width: '100%', height: 'auto', display: 'block' }} 
+                    threshold={0.01}
+                    rootMargin="200px"
                   />
                   <UfanisiHeroOverlay>
                     <UfanisiTitle style={{ color: 'white', margin: 0 }}>{project.title}</UfanisiTitle>
@@ -133,10 +168,12 @@ const UfanisiResort: React.FC = () => {
           {!isMobile && (
             <div style={{ display: 'flex', flexDirection: 'row', gap: '2rem', marginBottom: '2rem', marginTop: '2rem' }}>
               {/* Using absolute path that works in both environments */}
-              <img 
+              <LazyImage 
                 src={require('../assets/projects/ux-ui/u-r.jpg')} 
                 alt="Previous design issues" 
-                style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover', maxHeight: '400px' }} 
+                height="400px"
+                threshold={0.01}
+                rootMargin="200px"
               />
               <div style={{ flex: '0 0 50%' }}>
                 <UfanisiHeading>My Design Transformation</UfanisiHeading>
@@ -148,10 +185,11 @@ const UfanisiResort: React.FC = () => {
           {isMobile && (
             <UfanisiSideBySide>
               <UfanisiMobileImageFirst>
-                <img 
+                <LazyImage 
                   src={require('../assets/projects/ux-ui/u-r.jpg')} 
                   alt="Previous design issues" 
-                  style={{ display: 'block', width: '100%', height: 'auto' }} 
+                  threshold={0.01}
+                  rootMargin="200px"
                 />
               </UfanisiMobileImageFirst>
               <UfanisiMobileTextSecond>

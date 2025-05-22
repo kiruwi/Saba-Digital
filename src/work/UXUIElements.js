@@ -24,30 +24,30 @@ export const UXUICardContainer = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.colors.text};
   height: 100%;
-  opacity: 0.9;
-  transform: translateY(10px);
+  opacity: 1; /* Always fully visible */
+  transform: translateY(0); /* No transform offset */
   
-  /* Initial animation starts right away */
-  animation: uxuiCardAppear 0.8s forwards;
+  /* No initial animation - immediately visible */
+  /* animation: uxuiCardAppear 0.8s forwards; */
   
-  /* Add more pronounced hover effect */
+  /* Keep hover effect for interactivity */
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   }
   
-  /* Class added by JS for additional animation if needed */
+  /* Class is now added immediately on load */
   &.animated-in {
     opacity: 1;
     transform: translateY(0);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   }
   
-  /* Define the animation */
-  @keyframes uxuiCardAppear {
+  /* Animation keyframes commented out */
+  /* @keyframes uxuiCardAppear {
     from { opacity: 0.7; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
-  }
+  } */
 `;
 
 export const UXUIImageWrapper = styled.div`
@@ -62,18 +62,20 @@ export const UXUIProjectImage = styled.img`
   object-fit: cover;
   transition: transform 0.5s ease;
   
-  /* Initial animation */
-  animation: uxuiImageScale 1.2s forwards;
+  /* No initial animation */
+  /* animation: uxuiImageScale 1.2s forwards; */
+  transform: scale(1.05); /* Start with the final scale */
   
-  /* Hover effect */
+  /* Keep hover effect */
   ${UXUICardContainer}:hover & {
     transform: scale(1.05);
   }
   
-  @keyframes uxuiImageScale {
+  /* Animation keyframes commented out */
+  /* @keyframes uxuiImageScale {
     from { transform: scale(1); }
     to { transform: scale(1.05); }
-  }
+  } */
 `;
 
 export const UXUIContentWrapper = styled.div`
@@ -82,15 +84,17 @@ export const UXUIContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   
-  /* Animate content appearance with slight delay for a staggered effect */
-  animation: uxuiContentFadeIn 0.8s forwards;
-  animation-delay: 0.3s;  /* Slight delay after card appears */
-  opacity: 0;
+  /* No animation or delay - immediately visible */
+  /* animation: uxuiContentFadeIn 0.8s forwards; */
+  /* animation-delay: 0.3s; */
+  opacity: 1; /* Always visible */
+  transform: translateY(0); /* No transform offset */
   
-  @keyframes uxuiContentFadeIn {
+  /* Animation keyframes commented out */
+  /* @keyframes uxuiContentFadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
-  }
+  } */
 `;
 
 export const UXUIProjectTitle = styled.h3`

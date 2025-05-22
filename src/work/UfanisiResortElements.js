@@ -1,10 +1,23 @@
 import styled from 'styled-components';
 
+// Performance optimization - animations commented out per user request
+// will-change properties also commented out to prevent unnecessary GPU usage
+
 // Dedicated styled components for the Ufanisi Resort page
 export const UfanisiContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  opacity: 1;
+  /* Animation commented out
+  will-change: opacity, transform;
+  animation: fadeIn 0.5s ease-in;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  */
 `;
 
 export const UfanisiTitle = styled.h1`
@@ -43,6 +56,10 @@ export const UfanisiImage = styled.img`
   object-fit: cover;
   margin-bottom: 2rem;
   display: block;
+  /* Animation commented out
+  will-change: transform;
+  transition: transform 0.3s ease;
+  */
   
   @media screen and (min-width: 768px) {
     display: block;
@@ -174,12 +191,25 @@ export const UfanisiDesktopOnlyImage = styled.div`
 export const UfanisiHeroContainer = styled.div`
   position: relative;
   margin-bottom: 2rem;
+  /* Animation commented out
+  will-change: opacity;
+  animation: fadeIn 0.6s ease-in;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  */
 `;
 
 export const UfanisiHeroContent = styled.div`
   width: 100%;
   height: auto;
   position: relative;
+  /* Animation commented out
+  will-change: opacity;
+  animation: fadeIn 0.8s ease-in;
+  */
 `;
 
 export const UfanisiHeroOverlay = styled.div`
@@ -190,6 +220,10 @@ export const UfanisiHeroOverlay = styled.div`
   padding: 1.5rem;
   background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 100%);
   color: white;
+  /* Animation commented out
+  will-change: opacity;
+  animation: fadeIn 1s ease-in;
+  */
 `;
 
 export const UfanisiMobileTitle = styled.div`
@@ -199,6 +233,22 @@ export const UfanisiMobileTitle = styled.div`
 
 // Food Delivery App Section styling
 export const FoodDeliverySection = styled.div`
+  /* Animation commented out
+  will-change: opacity, transform;
+  animation: fadeInUp 0.8s ease-in-out;
+  
+  @keyframes fadeInUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(30px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+  */
+
   background-color: #1e1e1e; /* Always dark background regardless of theme */
   border-radius: 12px;
   padding: 2rem;

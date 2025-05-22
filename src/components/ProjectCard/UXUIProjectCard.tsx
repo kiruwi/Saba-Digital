@@ -17,50 +17,20 @@ interface UXUIProjectCardProps {
 }
 
 const UXUIProjectCard: FC<UXUIProjectCardProps> = ({ project }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  // Always visible by default, no animation or scroll detection
+  const [isVisible] = useState(true);
   const cardRef = useRef<HTMLAnchorElement | null>(null);
   
-  // Immediately make cards visible on load rather than requiring hover
+  // Force visibility immediately on component mount
   useEffect(() => {
-    setIsVisible(true);
-    
-    // Add visibility class after a short delay
-    const timer = setTimeout(() => {
-      if (cardRef.current) {
-        cardRef.current.classList.add('animated-in');
-      }
-    }, 100);
-    
-    return () => clearTimeout(timer);
+    // Immediately add the animated-in class to make content visible
+    if (cardRef.current) {
+      cardRef.current.classList.add('visible');
+      cardRef.current.classList.add('animated-in');
+    }
   }, []);
   
-  // Set up intersection observer
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setIsVisible(true);
-          if (cardRef.current) {
-            cardRef.current.classList.add('animated-in');
-          }
-        }
-      },
-      {
-        threshold: 0.1, // More sensitive threshold
-        rootMargin: '0px 0px -100px 0px' // Trigger before fully scrolled into view
-      }
-    );
-    
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-    
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
-    };
-  }, []);
+  // No intersection observer - we don't want to wait for scrolling
   
   return (
     <UXUICardContainer 

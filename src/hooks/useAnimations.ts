@@ -16,41 +16,25 @@ export const useAnimations = (options: AnimationOptions = {}) => {
   const {
     duration = 600,
     delay = 0,
-    easing = 'cubic-bezier(0.5, 0, 0.15, 1)',
-    threshold = 0.1,
-    rootMargin = '0px'
+    easing = 'cubic-bezier(0.5, 0, 0.15, 1)'
+    // We no longer need threshold and rootMargin since we removed the observer
   } = options;
   
-  const [isVisible, setIsVisible] = useState(false);
-  const [isAnimated, setIsAnimated] = useState(false);
+  // Always set to visible and animated by default - no scroll detection needed
+  const [isVisible, setIsVisible] = useState(true);
+  const [isAnimated, setIsAnimated] = useState(true);
   const elementRef = useRef<HTMLElement | null>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
+  // We no longer need the observer reference
 
-  // Setup intersection observer for scroll-based animations
+  // No intersection observer - everything is visible immediately
   useEffect(() => {
-    if (!elementRef.current) return;
+    // Force everything to be visible and animated immediately
+    setIsVisible(true);
+    setIsAnimated(true);
     
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        setIsVisible(entry.isIntersecting);
-        
-        // Once element has been animated, we can stop observing it
-        if (entry.isIntersecting && !isAnimated) {
-          setIsAnimated(true);
-        }
-      },
-      { threshold, rootMargin }
-    );
-    
-    observerRef.current.observe(elementRef.current);
-    
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [threshold, rootMargin, isAnimated]);
+    // No need for observer anymore
+    return () => {};
+  }, []);
 
   // Generate CSS for animations
   const getAnimationStyles = (animationType: string) => {
