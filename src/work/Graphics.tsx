@@ -26,7 +26,7 @@ const PageTitle = styled.h1`
 
 const ProjectCard = styled.div`
   background: ${({ theme }) => theme.colors.cardBackground};
-  border-radius: 8px;
+  border-radius: 0px;
   overflow: hidden;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
   transition: all 0.3s ease;
@@ -85,7 +85,7 @@ const ViewProjectLink = styled(Link)`
   background-color: ${({ theme }) => theme.colors.primary};
   color: white;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 0px;
   font-weight: 500;
   align-self: flex-start;
   transition: all 0.3s ease;
