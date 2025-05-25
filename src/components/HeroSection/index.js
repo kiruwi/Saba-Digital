@@ -94,7 +94,7 @@ const HeroSection = () => {
       <HeroText>
         <TitleBackground>
           <HeroTitleTop>
-            Currently a Graphics Designer for brands.
+            Currently a Graphics Designer.
           </HeroTitleTop>
           <HeroTitleBottom>
             Living in Nairobi, designing products that empower
