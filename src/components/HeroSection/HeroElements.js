@@ -137,21 +137,55 @@ export const ScrollText = styled.div`
   opacity: 0.8;
 `;
 
-export const ScrollArrow = styled(MdKeyboardArrowDown)`
-  color: white;
-  font-size: 30px;
-  opacity: 0.8;
+export const ScrollArrow = styled.div`
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
+  margin-top: 10px;
   animation: bounce 2s infinite;
-  
+
   @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
-      transform: translateY(0);
+      transform: translateY(0) rotate(45deg);
     }
     40% {
-      transform: translateY(-10px);
+      transform: translateY(-10px) rotate(45deg);
     }
     60% {
-      transform: translateY(-5px);
+      transform: translateY(-5px) rotate(45deg);
     }
+  }
+`;
+
+// Slide indicators container
+export const SlideIndicatorsContainer = styled.div`
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  z-index: 10;
+  
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
+`;
+
+// Individual slide indicator dot
+export const SlideIndicator = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: ${({ active }) => (active ? '#2db670' : 'rgba(255, 255, 255, 0.5)')};
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: ${({ active }) => (active ? '#2db670' : 'rgba(255, 255, 255, 0.8)')};
   }
 `;
