@@ -38,7 +38,7 @@ const Sidebar=({isOpen, toggle, currentTheme, toggleTheme}) => {
       <SidebarWrapper>
         <SidebarMenu>
           <SidebarLink to='services' onClick={toggle}>Portfolio</SidebarLink>
-          <SidebarLink as="a" href='/assets/cv/iancheruiyot design cv.pdf' target="_blank" rel="noopener noreferrer" onClick={toggle} style={{ textDecoration: 'none' }}>Resume</SidebarLink>
+          <SidebarLink as="a" href='/assets/cv/iancheruiyot design cv.pdf' download="Ian_Cheruiyot_CV.pdf" rel="noopener noreferrer" onClick={toggle} style={{ textDecoration: 'none' }}>Resume</SidebarLink>
           <SidebarLink as={Link} to='/ContactUs' onClick={toggle} style={{ textDecoration: 'none' }}>Contact Me</SidebarLink>
         </SidebarMenu>
         <SideBtnWrap>
