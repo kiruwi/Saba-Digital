@@ -12,9 +12,11 @@ import {
 } from "./ContactElements";
 
 const Result = () => <p>Your message has been successfully sent! I'll get back to you soon.</p>;
+const ErrorResult = () => <p style={{ color: 'red' }}>Something went wrong. Please try again later.</p>;
 
 function ContactUs() {
   const [result, showResult] = useState(false);
+  const [error, showError] = useState(false);
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -31,18 +33,38 @@ function ContactUs() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Form is handled by Netlify, this is just for UX feedback
-    showResult(true);
-    e.target.reset();
-    setFormState({
-      name: "",
-      email: "",
-      subject: "",
-      message: ""
-    });
     
-    /* hide notice after 5 s */
-    setTimeout(() => showResult(false), 5000);
+    // Get form data
+    const form = e.target;
+    
+    // Submit form data to Netlify using fetch
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    })
+    .then(() => {
+      // Show success message
+      showResult(true);
+      showError(false);
+      
+      // Reset form
+      form.reset();
+      setFormState({
+        name: "",
+        email: "",
+        subject: "",
+        message: ""
+      });
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => showResult(false), 5000);
+    })
+    .catch((error) => {
+      console.error('Form submission error:', error);
+      showError(true);
+      setTimeout(() => showError(false), 5000);
+    });
   };
 
   return (
@@ -54,7 +76,7 @@ function ContactUs() {
             name="contact" 
             method="POST" 
             data-netlify="true" 
-            netlify-honeypot="bot-field" 
+            data-netlify-honeypot="bot-field" 
             onSubmit={handleSubmit}
           >
             {/* Hidden fields needed for Netlify Forms */}
@@ -106,7 +128,10 @@ function ContactUs() {
 
             <FormButton type="submit">Continue</FormButton>
 
-            <FormLabel>{result && <Result />}</FormLabel>
+            <FormLabel>
+              {result && <Result />}
+              {error && <ErrorResult />}
+            </FormLabel>
           </Form>
         </FormContent>
       </FormWrap>
