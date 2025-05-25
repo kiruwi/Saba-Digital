@@ -89,6 +89,7 @@ export const graphicsProjects = [
     ],
     image: "/assets/projects/3d-graphics/gsc-images/gsc-water.jpg",
     additionalImages: [
+      "/assets/projects/3d-graphics/gsc-images/gsc-logo.jpg",
       "/assets/projects/3d-graphics/gsc-images/gsc-AD.png",
       "/assets/projects/3d-graphics/gsc-images/gsc-water.jpg"
     ],
