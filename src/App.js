@@ -1,13 +1,13 @@
 // src/App.js
 import React, { useEffect, useState } from "react";
-import { HashRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./themes/theme";
 import ThemeUtils from "./utils/theme";
 import ThemeToggle from "./components/ThemeToggle";
 import GlobalStyles from "./components/GlobalStyles";
-import { trackPageView } from "./utils/analytics";
+import { useGAPageViews } from "./utils/analytics";
 import { Home } from "./pages";
 import ContactPage from "./pages/contactus";
 import ErrorPage from "./pages/Error";
@@ -21,13 +21,8 @@ import "./App.css";
 
 // RouteChangeTracker component to track page views
 function RouteChangeTracker() {
-  const location = useLocation();
-  
-  useEffect(() => {
-    // Track page view with Google Analytics
-    trackPageView(location.pathname);
-  }, [location]);
-
+  // Use the custom hook to track page views
+  useGAPageViews();
   return null;
 }
 
