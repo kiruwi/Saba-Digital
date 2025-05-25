@@ -8,6 +8,8 @@ import AnimatedSection from "../components/AnimatedSection";
 import LazyImage from "../components/LazyImage";
 import { Link } from "react-router-dom";
 import { FaUsers, FaRocket, FaShoppingCart, FaLanguage, FaUniversalAccess, FaMicrophone, FaHistory, FaCreditCard, FaStarHalfAlt } from 'react-icons/fa';
+// Import Ufanisi styled components for responsive layout
+import { UfanisiSideBySide, UfanisiMobileImageFirst, UfanisiMobileTextSecond } from "./UfanisiResortElements";
 
 const MainContainer = styled.main`
   padding: 7rem 1.5rem 4rem 1.5rem;
@@ -241,13 +243,15 @@ const UXUI: React.FC<UXUIProps> = ({ currentTheme, toggleTheme }) => {
                 </AnimatedSection>
               ))}
 
-              <div style={{ display: 'flex', flexDirection: 'row', gap: '2rem', marginBottom: '2rem', marginTop: '2rem' }}>
-                <img 
-                  src={require('../images/ufanisi.jpg')} 
-                  alt="Ufanisi Design Transformation" 
-                  style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover', maxHeight: '400px' }} 
-                />
-                <div style={{ flex: '0 0 50%' }}>
+              <UfanisiSideBySide>
+                <UfanisiMobileImageFirst>
+                  <img 
+                    src={require('../images/ufanisi.jpg')} 
+                    alt="Ufanisi Design Transformation" 
+                    style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover', maxHeight: '400px' }} 
+                  />
+                </UfanisiMobileImageFirst>
+                <UfanisiMobileTextSecond>
                   <SectionTitle>My Design Transformation</SectionTitle>
                   <ProjectDescription>
                     My previous design suffered from fundamental flaws in typography and layout that I needed to address. My original interface 
@@ -264,8 +268,8 @@ const UXUI: React.FC<UXUIProps> = ({ currentTheme, toggleTheme }) => {
                     contrast, and the navigation required users to hunt for basic functions. This second project served as a refresher for me, allowing me to 
                     implement a consistent type system, thoughtful spacing hierarchy, and intuitive interaction patterns in my redesign.
                   </ProjectDescription>
-                </div>
-              </div>
+                </UfanisiMobileTextSecond>
+              </UfanisiSideBySide>
 
               <SectionTitle>Design Process</SectionTitle>
               <ProcessStepsContainer>
