@@ -87,7 +87,7 @@ const Navbar = ({ toggle, isOpen, currentTheme, toggleTheme }) => {
             <DesktopThemeToggle>
               <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} />
             </DesktopThemeToggle>
-            <NavBtnLink href="/assets/cv/iancheruiyot design cv.pdf" download="Ian_Cheruiyot_CV.pdf" rel="noopener noreferrer">Resume</NavBtnLink>
+            <NavBtnLink href="https://drive.google.com/file/d/1-LmqGJNPkNZ0naITKqTo5PrQsX7iNpYP/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</NavBtnLink>
             <NavBtnLink to="/contactus">Contact Me</NavBtnLink>
           </NavBtn>
         </NavbarContainer>
