@@ -14,6 +14,7 @@ import {
   NavMenu,
   NavBtn,
   NavBtnLink,
+  ExternalNavBtnLink,
 } from "./NavbarElements";
 
 // Styled component for mobile theme toggle
@@ -87,7 +88,7 @@ const Navbar = ({ toggle, isOpen, currentTheme, toggleTheme }) => {
             <DesktopThemeToggle>
               <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} />
             </DesktopThemeToggle>
-            <NavBtnLink href="https://drive.google.com/file/d/1-LmqGJNPkNZ0naITKqTo5PrQsX7iNpYP/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</NavBtnLink>
+            <ExternalNavBtnLink href="https://drive.google.com/file/d/1-LmqGJNPkNZ0naITKqTo5PrQsX7iNpYP/view?usp=sharing" target="_blank" rel="noopener noreferrer">Résumé</ExternalNavBtnLink>
             <NavBtnLink to="/contactus">Contact Me</NavBtnLink>
           </NavBtn>
         </NavbarContainer>

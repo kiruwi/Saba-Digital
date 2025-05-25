@@ -125,3 +125,27 @@ export const NavBtnLink = styled(LinkR)`
     color: #050c23;
   }
 `;
+
+// External link version of NavBtnLink (for links outside the app)
+export const ExternalNavBtnLink = styled.a`
+  border-radius: 0px;
+  white-space: nowrap;
+  padding: 8px 22px;
+  color: rgb(255, 255, 255);
+  font-size: 1 rem;
+  font-weight: regular;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #050c23;
+  }
+`;
