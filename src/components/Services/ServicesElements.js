@@ -119,4 +119,31 @@ export const ServicesH2 = styled.h2`
 export const ServicesP = styled.p`
   font-size: 1rem;
   text-align: left;
+  margin-bottom: 1.5rem;
+`;
+
+/* ── learn more button ───────────────────────────────── */
+export const LearnMoreButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2db670;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: auto;
+  
+  &:hover {
+    background-color: #25a060;
+    transform: translateY(-2px);
+  }
+  
+  svg {
+    margin-left: 0.5rem;
+  }
 `;

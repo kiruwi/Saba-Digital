@@ -9,8 +9,10 @@ import {
   ServicesP,
   Slide,
   serviceBackgrounds,          // ← array of Bg1, Bg2, Bg3
+  LearnMoreButton
 } from "./ServicesElements";
 import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 
 
 /* card data */
@@ -42,6 +44,9 @@ const Services = () => (
             <TextOverlay>
               <ServicesH2>{title}</ServicesH2>
               <ServicesP>{desc}</ServicesP>
+              <LearnMoreButton>
+                Learn More <FaArrowRight />
+              </LearnMoreButton>
             </TextOverlay>
           </Card>
         </Link>
@@ -62,6 +67,9 @@ export const ServicesRail = () => (
             <TextOverlay>
               <ServicesH2>{title}</ServicesH2>
               <ServicesP>{desc}</ServicesP>
+              <LearnMoreButton>
+                Learn More <FaArrowRight />
+              </LearnMoreButton>
             </TextOverlay>
           </Card>
         </Link>

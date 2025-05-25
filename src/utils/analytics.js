@@ -2,6 +2,8 @@
 /**
  * Helper functions for Google Analytics tracking
  */
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 // Track page views in Google Analytics for SPAs
 export const trackPageView = (path) => {
@@ -26,8 +28,6 @@ export const trackEvent = (eventName, eventParams = {}) => {
 };
 
 // React Router hook for tracking page views
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 
 export const useGAPageViews = () => {
   const location = useLocation();
