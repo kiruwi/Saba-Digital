@@ -27,13 +27,35 @@ export const trackEvent = (eventName, eventParams = {}) => {
   }
 };
 
-// React Router hook for tracking page views
-
+// React Router hook for tracking page views with hash-based routing
 export const useGAPageViews = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Track page view when location changes
-    trackPageView(location.pathname + location.search);
+    // For HashRouter, we need to use location.pathname to get the part after the hash
+    // This converts "/#/work/graphics" to "/work/graphics" for analytics
+    const pagePath = location.pathname + location.search;
+    
+    // Set page title based on current route for better analytics reporting
+    let pageTitle = document.title;
+    if (location.pathname !== '/') {
+      // Extract meaningful name from path
+      const pathSegments = location.pathname.split('/');
+      const pageName = pathSegments[pathSegments.length - 1] || pathSegments[pathSegments.length - 2];
+      if (pageName) {
+        // Format the page name (e.g., "graphics" becomes "Graphics")
+        const formattedName = pageName.charAt(0).toUpperCase() + pageName.slice(1).replace(/-/g, ' ');
+        pageTitle = `${formattedName} | Ian K. Cheruiyot`;
+        // Optionally update document title to match
+        document.title = pageTitle;
+      }
+    }
+    
+    // Track page view with improved path and title
+    window.gtag('event', 'page_view', {
+      page_title: pageTitle,
+      page_path: pagePath,
+      page_location: window.location.origin + pagePath,
+    });
   }, [location]);
 };
