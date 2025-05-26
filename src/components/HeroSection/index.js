@@ -37,7 +37,6 @@ const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
   const totalSlides = 4; // Profile slide + 3 service slides
-  const footerRef = useRef(null);
   
   // Function to handle the View Services button click
   const handleViewServicesClick = () => {
@@ -191,7 +190,7 @@ const HeroSection = () => {
         document.removeEventListener('keydown', handleKeyDown);
       }
     };
-  }, [currentSlide, isScrolling]);
+  }, [currentSlide, isScrolling, handleWheel, handleKeyDown]);
 
   return (
     <HeroContainer id="home">
@@ -218,10 +217,10 @@ const HeroSection = () => {
       <HeroText>
         <TitleBackground>
           <HeroTitleTop>
-            Ian K. Cheruiyot | Graphics Designer
+            Currently a Graphics Designer.
           </HeroTitleTop>
           <HeroTitleBottom>
-            UX/UI specialist in Nairobi, creating 3D visualizations and brand identities that empower
+            Living in Nairobi, designing products that empower
             clients.
           </HeroTitleBottom>
         </TitleBackground>
