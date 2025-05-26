@@ -90,7 +90,9 @@ export const graphicsProjects = [
     additionalImages: [
       "/assets/projects/3d-graphics/gsc-images/gsc-logo.jpg",
       "/assets/projects/3d-graphics/gsc-images/gsc-AD.png",
-      "/assets/projects/3d-graphics/gsc-images/gsc-water.jpg"
+      "/assets/projects/3d-graphics/gsc-images/gsc-water.jpg",
+      "/assets/projects/3d-graphics/gsc-images/john-front.jpg",
+      "/assets/projects/3d-graphics/gsc-images/john-gsc.jpg"
     ],
     tags: ["Brand Identity", "Logo Design", "Advertising Design"],
     category: "graphics",
