@@ -62,6 +62,8 @@ const SynnefaGallery = () => {
         </p>
       </DescriptionSection>
       
+
+      
       <GalleryHeading style={{ marginTop: '2rem' }}>Synnefa Rebrand & 3D</GalleryHeading>
       
       {/* Using the new ZoomableGallery component */}

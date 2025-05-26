@@ -57,10 +57,18 @@ const ProjectImageContainer = styled.div`
 `;
 
 const SynnefaGifContainer = styled.div`
-  width: 100%;
+  width: 50%;
+  float: left;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
   overflow: hidden;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
-  margin-bottom: 2rem;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    float: none;
+    margin-right: 0;
+  }
   
   img {
     width: 100%;
@@ -198,22 +206,24 @@ const GraphicsDetail: React.FC<GraphicsDetailProps> = ({ currentTheme, toggleThe
             </ProjectHeader>
           </AnimatedSection>
           
-          {/* Special Synnefa GIF display */}
-          {project.id === 'synnefa-rebrand' && (
-            <AnimatedSection animationType="fadeIn" delay={200} duration={800}>
-              <SynnefaGifContainer>
-                <LazyImage 
-                  src="/images/Synnefa rebrand.gif" 
-                  alt={project.title} 
-                  threshold={0.1}
-                  rootMargin="200px"
-                />
-              </SynnefaGifContainer>
-            </AnimatedSection>
-          )}
+          {/* Wrapper div for content with clearfix */}
+          <div style={{ overflow: 'hidden' }}>
+            {/* Special Synnefa GIF display - floated left */}
+            {project.id === 'synnefa-rebrand' && (
+              <AnimatedSection animationType="fadeIn" delay={200} duration={800}>
+                <SynnefaGifContainer>
+                  <LazyImage 
+                    src="/images/Synnefa rebrand.gif" 
+                    alt={project.title} 
+                    threshold={0.1}
+                    rootMargin="200px"
+                  />
+                </SynnefaGifContainer>
+              </AnimatedSection>
+            )}
           
-          {/* Main project content */}
-          <ProjectContent>
+            {/* Main project content */}
+            <ProjectContent>
             <AnimatedSection animationType="fadeInLeft" delay={300} duration={1000}>
               {project.id !== 'synnefa-rebrand' && (
                 <ProjectImageContainer>
@@ -242,6 +252,7 @@ const GraphicsDetail: React.FC<GraphicsDetailProps> = ({ currentTheme, toggleThe
               </ProjectInfo>
             </AnimatedSection>
           </ProjectContent>
+          </div>
           
           {/* Additional images gallery */}
           {project.additionalImages && project.additionalImages.length > 0 && (
