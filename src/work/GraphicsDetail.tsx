@@ -58,7 +58,6 @@ const ProjectImageContainer = styled.div`
 
 const SynnefaGifContainer = styled.div`
   width: 100%;
-  border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
   margin-bottom: 2rem;
