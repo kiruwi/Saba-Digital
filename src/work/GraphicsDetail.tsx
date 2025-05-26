@@ -56,6 +56,20 @@ const ProjectImageContainer = styled.div`
   }
 `;
 
+const SynnefaGifContainer = styled.div`
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
+  margin-bottom: 2rem;
+  
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+`;
+
 const ProjectInfo = styled.div`
   flex: 1;
   display: flex;
@@ -81,35 +95,7 @@ const AdditionalImagesContainer = styled.div`
   }
 `;
 
-const ImagesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
-  margin: 0 auto;
-  
-  .image-item {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
-    transition: transform 0.3s ease;
-    aspect-ratio: 16/9;
-    
-    &:hover {
-      transform: translateY(-5px);
-    }
-    
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-  
-  @media (max-width: 767px) {
-    grid-template-columns: 1fr;
-  }
-`;
+// Removed unused ImagesGrid styled component
 
 const BackButtonContainer = styled.div`
   display: flex;
@@ -213,17 +199,33 @@ const GraphicsDetail: React.FC<GraphicsDetailProps> = ({ currentTheme, toggleThe
             </ProjectHeader>
           </AnimatedSection>
           
-          {/* Main project content */}
-          <ProjectContent>
-            <AnimatedSection animationType="fadeInLeft" delay={300} duration={1000}>
-              <ProjectImageContainer>
+          {/* Special Synnefa GIF display */}
+          {project.id === 'synnefa-rebrand' && (
+            <AnimatedSection animationType="fadeIn" delay={200} duration={800}>
+              <SynnefaGifContainer>
                 <LazyImage 
-                  src={project.image} 
+                  src="/images/Synnefa rebrand.gif" 
                   alt={project.title} 
                   threshold={0.1}
                   rootMargin="200px"
                 />
-              </ProjectImageContainer>
+              </SynnefaGifContainer>
+            </AnimatedSection>
+          )}
+          
+          {/* Main project content */}
+          <ProjectContent>
+            <AnimatedSection animationType="fadeInLeft" delay={300} duration={1000}>
+              {project.id !== 'synnefa-rebrand' && (
+                <ProjectImageContainer>
+                  <LazyImage 
+                    src={project.image} 
+                    alt={project.title} 
+                    threshold={0.1}
+                    rootMargin="200px"
+                  />
+                </ProjectImageContainer>
+              )}
             </AnimatedSection>
             
             <AnimatedSection animationType="fadeInRight" delay={300} duration={1000}>

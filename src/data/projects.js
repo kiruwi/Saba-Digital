@@ -1,7 +1,7 @@
 // src/data/projects.js
 import uxImage1 from "../assets/projects/ux-ui/u-r.jpg";
 import webImage from "../assets/projects/web-dev/app1.jpg";
-import graphicsImage1 from "../assets/projects/graphics/app1.jpg";
+// Removed unused import
 
 // UX/UI Projects
 export const uxProjects = [

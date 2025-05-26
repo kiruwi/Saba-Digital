@@ -34,6 +34,16 @@ const SynnefaGallery = () => {
       caption: 'Final Synnefa Logo Design'
     }
   ];
+  
+  // Add the 3D visualization image to the gallery
+  const galleryWithVisualization = [
+    ...gallery,
+    {
+      src: './assets/projects/3d-graphics/synnefa-images/service3-bg.jpg',
+      alt: '3D Product Visualization for FarmShield™',
+      caption: '3D Product Visualization for FarmShield™ Device'
+    }
+  ];
 
   return (
     <GalleryContainer>
@@ -52,11 +62,11 @@ const SynnefaGallery = () => {
         </p>
       </DescriptionSection>
       
-      <GalleryHeading style={{ marginTop: '2rem' }}>Branding & Design Process</GalleryHeading>
+      <GalleryHeading style={{ marginTop: '2rem' }}>Synnefa Rebrand & 3D</GalleryHeading>
       
       {/* Using the new ZoomableGallery component */}
       <ZoomableGallery 
-        images={gallery}
+        images={galleryWithVisualization}
         showInstructions={true}
         title="Design Journey from Concept to Final Logo"
       />
