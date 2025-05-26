@@ -13,11 +13,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" content="#2db670" />
-    <meta name="description" content="Ian K. Cheruiyot - UX/UI Designer, Web Developer, and Graphic Designer portfolio showcasing creative projects and professional work" />
+    <meta name="description" content="Ian K. Cheruiyot - Professional Graphics Designer & UX/UI specialist in Nairobi. Portfolio showcasing 3D visualization, brand identity, and web design projects." />
     <meta name="keywords" content="UX/UI Design, Web Development, Graphic Design, Portfolio, Ian Cheruiyot" />
     <meta name="author" content="Ian K. Cheruiyot" />
-    <meta property="og:title" content="Ian K. Cheruiyot | Portfolio" />
-    <meta property="og:description" content="UX/UI Designer, Web Developer, and Graphic Designer portfolio showcasing creative projects and professional work" />
+    <meta property="og:title" content="Ian K. Cheruiyot | Graphics Designer & UX/UI Portfolio - Nairobi" />
+    <meta property="og:description" content="Professional Graphics Designer & UX/UI specialist in Nairobi. Portfolio showcasing 3D visualization, brand identity, and web design projects." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://iancheruiyot.work/" />
     
@@ -50,13 +50,58 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Ian K. Cheruiyot | Portfolio</title>
+    <title>Ian K. Cheruiyot | Graphics Designer & UX/UI Portfolio - Nairobi</title>
     
     <!-- Preload critical resources -->
     <link rel="preload" as="script" href="%PUBLIC_URL%/static/js/main.chunk.js" />
     
     <!-- Netlify Identity Widget -->
     <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <!-- Structured Data - JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ian K. Cheruiyot",
+      "url": "https://iancheruiyot.work/",
+      "jobTitle": "Graphics Designer",
+      "description": "UX/UI Designer, Web Developer, and Graphic Designer showcasing creative projects and professional work",
+      "sameAs": [
+        "https://www.linkedin.com/in/ian-cheruiyot/",
+        "https://www.behance.net/iancheruiyot"
+      ],
+      "knowsAbout": ["UX/UI Design", "Web Development", "Graphic Design", "3D Visualization"],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Graphics Designer",
+        "occupationLocation": {
+          "@type": "City",
+          "name": "Nairobi, Kenya"
+        }
+      },
+      "workExample": [
+        {
+          "@type": "CreativeWork",
+          "name": "Synnefa Rebrand & 3D",
+          "description": "Complete rebrand and 3D product visualization for an AgriTech innovator in Africa.",
+          "url": "https://iancheruiyot.work/work/graphics/synnefa-rebrand"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "Osim Lai Brand Identity",
+          "description": "Complete logo design and brand identity for a hospitality brand on Lake Naivasha.",
+          "url": "https://iancheruiyot.work/work/graphics/osim-lai-branding"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "Ufanisi Resort",
+          "description": "User-focused interface for food delivery app.",
+          "url": "https://iancheruiyot.work/work/ux-ui/ufanisi-resort"
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app. Please enable it to continue.</noscript>

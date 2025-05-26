@@ -1,1 +1,12 @@
+# Redirect all routes to index.html for SPA handling
 /*  /index.html  200
+
+# Explicitly list sitemap routes for SEO
+/contactus              /index.html  200
+/work/ux-ui             /index.html  200
+/work/web-dev           /index.html  200
+/work/graphics          /index.html  200
+/work/ux-ui/ufanisi-resort  /index.html  200
+/work/graphics/gsc-hauling  /index.html  200
+/work/graphics/synnefa-rebrand  /index.html  200
+/work/graphics/osim-lai-branding  /index.html  200

@@ -218,10 +218,10 @@ const HeroSection = () => {
       <HeroText>
         <TitleBackground>
           <HeroTitleTop>
-            Currently a Graphics Designer.
+            Ian K. Cheruiyot | Graphics Designer
           </HeroTitleTop>
           <HeroTitleBottom>
-            Living in Nairobi, designing products that empower
+            UX/UI specialist in Nairobi, creating 3D visualizations and brand identities that empower
             clients.
           </HeroTitleBottom>
         </TitleBackground>
