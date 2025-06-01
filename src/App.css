@@ -11,7 +11,7 @@
 /* Theme-related styles */
 body.light {
   --background-color: #f8f9fa;
-  --text-color: #212529;
+  --text-color: #000000;
   --link-color: #007bff;
   transition: all 0.3s ease;
 }

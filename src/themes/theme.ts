@@ -55,7 +55,7 @@ export const lightTheme: Theme = {
     accent: '#00ab57', // Same green for accent
     error: '#dc3545',
     cardBackground: '#f8f9fa', // Light card background
-    headingText: '#212529' // Dark heading text for light theme
+    headingText: '#000000' // Pure black heading text for light theme
   },
   fontSizes: {
     xs: '0.75rem',
