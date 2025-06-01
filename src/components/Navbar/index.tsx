@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { IoIosArrowDown } from "react-icons/io";
+import { FiMenu } from "react-icons/fi"; // Using Feather icons hamburger menu
 import { animateScroll as scroll } from "react-scroll";
 import { useLocation } from "react-router-dom";
 import signature from "../../images/signature.svg";
@@ -29,6 +29,38 @@ const MobileThemeToggle = styled.div`
   
   @media screen and (min-width: 769px) {
     display: none;
+  }
+`;
+
+// Define props interface for the styled component
+interface MobileDropdownIconProps {
+  $isOpen: boolean;
+}
+
+// Styled component for mobile dropdown icon
+const MobileDropdownIcon = styled.div<MobileDropdownIconProps>`
+  display: none;
+  
+  @media screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 1.8rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border-radius: 50%;
+    color: ${({ theme }) => theme.theme === 'light' ? '#0c0c0c' : '#ffffff'};
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: #2db670;
+    }
   }
 `;
 
@@ -93,9 +125,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen, currentTheme: propTheme
           <MobileThemeToggle>
             <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} />
           </MobileThemeToggle>
-          <div className={`mobile-icon ${isOpen ? 'open' : ''}`} onClick={toggle}>
-            <IoIosArrowDown />
-          </div>
+          <MobileDropdownIcon $isOpen={isOpen} onClick={toggle}>
+            <FiMenu />
+          </MobileDropdownIcon>
           <NavMenu>
             {/* No items in the middle nav menu now */}
           </NavMenu>
