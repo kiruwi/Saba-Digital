@@ -45,6 +45,11 @@ const UXUIDetail: React.FC<UXUIDetailProps> = ({ currentTheme, toggleTheme }) =>
     }
   }, [id, isUfanisiResort]);
 
+  useEffect(() => {
+    // Scroll to top immediately with auto behavior to ensure consistent positioning
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [id]);
+
   return (
     <>
       <Navbar toggle={toggle} isOpen={isOpen} currentTheme={currentTheme} toggleTheme={toggleTheme} />

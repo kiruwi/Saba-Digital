@@ -5,7 +5,6 @@ import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./themes/theme";
 import ThemeUtils from "./utils/theme";
-import ThemeToggle from "./components/ThemeToggle";
 import GlobalStyles from "./components/GlobalStyles";
 import { useGAPageViews } from "./utils/analytics";
 import { Home } from "./pages";
@@ -19,6 +18,7 @@ import WebDevDetail from "./work/WebDevDetail";
 import GraphicsDetail from "./work/GraphicsDetail";
 import "./App.css";
 import "./fonts.css"; // Import SpotifyMix font definitions
+import ScrollToTop from "./components/ScrollToTop";
 
 // RouteChangeTracker component to track page views
 function RouteChangeTracker() {
@@ -56,6 +56,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <Router>
+          <ScrollToTop /> {/* Add ScrollToTop to ensure proper scroll restoration */}
           <RouteChangeTracker />
           <Routes>
             <Route path="/" element={<Home currentTheme={currentTheme} toggleTheme={toggleTheme} />} />

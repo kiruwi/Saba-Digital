@@ -41,7 +41,7 @@ export const NavbarContainer = styled.div`
 export const NavLogo = styled(LinkR)`
   justify-self: flex-start;
   cursor: pointer;
-  font-size: 1 rem;
+  font-size: 1rem;
   font-weight: regular;
   color: ${({ scrollNav, theme }) => {
     // If scrolled OR in dark mode, always use white
@@ -142,7 +142,7 @@ export const NavBtnLink = styled(LinkR)`
   padding: 8px 22px;
   color: ${({ theme }) => theme?.theme === 'light' ? '#000000' : '#ffffff'};
   background: transparent;
-  font-size: 1 rem;
+  font-size: 1rem;
   font-weight: regular;
   outline: none;
   border: none;
@@ -167,7 +167,7 @@ export const ExternalNavBtnLink = styled.a`
   padding: 8px 22px;
   color: ${({ theme }) => theme?.theme === 'light' ? '#000000' : '#ffffff'};
   background: transparent;
-  font-size: 1 rem;
+  font-size: 1rem;
   font-weight: regular;
   outline: none;
   border: none;

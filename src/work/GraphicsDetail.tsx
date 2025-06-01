@@ -153,8 +153,11 @@ const GraphicsDetail: React.FC<GraphicsDetailProps> = ({ currentTheme, toggleThe
   
   // Theme is now passed as props
   
-  // Find the project based on the ID parameter
+  // Find the project based on the ID parameter and handle scroll restoration
   useEffect(() => {
+    // Always scroll to top first to ensure proper position
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    
     if (id) {
       const foundProject = graphicsProjects.find(p => p.id === id);
       if (foundProject) {

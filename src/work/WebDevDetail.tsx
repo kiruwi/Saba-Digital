@@ -111,13 +111,19 @@ const AdditionalImagesContainer = styled.div`
   }
 `;
 
+// Removed unused styled components
+/*
 const ImagesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
   width: 100%;
   margin: 0 auto;
-  
+`;
+*/
+
+/* Commented out to fix unused variable warning
+const ImageItem = styled.div`
   .image-item {
     border-radius: 8px;
     overflow: hidden;
@@ -140,6 +146,7 @@ const ImagesGrid = styled.div`
     grid-template-columns: 1fr;
   }
 `;
+*/
 
 const BackButtonContainer = styled.div`
   display: flex;
@@ -192,6 +199,9 @@ const WebDevDetail: React.FC<WebDevDetailProps> = ({ currentTheme, toggleTheme }
   
   // Find the project based on the ID parameter
   useEffect(() => {
+    // Always scroll to top first to ensure proper position
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    
     if (id) {
       const foundProject = webProjects.find(p => p.id === id);
       if (foundProject) {
@@ -201,7 +211,7 @@ const WebDevDetail: React.FC<WebDevDetailProps> = ({ currentTheme, toggleTheme }
   }, [id]);
   
   // Use our performance optimization hook for image preloading
-  const { resourcesLoaded } = usePerformanceOptimization(
+  usePerformanceOptimization(
     project ? [project.image] : [],
     project?.additionalImages || [],
     'image'
