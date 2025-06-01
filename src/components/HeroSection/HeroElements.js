@@ -7,8 +7,10 @@ export const HeroContainer = styled.section`
   display: grid;
   grid-template-columns: 1fr 480px;
   min-height: 100vh;
-  background: #000;
+  background: ${({ theme }) => theme.theme === 'light' ? '#ffffff' : '#121212'};
+  color: ${({ theme }) => theme.theme === 'light' ? '#000000' : '#ffffff'};
   overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   @media (max-width: 1000px) {
     display: block;
@@ -33,8 +35,7 @@ export const HeroText = styled.div`
 `;
 
 export const TitleBackground = styled.div`
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
+  background: transparent;
   padding: 0.7em 1.2em;
   display: inline-flex;
   flex-direction: column;
@@ -42,7 +43,7 @@ export const TitleBackground = styled.div`
 `;
 
 const baseTitle = `
-  font-family: 'Inter', sans-serif;
+  font-family: 'SpotifyMix', sans-serif;
   font-weight: 500;
   line-height: 1.05;
   margin: 0;
@@ -51,13 +52,30 @@ const baseTitle = `
 export const HeroTitleTop = styled.h1`
   ${baseTitle};
   font-size: clamp(2.5rem, 4vw, 5rem);
-  color: #fff;
+  color: ${({ theme }) => theme.theme === 'light' ? '#000000' : '#ffffff'};
+  transition: color 0.3s ease;
 `;
 
 export const HeroTitleBottom = styled.h1`
   ${baseTitle};
   font-size: clamp(2.5rem, 4vw, 5rem);
   color: #00ab57;
+  transition: color 0.3s ease;
+`;
+
+export const HeroP = styled.p`
+  margin: 1rem 0 0;
+  color: ${({ theme }) => theme.theme === 'light' ? '#333333' : '#cccccc'};
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  line-height: 1.5;
+  max-width: 600px;
+  transition: color 0.3s ease;
+  
+  @media (max-width: 1000px) {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 export const BtnWrap = styled.div`
@@ -129,22 +147,24 @@ export const ScrollIndicatorWrapper = styled.div`
 `;
 
 export const ScrollText = styled.div`
-  color: white;
+  color: ${({ theme }) => theme?.theme === 'light' ? '#000000' : '#ffffff'};
   margin-bottom: 5px;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
   opacity: 0.8;
+  transition: color 0.3s ease;
 `;
 
 export const ScrollArrow = styled.div`
   width: 20px;
   height: 20px;
-  border-right: 2px solid #fff;
-  border-bottom: 2px solid #fff;
+  border-right: 2px solid ${({ theme }) => theme?.theme === 'light' ? '#000000' : '#ffffff'};
+  border-bottom: 2px solid ${({ theme }) => theme?.theme === 'light' ? '#000000' : '#ffffff'};
   transform: rotate(45deg);
   margin-top: 10px;
   animation: bounce 2s infinite;
+  transition: border-color 0.3s ease;
 
   @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {

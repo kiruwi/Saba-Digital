@@ -89,8 +89,8 @@ export const TextOverlay = styled.div`
   right: 20%;
   bottom: 20%;
   left: 20%;
-  background: #000;
-  color: #fff;
+  background: ${({ theme }) => theme.theme === 'light' ? '#ffffff' : '#000000'};
+  color: ${({ theme }) => theme.theme === 'light' ? '#000000' : '#ffffff'};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -115,11 +115,13 @@ export const ServicesH2 = styled.h2`
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
   text-align: left;
+  color: ${({ theme }) => theme.theme === 'light' ? '#000000' : '#ffffff'};
 `;
 export const ServicesP = styled.p`
   font-size: 1rem;
   text-align: left;
   margin-bottom: 1.5rem;
+  color: ${({ theme }) => theme.theme === 'light' ? '#333333' : '#cccccc'};
 `;
 
 /* ── learn more button ───────────────────────────────── */

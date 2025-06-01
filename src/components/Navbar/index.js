@@ -69,7 +69,7 @@ const Navbar = ({ toggle, isOpen, currentTheme, toggleTheme }) => {
     <>
       <Nav scrollNav={scrollNav || isWorkRoute || isContactRoute}>
         <NavbarContainer>
-          <NavLogo to="/" onClick={toggleHome}>
+          <NavLogo to="/" onClick={toggleHome} scrollNav={scrollNav || isWorkRoute || isContactRoute}>
             <img src={signature} alt="Signature" style={{ height: '25px', marginRight: '10px' }} />
             Ian Cheruiyot
           </NavLogo>
@@ -77,10 +77,10 @@ const Navbar = ({ toggle, isOpen, currentTheme, toggleTheme }) => {
           <MobileThemeToggle>
             <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} />
           </MobileThemeToggle>
-          <MobileIcon onClick={toggle} isOpen={isOpen}>
+          <MobileIcon onClick={toggle} isOpen={isOpen} theme={currentTheme}>
             <IoIosArrowDown />
           </MobileIcon>
-          <NavMenu>
+          <NavMenu scrollNav={scrollNav || isWorkRoute || isContactRoute}>
             {/* No items in the middle nav menu now */}
           </NavMenu>
           <NavBtn>

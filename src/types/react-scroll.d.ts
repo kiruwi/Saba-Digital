@@ -20,6 +20,8 @@ declare module 'react-scroll' {
     className?: string;
     style?: React.CSSProperties;
     onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+    children?: React.ReactNode;
+    exact?: string;
   }
 
   export interface AnimateScrollProps {

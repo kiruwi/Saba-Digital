@@ -1,5 +1,5 @@
 // src/components/HeroSection/index.js
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import meImage from "../../images/me.png";
 import { Button } from "../ButtonElements";
 import { animateScroll as scroll } from "react-scroll";
@@ -61,8 +61,8 @@ const HeroSection = () => {
     // The Button component will handle this with its 'to' prop
   };
 
-  // Function to scroll to a specific slide
-  const scrollToSlide = (slideIndex) => {
+  // Function to scroll to a specific slide wrapped in useCallback
+  const scrollToSlide = useCallback((slideIndex) => {
     if (railRef.current && slideIndex >= 0 && slideIndex < totalSlides) {
       setIsScrolling(true);
       const slideHeight = window.innerHeight;
@@ -84,61 +84,63 @@ const HeroSection = () => {
       // Scroll to footer when we've gone through all slides
       scroll.scrollToBottom({ duration: 800 });
     }
-  };
+  }, [totalSlides, railRef, setIsScrolling, setCurrentSlide, setScrollIndicatorVisible]);
 
-  // Handle wheel events to control scrolling
-  const handleWheel = (e) => {
-    // Skip if already scrolling or on mobile
-    if (isScrolling || window.innerWidth <= 1000) return;
-    
-    const direction = e.deltaY > 0 ? 1 : -1;
-    const nextSlide = currentSlide + direction;
-    
-    // Prevent default scrolling behavior
-    e.preventDefault();
-    
-    // If scrolling down from the last slide, go to footer
-    if (direction > 0 && currentSlide === totalSlides - 1) {
-      scrollToSlide(totalSlides); // This will trigger the footer scroll
-    } 
-    // Otherwise navigate between slides
-    else if (nextSlide >= 0 && nextSlide < totalSlides) {
-      scrollToSlide(nextSlide);
-    }
-  };
-
-  // Handle keyboard navigation
-  const handleKeyDown = (e) => {
-    // Skip if already scrolling or on mobile
-    if (isScrolling || window.innerWidth <= 1000) return;
-    
-    // Arrow Down or Page Down
-    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-      e.preventDefault();
-      if (currentSlide === totalSlides - 1) {
-        scrollToSlide(totalSlides); // Go to footer
-      } else {
-        scrollToSlide(currentSlide + 1);
-      }
-    }
-    // Arrow Up or Page Up
-    else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-      e.preventDefault();
-      scrollToSlide(Math.max(0, currentSlide - 1));
-    }
-    // Home key
-    else if (e.key === 'Home') {
-      e.preventDefault();
-      scrollToSlide(0);
-    }
-    // End key
-    else if (e.key === 'End') {
-      e.preventDefault();
-      scrollToSlide(totalSlides); // Go to footer
-    }
-  };
+  // These functions have been moved inside the useEffect
 
   useEffect(() => {
+    // Handle wheel events to control scrolling
+    const handleWheel = (e) => {
+      // Skip if already scrolling or on mobile
+      if (isScrolling || window.innerWidth <= 1000) return;
+      
+      const direction = e.deltaY > 0 ? 1 : -1;
+      const nextSlide = currentSlide + direction;
+      
+      // Prevent default scrolling behavior
+      e.preventDefault();
+      
+      // If scrolling down from the last slide, go to footer
+      if (direction > 0 && currentSlide === totalSlides - 1) {
+        scrollToSlide(totalSlides); // This will trigger the footer scroll
+      } 
+      // Otherwise navigate between slides
+      else if (nextSlide >= 0 && nextSlide < totalSlides) {
+        scrollToSlide(nextSlide);
+      }
+    };
+
+    // Handle keyboard navigation
+    const handleKeyDown = (e) => {
+      // Skip if already scrolling or on mobile
+      if (isScrolling || window.innerWidth <= 1000) return;
+      
+      // Arrow Down or Page Down
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault();
+        if (currentSlide === totalSlides - 1) {
+          scrollToSlide(totalSlides); // Go to footer
+        } else {
+          scrollToSlide(currentSlide + 1);
+        }
+      }
+      // Arrow Up or Page Up
+      else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        scrollToSlide(Math.max(0, currentSlide - 1));
+      }
+      // Home key
+      else if (e.key === 'Home') {
+        e.preventDefault();
+        scrollToSlide(0);
+      }
+      // End key
+      else if (e.key === 'End') {
+        e.preventDefault();
+        scrollToSlide(totalSlides); // Go to footer
+      }
+    };
+
     const handleScroll = () => {
       if (railRef.current) {
         // Check if we're at the top of the rail
@@ -190,7 +192,7 @@ const HeroSection = () => {
         document.removeEventListener('keydown', handleKeyDown);
       }
     };
-  }, [currentSlide, isScrolling, handleWheel, handleKeyDown]);
+  }, [currentSlide, isScrolling, totalSlides, scrollToSlide]);
 
   return (
     <HeroContainer id="home">
@@ -217,10 +219,10 @@ const HeroSection = () => {
       <HeroText>
         <TitleBackground>
           <HeroTitleTop>
-            Currently a Graphics Designer.
+            Currently a Digital Designer.
           </HeroTitleTop>
           <HeroTitleBottom>
-            Living in Nairobi, designing products that empower
+            Living in Nairobi, creating products that empower
             clients.
           </HeroTitleBottom>
         </TitleBackground>

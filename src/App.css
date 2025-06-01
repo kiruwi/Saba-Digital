@@ -2,9 +2,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  /* font-family: 'Encode Sans Expanded', 
-  sans-serif; */
-  font-family: 'Roboto', sans-serif; 
+  /* Previously used fonts */
+  /* font-family: 'Encode Sans Expanded', sans-serif; */
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'SpotifyMix', sans-serif;
 }
 
 /* Theme-related styles */

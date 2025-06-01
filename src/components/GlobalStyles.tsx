@@ -10,12 +10,14 @@ const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
     background-color: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
     transition: all 0.3s ease;
+    font-family: 'SpotifyMix', sans-serif;
   }
   
   /* Update text colors for regular elements */
   p, h1, h2, h3, h4, h5, h6, span, div, ul, li, a {
     color: ${({ theme }) => theme.colors.text};
     transition: color 0.3s ease;
+    font-family: 'SpotifyMix', sans-serif;
   }
   
   /* Base card and container styles */

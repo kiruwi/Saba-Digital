@@ -18,6 +18,7 @@ import UXUIDetail from "./work/UXUIDetail";
 import WebDevDetail from "./work/WebDevDetail";
 import GraphicsDetail from "./work/GraphicsDetail";
 import "./App.css";
+import "./fonts.css"; // Import SpotifyMix font definitions
 
 // RouteChangeTracker component to track page views
 function RouteChangeTracker() {
