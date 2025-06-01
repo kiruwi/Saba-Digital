@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { IoIosArrowDown } from "react-icons/io";
+import { FaChevronDown } from "react-icons/fa";
 import { animateScroll as scroll } from "react-scroll";
 import { useLocation } from "react-router-dom";
 import signature from "../../images/signature.svg";
@@ -78,7 +78,9 @@ const Navbar = ({ toggle, isOpen, currentTheme, toggleTheme }) => {
             <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} />
           </MobileThemeToggle>
           <MobileIcon onClick={toggle} isOpen={isOpen} theme={currentTheme}>
-            <IoIosArrowDown />
+            <span style={{ display: 'inline-block', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }}>
+              <FaChevronDown />
+            </span>
           </MobileIcon>
           <NavMenu scrollNav={scrollNav || isWorkRoute || isContactRoute}>
             {/* No items in the middle nav menu now */}

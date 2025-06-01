@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MdKeyboardArrowRight, MdArrowForward, MdKeyboardArrowDown } from "react-icons/md";
+import { FaChevronRight, FaArrowRight } from "react-icons/fa";
 import { ServicesWrapper } from "../Services/ServicesElements";
 
 /* ── layout grid ────────────────────────────────────── */
@@ -89,18 +89,18 @@ export const BtnWrap = styled.div`
   }
 `;
 
-export const ArrowFwd = styled(MdArrowForward)`
+export const ArrowFwd = styled(FaArrowRight)`
   margin-left: 8px;
-  font-size: 20px;
+  font-size: 18px;
   
   @media screen and (max-width: 1000px) {
     display: none;
   }
 `;
 
-export const ArrowRt = styled(MdKeyboardArrowRight)`
+export const ArrowRt = styled(FaChevronRight)`
   margin-left: 8px;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 /* ── rail column ───────────────────────────────────── */

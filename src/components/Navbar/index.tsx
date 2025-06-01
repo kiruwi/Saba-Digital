@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FiMenu } from "react-icons/fi"; // Using Feather icons hamburger menu
+import { FaChevronDown } from "react-icons/fa"; // Using chevron down icon for consistency
 import { animateScroll as scroll } from "react-scroll";
 import { useLocation } from "react-router-dom";
 import signature from "../../images/signature.svg";
@@ -55,11 +55,13 @@ const MobileDropdownIcon = styled.div<MobileDropdownIconProps>`
     height: 40px;
     background-color: transparent;
     border-radius: 50%;
-    color: ${({ theme }) => theme.theme === 'light' ? '#0c0c0c' : '#ffffff'};
+    /* Use headingText in light mode for better contrast, and normal text color in dark mode */
+    color: ${({ theme }) => theme.theme === 'light' ? theme.colors.headingText : theme.colors.text};
+    transform: ${({ $isOpen }) => ($isOpen ? "rotate(180deg)" : "rotate(0deg)")};
     transition: all 0.3s ease;
     
     &:hover {
-      color: #2db670;
+      color: ${({ theme }) => theme.colors.primary};
     }
   }
 `;
@@ -126,7 +128,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen, currentTheme: propTheme
             <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} />
           </MobileThemeToggle>
           <MobileDropdownIcon $isOpen={isOpen} onClick={toggle}>
-            <FiMenu />
+            <FaChevronDown />
           </MobileDropdownIcon>
           <NavMenu>
             {/* No items in the middle nav menu now */}
