@@ -7,10 +7,8 @@ import styled from "styled-components";
 import "./Navbar.css";
 
 import {
-  Nav,
   NavbarContainer,
   NavLogo,
-  MobileIcon,
   NavMenu,
   NavBtn,
   NavBtnLink,
@@ -141,6 +139,9 @@ const DesktopThemeToggle = styled.div`
 interface NavbarProps {
   toggle: () => void;
   isOpen: boolean;
+  // Make theme props optional to support both direct theme toggle and context-based approaches
+  currentTheme?: any;
+  toggleTheme?: () => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
