@@ -8,7 +8,7 @@ export const GalleryContainer = styled.div`
 export const GalleryHeading = styled.h3`
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: #2db670;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const CarouselContainer = styled.div`
@@ -18,7 +18,7 @@ export const CarouselContainer = styled.div`
   overflow: hidden;
   margin-bottom: 2rem;
   border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px ${({ theme }) => theme.colors.shadow};
   
   @media screen and (max-width: 768px) {
     height: 350px;
@@ -51,7 +51,13 @@ export const CarouselDot = styled.button`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: ${({ active }) => (active ? '#2db670' : 'rgba(255, 255, 255, 0.5)')};
+  background: ${({ active, theme }) => {
+    if (active) {
+      return theme.colors.primary;
+    } else {
+      return theme.theme === 'light' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(100, 100, 100, 0.5)';
+    }
+  }};
   margin: 0 5px;
   padding: 0;
   border: none;
@@ -59,7 +65,13 @@ export const CarouselDot = styled.button`
   transition: background 0.3s ease;
   
   &:hover {
-    background: ${({ active }) => (active ? '#2db670' : 'rgba(255, 255, 255, 0.8)')};
+    background: ${({ active, theme }) => {
+      if (active) {
+        return theme.colors.primary;
+      } else {
+        return theme.theme === 'light' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(150, 150, 150, 0.8)';
+      }
+    }};
   }
 `;
 
@@ -68,7 +80,7 @@ export const CarouselArrow = styled.button`
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  background: rgba(0, 0, 0, 0.5);
+  background: ${({ theme }) => theme.theme === 'light' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(50, 50, 50, 0.7)'};
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -77,14 +89,14 @@ export const CarouselArrow = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: white;
+  color: ${({ theme }) => theme.colors.buttonText};
   font-size: 1.5rem;
   opacity: 0.7;
   transition: opacity 0.3s ease, background 0.3s ease;
   
   &:hover {
     opacity: 1;
-    background: rgba(0, 0, 0, 0.7);
+    background: ${({ theme }) => theme.theme === 'light' ? 'rgba(0, 0, 0, 0.7)' : 'rgba(80, 80, 80, 0.9)'};
   }
   
   &.prev {

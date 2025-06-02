@@ -10,7 +10,7 @@ export const serviceBackgrounds = [Bg1, Bg2, Bg3];
 /* ── outer containers ──────────────────────────────── */
 export const ServicesContainer = styled.div`
   padding: 4rem 0;
-  background: #000000;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#000000' : '#f8f9fa'};
   display: flex;
   justify-content: center;
 `;

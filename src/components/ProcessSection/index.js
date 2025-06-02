@@ -7,16 +7,20 @@ import {
   SectionTitle,
   ProcessStep,
   StepTitle,
-  StepContent,
+  StepContent
+  // eslint-disable-next-line no-unused-vars
+  /* Commenting out unused imports rather than removing to preserve structure
   ImageGrid,
   ImageCard,
   ImageCaption,
   BeforeAfterContainer,
   BeforeAfterPanel,
   NextActions
+  */
 } from './ProcessElements';
 
 // Placeholder for your actual images
+// eslint-disable-next-line no-unused-vars
 const placeholderImgUrl = 'https://via.placeholder.com/600x400/252525/2db670?text=Process+Image';
 
 const ProcessSection = () => {

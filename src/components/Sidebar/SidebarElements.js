@@ -8,17 +8,17 @@ export const SidebarContainer = styled.aside`
   z-index: 999;
   width: 100%;
   height: 100%;
-  background: #0c0c0c;
+  background: ${({ theme }) => theme.colors.sidebarBackground || (theme.theme === 'light' ? '#f9f9f9' : '#0c0c0c')};
   display: grid;
   align-items: center;
   left: 0;
   transition: 0.3s ease-in-out;
-  opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};
-  top: ${({ isOpen }) => (isOpen ? "0" : "-100%")};   /* slide top → down */
+  opacity: ${({ $isOpen }) => ($isOpen ? "100%" : "0")};
+  top: ${({ $isOpen }) => ($isOpen ? "0" : "-100%")};   /* slide top → down */
 `;
 
 export const CloseIcon = styled(FaTimes)`
-  color: #fff;
+  color: ${({ theme }) => theme.colors.sidebarText || (theme.theme === 'light' ? '#000000' : '#ffffff')};
 `;
 
 export const Icon = styled.div`
@@ -32,7 +32,7 @@ export const Icon = styled.div`
 `;
 
 export const SidebarWrapper = styled.div`
-  color: #fff;
+  color: ${({ theme }) => theme.colors.sidebarText || (theme.theme === 'light' ? '#000000' : '#ffffff')};
 `;
 
 export const SidebarMenu = styled.ul`
@@ -50,12 +50,12 @@ export const SidebarLink = styled(LinkS)`
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.sidebarText || (theme.theme === 'light' ? '#000000' : '#ffffff')};
   cursor: pointer;
   transition: 0.2s ease-in-out;
 
   &:hover {
-    color: #2db670;
+    color: ${({ theme }) => theme.colors.primary || '#2db670'};
   }
 `;
 
@@ -69,10 +69,10 @@ export const SideBtnWrap = styled.div`
 
 export const SidebarRoute = styled(LinkR)`
   border-radius: 0px;
-  background: #2db670;
+  background: ${({ theme }) => theme.colors.primary || '#2db670'};
   white-space: nowrap;
   padding: 12px 30px;
-  color: #050c23;
+  color: ${({ theme }) => theme.colors.buttonText || '#050c23'};
   font-size: 16px;
   outline: none;
   border: none;
@@ -82,7 +82,7 @@ export const SidebarRoute = styled(LinkR)`
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    background: #fff;
-    color: #050c23;
+    background: ${({ theme }) => theme.colors.buttonHoverBg || '#ffffff'};
+    color: ${({ theme }) => theme.colors.buttonHoverText || '#050c23'};
   }
 `;

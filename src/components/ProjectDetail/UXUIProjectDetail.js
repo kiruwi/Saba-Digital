@@ -1,6 +1,6 @@
 // src/components/ProjectDetail/UXUIProjectDetail.js
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { 
   UXUIDetailContainer, 
   UXUIDetailHeader,
@@ -12,11 +12,14 @@ import {
   UXUIMobileImageFirst,
   UXUIMobileTextSecond,
   UXUIMobileOnlyImage,
-  UXUIHeading,
+  UXUIHeading
+  // eslint-disable-next-line no-unused-vars
+  /* Commenting out unused imports rather than removing to preserve structure
   DesignProcessContainer,
   ProcessStepGrid,
   ProcessStep,
   StepTitle
+  */
 } from '../../work/UXUIElements';
 import ProcessSection from '../ProcessSection';
 import { FaArrowLeft } from 'react-icons/fa';
