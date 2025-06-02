@@ -183,7 +183,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
               marginRight: '10px',
               verticalAlign: 'middle' 
             }} />
-            <span style={{ verticalAlign: 'middle' }}>Ian Cheruiyot</span>
+            <span style={{ verticalAlign: 'middle', color: 'inherit' }}>Ian Cheruiyot</span>
           </NavLogo>
           {/* Direct theme toggle for mobile - positioned to the left of dropdown */}
           <MobileThemeToggle>

@@ -139,7 +139,7 @@ export const NavBtnLink = styled(LinkR)`
   background: transparent;
   white-space: nowrap;
   padding: 10px 22px;
-  color: ${({ theme }) => theme.colors.text};
+  color: inherit; /* Use the color from parent container to respect .navbar.scrolled */
   font-size: 16px;
   outline: none;
   border: none;

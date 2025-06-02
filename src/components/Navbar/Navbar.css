@@ -10,11 +10,13 @@
   top: 0;
   z-index: 1;
   transition: all 0.3s ease-in-out;
+  color: var(--text-color, #343a40);
 }
 
 .navbar.scrolled {
-  background: #000000;
+  background: var(--navbar-bg, #000000);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  color: var(--navbar-text, #ffffff);
 }
 
 @media screen and (max-width: 768px) {

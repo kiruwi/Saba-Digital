@@ -110,11 +110,24 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     // Save theme preference to localStorage
     localStorage.setItem('theme', theme);
     
-    // Optional: Add a class to body for additional CSS targeting
+    // Set CSS variables based on the current theme
+    const root = document.documentElement;
     if (theme === 'dark') {
+      // Dark theme variables
+      root.style.setProperty('--text-color', darkTheme.colors.text);
+      root.style.setProperty('--navbar-bg', darkTheme.colors.background);
+      root.style.setProperty('--navbar-text', darkTheme.colors.text);
+      
+      // Add dark-theme class to body
       document.body.classList.add('dark-theme');
       document.body.classList.remove('light-theme');
     } else {
+      // Light theme variables
+      root.style.setProperty('--text-color', lightTheme.colors.text);
+      root.style.setProperty('--navbar-bg', '#ffffff');
+      root.style.setProperty('--navbar-text', lightTheme.colors.text);
+      
+      // Add light-theme class to body
       document.body.classList.add('light-theme');
       document.body.classList.remove('dark-theme');
     }
