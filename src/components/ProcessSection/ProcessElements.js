@@ -9,7 +9,7 @@ export const ProcessContainer = styled.div`
 export const SectionTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 3rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.headingText};
   text-align: left;
   position: relative;
   
@@ -20,7 +20,7 @@ export const SectionTitle = styled.h2`
     left: 0;
     width: 60px;
     height: 3px;
-    background-color: #2db670;
+    background-color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -28,10 +28,10 @@ export const ProcessStep = styled.div`
   margin-bottom: 4rem;
   display: flex;
   flex-direction: column;
-  background: #1a1a1a;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#1a1a1a' : '#f8f9fa'};
   border-radius: 0px;
   padding: 2rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
   position: relative;
   
   &:before {
@@ -41,8 +41,8 @@ export const ProcessStep = styled.div`
     left: 20px;
     width: 40px;
     height: 40px;
-    background: #2db670;
-    color: #000;
+    background: ${({ theme }) => theme.colors.primary};
+    color: #fff;
     border-radius: 0px;
     display: flex;
     align-items: center;
@@ -55,13 +55,13 @@ export const ProcessStep = styled.div`
 export const StepTitle = styled.h3`
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.headingText};
   display: flex;
   align-items: center;
   
   svg {
     margin-right: 10px;
-    color: #2db670;
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -135,8 +135,8 @@ export const BeforeAfterPanel = styled.div`
     position: absolute;
     top: 10px;
     left: 10px;
-    background: ${props => props.labelBg || '#2db670'};
-    color: #000;
+    background: ${({ theme }) => theme.colors.primary};
+    color: #fff;
     padding: 0.25rem 0.75rem;
     font-size: 0.75rem;
     font-weight: bold;
@@ -147,18 +147,18 @@ export const BeforeAfterPanel = styled.div`
   img {
     width: 100%;
     height: auto;
-    border: 1px solid #333;
+    border: 1px solid ${({ theme }) => theme.colors.shadow};
   }
 `;
 
 export const NextActions = styled.div`
   margin-top: 3rem;
   padding: 2rem;
-  background: linear-gradient(to right, #141414, #1e1e1e);
-  border-left: 4px solid #2db670;
+  background: linear-gradient(to right, ${({ theme }) => theme.theme === 'dark' ? '#141414' : '#f8f9fa'}, ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f8f9fa'});
+  border-left: 4px solid ${({ theme }) => theme.colors.primary};
   
   h4 {
-    color: #fff;
+    color: ${({ theme }) => theme.colors.headingText};
     margin-bottom: 1rem;
     font-size: 1.2rem;
   }

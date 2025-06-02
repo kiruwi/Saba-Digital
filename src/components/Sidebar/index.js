@@ -21,17 +21,17 @@ const SidebarThemeToggle = styled.div`
   button {
     padding: 10px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: ${({ theme }) => theme.colors.toggleBtnBg || (theme.theme === 'light' ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)')};
     
     &:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: ${({ theme }) => theme.colors.toggleBtnHoverBg || (theme.theme === 'light' ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.2)')};
     }
   }
 `;
 
 const Sidebar=({isOpen, toggle, currentTheme, toggleTheme}) => {
   return (
-    <SidebarContainer isOpen={isOpen} onClick={toggle}>
+    <SidebarContainer $isOpen={isOpen} onClick={toggle}>
       <Icon onClick={toggle}>
         <CloseIcon />
       </Icon>
@@ -43,7 +43,7 @@ const Sidebar=({isOpen, toggle, currentTheme, toggleTheme}) => {
         </SidebarMenu>
         <SideBtnWrap>
           <SidebarThemeToggle>
-            <ThemeToggle theme={currentTheme} toggleTheme={toggleTheme} />
+            <ThemeToggle />
           </SidebarThemeToggle>
         </SideBtnWrap>
       </SidebarWrapper>

@@ -9,7 +9,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0 24px;
-  background: #000000;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#000000' : '#f8f9fa'};
   position: relative;
 `;
 
@@ -39,10 +39,10 @@ export const FormContent = styled.div`
 export const Form = styled.form`
   width: 100%;
   max-width: 700px;
-  background: #111111;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#111111' : '#ffffff'};
   padding: 50px 32px;
   display: grid;
-  border: 1px solid #333;   /* subtle border */
+  border: 1px solid ${({ theme }) => theme.theme === 'dark' ? '#333' : '#ddd'};   /* subtle border */
   border-radius: 0;         /* square corners */
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
@@ -70,20 +70,20 @@ export const FormH1 = styled.h1`
     transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    background-color: #2db670;
+    background-color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
 export const FormLabel = styled.label`
   margin-bottom: 8px;
   font-size: 14px;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
   display: block;
   text-align: center;
   
   p {
     margin: 12px 0;
-    color: #2db670;
+    color: ${({ theme }) => theme.colors.primary};
     font-weight: 500;
     font-size: 16px;
   }
@@ -93,30 +93,30 @@ export const FormInput = styled.input`
   padding: 16px;
   margin-bottom: 24px;
   border: none;
-  border-bottom: 2px solid #333;
+  border-bottom: 2px solid ${({ theme }) => theme.theme === 'dark' ? '#333' : '#ddd'};
   border-radius: 0;
-  background-color: rgba(255, 255, 255, 0.05);
-  color: white;
+  background-color: ${({ theme }) => theme.theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)'};
+  color: ${({ theme }) => theme.colors.text};
   transition: all 0.3s;
   font-size: 16px;
   
   &:focus {
     outline: none;
-    border-bottom: 2px solid #2db670;
-    background-color: rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.04)'};
   }
   
   &::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: ${({ theme }) => theme.theme === 'dark' ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.4)'};
   }
 `;
 
 export const FormButton = styled.button`
   padding: 16px 0;
-  border: 2px solid #2db670;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
   border-radius: 0;
-  background: #2db670;
-  color: #000;
+  background: ${({ theme }) => theme.colors.primary};
+  color: #fff;
   font-size: 18px;
   font-weight: 500;
   text-transform: uppercase;
@@ -127,7 +127,7 @@ export const FormButton = styled.button`
   
   &:hover {
     background: transparent;
-    color: #2db670;
+    color: ${({ theme }) => theme.colors.primary};
   }
   
   &:active {

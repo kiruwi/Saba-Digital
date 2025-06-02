@@ -40,9 +40,7 @@ const WebDevProjectCard: FC<WebDevProjectCardProps> = ({ project }) => {
       (entries) => {
         if (entries[0].isIntersecting) {
           setIsVisible(true);
-          if (cardRef.current) {
-            cardRef.current.classList.add('animated-in');
-          }
+          observer.unobserve(entries[0].target);
         }
       },
       {
@@ -51,13 +49,17 @@ const WebDevProjectCard: FC<WebDevProjectCardProps> = ({ project }) => {
       }
     );
     
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
+    // Store the current value of the ref in a variable
+    const currentCardRef = cardRef.current;
+    
+    if (currentCardRef) {
+      observer.observe(currentCardRef);
     }
     
     return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
+      // Use the captured ref value in the cleanup function
+      if (currentCardRef) {
+        observer.unobserve(currentCardRef);
       }
     };
   }, []);

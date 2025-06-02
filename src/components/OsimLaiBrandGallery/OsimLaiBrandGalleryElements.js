@@ -5,8 +5,8 @@ export const GalleryContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 2rem auto;
-  background: #0c0c0c;
-  color: #fff;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#0c0c0c' : '#f8f9fa'};
+  color: ${({ theme }) => theme.colors.text};
   opacity: 1;
   transform: translateY(0);
   animation: galleryAppear 0.8s forwards;
@@ -20,7 +20,7 @@ export const GalleryContainer = styled.div`
 export const GalleryHeader = styled.div`
   text-align: left;
   margin-bottom: 2rem;
-  border-left: 4px solid #2db670;
+  border-left: 4px solid ${({ theme }) => theme.colors.primary};
   padding-left: 1.5rem;
   
   h2 {

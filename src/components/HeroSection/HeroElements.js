@@ -59,7 +59,7 @@ export const HeroTitleTop = styled.h1`
 export const HeroTitleBottom = styled.h1`
   ${baseTitle};
   font-size: clamp(2.5rem, 4vw, 5rem);
-  color: #00ab57;
+  color: ${({ theme }) => theme.colors.primary};
   transition: color 0.3s ease;
 `;
 

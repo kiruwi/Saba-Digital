@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 export const CardContainer = styled(Link)`
   display: flex;
   flex-direction: column;
-  background: #0c0c0c;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#0c0c0c' : '#f8f9fa'};
   border-radius: 0px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
   transition: all 0.5s ease-in-out;
   text-decoration: none;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
   height: 100%;
   opacity: 0.9;
   transform: translateY(10px);
@@ -85,7 +85,7 @@ export const ContentWrapper = styled.div`
 export const ProjectTitle = styled.h3`
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.headingText};
 `;
 
 export const ProjectDescription = styled.p`
@@ -103,10 +103,10 @@ export const ProjectTags = styled.div`
 
 export const Tag = styled.span`
   padding: 0.25rem 0.75rem;
-  background: #1e1e1e;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#e9ecef'};
   border-radius: 0px;
   font-size: 0.75rem;
-  color: #2db670;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const ProjectGrid = styled.div`
@@ -122,9 +122,9 @@ export const ProjectDetailContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  background: #0c0c0c;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#0c0c0c' : '#f8f9fa'};
   border-radius: 0px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
 `;
 
 export const ProjectDetailHeader = styled.div`
@@ -136,7 +136,7 @@ export const ProjectDetailHeader = styled.div`
 export const DetailTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.headingText};
 `;
 
 export const DetailDescription = styled.p`

@@ -26,38 +26,17 @@ const UXUIDetailPageBase = lazy(() => import(/* webpackChunkName: "uxui-detail" 
 const WebDevWorkPageBase = lazy(() => import(/* webpackChunkName: "webdev-work" */ './work/WebDev'));
 const WebDevDetailPageBase = lazy(() => import(/* webpackChunkName: "webdev-detail" */ './work/WebDevDetail'));
 
-// Create wrapper components that use ThemeContext
-const WebDevWorkPage = () => {
-  const { theme, toggleTheme } = useTheme();
-  return <WebDevWorkPageBase currentTheme={theme} toggleTheme={toggleTheme} />;
-};
+// Simple wrapper components - base components now use ThemeContext directly
+const WebDevWorkPage = () => <WebDevWorkPageBase />;
+const WebDevDetailPage = () => <WebDevDetailPageBase />;
 
-const WebDevDetailPage = () => {
-  const { theme, toggleTheme } = useTheme();
-  return <WebDevDetailPageBase currentTheme={theme} toggleTheme={toggleTheme} />;
-};
+// UXUI page wrapper components
+const UXUIWorkPage = () => <UXUIWorkPageBase />;
+const UXUIDetailPage = () => <UXUIDetailPageBase />;
 
-// Create wrapper components for UXUI pages
-const UXUIWorkPage = () => {
-  const { theme, toggleTheme } = useTheme();
-  return <UXUIWorkPageBase currentTheme={theme} toggleTheme={toggleTheme} />;
-};
-
-const UXUIDetailPage = () => {
-  const { theme, toggleTheme } = useTheme();
-  return <UXUIDetailPageBase currentTheme={theme} toggleTheme={toggleTheme} />;
-};
-
-// Create wrapper components for Graphics pages
-const GraphicsWorkPage = () => {
-  const { theme, toggleTheme } = useTheme();
-  return <GraphicsWorkPageBase currentTheme={theme} toggleTheme={toggleTheme} />;
-};
-
-const GraphicsDetailPage = () => {
-  const { theme, toggleTheme } = useTheme();
-  return <GraphicsDetailPageBase currentTheme={theme} toggleTheme={toggleTheme} />;
-};
+// Graphics page wrapper components
+const GraphicsWorkPage = () => <GraphicsWorkPageBase />;
+const GraphicsDetailPage = () => <GraphicsDetailPageBase />;
 
 // Import special pages with their own chunks
 const UfanisiSpecialPage = lazy(() => import(/* webpackChunkName: "ufanisi-special" */ './pages/UfanisiSpecialPage'));
