@@ -31,11 +31,19 @@ export const Nav = styled.nav<NavProps>`
 export const NavbarContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 80px;
-  z-index: 1;
+  z-index: 10;
   width: 100%;
   padding: 0 24px;
-  max-width: 1500px;
+  max-width: 1100px;
+  position: relative;
+  
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+    padding: 0 15px;
+    text-align: center;
+  }
 `;
 
 export const NavLogo = styled(LinkR)`
@@ -49,6 +57,16 @@ export const NavLogo = styled(LinkR)`
   align-items: center;
   height: 100%;
   padding: 1rem;
+  position: relative;
+  z-index: 15;
+  
+  @media screen and (max-width: 768px) {
+    position: absolute;
+    left: 15px;
+    top: 28px; /* Fixed position to match exact logo height */
+    height: 24px;
+    padding: 0;
+  }
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
@@ -96,6 +114,7 @@ export const NavLinks = styled(LinkS)`
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
+  z-index: 11;
 
   &.active {
     border-bottom: 3px solid ${({ theme }) => theme.colors.primary};
@@ -105,6 +124,8 @@ export const NavLinks = styled(LinkS)`
 export const NavBtn = styled.nav`
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: 15;
 
   @media screen and (max-width: 768px) {
     display: none;
@@ -113,10 +134,10 @@ export const NavBtn = styled.nav`
 
 export const NavBtnLink = styled(LinkR)`
   border-radius: 0px;
-  background: ${({ theme }) => theme.colors.primary};
+  background: transparent;
   white-space: nowrap;
   padding: 10px 22px;
-  color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.text};
   font-size: 16px;
   outline: none;
   border: none;
@@ -127,9 +148,7 @@ export const NavBtnLink = styled(LinkR)`
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.primary};
-    border: 1px solid ${({ theme }) => theme.colors.primary};
   }
 `;
 
