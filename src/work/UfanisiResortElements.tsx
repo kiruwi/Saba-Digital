@@ -4,6 +4,17 @@ import styled from 'styled-components';
 // will-change properties also commented out to prevent unnecessary GPU usage
 
 // Dedicated styled components for the Ufanisi Resort page
+export const UfanisiMainContainer = styled.main`
+  padding: 7rem 1.5rem 4rem 1.5rem;
+  margin-top: 10px;
+  background: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.text};
+  opacity: 1;
+  /* Animation commented out
+  transition: opacity 0.5s ease-in;
+  */
+`;
+
 export const UfanisiContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -81,7 +92,7 @@ export const UfanisiTagsContainer = styled.div`
 
 export const UfanisiTag = styled.span`
   background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
+  color: white; /* Always white text on primary color buttons */
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.9rem;
@@ -105,125 +116,85 @@ export const UfanisiToolsContainer = styled.div`
   margin-bottom: 2rem;
 `;
 
-export const UfanisiTool = styled.span`
-  background-color: ${({ theme }) => theme.colors.secondary};
-  color: white;
+export const UfanisiTool = styled.div`
+  display: inline-block;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  font-size: 0.9rem;
-`;
-
-export const UfanisiSectionContent = styled.p`
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+  background-color: ${({ theme }) => theme.colors.cardBackground};
   color: ${({ theme }) => theme.colors.text};
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
 `;
 
-export const UfanisiDetailHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 2rem;
-  
-  @media screen and (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-between;
-  }
+export const UfanisiSectionContent = styled.div`
+  margin-bottom: 3rem;
 `;
 
+// Side-by-side layout
 export const UfanisiSideBySide = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  gap: 2rem;
   margin: 3rem 0;
   
   @media screen and (min-width: 768px) {
     flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 2rem;
+    align-items: center;
   }
 `;
 
 export const UfanisiMobileImageFirst = styled.div`
   width: 100%;
-  margin-bottom: 2rem;
-  order: 1;
-  display: block;
   
   @media screen and (min-width: 768px) {
-    width: 45%;
-    margin-bottom: 0;
-    order: 0; /* Ensure image appears first (left) on desktop */
-    display: block !important; /* Force display on desktop */
+    width: 50%;
   }
 `;
 
 export const UfanisiMobileTextSecond = styled.div`
   width: 100%;
-  order: 2;
   
   @media screen and (min-width: 768px) {
     width: 50%;
-    order: 1; /* Ensure text appears second (right) on desktop */
-  }
-`;
-
-export const UfanisiMobileOnlyImage = styled.div`
-  width: 100%;
-  margin-bottom: 1rem;
-  
-  @media screen and (min-width: 768px) {
-    display: none;
-  }
-`;
-
-export const UfanisiDesktopOnlyImage = styled.div`
-  display: none;
-  
-  @media screen and (min-width: 768px) {
-    display: block;
-    width: 100%;
   }
 `;
 
 export const UfanisiHeroContainer = styled.div`
   position: relative;
+  height: 50vh;
+  min-height: 400px;
   margin-bottom: 2rem;
-  /* Animation commented out
-  will-change: opacity;
-  animation: fadeIn 0.6s ease-in;
   
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  @media screen and (min-width: 768px) {
+    height: 60vh;
   }
-  */
 `;
 
 export const UfanisiHeroContent = styled.div`
-  width: 100%;
-  height: auto;
-  position: relative;
-  /* Animation commented out
-  will-change: opacity;
-  animation: fadeIn 0.8s ease-in;
-  */
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 2;
+  
+  @media screen and (min-width: 768px) {
+    bottom: 4rem;
+    left: 4rem;
+  }
 `;
 
 export const UfanisiHeroOverlay = styled.div`
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
-  padding: 1.5rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 100%);
-  color: white;
-  /* Animation commented out
-  will-change: opacity;
-  animation: fadeIn 1s ease-in;
-  */
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  z-index: 1;
+`;
+
+export const UfanisiDetailHeader = styled.div`
+  margin-bottom: 2rem;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const UfanisiMobileTitle = styled.div`
@@ -231,89 +202,61 @@ export const UfanisiMobileTitle = styled.div`
   text-align: center;
 `;
 
-// Food Delivery App Section styling
-export const FoodDeliverySection = styled.div`
-  /* Animation commented out
-  will-change: opacity, transform;
-  animation: fadeInUp 0.8s ease-in-out;
-  
-  @keyframes fadeInUp {
-    from { 
-      opacity: 0; 
-      transform: translateY(30px); 
-    }
-    to { 
-      opacity: 1; 
-      transform: translateY(0); 
-    }
-  }
-  */
-
-  background-color: #1e1e1e; /* Always dark background regardless of theme */
-  border-radius: 12px;
-  padding: 2rem;
-  margin: 3rem 0;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  border: 1px solid #333;
+// Food Delivery styled components
+export const FoodDeliverySection = styled.section`
+  padding: 4rem 0;
+  background-color: ${({ theme }) => theme.colors.cardBackground};
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const FoodDeliveryContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
-  flex-direction: row;
-  gap: 2rem;
+  flex-direction: column;
   
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
   }
 `;
 
 export const FoodDeliveryTextSection = styled.div`
-  flex: 0 0 60%;
+  padding: 2rem;
   
-  @media screen and (max-width: 768px) {
-    flex: 1;
-    width: 100%;
+  @media screen and (min-width: 768px) {
+    width: 50%;
   }
 `;
 
 export const FoodDeliveryImageSection = styled.div`
-  flex: 0 0 40%;
-  display: flex;
-  align-items: center;
+  padding: 2rem;
   
-  @media screen and (max-width: 768px) {
-    flex: 1;
-    width: 100%;
-    margin: 1.5rem 0;
+  @media screen and (min-width: 768px) {
+    width: 50%;
   }
 `;
 
 export const FoodDeliveryHeading = styled.h2`
-  font-size: 1.8rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
-  color: #FF9800; /* Orange color for headings */
-  font-weight: 600;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const FoodDeliverySubheading = styled.h3`
-  font-size: 1.4rem;
-  margin: 1.5rem 0 1rem;
-  color: #FFC107; /* Yellow color for subheadings */
-  font-weight: 500;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const FoodDeliveryContent = styled.p`
-  font-size: 1.1rem;
-  line-height: 1.7;
-  margin-bottom: 1.2rem;
-  color: #f8f9fa; /* Always use light text on dark background */
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const FoodDeliveryImage = styled.img`
-  display: block;
   width: 100%;
   height: auto;
-  object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;

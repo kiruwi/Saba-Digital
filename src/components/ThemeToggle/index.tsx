@@ -4,101 +4,110 @@ import { FaSun, FaMoon } from 'react-icons/fa';
 import { useTheme } from '../../contexts/ThemeContext';
 
 // Define props interface to support both context and prop-based usage
-interface ThemeToggleProps {
-  theme?: any;
-  toggleTheme?: () => void;
+interface ThemeToggleProps {}
+
+interface ToggleButtonProps {
+  $isDark: boolean;
 }
 
-interface ToggleProps {
-  $isDarkMode: boolean;
-}
-
-const ToggleContainer = styled.button<ToggleProps>`
-  background: ${({ theme }) => theme.colors.cardBackground};
-  border: 2px solid ${({ theme }) => theme.colors.primary};
+const ToggleButton = styled.button<ToggleButtonProps>`
+  background: ${({ theme, $isDark }) => $isDark ? '#333' : '#fff'};
+  color: ${({ theme, $isDark }) => $isDark ? '#fff' : '#333'};
+  border: 2px solid #00CF95; /* Use the green brand color for the border */
   border-radius: 30px;
   cursor: pointer;
   display: flex;
-  font-size: 0.5rem;
-  justify-content: space-between;
-  margin: 0 auto;
-  overflow: hidden;
+  align-items: center;
+  justify-content: center;
   padding: 0.5rem;
-  position: relative;
-  width: 4rem;
-  height: 2rem;
+  width: 2.8rem;
+  height: 2.8rem;
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 8px rgba(0, 207, 149, 0.5); /* Add glow effect with brand color */
   transition: all 0.3s ease;
+  position: relative;
+  margin: 0 0.5rem;
+  overflow: hidden;
 
   &:hover {
-    box-shadow: 0 0 8px ${({ theme }) => theme.colors.primary};
     transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(0, 207, 149, 0.7); /* Enhanced glow on hover */
   }
 
   &:active {
     transform: translateY(1px);
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0.25rem;
-    left: ${({ $isDarkMode }) => $isDarkMode ? '2.25rem' : '0.25rem'};
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    background: ${({ theme }) => theme.colors.primary};
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  }
-
   svg {
-    height: 1rem;
-    width: 1rem;
-    transition: all 0.3s linear;
-    position: relative;
-    z-index: 1;
-
-    // sun icon
-    &:first-child {
-      transform: ${({ $isDarkMode }) => !$isDarkMode ? 'translateY(0)' : 'translateY(100px)'};
-      color: #F9D71C;
-    }
-
-    
-    // moon icon
-    &:nth-child(2) {
-      transform: ${({ $isDarkMode }) => !$isDarkMode ? 'translateY(-100px)' : 'translateY(0)'};
-      color: #F5F3CE;
-    }
+    font-size: 1.5rem;
+    color: ${({ $isDark }) => $isDark ? '#F5F3CE' : '#F9D71C'}; /* Light yellow for moon in dark mode, bright yellow for sun in light mode */
+    transition: all 0.3s ease;
   }
 `;
 
-const ThemeToggle: React.FC<ThemeToggleProps> = ({ theme: propTheme, toggleTheme: propToggleTheme }) => {
-  // Get theme and toggleTheme from context
-  const { theme: contextTheme, toggleTheme: contextToggleTheme } = useTheme();
+const ThemeToggle: React.FC<ThemeToggleProps> = () => {
+  // Get theme and toggleTheme directly from context
+  const { theme, toggleTheme } = useTheme();
   
-  // Use props if provided, otherwise use context
-  const theme = propTheme || contextTheme;
-  const toggleTheme = propToggleTheme || contextToggleTheme;
+  // Super robust click handler with multiple fallbacks
+  const handleClick = (e: React.MouseEvent) => {
+    // Stop propagation to prevent parent elements from capturing the click
+    e.stopPropagation();
+    e.preventDefault();
+    
+    console.log('🔘 Theme toggle button clicked, current theme before toggle:', theme);
+    
+    try {
+      // APPROACH 1: Use the context toggle function
+      if (typeof toggleTheme === 'function') {
+        console.log('✅ Using context toggleTheme function');
+        toggleTheme();
+      } 
+      // APPROACH 2: Direct DOM and localStorage manipulation as fallback
+      else {
+        console.log('⚠️ toggleTheme not available, using direct DOM manipulation');
+        // Determine current theme
+        const currentTheme = document.documentElement.getAttribute('data-theme') || theme || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        // Update localStorage
+        localStorage.setItem('theme', newTheme);
+        
+        // Update DOM
+        document.documentElement.className = newTheme;
+        document.documentElement.setAttribute('data-theme', newTheme);
+        
+        // Force refresh by updating data attribute
+        document.documentElement.setAttribute('data-theme-updated', Date.now().toString());
+        
+        console.log('✅ Emergency theme toggle via DOM: changed to', newTheme);
+        
+        // Try to force React re-render
+        window.dispatchEvent(new Event('storage'));
+      }
+      
+      // For debugging: Alert on success
+      // alert('Theme toggle clicked! Check console logs.');
+      
+    } catch (error) {
+      console.error('❌ Error in theme toggle:', error);
+      alert('Error toggling theme. See console for details.');
+    }
+  };
   
-  const isDarkMode = theme === 'dark';
+  // Check if we're in dark mode
+  const isDark = theme === 'dark';
   
   return (
-    <ToggleContainer 
-      $isDarkMode={isDarkMode} 
-      onClick={toggleTheme} 
-      aria-label={isDarkMode ? "Switch to light theme" : "Switch to dark theme"}
-      title={isDarkMode ? "Switch to light theme" : "Switch to dark theme"}
-      role="switch"
-      aria-checked={isDarkMode}
+    <ToggleButton 
+      $isDark={isDark} 
+      onClick={handleClick}
+      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+      title={isDark ? "Switch to light theme" : "Switch to dark theme"}
     >
-      <FaSun />
-      <FaMoon />
-      <span className="sr-only">
-        {isDarkMode ? "Currently in dark mode, click to switch to light mode" : "Currently in light mode, click to switch to dark mode"}
-      </span>
-    </ToggleContainer>
+      {/* Show sun icon in dark mode (to switch to light), moon icon in light mode (to switch to dark) */}
+      {isDark ? <FaSun /> : <FaMoon />}
+    </ToggleButton>
   );
 };
 

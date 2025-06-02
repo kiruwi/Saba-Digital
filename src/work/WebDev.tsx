@@ -7,6 +7,7 @@ import { webProjects } from "../data/projects";
 import WebDevProjectCard from "../components/ProjectCard/WebDevProjectCard";
 import styled from "styled-components";
 import AnimatedSection from "../components/AnimatedSection";
+import { useTheme } from "../contexts/ThemeContext";
 
 const MainContent = styled.main`
   padding: 7rem 1.5rem 4rem 1.5rem;
@@ -27,20 +28,20 @@ const ProjectsContainer = styled.div`
   margin: 0 auto;
 `;
 
-// No props needed as we're using ThemeContext
+// Using ThemeContext directly
 
-interface WebDevProps {
-  currentTheme: any;
-  toggleTheme: () => void;
-}
-
-const WebDev: React.FC<WebDevProps> = ({ currentTheme, toggleTheme }) => {
+const WebDev: React.FC = () => {
+  // Get theme from context - even though we don't use these variables directly,
+  // destructuring them ensures the component subscribes to context changes
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { theme, toggleTheme } = useTheme();
+  
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} currentTheme={currentTheme} toggleTheme={toggleTheme} />
+      <Navbar toggle={toggle} isOpen={isOpen} />
       <MainContent>
         <ProjectsContainer>
           <AnimatedSection animationType="fadeInDown" duration={800}>

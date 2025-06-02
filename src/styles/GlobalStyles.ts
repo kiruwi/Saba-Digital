@@ -23,6 +23,14 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.colors.text};
     transition: background-color 0.3s ease, color 0.3s ease;
   }
+  
+  /* Hide fixed UI elements when lightbox is open */
+  body.lightbox-open header,
+  body.lightbox-open .project-nav,
+  body.lightbox-open .back-to-projects,
+  body.lightbox-open nav {
+    display: none !important;
+  }
 
   a {
     color: ${({ theme }) => theme.colors.primary};

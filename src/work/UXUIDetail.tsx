@@ -5,6 +5,7 @@ import UXUIProjectDetail from "../components/ProjectDetail/UXUIProjectDetail";
 import { uxProjects } from "../data/projects";
 import { useParams, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { useTheme } from "../contexts/ThemeContext";
 
 const MainContent = styled.main`
   padding: 7rem 1.5rem 4rem 1.5rem;
@@ -13,18 +14,20 @@ const MainContent = styled.main`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-interface UXUIDetailProps {
-  currentTheme: any;
-  toggleTheme: () => void;
-}
+// Using ThemeContext directly - no props needed
 
-const UXUIDetail: React.FC<UXUIDetailProps> = ({ currentTheme, toggleTheme }) => {
+const UXUIDetail: React.FC = () => {
+  // Get theme from context - even though we don't use these variables directly,
+  // destructuring them ensures the component subscribes to context changes
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { theme, toggleTheme } = useTheme();
+  
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   
-  // Theme is now passed as props
+  // Theme is now accessed from context
   
   // Debug location information
   console.log('UXUIDetail - Current location:', location);
@@ -52,7 +55,7 @@ const UXUIDetail: React.FC<UXUIDetailProps> = ({ currentTheme, toggleTheme }) =>
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} currentTheme={currentTheme} toggleTheme={toggleTheme} />
+      <Navbar toggle={toggle} isOpen={isOpen} />
       <MainContent>
         <UXUIProjectDetail projects={uxProjects} />
       </MainContent>

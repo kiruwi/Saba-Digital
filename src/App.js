@@ -1,12 +1,12 @@
 // src/App.js
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { ThemeProvider } from "styled-components";
-import { lightTheme, darkTheme } from "./themes/theme";
-import ThemeUtils from "./utils/theme";
+import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import GlobalStyles from "./components/GlobalStyles";
 import { useGAPageViews } from "./utils/analytics";
+import { ThemeProvider as CustomThemeProvider, useTheme } from "./contexts/ThemeContext";
+import { lightTheme, darkTheme } from "./themes/theme";
 import { Home } from "./pages";
 import ContactPage from "./pages/contactus";
 import ErrorPage from "./pages/Error";
@@ -16,6 +16,7 @@ import Graphics from "./work/Graphics";
 import UXUIDetail from "./work/UXUIDetail";
 import WebDevDetail from "./work/WebDevDetail";
 import GraphicsDetail from "./work/GraphicsDetail";
+import Layout from "./components/Layout";
 import "./App.css";
 import "./fonts.css"; // Import SpotifyMix font definitions
 import ScrollToTop from "./components/ScrollToTop";
@@ -27,57 +28,88 @@ function RouteChangeTracker() {
   return null;
 }
 
-function App() {
-  // Get initial theme preference
-  // eslint-disable-next-line no-unused-vars
-  const [currentTheme, setCurrentTheme] = useState(() => {
-    // Use server-side rendering safe check
-    if (typeof window !== 'undefined') {
-      return ThemeUtils.getInitialTheme();
-    }
-    return 'light';
-  });
-
-  // Toggle between light and dark theme
-  const toggleTheme = () => {
-    setCurrentTheme(prevTheme => ThemeUtils.toggleTheme(prevTheme));
-  };
+// Wrapper component to access theme context
+function AppContent() {
+  const { theme } = useTheme();
   
-  // Update body class when theme changes
-  useEffect(() => {
-    document.body.className = currentTheme;
-  }, [currentTheme]);
+  // Convert theme string to the appropriate theme object
+  const themeObject = theme === 'light' ? lightTheme : darkTheme;
   
-  // Get the current theme object
-  const theme = currentTheme === 'light' ? lightTheme : darkTheme;
+  // Log the current theme for debugging
+  console.log('App current theme:', theme);
   
   return (
+  
     <HelmetProvider>
-      <ThemeProvider theme={theme}>
+      <StyledThemeProvider theme={themeObject}>
         <GlobalStyles />
         <Router>
           <ScrollToTop /> {/* Add ScrollToTop to ensure proper scroll restoration */}
           <RouteChangeTracker />
           <Routes>
-            <Route path="/" element={<Home currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
-            <Route path="/contactus" element={<ContactPage currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
+            <Route path="/" element={
+              <Layout>
+                <Home />
+              </Layout>
+            } />
+            <Route path="/contactus" element={
+              <Layout>
+                <ContactPage />
+              </Layout>
+            } />
 
             {/* work pages */}
-            <Route path="/work/ux-ui" element={<UXUI currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
-            <Route path="/work/web-dev" element={<WebDev currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
-            <Route path="/work/graphics" element={<Graphics currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
+            <Route path="/work/ux-ui" element={
+              <Layout>
+                <UXUI />
+              </Layout>
+            } />
+            <Route path="/work/web-dev" element={
+              <Layout>
+                <WebDev />
+              </Layout>
+            } />
+            <Route path="/work/graphics" element={
+              <Layout>
+                <Graphics />
+              </Layout>
+            } />
 
             {/* project detail pages */}
-            <Route path="/work/ux-ui/:id" element={<UXUIDetail currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
-            <Route path="/work/web-dev/:id" element={<WebDevDetail currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
-            <Route path="/work/graphics/:id" element={<GraphicsDetail currentTheme={currentTheme} toggleTheme={toggleTheme} />} />
+            <Route path="/work/ux-ui/:id" element={
+              <Layout>
+                <UXUIDetail />
+              </Layout>
+            } />
+            <Route path="/work/web-dev/:id" element={
+              <Layout>
+                <WebDevDetail />
+              </Layout>
+            } />
+            <Route path="/work/graphics/:id" element={
+              <Layout>
+                <GraphicsDetail />
+              </Layout>
+            } />
 
-            {/* 404 route */}
-            <Route path="*" element={<ErrorPage />} />
+            {/* 404 error page */}
+            <Route path="*" element={
+              <Layout>
+                <ErrorPage />
+              </Layout>
+            } />
           </Routes>
         </Router>
-      </ThemeProvider>
+      </StyledThemeProvider>
     </HelmetProvider>
+  );
+}
+
+function App() {
+  return (
+    <CustomThemeProvider>
+      <AppContent />
+    </CustomThemeProvider>
   );
 }
 

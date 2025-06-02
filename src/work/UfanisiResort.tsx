@@ -10,6 +10,7 @@ import { Theme } from "../themes/theme";
 import LazyImage from "../components/LazyImage";
 import { preloadImage, preloadSectionImages } from "../utils/preloadImages";
 import {
+  UfanisiMainContainer,
   UfanisiContainer,
   UfanisiTitle,
   UfanisiDescription,
@@ -102,8 +103,8 @@ const UfanisiResort: React.FC = () => {
   if (!project) {
     return (
       <>
-        <Navbar toggle={toggle} isOpen={isOpen} currentTheme={theme} toggleTheme={toggleTheme} />
-        <main style={{ padding: "7rem 1.5rem 4rem 1.5rem", marginTop: "10px", background: "#000", color: "#fff" }}>
+        <Navbar toggle={toggle} isOpen={isOpen} />
+        <UfanisiMainContainer>
           <UfanisiContainer ref={contentRef}>
             <UfanisiBackButton onClick={() => navigate(-1)}>
               <FaArrowLeft style={{ marginRight: '0.5rem' }} /> Go Back
@@ -111,7 +112,7 @@ const UfanisiResort: React.FC = () => {
             <UfanisiTitle>Project Not Found</UfanisiTitle>
             <UfanisiDescription>The Ufanisi Resort project you're looking for doesn't exist or has been moved.</UfanisiDescription>
           </UfanisiContainer>
-        </main>
+        </UfanisiMainContainer>
         <Footer />
       </>
     );
@@ -119,15 +120,8 @@ const UfanisiResort: React.FC = () => {
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} currentTheme={theme} toggleTheme={toggleTheme} />
-      <main style={{ 
-        padding: "7rem 1.5rem 4rem 1.5rem", 
-        marginTop: "10px", 
-        background: theme === 'dark' ? '#121212' : '#ffffff', 
-        color: theme === 'dark' ? '#f8f9fa' : '#343a40',
-        opacity: 1 // Animation commented out
-        /* transition: 'opacity 0.5s ease-in' */
-      }}>
+      <Navbar toggle={toggle} isOpen={isOpen} />
+      <UfanisiMainContainer>
         <UfanisiContainer>
           <UfanisiBackButton onClick={() => navigate(-1)}>
             <FaArrowLeft style={{ marginRight: '0.5rem' }} /> Go Back
@@ -274,7 +268,7 @@ const UfanisiResort: React.FC = () => {
             ))}
           </UfanisiToolsContainer>
         </UfanisiContainer>
-      </main>
+      </UfanisiMainContainer>
       <Footer />
     </>
   );

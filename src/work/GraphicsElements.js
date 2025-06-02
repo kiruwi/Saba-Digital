@@ -22,7 +22,7 @@ export const GraphicsCardContainer = styled(Link)`
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.5s ease-in-out;
   text-decoration: none;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text};
   height: 100%;
   opacity: 0.9;
   transform: translateY(10px);
@@ -98,7 +98,7 @@ export const GraphicsContentWrapper = styled.div`
 export const GraphicsProjectTitle = styled.h3`
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.headingText};
 `;
 
 export const GraphicsProjectDescription = styled.p`
@@ -116,10 +116,10 @@ export const GraphicsProjectTags = styled.div`
 
 export const GraphicsTag = styled.span`
   padding: 0.25rem 0.75rem;
-  background: #1e1e1e;
+  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#e9ecef'};
   border-radius: 0px;
   font-size: 0.75rem;
-  color: #2db670;
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 // Styling for the Graphics project detail page
@@ -141,7 +141,7 @@ export const GraphicsDetailHeader = styled.div`
 export const GraphicsDetailTitle = styled.h2`
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.headingText};
 `;
 
 export const GraphicsDetailDescription = styled.p`

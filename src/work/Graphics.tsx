@@ -9,6 +9,7 @@ import AnimatedSection from "../components/AnimatedSection";
 import usePerformanceOptimization from "../hooks/usePerformanceOptimization";
 import LazyImage from "../components/LazyImage";
 import { Link, useNavigate } from "react-router-dom";
+import { useTheme } from "../contexts/ThemeContext";
 
 const MainContainer = styled.main`
   padding: 7rem 1.5rem 4rem 1.5rem;
@@ -106,12 +107,13 @@ interface ProjectType {
   link?: string;
 }
 
-interface GraphicsProps {
-  currentTheme: any;
-  toggleTheme: () => void;
-}
+// Using ThemeContext directly - no props needed
 
-const Graphics: React.FC<GraphicsProps> = ({ currentTheme, toggleTheme }) => {
+const Graphics: React.FC = () => {
+  // Get theme from context - even though we don't use these variables directly,
+  // destructuring them ensures the component subscribes to context changes
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const navigate = useNavigate();
@@ -133,7 +135,7 @@ const Graphics: React.FC<GraphicsProps> = ({ currentTheme, toggleTheme }) => {
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} currentTheme={currentTheme} toggleTheme={toggleTheme} />
+      <Navbar toggle={toggle} isOpen={isOpen} />
       <MainContainer>
         <AnimatedSection animationType="fadeInDown" duration={800}>
           <PageTitle>Graphics Projects</PageTitle>

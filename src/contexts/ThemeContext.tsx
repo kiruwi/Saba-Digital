@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { ThemeType, lightTheme, darkTheme } from '../themes/theme';
-import ThemeUtils from '../utils/theme';
 
 // Define the context type
 interface ThemeContextType {
@@ -18,13 +17,50 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  // Initialize theme state
-  const [theme, setTheme] = useState<ThemeType>(ThemeUtils.getInitialTheme());
+  // Helper function to get initial theme from localStorage or system preference
+  const getInitialTheme = (): ThemeType => {
+    // Check if theme is saved in localStorage
+    const savedTheme = localStorage.getItem('theme') as ThemeType;
+    
+    if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
+      return savedTheme;
+    }
+    
+    // Check system preference
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    
+    // Default to light theme
+    return 'light';
+  };
 
-  // Toggle theme function
+  // Initialize theme state with string 'light' or 'dark'
+  const [theme, setTheme] = useState<ThemeType>(getInitialTheme());
+
+  // Toggle theme function with additional debugging and force update
   const toggleTheme = () => {
-    const newTheme = ThemeUtils.toggleTheme(theme);
+    console.log('⚠️ Theme toggle called, theme before toggle:', theme); // Debug
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    console.log('⚠️ Setting new theme to:', newTheme); // Debug
+    
+    // Update state
     setTheme(newTheme);
+    
+    // Also update localStorage
+    localStorage.setItem('theme', newTheme);
+    
+    // Apply theme class directly to document to force immediate visual update
+    document.documentElement.className = newTheme;
+    document.documentElement.setAttribute('data-theme', newTheme);
+    
+    // Force re-render by updating a custom data attribute
+    document.documentElement.setAttribute('data-theme-updated', Date.now().toString());
+    
+    console.log('⚠️ Theme toggle completed, DOM updated');
+    
+    // Alert for debugging
+    // alert(`Theme toggled to: ${newTheme}`);
   };
 
   // Update theme when system preference changes
@@ -72,9 +108,16 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   };
 
   // Use the styled-components ThemeProvider with our context
+  // Always pass a theme object to styled-components ThemeProvider, not a string
+  const themeObject = theme === 'light' ? lightTheme : darkTheme;
+  
+  // Debug the current theme
+  console.log('Current theme:', theme);
+  console.log('Using theme object:', themeObject);
+  
   return (
     <ThemeContext.Provider value={contextValue}>
-      <StyledThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <StyledThemeProvider theme={themeObject}>
         {children}
       </StyledThemeProvider>
     </ThemeContext.Provider>

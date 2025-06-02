@@ -12,6 +12,7 @@ export interface Theme {
     error: string;
     cardBackground: string; // For card backgrounds
     headingText: string; // For headings
+    buttonText: string; // For button text
   };
   fontSizes: {
     xs: string;
@@ -55,7 +56,8 @@ export const lightTheme: Theme = {
     accent: '#00ab57', // Same green for accent
     error: '#dc3545',
     cardBackground: '#f8f9fa', // Light card background
-    headingText: '#000000' // Pure black heading text for light theme
+    headingText: '#000000', // Pure black heading text for light theme
+    buttonText: '#ffffff' // White text for buttons
   },
   fontSizes: {
     xs: '0.75rem',
@@ -97,7 +99,8 @@ export const darkTheme: Theme = {
     accent: '#00ab57', // Same green for accent
     error: '#e35d6a',
     cardBackground: '#1e1e1e', // Dark card background
-    headingText: '#ffffff' // Light heading text for dark theme
+    headingText: '#ffffff', // Light heading text for dark theme
+    buttonText: '#ffffff' // White text for buttons
   },
   fontSizes: {
     xs: '0.75rem',

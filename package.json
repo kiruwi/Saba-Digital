@@ -36,13 +36,13 @@
     "web-vitals": "^3.5.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "cross-env REACT_APP_USE_TS=true react-scripts start",
+    "build": "cross-env REACT_APP_USE_TS=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "lint": "eslint src --ext js,jsx",
+    "lint": "eslint src --ext js,jsx,ts,tsx",
     "process-content": "node scripts/process-cms-content-local.js"
   },
   "eslintConfig": {
@@ -67,6 +67,7 @@
     "@types/react-scroll": "^1.8.10",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.56.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.29.0",

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { FaUsers, FaRocket, FaShoppingCart, FaLanguage, FaUniversalAccess, FaMicrophone, FaHistory, FaCreditCard, FaStarHalfAlt } from 'react-icons/fa';
 // Import Ufanisi styled components for responsive layout
 import { UfanisiSideBySide, UfanisiMobileImageFirst, UfanisiMobileTextSecond } from "./UfanisiResortElements";
+import { useTheme } from "../contexts/ThemeContext";
 
 const MainContainer = styled.main`
   padding: 7rem 1.5rem 4rem 1.5rem;
@@ -135,12 +136,13 @@ const StepContent = styled.div`
   line-height: 1.6;
 `;
 
-interface UXUIProps {
-  currentTheme: any;
-  toggleTheme: () => void;
-}
+// Using ThemeContext directly - no props needed
 
-const UXUI: React.FC<UXUIProps> = ({ currentTheme, toggleTheme }) => {
+const UXUI: React.FC = () => {
+  // Get theme from context - even though we don't use these variables directly,
+  // destructuring them ensures the component subscribes to context changes
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -207,7 +209,7 @@ const UXUI: React.FC<UXUIProps> = ({ currentTheme, toggleTheme }) => {
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} currentTheme={currentTheme} toggleTheme={toggleTheme} />
+      <Navbar toggle={toggle} isOpen={isOpen} />
       <MainContainer>
         <AnimatedSection animationType="fadeInDown" duration={800}>
           <PageTitle>UX / UI Design</PageTitle>
