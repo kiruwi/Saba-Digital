@@ -35,14 +35,15 @@ export const NavbarContainer = styled.div`
   height: 80px;
   z-index: 10;
   width: 100%;
-  padding: 0 24px;
-  max-width: 1100px;
+  padding: 0;
+  max-width: 100%;
   position: relative;
   
   @media screen and (max-width: 768px) {
     justify-content: center;
     padding: 0 15px;
     text-align: center;
+    max-width: 1100px;
   }
 `;
 
@@ -56,7 +57,7 @@ export const NavLogo = styled(LinkR)`
   display: flex;
   align-items: center;
   height: 100%;
-  padding: 1rem;
+  padding: 0 2rem;
   position: relative;
   z-index: 15;
   
@@ -126,6 +127,7 @@ export const NavBtn = styled.nav`
   align-items: center;
   position: relative;
   z-index: 15;
+  padding-right: 2rem;
 
   @media screen and (max-width: 768px) {
     display: none;
