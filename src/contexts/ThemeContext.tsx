@@ -83,6 +83,25 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     };
   }, []);
   
+  // Listen for custom theme change events from direct DOM manipulation
+  useEffect(() => {
+    const handleThemeChange = (e: CustomEvent) => {
+      const newTheme = e.detail?.theme as ThemeType;
+      if (newTheme && (newTheme === 'light' || newTheme === 'dark')) {
+        console.log('🎧 ThemeContext: Received themechange event with theme:', newTheme);
+        setTheme(newTheme);
+      }
+    };
+    
+    // Add event listener for custom theme changes
+    window.addEventListener('themechange', handleThemeChange as EventListener);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('themechange', handleThemeChange as EventListener);
+    };
+  }, []);
+  
   // Apply theme to document element for CSS variables
   useEffect(() => {
     // Update data-theme attribute on document element

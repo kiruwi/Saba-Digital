@@ -99,7 +99,7 @@ const directThemeToggle = () => {
   // 1. Update localStorage
   localStorage.setItem('theme', newTheme);
   
-  // 2. Update DOM directly (in case page doesn't reload for some reason)
+  // 2. Update DOM directly 
   document.documentElement.setAttribute('data-theme', newTheme);
   document.documentElement.className = newTheme;
   document.body.className = newTheme;
@@ -107,9 +107,11 @@ const directThemeToggle = () => {
   // 3. Set a flag to indicate we're coming from a theme toggle
   sessionStorage.setItem('themeJustToggled', 'true');
   
-  // 4. Simple solution: Reload the page to ensure everything updates correctly
-  // This is the most reliable approach when React context isn't updating properly
-  window.location.reload();
+  // 4. Dispatch a custom event to notify components about the theme change
+  // This helps ensure any components using the theme will re-render
+  window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: newTheme } }));
+  
+  // No more page reload - we rely on React's state management and the DOM updates above
 };
 
 // Styled component for desktop theme toggle
