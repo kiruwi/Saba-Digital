@@ -5,21 +5,40 @@ export const GalleryContainer = styled.div`
   margin: 2rem 0 3rem;
 `;
 
-export const GalleryHeading = styled.h3`
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-export const ImagesGrid = styled.div`
+export const GalleryGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 15px;
+  margin-top: 20px;
   
   @media screen and (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-gap: 10px;
+  }
+`;
+
+export const GalleryItem = styled.div`
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  aspect-ratio: 3/2;
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+`;
+
+export const GalleryItemImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  
+  &:hover {
+    transform: scale(1.05);
   }
 `;
 
@@ -36,55 +55,47 @@ export const ImageItem = styled.div`
   }
 `;
 
-export const FullScreenOverlay = styled.div`
+export const GalleryHeading = styled.h3`
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: ${({ theme }) => theme.colors.primary};
+`;
+
+export const FullScreenOverlay = styled.div.attrs({
+  className: 'lightbox-overlay'
+})`
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: rgba(0, 0, 0, 0.9);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  flex-direction: column;
+  z-index: 999999; /* Extremely high to ensure it's above everything */
 `;
 
 export const ZoomableContainer = styled.div`
   position: relative;
-  width: 90%;
-  height: 80vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  
-  /* Custom scrollbar for zoomed mode */
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-  }
-  
-  &::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
-  }
+  flex: 1;
+  padding: 0 30px;
+  box-sizing: border-box;
 `;
 
-export const FullScreenImage = styled.img`
-  max-width: 100%;
-  max-height: 100%;
+export const FullScreenImage = styled.img.attrs({
+  className: 'lightbox-img'
+})`
+  max-width: 90vw;
+  max-height: 90vh;
   object-fit: contain;
   transition: transform 0.3s ease;
+  z-index: 10000;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 `;
 
 export const ImageCaption = styled.p`
@@ -93,6 +104,19 @@ export const ImageCaption = styled.p`
   font-size: 1rem;
   text-align: center;
   max-width: 800px;
+  padding: 0 20px;
+`;
+
+export const ImageCounter = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  z-index: 10001;
 `;
 
 export const NavigationControls = styled.div`
@@ -103,8 +127,8 @@ export const NavigationControls = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  z-index: 1001;
+  gap: 0.5rem;
+  z-index: 10001;
 `;
 
 export const NavigationDot = styled.button<{ $active: boolean }>`
@@ -124,7 +148,7 @@ export const NavigationDot = styled.button<{ $active: boolean }>`
 `;
 
 export const NavigationArrow = styled.button`
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(45, 182, 112, 0.7);
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -138,11 +162,11 @@ export const NavigationArrow = styled.button`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 1001;
+  z-index: 10001;
   transition: background 0.3s ease, opacity 0.3s ease;
   
   &:hover {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(45, 182, 112, 0.9);
   }
   
   &.prev {
@@ -164,7 +188,7 @@ export const CloseButton = styled.button`
   position: absolute;
   top: 20px;
   right: 20px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(45, 182, 112, 0.7);
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -175,11 +199,11 @@ export const CloseButton = styled.button`
   color: white;
   font-size: 1.5rem;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 10001;
   transition: background 0.3s ease;
   
   &:hover {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(45, 182, 112, 0.9);
   }
 `;
 
