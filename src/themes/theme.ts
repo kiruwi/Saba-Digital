@@ -47,13 +47,13 @@ export type ThemeType = 'light' | 'dark';
 export const lightTheme: Theme = {
   theme: 'light',
   colors: {
-    primary: '#00ab57', // Green accent color (same in both themes)
+    primary: '#007e41', // Darker green for better contrast with white text
     secondary: '#6c757d',
     background: '#ffffff',
     text: '#343a40',
     border: '#dee2e6',
     shadow: 'rgba(0, 0, 0, 0.1)',
-    accent: '#00ab57', // Same green for accent
+    accent: '#007e41', // Same darker green for accent
     error: '#dc3545',
     cardBackground: '#f8f9fa', // Light card background
     headingText: '#000000', // Pure black heading text for light theme
@@ -90,13 +90,13 @@ export const lightTheme: Theme = {
 export const darkTheme: Theme = {
   theme: 'dark',
   colors: {
-    primary: '#00ab57', // Green accent color (same in both themes)
+    primary: '#007e41', // Darker green for better contrast with white text
     secondary: '#6c757d',
     background: '#121212',
     text: '#f8f9fa',
     border: '#495057',
     shadow: 'rgba(0, 0, 0, 0.5)',
-    accent: '#00ab57', // Same green for accent
+    accent: '#007e41', // Same darker green for accent
     error: '#e35d6a',
     cardBackground: '#1e1e1e', // Dark card background
     headingText: '#ffffff', // Light heading text for dark theme

@@ -198,7 +198,7 @@ const UfanisiSpecialPage: React.FC = () => {
           {/* Features Section */}
           <SectionHeading>Features</SectionHeading>
           <FeaturesList>
-            {project.features.map((feature, index) => (
+            {project.features?.map((feature, index) => (
               <FeatureItem key={index}>{feature}</FeatureItem>
             ))}
           </FeaturesList>

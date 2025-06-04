@@ -1,124 +1,123 @@
-import React, { Suspense, useState, useEffect, lazy } from 'react';
-import { HashRouter as Router, Routes, Route, useRoutes } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import { BackToTop } from './components/BackToTop';
-import SEO from './components/SEO';
-import { GlobalStyles } from './styles/GlobalStyles';
-import { RoutePaths } from './utils/routes';
-import { Skeleton } from './components/Skeleton';
-import Navigation from './components/Navigation';
-import LoadingFallback from './components/LoadingFallback';
-import { ThemeProvider } from './contexts/ThemeContext';
-import { useTheme } from './contexts/ThemeContext';
-import useRouteOptimization from './hooks/useRouteOptimization';
+// src/App.tsx
+import React, { Suspense, lazy, useEffect } from "react";
+import { enhanceKeyboardNavigation } from "./utils/keyboardNavigation";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import { ThemeProvider as StyledThemeProvider } from "styled-components";
+import GlobalStyles from "./components/GlobalStyles";
+import { useGAPageViews } from "./utils/analytics";
+import { ThemeProvider as CustomThemeProvider, useTheme } from "./contexts/ThemeContext";
+import { AccessibilityProvider } from "./components/AccessibilityProvider";
+import { AccessibilityTester } from "./components/AccessibilityTester";
+import { lightTheme, darkTheme } from "./themes/theme";
+import Layout from "./components/Layout";
+import ErrorPage from "./pages/Error";
+import LoadingFallback from "./components/LoadingFallback";
+import "./App.css";
+import "./fonts.css"; // Import SpotifyMix font definitions
+import ScrollToTop from "./components/ScrollToTop";
 
-// Import pages with improved code splitting and chunk naming
-const Home = lazy(() => import(/* webpackChunkName: "home" */ './pages/Home'));
-const ContactPage = lazy(() => import(/* webpackChunkName: "contact" */ './pages/contactus'));
-const ErrorPage = lazy(() => import(/* webpackChunkName: "error" */ './pages/Error'));
-const WorkPage = lazy(() => import(/* webpackChunkName: "work" */ './pages/Work'));
+// Lazy load components for better code splitting
+const Home = lazy(() => import("./pages").then(module => ({ default: module.Home })));
+const ContactPage = lazy(() => import("./pages/contactus"));
+const UXUI = lazy(() => import("./work/UXUI"));
+const WebDev = lazy(() => import("./work/WebDev"));
+const Graphics = lazy(() => import("./work/Graphics"));
+const UXUIDetail = lazy(() => import("./work/UXUIDetail"));
+const WebDevDetail = lazy(() => import("./work/WebDevDetail"));
+const GraphicsDetail = lazy(() => import("./work/GraphicsDetail"));
 
-// Import work-related components with chunk grouping
-const GraphicsWorkPageBase = lazy(() => import(/* webpackChunkName: "graphics-work" */ './work/Graphics'));
-const GraphicsDetailPageBase = lazy(() => import(/* webpackChunkName: "graphics-detail" */ './work/GraphicsDetail'));
-const UXUIWorkPageBase = lazy(() => import(/* webpackChunkName: "uxui-work" */ './work/UXUI'));
-const UXUIDetailPageBase = lazy(() => import(/* webpackChunkName: "uxui-detail" */ './work/UXUIDetail'));
-const WebDevWorkPageBase = lazy(() => import(/* webpackChunkName: "webdev-work" */ './work/WebDev'));
-const WebDevDetailPageBase = lazy(() => import(/* webpackChunkName: "webdev-detail" */ './work/WebDevDetail'));
+// RouteChangeTracker component to track page views
+function RouteChangeTracker() {
+  // Use the custom hook to track page views
+  useGAPageViews();
+  return null;
+}
 
-// Simple wrapper components - base components now use ThemeContext directly
-const WebDevWorkPage = () => <WebDevWorkPageBase />;
-const WebDevDetailPage = () => <WebDevDetailPageBase />;
-
-// UXUI page wrapper components
-const UXUIWorkPage = () => <UXUIWorkPageBase />;
-const UXUIDetailPage = () => <UXUIDetailPageBase />;
-
-// Graphics page wrapper components
-const GraphicsWorkPage = () => <GraphicsWorkPageBase />;
-const GraphicsDetailPage = () => <GraphicsDetailPageBase />;
-
-// Import special pages with their own chunks
-const UfanisiSpecialPage = lazy(() => import(/* webpackChunkName: "ufanisi-special" */ './pages/UfanisiSpecialPage'));
-const UfanisiResortPage = lazy(() => import(/* webpackChunkName: "ufanisi-resort" */ './work/UfanisiResort'));
-
-// AppContent component to use hooks that require Router context
-const AppContent: React.FC = () => {
-  // Use route optimization hook
-  useRouteOptimization();
+// Wrapper component to access theme context
+function AppContent() {
+  const { theme } = useTheme();
   
-  // Access theme context
-  const { theme, toggleTheme } = useTheme();
+  // Convert theme string to the appropriate theme object
+  const themeObject = theme === 'light' ? lightTheme : darkTheme;
   
-  // Loading state
-  const [loading, setLoading] = useState(true);
-
+  // Apply keyboard navigation enhancement on mount and when routes change
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => setLoading(false), 1000);
+    // Short timeout to ensure DOM is fully rendered
+    const timer = setTimeout(() => {
+      enhanceKeyboardNavigation();
+    }, 500);
+    
     return () => clearTimeout(timer);
   }, []);
-
-  // If loading, show improved loading fallback
-  if (loading) {
-    return (
-      <>
-        <GlobalStyles />
-        <LoadingFallback message="Initializing application..." />
-      </>
-    );
-  }
-
-  return (
-    <>
-      <GlobalStyles />
-      <SEO title="Home" description="Welcome to my portfolio" />
-      <BackToTop />
-      {/* Add Navigation */}
-      <Navigation />
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes>
-              {/* Improved routes for Ufanisi Resort that use proper styling */}
-              <Route path="/ufanisi" element={<UfanisiSpecialPage />} />
-              <Route path="ufanisi" element={<UfanisiSpecialPage />} />
-              
-              <Route path={RoutePaths.Home} element={<Home />} />
-              <Route path={RoutePaths.Contact} element={<ContactPage />} />
-              
-              {/* Work-related routes */}
-              <Route path={RoutePaths.Work} element={<WorkPage />} />
-              <Route path={RoutePaths.GraphicsWork} element={<GraphicsWorkPage />} />
-              <Route path={RoutePaths.GraphicsDetail} element={<GraphicsDetailPage />} />
-              <Route path={RoutePaths.UXUIWork} element={<UXUIWorkPage />} />
-              
-              {/* Special dedicated routes for Ufanisi Resort - all possible format variations */}
-              <Route path="/work/uxui/ufanisi-resort" element={<UfanisiResortPage />} />
-              <Route path="work/uxui/ufanisi-resort" element={<UfanisiResortPage />} />
-              <Route path="/ufanisi-resort-project" element={<UfanisiResortPage />} />
-              <Route path="ufanisi-resort-project" element={<UfanisiResortPage />} />
-              
-              <Route path={RoutePaths.UXUIDetail} element={<UXUIDetailPage />} />
-              <Route path={RoutePaths.WebDevWork} element={<WebDevWorkPage />} />
-              <Route path={RoutePaths.WebDevDetail} element={<WebDevDetailPage />} />
-              
-              {/* Error route should always be last */}
-              <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </Suspense>
-    </>
-  );
-};
-
-// Main App component
-function App() {
+  
   return (
     <HelmetProvider>
-      <ThemeProvider>
+      <StyledThemeProvider theme={themeObject}>
+        <GlobalStyles />
         <Router>
-          <AppContent />
+          {/* Skip navigation link removed */}
+          <AccessibilityTester />
+          <ScrollToTop /> {/* Add ScrollToTop to ensure proper scroll restoration */}
+          <RouteChangeTracker />
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route path="/" element={
+                <Layout>
+                  <Home />
+                </Layout>
+              } />
+              <Route path="/contactus" element={
+                <Layout>
+                  <ContactPage />
+                </Layout>
+              } />
+              <Route path="/work/ux-ui" element={
+                <Layout>
+                  <UXUI />
+                </Layout>
+              } />
+              <Route path="/work/web-dev" element={
+                <Layout>
+                  <WebDev />
+                </Layout>
+              } />
+              <Route path="/work/graphics" element={
+                <Layout>
+                  <Graphics />
+                </Layout>
+              } />
+              <Route path="/work/ux-ui/:id" element={
+                <Layout>
+                  <UXUIDetail />
+                </Layout>
+              } />
+              <Route path="/work/web-dev/:id" element={
+                <Layout>
+                  <WebDevDetail />
+                </Layout>
+              } />
+              <Route path="/work/graphics/:id" element={
+                <Layout>
+                  <GraphicsDetail />
+                </Layout>
+              } />
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
+          </Suspense>
         </Router>
-      </ThemeProvider>
+      </StyledThemeProvider>
     </HelmetProvider>
+  );
+}
+
+function App() {
+  return (
+    <AccessibilityProvider>
+      <CustomThemeProvider>
+        <AppContent />
+      </CustomThemeProvider>
+    </AccessibilityProvider>
   );
 }
 

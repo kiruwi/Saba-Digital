@@ -3,7 +3,7 @@ import { FaChevronDown, FaSun, FaMoon } from "react-icons/fa"; // Using icons fr
 import { animateScroll as scroll } from "react-scroll";
 import { useLocation } from "react-router-dom";
 import signature from "../../images/signature.svg";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import "./Navbar.css";
 
 import {
@@ -14,28 +14,29 @@ import {
   NavBtnLink,
 } from "./NavbarElements";
 
+// Define keyframes properly
+const pulse = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
 // Styled component for mobile theme toggle
 const MobileThemeToggle = styled.div`
-  position: absolute;
-  right: 55px;
-  top: 28px; /* Fixed position to match logo */
+  position: fixed;
+  top: 20px;
+  right: 20px;
   display: flex;
   align-items: center;
   z-index: 15;
   /* Add animation to draw attention */
-  animation: pulse 2s infinite;
-  
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
+  ${css`animation: ${pulse} 2s infinite`};
   
   /* Add a subtle highlight to make it more noticeable */
   &::after {
@@ -94,7 +95,7 @@ const directThemeToggle = () => {
   // Calculate new theme
   const newTheme = currentTheme === 'light' ? 'dark' : 'light';
   
-  console.log('🔄 Theme toggle clicked! Changing from', currentTheme, 'to', newTheme);
+  console.log(' Theme toggle clicked! Changing from', currentTheme, 'to', newTheme);
   
   // 1. Update localStorage
   localStorage.setItem('theme', newTheme);

@@ -135,8 +135,8 @@ export const LearnMoreButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: #ffffff; /* Use white text on button consistently */
+  background-color: #007e41; /* Darker green for better contrast with white text */
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   padding: 0.5rem 1rem;
@@ -146,9 +146,18 @@ export const LearnMoreButton = styled.button`
   transition: all 0.3s ease;
   margin-top: auto;
   
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.accent};
+  &:hover, &:focus {
+    background-color: #006835; /* Even darker on hover/focus for better UX */
     transform: translateY(-2px);
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+  
+  /* Ensure keyboard focus is visible */
+  &:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 2px #007e41;
   }
   
   svg {

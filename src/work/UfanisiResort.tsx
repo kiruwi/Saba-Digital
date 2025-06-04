@@ -256,14 +256,14 @@ const UfanisiResort: React.FC = () => {
           
           <UfanisiHeading>Features</UfanisiHeading>
           <UfanisiFeaturesList>
-            {project.features.map((feature, index) => (
+            {project.features?.map((feature, index) => (
               <UfanisiFeatureItem key={index}>{feature}</UfanisiFeatureItem>
             ))}
           </UfanisiFeaturesList>
           
           <UfanisiHeading>Tools Used</UfanisiHeading>
           <UfanisiToolsContainer>
-            {project.tools.map((tool, index) => (
+            {project.tools?.map((tool, index) => (
               <UfanisiTool key={index}>{tool}</UfanisiTool>
             ))}
           </UfanisiToolsContainer>

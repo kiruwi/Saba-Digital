@@ -71,7 +71,7 @@ export class ErrorBoundary extends Component<Props, State> {
         <ErrorBoundaryContainer>
           <h1>Something went wrong</h1>
           <p>{this.state.error?.message}</p>
-          <button onClick={() => window.location.reload()}>Try again</button>
+          <button onClick={() => window.location.reload()} aria-label="Try again">Try again</button>
         </ErrorBoundaryContainer>
       );
     }

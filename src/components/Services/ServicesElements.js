@@ -125,11 +125,11 @@ export const ServicesP = styled.p`
 `;
 
 /* ── learn more button ───────────────────────────────── */
-export const LearnMoreButton = styled.button`
+export const LearnMoreButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #2db670;
+  background-color: #007e41; /* Darker green for better contrast with white text */
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -140,9 +140,18 @@ export const LearnMoreButton = styled.button`
   transition: all 0.3s ease;
   margin-top: auto;
   
-  &:hover {
-    background-color: #25a060;
+  &:hover, &:focus {
+    background-color: #006835; /* Even darker on hover/focus for better UX */
     transform: translateY(-2px);
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+  
+  /* Ensure keyboard focus is visible */
+  &:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 2px #007e41;
   }
   
   svg {

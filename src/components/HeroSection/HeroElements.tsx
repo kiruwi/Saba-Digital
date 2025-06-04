@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { FaChevronRight, FaArrowRight } from "react-icons/fa";
 import { ServicesWrapper } from "../Services/ServicesElements";
 
@@ -171,6 +171,18 @@ export const ScrollText = styled.div`
   opacity: 0.8;
 `;
 
+const bounce = keyframes`
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) rotate(45deg);
+  }
+  40% {
+    transform: translateY(-10px) rotate(45deg);
+  }
+  60% {
+    transform: translateY(-5px) rotate(45deg);
+  }
+`;
+
 export const ScrollArrow = styled.div`
   width: 20px;
   height: 20px;
@@ -178,19 +190,7 @@ export const ScrollArrow = styled.div`
   border-bottom: 2px solid ${({ theme }) => theme.colors.text};
   transform: rotate(45deg);
   margin-top: 10px;
-  animation: bounce 2s infinite;
-
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translateY(0) rotate(45deg);
-    }
-    40% {
-      transform: translateY(-10px) rotate(45deg);
-    }
-    60% {
-      transform: translateY(-5px) rotate(45deg);
-    }
-  }
+  animation: ${css`${bounce} 2s infinite`};
 `;
 
 // Slide indicators container

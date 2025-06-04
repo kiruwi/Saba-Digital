@@ -7,9 +7,9 @@ import { graphicsProjects } from "../data/projects";
 import styled from "styled-components";
 import AnimatedSection from "../components/AnimatedSection";
 import usePerformanceOptimization from "../hooks/usePerformanceOptimization";
-import LazyImage from "../components/LazyImage";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "../contexts/ThemeContext";
+import GraphicsProjectCard from "../components/ProjectCard/GraphicsProjectCard";
 
 const MainContainer = styled.main`
   padding: 7rem 1.5rem 4rem 1.5rem;
@@ -23,78 +23,6 @@ const PageTitle = styled.h1`
   margin-bottom: 2rem;
   color: ${({ theme }) => theme.colors.primary};
   text-align: center;
-`;
-
-const ProjectCard = styled.div`
-  background: ${({ theme }) => theme.colors.cardBackground};
-  border-radius: 0px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
-  transition: all 0.3s ease;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  position: relative;
-  
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px ${({ theme }) => theme.colors.shadow};
-  }
-`;
-
-const ProjectImage = styled.div`
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-  
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-  
-  ${ProjectCard}:hover & img {
-    transform: scale(1.05);
-  }
-`;
-
-const ProjectContent = styled.div`
-  padding: 1.5rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-`;
-
-const ProjectTitle = styled.h2`
-  font-size: 1.5rem;
-  margin-bottom: 0.75rem;
-  color: ${({ theme }) => theme.colors.headingText};
-`;
-
-const ProjectDescription = styled.p`
-  font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-  flex: 1;
-`;
-
-const ViewProjectLink = styled(Link)`
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  text-decoration: none;
-  border-radius: 0px;
-  font-weight: 500;
-  align-self: flex-start;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.accent};
-    transform: translateY(-2px);
-  }
 `;
 
 interface ProjectType {
@@ -152,26 +80,9 @@ const Graphics: React.FC = () => {
                   delay={400 + (index * 100)} 
                   duration={800}
                 >
-                  <ProjectCard onClick={() => navigate(`/work/graphics/${project.id}`)}>
-                    <ProjectImage>
-                      <LazyImage 
-                        src={project.image} 
-                        alt={project.title} 
-                        threshold={0.1}
-                        rootMargin="200px"
-                      />
-                    </ProjectImage>
-                    <ProjectContent>
-                      <ProjectTitle>{project.title}</ProjectTitle>
-                      <ProjectDescription>{project.shortDescription}</ProjectDescription>
-                      <ViewProjectLink 
-                        to={`/work/graphics/${project.id}`}
-                        onClick={(e) => e.stopPropagation()} // Prevent the card click from triggering when clicking the button
-                      >
-                        View Details
-                      </ViewProjectLink>
-                    </ProjectContent>
-                  </ProjectCard>
+                  <GraphicsProjectCard 
+                    project={project} 
+                  />
                 </AnimatedSection>
               ))}
           </GraphicsGrid>

@@ -151,7 +151,7 @@ const GraphicsDetail: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const { id } = useParams<{ id: string }>();
-  const [project, setProject] = useState<ProjectType | null>(null);
+  const [project, setProject] = useState<any>(null);
   
   // Theme is now passed as props
   
@@ -248,7 +248,7 @@ const GraphicsDetail: React.FC = () => {
                 {project.fullDescription2 && (
                   <ProjectDescription>{project.fullDescription2}</ProjectDescription>
                 )}
-                {project.fullDescription3 && project.fullDescription3.map((section, index) => (
+                {project.fullDescription3 && project.fullDescription3.map((section: {heading: string; content: string}, index: number) => (
                   <div key={index}>
                     <h3>{section.heading}</h3>
                     <ProjectDescription>{section.content}</ProjectDescription>
@@ -265,10 +265,27 @@ const GraphicsDetail: React.FC = () => {
               <AdditionalImagesContainer>
                 <h2>Project Gallery</h2>
                 <ZoomableGallery 
-                  images={project.additionalImages.map((image, index) => ({
+                  images={project.additionalImages.map((image: string, index: number) => ({
                     src: image,
                     alt: `${project.title} - Image ${index + 1}`,
                     caption: `${project.title} - Image ${index + 1}`
+                  }))}
+                  showInstructions={true}
+                />
+              </AdditionalImagesContainer>
+            </AnimatedSection>
+          )}
+          
+          {/* Gallery images */}
+          {project && (project as any).gallery && (project as any).gallery.length > 0 && (
+            <AnimatedSection animationType="fadeInUp" delay={600} duration={1000}>
+              <AdditionalImagesContainer>
+                <h2>Project Gallery</h2>
+                <ZoomableGallery 
+                  images={(project as any).gallery.map((item: {src: string; alt: string}) => ({
+                    src: item.src,
+                    alt: item.alt,
+                    caption: item.alt
                   }))}
                   showInstructions={true}
                 />

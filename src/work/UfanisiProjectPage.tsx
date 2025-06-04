@@ -149,7 +149,7 @@ const UfanisiProjectPage: React.FC = () => {
           <div style={{ marginTop: '2rem' }}>
             <h3>Features</h3>
             <ul>
-              {ufanisiProject.features.map((feature, index) => (
+              {ufanisiProject.features?.map((feature, index) => (
                 <li key={index}>{feature}</li>
               ))}
             </ul>
@@ -157,7 +157,7 @@ const UfanisiProjectPage: React.FC = () => {
           
           <div style={{ marginTop: '2rem' }}>
             <h3>Tools Used</h3>
-            <p>{ufanisiProject.tools.join(', ')}</p>
+            <p>{ufanisiProject.tools?.join(', ') || 'Not specified'}</p>
           </div>
           
           <div style={{ marginTop: '2rem' }}>

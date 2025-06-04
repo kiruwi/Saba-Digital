@@ -147,7 +147,7 @@ const ErrorPage: React.FC<ErrorProps> = ({
             
             <SectionTitle>Features</SectionTitle>
             <FeaturesList>
-              {ufanisiProject.features.map((feature, index) => (
+              {ufanisiProject.features?.map((feature, index) => (
                 <FeatureItem key={index}>{feature}</FeatureItem>
               ))}
             </FeaturesList>

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, FC } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { ThemeType, lightTheme, darkTheme } from '../themes/theme';
 
@@ -16,7 +16,7 @@ interface ThemeProviderProps {
   children: ReactNode;
 }
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   // Helper function to get initial theme from localStorage or system preference
   const getInitialTheme = (): ThemeType => {
     // Check if theme is saved in localStorage

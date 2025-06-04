@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import meImage from "../../images/me.png";
 import { Button } from "../ButtonElements";
 import { animateScroll as scroll } from "react-scroll";

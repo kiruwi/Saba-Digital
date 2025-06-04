@@ -163,7 +163,7 @@ export const Form: React.FC<FormProps> = ({ fields, onSubmit, submitLabel, isLoa
           {errors[field.id] && <div className="error">{errors[field.id]}</div>}
         </div>
       ))}
-      <button type="submit" disabled={isLoading} className={isLoading ? 'loading' : ''}>
+      <button type="submit" disabled={isLoading} className={isLoading ? 'loading' : ''} aria-label={submitLabel}>
         {isLoading ? (
           <div className="loading-spinner"></div>
         ) : (

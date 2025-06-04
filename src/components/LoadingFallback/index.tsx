@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 interface LoadingFallbackProps {
   message?: string;
@@ -20,6 +20,11 @@ const pulse = keyframes`
   }
 `;
 
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
 const LoadingContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -33,35 +38,31 @@ const LoadingContainer = styled.div`
 
 const LoadingContent = styled.div`
   text-align: center;
-  animation: ${pulse} 1.5s infinite ease-in-out;
+  ${css`animation: ${pulse} 1.5s infinite ease-in-out`};
 `;
 
 const Logo = styled.div`
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 2.5rem;
+  font-weight: 900;
   margin-bottom: 1rem;
   color: ${({ theme }) => theme.colors.primary};
+  letter-spacing: -0.02em;
 `;
 
 const Message = styled.p`
-  font-size: 1rem;
-  margin-top: 1rem;
-  color: ${({ theme }) => theme.colors.text};
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  opacity: 0.8;
 `;
 
 const Spinner = styled.div`
-  border: 4px solid ${({ theme }) => theme.colors.border};
-  border-top: 4px solid ${({ theme }) => theme.colors.primary};
+  border: 3px solid ${({ theme }) => theme.colors.text}33;
+  border-top: 3px solid ${({ theme }) => theme.colors.primary};
   border-radius: 50%;
   width: 40px;
   height: 40px;
   margin: 1rem auto;
-  animation: spin 1s linear infinite;
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+  ${css`animation: ${spin} 1s linear infinite`};
 `;
 
 /**

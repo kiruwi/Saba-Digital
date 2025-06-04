@@ -1,6 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { Theme } from '../themes/theme';
+
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
 
 const LoadingContainer = styled.div<{ theme: Theme }>`
   display: flex;
@@ -14,20 +19,15 @@ const LoadingContainer = styled.div<{ theme: Theme }>`
     width: 50px;
     height: 50px;
     border: 5px solid ${({ theme }) => theme.colors.primary};
-    border-top: 5px solid ${({ theme }) => theme.colors.background};
+    border-top: 5px solid transparent;
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    ${css`animation: ${spin} 1s linear infinite;`}
   }
 
   .text {
     margin-top: 20px;
     font-size: ${({ theme }) => theme.fontSizes.lg};
     color: ${({ theme }) => theme.colors.text};
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
   }
 `;
 

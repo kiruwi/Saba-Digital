@@ -16,10 +16,10 @@ export const GraphicsGrid = styled.div`
 export const GraphicsCardContainer = styled(Link)`
   display: flex;
   flex-direction: column;
-  background: #0c0c0c;
+  background: ${({ theme }) => theme.colors.background};
   border-radius: 0px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
   transition: all 0.5s ease-in-out;
   text-decoration: none;
   color: ${({ theme }) => theme.colors.text};
@@ -33,14 +33,14 @@ export const GraphicsCardContainer = styled(Link)`
   /* Add more pronounced hover effect */
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 25px ${({ theme }) => theme.colors.shadow};
   }
   
   /* Class added by JS for additional animation if needed */
   &.animated-in {
     opacity: 1;
     transform: translateY(0);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 25px ${({ theme }) => theme.colors.shadow};
   }
   
   /* Define the animation */

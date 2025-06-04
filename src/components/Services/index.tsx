@@ -55,8 +55,8 @@ const Services: React.FC = () => {
               <TextOverlay>
                 <ServicesH2>{title}</ServicesH2>
                 <ServicesP>{desc}</ServicesP>
-                <LearnMoreButton>
-                  Learn More <FaArrowRight />
+                <LearnMoreButton aria-label={`Learn more about ${title}`} role="button">
+                  Learn More <FaArrowRight aria-hidden="true" />
                 </LearnMoreButton>
               </TextOverlay>
             </Card>
@@ -81,8 +81,8 @@ export const ServicesRail: React.FC = () => {
               <TextOverlay>
                 <ServicesH2>{title}</ServicesH2>
                 <ServicesP>{desc}</ServicesP>
-                <LearnMoreButton>
-                  Learn More <FaArrowRight />
+                <LearnMoreButton aria-label={`Learn more about ${title}`} role="button">
+                  Learn More <FaArrowRight aria-hidden="true" />
                 </LearnMoreButton>
               </TextOverlay>
             </Card>

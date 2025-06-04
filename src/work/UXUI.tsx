@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { FC } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 // Import hardcoded data
