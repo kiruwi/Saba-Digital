@@ -110,8 +110,8 @@ export const graphicsProjects = [
   },
   {
     id: "synnefa-rebrand",
-    title: "Synnefa Rebrand & 3D",
-    shortDescription: "Complete rebrand and 3D product visualization for an AgriTech innovator in Africa.",
+    title: "Synnefa Rebrand & Brand Identity",
+    shortDescription: "Complete rebrand and brand identity development for an AgriTech innovator in Africa.",
     fullDescription: "I worked with Synnefa, a company that builds hardware and software tools for farmers in Africa, to revitalize their brand identity and create compelling 3D visualizations of their flagship FarmShield™ product. This comprehensive project involved both rebranding elements and detailed 3D modeling that would effectively communicate their agricultural technology solutions.",
     fullDescription2: "For the FarmShield™ product – the 'brain of the farm' that monitors conditions and automates farming processes – I created photorealistic 3D renderings that showcase its functionality and design. These visualizations help farmers understand how the technology integrates into their operations, visualizing the physical product before potential purchase.",
     fullDescription3: [
@@ -127,7 +127,7 @@ export const graphicsProjects = [
       "/assets/projects/3d-graphics/synnefa-images/logo-variations.jpg",
       "/assets/projects/3d-graphics/synnefa-images/synnefa-logo.jpg"
     ],
-    tags: ["3D Modeling", "Brand Identity", "Product Visualization"],
+    tags: ["Brand Identity", "Corporate Identity", "Product Visualization"],
     category: "graphics",
     features: [
       "Complete logo redesign and brand guidelines",

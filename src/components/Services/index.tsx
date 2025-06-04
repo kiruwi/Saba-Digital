@@ -35,8 +35,8 @@ const items: ServiceItem[] = [
     path: "/work/web-dev"
   },
   {
-    title: "3D / Graphics Design",
-    desc: "Creating visually stunning and engaging graphics.",
+    title: "Branding",
+    desc: "Creating visually stunning and engaging brand identities.",
     path: "/work/graphics"
   },
 ];
