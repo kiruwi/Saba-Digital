@@ -1,7 +1,7 @@
 // src/components/LoadingFallback.tsx
 import React, { memo } from 'react';
 import styled, { keyframes, css } from 'styled-components';
-import { useAccessibility } from './AccessibilityProvider';
+// import { useAccessibility } from './AccessibilityProvider';
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -57,11 +57,11 @@ const LoadingFallback: React.FC<LoadingFallbackProps> = memo(({
   message = "Loading...",
   subMessage = "Please wait while we prepare your content"
 }) => {
-  const { reduceMotion } = useAccessibility();
+  // const { reduceMotion } = useAccessibility();
 
   return (
     <LoadingContainer role="status" aria-live="polite">
-      <Spinner $reduceMotion={reduceMotion} aria-hidden="true" />
+      <Spinner $reduceMotion={false} aria-hidden="true" />
       <LoadingText>{message}</LoadingText>
       {subMessage && <LoadingSubtext>{subMessage}</LoadingSubtext>}
       <span className="sr-only">Content is loading, please wait.</span>

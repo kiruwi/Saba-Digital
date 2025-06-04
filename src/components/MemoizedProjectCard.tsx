@@ -2,7 +2,7 @@
 import React, { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProjectType } from '../data/projects';
-import { useAccessibility } from './AccessibilityProvider';
+// import { useAccessibility } from './AccessibilityProvider';
 
 interface MemoizedProjectCardProps {
   project: ProjectType;
@@ -18,7 +18,7 @@ const MemoizedProjectCard: React.FC<MemoizedProjectCardProps> = memo(({
   onProjectClick 
 }) => {
   const navigate = useNavigate();
-  const { announceToScreenReader, keyboardNavigation, reduceMotion } = useAccessibility();
+  // const { announceToScreenReader, keyboardNavigation, reduceMotion } = useAccessibility();
 
   const handleClick = useCallback(() => {
     if (onProjectClick) {
@@ -26,8 +26,8 @@ const MemoizedProjectCard: React.FC<MemoizedProjectCardProps> = memo(({
     } else {
       navigate(`/${category}/${project.id}`);
     }
-    announceToScreenReader(`Navigating to ${project.title} project details`);
-  }, [project, category, navigate, onProjectClick, announceToScreenReader]);
+    // announceToScreenReader(`Navigating to ${project.title} project details`);
+  }, [project, category, navigate, onProjectClick]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -46,11 +46,11 @@ const MemoizedProjectCard: React.FC<MemoizedProjectCardProps> = memo(({
       aria-describedby={`project-desc-${index}`}
       style={{
         cursor: 'pointer',
-        transition: reduceMotion ? 'none' : 'transform 0.2s ease, box-shadow 0.2s ease',
-        outline: keyboardNavigation ? '2px solid #007acc' : 'none',
+        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+        outline: 'none',
         outlineOffset: '2px',
       }}
-      onFocus={() => keyboardNavigation && announceToScreenReader(`${project.title} project card focused`)}
+      // onFocus={() => announceToScreenReader(`${project.title} project card focused`)}
     >
       <img 
         src={project.image} 

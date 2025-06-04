@@ -4,16 +4,16 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import ContactUs from "../components/ContactUs";
 import Footer from "../components/Footer";
-import { useAccessibility } from "../components/AccessibilityProvider";
+// import { useAccessibility } from "../components/AccessibilityProvider";
 
 const ContactPage: React.FC = memo(() => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { announceToScreenReader } = useAccessibility();
+  // const { announceToScreenReader } = useAccessibility();
   
   const toggle = useCallback(() => {
     setIsOpen(!isOpen);
-    announceToScreenReader(isOpen ? "Menu closed" : "Menu opened");
-  }, [isOpen, announceToScreenReader]);
+    // announceToScreenReader(isOpen ? "Menu closed" : "Menu opened");
+  }, [isOpen]);
 
   return (
     <>

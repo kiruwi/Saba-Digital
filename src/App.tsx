@@ -1,14 +1,14 @@
 // src/App.tsx
 import React, { Suspense, lazy, useEffect } from "react";
-import { enhanceKeyboardNavigation } from "./utils/keyboardNavigation";
+// import { enhanceKeyboardNavigation } from "./utils/keyboardNavigation";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import GlobalStyles from "./components/GlobalStyles";
 import { useGAPageViews } from "./utils/analytics";
 import { ThemeProvider as CustomThemeProvider, useTheme } from "./contexts/ThemeContext";
-import { AccessibilityProvider } from "./components/AccessibilityProvider";
-import { AccessibilityTester } from "./components/AccessibilityTester";
+// import { AccessibilityProvider } from "./components/AccessibilityProvider";
+// import { AccessibilityTester } from "./components/AccessibilityTester";
 import { lightTheme, darkTheme } from "./themes/theme";
 import Layout from "./components/Layout";
 import ErrorPage from "./pages/Error";
@@ -42,14 +42,14 @@ function AppContent() {
   const themeObject = theme === 'light' ? lightTheme : darkTheme;
   
   // Apply keyboard navigation enhancement on mount and when routes change
-  useEffect(() => {
-    // Short timeout to ensure DOM is fully rendered
-    const timer = setTimeout(() => {
-      enhanceKeyboardNavigation();
-    }, 500);
+  // useEffect(() => {
+  //   // Short timeout to ensure DOM is fully rendered
+  //   const timer = setTimeout(() => {
+  //     enhanceKeyboardNavigation();
+  //   }, 500);
     
-    return () => clearTimeout(timer);
-  }, []);
+  //   return () => clearTimeout(timer);
+  // }, []);
   
   return (
     <HelmetProvider>
@@ -57,7 +57,7 @@ function AppContent() {
         <GlobalStyles />
         <Router>
           {/* Skip navigation link removed */}
-          <AccessibilityTester />
+          {/* <AccessibilityTester /> */}
           <ScrollToTop /> {/* Add ScrollToTop to ensure proper scroll restoration */}
           <RouteChangeTracker />
           <Suspense fallback={<LoadingFallback />}>
@@ -113,11 +113,9 @@ function AppContent() {
 
 function App() {
   return (
-    <AccessibilityProvider>
-      <CustomThemeProvider>
-        <AppContent />
-      </CustomThemeProvider>
-    </AccessibilityProvider>
+    <CustomThemeProvider>
+      <AppContent />
+    </CustomThemeProvider>
   );
 }
 
