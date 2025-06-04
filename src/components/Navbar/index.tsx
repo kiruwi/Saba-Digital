@@ -30,26 +30,12 @@ const pulse = keyframes`
 
 // Styled component for mobile theme toggle
 const MobileThemeToggle = styled.div`
-  position: fixed;
-  top: 20px;
-  right: 20px;
+  position: absolute;
+  top: 28px;
+  right: 50px; /* Position to the left of the dropdown icon */
   display: flex;
   align-items: center;
   z-index: 15;
-  /* Add animation to draw attention */
-  ${css`animation: ${pulse} 2s infinite`};
-  
-  /* Add a subtle highlight to make it more noticeable */
-  &::after {
-    content: '';
-    position: absolute;
-    width: 120%;
-    height: 120%;
-    background: radial-gradient(circle, rgba(0,207,149,0.15) 0%, rgba(0,0,0,0) 70%);
-    z-index: -1;
-    border-radius: 50%;
-    pointer-events: none;
-  }
   
   @media screen and (min-width: 769px) {
     display: none;
@@ -82,6 +68,7 @@ const MobileDropdownIcon = styled.div<MobileDropdownIconProps>`
     color: ${({ theme }) => theme.theme === 'light' ? theme.colors.headingText : theme.colors.text};
     transform: ${({ $isOpen }) => ($isOpen ? "rotate(180deg)" : "rotate(0deg)")};
     transition: all 0.3s ease;
+    z-index: 14; /* Ensure dropdown icon is below theme toggle */
     
     &:hover {
       color: ${({ theme }) => theme.colors.primary};
