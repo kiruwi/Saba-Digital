@@ -31,8 +31,8 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       return 'dark';
     }
     
-    // Default to light theme
-    return 'light';
+    // Default to dark theme
+    return 'dark';
   };
 
   // Initialize theme state with string 'light' or 'dark'
