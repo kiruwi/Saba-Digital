@@ -8,17 +8,46 @@
   font-family: 'SpotifyMix', sans-serif;
 }
 
-/* Theme-related styles */
+/* Root theme variables for consistent application across all components */
+:root {
+  --transition-speed: 0.3s ease;
+}
+
+/* Light theme variables */
+:root[data-theme="light"] {
+  --background-color: #f8f9fa;
+  --text-color: #343a40;
+  --link-color: #007bff;
+  --navbar-bg: #ffffff;
+  --navbar-text: #343a40;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-speed);
+}
+
+/* Dark theme variables */
+:root[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #f8f9fa;
+  --link-color: #00aeff;
+  --navbar-bg: #121212;
+  --navbar-text: #f8f9fa;
+  --card-bg: #1e1e1e;
+  --card-shadow: rgba(0, 0, 0, 0.5);
+  transition: all var(--transition-speed);
+}
+
+/* Legacy theme classes for backward compatibility */
 body.light {
   --background-color: #f8f9fa;
-  --text-color: #000000;
+  --text-color: #343a40;
   --link-color: #007bff;
   transition: all 0.3s ease;
 }
 
 body.dark {
   --background-color: #121212;
-  --text-color: #e9ecef;
+  --text-color: #f8f9fa;
   --link-color: #00aeff;
   transition: all 0.3s ease;
 }

@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import signature from "../../images/signature.svg";
 import styled, { keyframes, css } from "styled-components";
 import "./Navbar.css";
+import { useTheme } from "../../contexts/ThemeContext"; // Import useTheme hook
 
 import {
   NavbarContainer,
@@ -88,32 +89,7 @@ const MobileDropdownIcon = styled.div<MobileDropdownIconProps>`
   }
 `;
 
-// Direct page reload theme toggle - simplest but most effective solution
-const directThemeToggle = () => {
-  // Get current theme directly from DOM or localStorage
-  const currentTheme = document.documentElement.getAttribute('data-theme') || localStorage.getItem('theme') || 'light';
-  // Calculate new theme
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  
-  console.log(' Theme toggle clicked! Changing from', currentTheme, 'to', newTheme);
-  
-  // 1. Update localStorage
-  localStorage.setItem('theme', newTheme);
-  
-  // 2. Update DOM directly 
-  document.documentElement.setAttribute('data-theme', newTheme);
-  document.documentElement.className = newTheme;
-  document.body.className = newTheme;
-  
-  // 3. Set a flag to indicate we're coming from a theme toggle
-  sessionStorage.setItem('themeJustToggled', 'true');
-  
-  // 4. Dispatch a custom event to notify components about the theme change
-  // This helps ensure any components using the theme will re-render
-  window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: newTheme } }));
-  
-  // No more page reload - we rely on React's state management and the DOM updates above
-};
+// No longer needed as we'll use the ThemeContext's toggleTheme function
 
 // Styled component for desktop theme toggle
 const DesktopThemeToggle = styled.div`
@@ -142,14 +118,12 @@ const DesktopThemeToggle = styled.div`
 interface NavbarProps {
   toggle: () => void;
   isOpen: boolean;
-  // Make theme props optional to support both direct theme toggle and context-based approaches
-  currentTheme?: any;
-  toggleTheme?: () => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
   const [scrollNav, setScrollNav] = useState(false);
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme(); // Get theme and toggleTheme from context
   
   // Check if current path is in the work section or contact page
   const isWorkRoute = location.pathname.includes("/work/");
@@ -174,6 +148,11 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
     scroll.scrollToTop();
   };
 
+  // Apply theme class to document element when component mounts or theme changes
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
   return (
     <>
       <nav className={`navbar ${scrollNav || isWorkRoute || isContactRoute ? 'scrolled' : ''}`}>
@@ -192,7 +171,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
-                directThemeToggle();
+                toggleTheme();
               }}
               aria-label="Toggle theme"
               title="Toggle between light and dark theme"
@@ -214,7 +193,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
                 outline: 'none',
               }}
             >
-              {localStorage.getItem('theme') === 'dark' 
+              {theme === 'dark' 
                 ? <FaSun style={{color: '#F9D71C'}} /> 
                 : <FaMoon style={{color: '#5D4E7A'}} />}
             </button>
@@ -232,7 +211,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
-                  directThemeToggle();
+                  toggleTheme();
                 }}
                 aria-label="Toggle theme"
                 title="Toggle between light and dark theme"
@@ -254,7 +233,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
                   outline: 'none',
                 }}
               >
-                {localStorage.getItem('theme') === 'dark' 
+                {theme === 'dark' 
                   ? <FaSun style={{color: '#F9D71C'}} /> 
                   : <FaMoon style={{color: '#5D4E7A'}} />}
               </button>

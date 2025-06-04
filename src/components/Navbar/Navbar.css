@@ -13,10 +13,25 @@
   color: var(--text-color, #343a40);
 }
 
+/* Apply consistent theming for scrolled navbar and on specific pages */
 .navbar.scrolled {
   background: var(--navbar-bg, #000000);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   color: var(--navbar-text, #ffffff);
+}
+
+/* Ensure consistent navbar styling for light theme */
+:root[data-theme="light"] .navbar.scrolled {
+  background: #ffffff;
+  color: #343a40;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure consistent navbar styling for dark theme */
+:root[data-theme="dark"] .navbar.scrolled {
+  background: #121212;
+  color: #f8f9fa;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 @media screen and (max-width: 768px) {
