@@ -78,6 +78,27 @@ const SynnefaGifContainer = styled.div`
   }
 `;
 
+const Synnefa3DImageContainer = styled.div`
+  width: 40%;
+  float: left;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
+
+  @media (max-width: 768px) {
+    width: 100%;
+    float: none;
+    margin-right: 0;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+`;
+
 const ProjectInfo = styled.div`
   flex: 1;
   display: flex;
@@ -249,7 +270,17 @@ const GraphicsDetail: React.FC = () => {
                   <ProjectDescription>{project.fullDescription2}</ProjectDescription>
                 )}
                 {project.fullDescription3 && project.fullDescription3.map((section: {heading: string; content: string}, index: number) => (
-                  <div key={index}>
+                  <div key={index} style={{ overflow: 'hidden' }}>
+        {project.id === 'synnefa-rebrand' && section.heading === '3D Product Visualization' && (
+          <Synnefa3DImageContainer>
+            <LazyImage 
+              src="/assets/projects/3d-graphics/synnefa-images/service3-bg.jpg" 
+              alt="3D Product Visualization" 
+              threshold={0.1}
+              rootMargin="200px"
+            />
+          </Synnefa3DImageContainer>
+        )}
                     <h3>{section.heading}</h3>
                     <ProjectDescription>{section.content}</ProjectDescription>
                   </div>

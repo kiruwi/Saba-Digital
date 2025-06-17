@@ -89,7 +89,7 @@ export const TextOverlay = styled.div`
   right: 20%;
   bottom: 20%;
   left: 20%;
-  background: ${({ theme }) => theme.theme === 'light' ? '#ffffff' : '#000000'};
+  background: ${({ theme }) => theme.theme === 'light' ? '#ffffff' : theme.colors.background};
   color: ${({ theme }) => theme.theme === 'light' ? '#000000' : '#ffffff'};
   display: flex;
   flex-direction: column;

@@ -11,7 +11,10 @@ interface MobileIconProps {
 }
 
 export const Nav = styled.nav<NavProps>`
-  background: ${({ $scrollNav, theme }) => ($scrollNav ? theme.colors.background : "transparent")};
+  background: ${({ $scrollNav, theme }) =>
+    theme.theme === 'dark'
+      ? theme.colors.background
+      : ($scrollNav ? theme.colors.background : 'transparent')};
   height: 80px;
   margin-top: -80px;
   display: flex;

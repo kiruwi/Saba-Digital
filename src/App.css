@@ -27,10 +27,10 @@
 
 /* Dark theme variables */
 :root[data-theme="dark"] {
-  --background-color: #000000;
+  --background-color: #0e1322;
   --text-color: #f8f9fa;
   --link-color: #00aeff;
-  --navbar-bg: #000000;
+  --navbar-bg: #0e1322;
   --navbar-text: #f8f9fa;
   --card-bg: #1e1e1e;
   --card-shadow: rgba(0, 0, 0, 0.5);
