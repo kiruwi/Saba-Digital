@@ -169,7 +169,7 @@ export const NextActions = styled.div`
   margin-top: 3rem;
   padding: 2rem;
   background: ${({ theme }) => theme.theme === 'dark' 
-    ? 'linear-gradient(to right, #141414, #1e1e1e)' 
+    ? `linear-gradient(to right, #141414, ${theme.colors.cardBackground})` 
     : 'linear-gradient(to right, #f0f0f0, #e8e8e8)'};
   border-left: 4px solid ${({ theme }) => theme.colors.primary};
   

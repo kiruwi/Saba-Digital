@@ -1,4 +1,4 @@
-// src/data/projects.ts
+// src/data/projects.ts - Updated Ufanisi Resort content
 import uxImage1 from "../assets/projects/ux-ui/u-r.jpg";
 import webImage from "../assets/projects/web-dev/app1.jpg";
 
@@ -34,19 +34,19 @@ export const uxProjects: ProjectType[] = [
     id: "ufanisi-resort",
     title: "Ufanisi Resort",
     shortDescription:
-      "User-focused interface for food delivery app.",
+      "User-focused interface for food delivery app in Kisii, Kenya.",
     fullDescription:
-      "🍽️\n\n\n\nI can't lie, food delivery app projects excite me because food matters for your well-being. For many, eating isn't just fuel, it's a passion. As a self confessed foodie, I dive into anything food related. So for my first Google UX Design Certificate project, I had to pick this one",
+      "# Ufanisi Resort Food Delivery App\n\n## Project Overview\n\nAs a self-proclaimed foodie, I'm naturally drawn to food-related topics. For my first Google UX Design Certificate project, I chose to redesign the Ufanisi Resort food delivery app, transforming it from a problematic interface to an intuitive, user-friendly experience for busy residents of Kisii, Kenya.",
     fullDescription2:
-      "Join me on this creative journey as I share how I breathed new life into Ufanisi Resort's food delivery app, taking you from my initial terrible UI Designs, to the final polished interface!",
+      "This case study documents my complete design process—from initial research and identifying pain points to creating wireframes, prototypes, and the final polished interface.",
     fullDescription3: [
-      { heading: "The Challenge", content: "Let's be real, we're all rushing around these days! I've watched friends struggle to find time to cook at home, me included, and some can't even squeeze in a visit to a restaurant. We wanted to solve this everyday problem: how can busy people get delicious food without disrupting their packed schedules in the town of Kisii?" },
-      { heading: "The Goal", content: "I set out to create something I'd actually love for the people of Kisii to use, a super intuitive app, that makes ordering food from Ufanisi Resort as easy and enjoyable as possible. No more hungry moments when you're stuck working late!" },
-      { heading: "My Role", content: "I wore the UX Designer hat throughout this project, pouring my creativity into every aspect from the first rough sketches to the final polished product. It was a hands-on labor of love from start to finish!" },
+      { heading: "The Challenge", content: "In today's fast-paced world, many people struggle to find time to cook or visit restaurants. I set out to solve this everyday problem: how can busy people in Kisii get delicious food from Ufanisi Resort without disrupting their packed schedules?" },
+      { heading: "My Design Process", content: "1. User Research - Conducted interviews and surveys to understand user needs and pain points\n2. Competitive Analysis - Studied existing food delivery apps to identify best practices and opportunities\n3. Information Architecture - Created logical flow and navigation structure\n4. Wireframing - Developed low-fidelity designs to test core functionality\n5. Prototyping - Built interactive prototypes for user testing\n6. Usability Testing - Gathered feedback from real users to refine the design\n7. Visual Design - Applied brand identity and visual elements to create the final UI" },
+      { heading: "My Role", content: "As the lead UX Designer on this project, I was responsible for the entire design process from research to final UI. I conducted user interviews, created wireframes and prototypes, ran usability tests, and developed the visual design system that aligned with Ufanisi Resort's brand identity." },
       { heading: "Previous Design Issues", content: "As seen above, my previous design suffered from several fundamental UX problems that negatively impacted user experience. Typography was inconsistent throughout the interface, with mixed font that had no clear purpose or hierarchy. I had used multiple font types and weights seemingly at random, creating visual confusion. Spacing was poorly implemented, with elements either crammed together or floating in excessive whitespace. Almost everything was rigidly centered on the page, ignoring natural reading patterns and creating an unbalanced layout. Most importantly, many design elements weren't user-friendly, buttons were difficult to identify, interactive elements lacked proper affordances, and the navigation was unintuitive, forcing users to hunt for basic functions. This second project served as a refresher and opportunity to implement proper UX principles." }
     ],
     image: uxImage1,
-    tags: ["UI Design", "User Research", "Prototyping"],
+    tags: ["UI Design", "User Research", "Prototyping", "Usability Testing"],
     category: "uxui",
     features: [
       "Streamlined 3-tap ordering process",
@@ -56,8 +56,9 @@ export const uxProjects: ProjectType[] = [
       "Payment flexibility (mobile money & cash)",
       "High-contrast accessibility design",
       "Smart upsell recommendations",
+      "Real-time order tracking"
     ],
-    tools: ["Figma", "Adobe XD", "User Testing"],
+    tools: ["Figma", "Adobe XD", "Maze", "Miro", "Google Forms"],
     year: "2024",
   },
 ];

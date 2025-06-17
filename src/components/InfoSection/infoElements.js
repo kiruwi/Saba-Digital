@@ -4,7 +4,7 @@ export const InfoContainer = styled.div`
   color: ${({ theme }) => theme.colors.text};
   background: ${({ lightBg, theme }) => {
     if (lightBg) {
-      return theme?.theme === 'light' ? '#ffffff' : '#121212';
+      return theme?.theme === 'light' ? '#ffffff' : theme.colors.background;
     } else {
       return theme?.theme === 'light' ? '#f8f9fa' : '#01244a';
     }

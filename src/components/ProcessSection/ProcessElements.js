@@ -154,7 +154,7 @@ export const BeforeAfterPanel = styled.div`
 export const NextActions = styled.div`
   margin-top: 3rem;
   padding: 2rem;
-  background: linear-gradient(to right, ${({ theme }) => theme.theme === 'dark' ? '#141414' : '#f8f9fa'}, ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f8f9fa'});
+  background: linear-gradient(to right, ${({ theme }) => theme.theme === 'dark' ? '#141414' : '#f8f9fa'}, ${({ theme }) => theme.theme === 'dark' ? theme.colors.cardBackground : '#f8f9fa'});
   border-left: 4px solid ${({ theme }) => theme.colors.primary};
   
   h4 {

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const CardContainer = styled(Link)`
   display: flex;
   flex-direction: column;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#0c0c0c' : '#f8f9fa'};
+  background: ${({ theme }) => theme.theme === 'dark' ? theme.colors.background : '#f8f9fa'};
   border-radius: 0px;
   overflow: hidden;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
@@ -103,7 +103,7 @@ export const ProjectTags = styled.div`
 
 export const Tag = styled.span`
   padding: 0.25rem 0.75rem;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#e9ecef'};
+  background: ${({ theme }) => theme.theme === 'dark' ? theme.colors.cardBackground : '#e9ecef'};
   border-radius: 0px;
   font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.primary};
@@ -122,7 +122,7 @@ export const ProjectDetailContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#0c0c0c' : '#f8f9fa'};
+  background: ${({ theme }) => theme.theme === 'dark' ? theme.colors.background : '#f8f9fa'};
   border-radius: 0px;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
 `;
@@ -158,7 +158,7 @@ export const BackButton = styled(Link)`
   display: inline-flex;
   align-items: center;
   padding: 0.5rem 1rem;
-  background: #1e1e1e;
+  background: ${({ theme }) => theme.colors.cardBackground};
   color: #2db670;
   border-radius: 0px;
   text-decoration: none;

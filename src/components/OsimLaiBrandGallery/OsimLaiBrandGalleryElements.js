@@ -5,7 +5,7 @@ export const GalleryContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 2rem auto;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#0c0c0c' : '#f8f9fa'};
+  background: ${({ theme }) => theme.theme === 'dark' ? theme.colors.background : '#f8f9fa'};
   color: ${({ theme }) => theme.colors.text};
   opacity: 1;
   transform: translateY(0);

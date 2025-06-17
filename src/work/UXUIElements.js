@@ -118,7 +118,7 @@ export const UXUIProjectTags = styled.div`
 
 export const UXUITag = styled.span`
   padding: 0.25rem 0.75rem;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
+  background: ${({ theme }) => theme.theme === 'dark' ? theme.colors.cardBackground : '#f5f5f5'};
   border-radius: 0px;
   font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.primary};
@@ -239,7 +239,7 @@ export const ProcessStepGrid = styled.div`
 
 export const ProcessStep = styled.div`
   padding: 1.5rem;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
+  background: ${({ theme }) => theme.theme === 'dark' ? theme.colors.cardBackground : '#f5f5f5'};
   border-radius: 0px;
   position: relative;
   
@@ -274,7 +274,7 @@ export const StepDescription = styled.p`
 
 export const PrototypeContainer = styled.div`
   margin: 2rem 0;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
+  background: ${({ theme }) => theme.theme === 'dark' ? theme.colors.cardBackground : '#f5f5f5'};
   border-radius: 0px;
   padding: 1.5rem;
 `;
@@ -307,7 +307,7 @@ export const UserPersonaContainer = styled.div`
 `;
 
 export const PersonaCard = styled.div`
-  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
+  background: ${({ theme }) => theme.theme === 'dark' ? theme.colors.cardBackground : '#f5f5f5'};
   border-radius: 0px;
   padding: 1.5rem;
   display: flex;

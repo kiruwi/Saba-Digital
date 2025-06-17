@@ -114,7 +114,7 @@ export const WebDevProjectTags = styled.div`
 
 export const WebDevTag = styled.span`
   padding: 0.25rem 0.75rem;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
+  background: ${({ theme }) => theme.theme === 'dark' ? theme.colors.cardBackground : '#f5f5f5'};
   border-radius: 0px;
   font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.primary};
@@ -234,7 +234,7 @@ export const TechItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
+  background: ${({ theme }) => theme.theme === 'dark' ? theme.colors.cardBackground : '#f5f5f5'};
   padding: 1rem;
   border-radius: 0px;
   transition: transform 0.3s ease;
@@ -259,7 +259,7 @@ export const TechName = styled.p`
 
 export const CodeSnippetContainer = styled.div`
   margin: 2rem 0;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#f5f5f5'};
+  background: ${({ theme }) => theme.theme === 'dark' ? theme.colors.cardBackground : '#f5f5f5'};
   border-radius: 0px;
   overflow: hidden;
 `;

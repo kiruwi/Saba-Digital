@@ -49,7 +49,7 @@ const ProjectCard = ({ project }) => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          background: '#0c0c0c',
+          background: '#000000',
           borderRadius: '0px',
           overflow: 'hidden',
           boxShadow: '0 5px 15px rgba(0, 0, 0, 0.2)',

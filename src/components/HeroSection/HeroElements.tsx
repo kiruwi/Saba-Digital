@@ -7,7 +7,7 @@ export const HeroContainer = styled.section`
   display: grid;
   grid-template-columns: 1fr 480px;
   min-height: 100vh;
-  background: ${({ theme }) => theme.theme === 'light' ? '#ffffff' : '#121212'};
+  background: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.theme === 'light' ? '#000000' : '#ffffff'};
   overflow: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;

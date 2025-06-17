@@ -116,7 +116,7 @@ export const GraphicsProjectTags = styled.div`
 
 export const GraphicsTag = styled.span`
   padding: 0.25rem 0.75rem;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#1e1e1e' : '#e9ecef'};
+  background: ${({ theme }) => theme.theme === 'dark' ? theme.colors.cardBackground : '#e9ecef'};
   border-radius: 0px;
   font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.primary};
@@ -127,7 +127,7 @@ export const GraphicsDetailContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  background: #0c0c0c;
+  background: ${({ theme }) => theme.colors.background};
   border-radius: 0px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 `;

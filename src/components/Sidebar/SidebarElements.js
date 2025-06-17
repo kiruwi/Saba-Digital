@@ -8,7 +8,7 @@ export const SidebarContainer = styled.aside`
   z-index: 999;
   width: 100%;
   height: 100%;
-  background: ${({ theme }) => theme.colors.sidebarBackground || (theme.theme === 'light' ? '#f9f9f9' : '#0c0c0c')};
+  background: ${({ theme }) => theme.colors.sidebarBackground || (theme.theme === 'light' ? '#f9f9f9' : theme.colors.background)};
   display: grid;
   align-items: center;
   left: 0;

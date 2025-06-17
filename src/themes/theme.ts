@@ -92,7 +92,7 @@ export const darkTheme: Theme = {
   colors: {
     primary: '#007e41', // Darker green for better contrast with white text
     secondary: '#6c757d',
-    background: '#121212',
+    background: '#000000',
     text: '#f8f9fa',
     border: '#495057',
     shadow: 'rgba(0, 0, 0, 0.5)',
