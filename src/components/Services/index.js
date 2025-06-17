@@ -12,7 +12,7 @@ import {
   LearnMoreButton
 } from "./ServicesElements";
 import { Link } from "react-router-dom";
-import { FaArrowRight } from "react-icons/fa";
+import { FiArrowUpRight } from "react-icons/fi";
 
 
 /* card data */
@@ -45,7 +45,7 @@ const Services = () => (
               <ServicesH2>{title}</ServicesH2>
               <ServicesP>{desc}</ServicesP>
               <LearnMoreButton>
-                Learn More <FaArrowRight />
+                Learn More <FiArrowUpRight />
               </LearnMoreButton>
             </TextOverlay>
           </Card>
@@ -68,7 +68,7 @@ export const ServicesRail = () => (
               <ServicesH2>{title}</ServicesH2>
               <ServicesP>{desc}</ServicesP>
               <LearnMoreButton>
-                Learn More <FaArrowRight />
+                Learn More <FiArrowUpRight />
               </LearnMoreButton>
             </TextOverlay>
           </Card>

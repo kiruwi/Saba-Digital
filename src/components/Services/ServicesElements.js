@@ -129,7 +129,7 @@ export const LearnMoreButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #007e41; /* Darker green for better contrast with white text */
+  background-color: ${({ theme }) => theme.colors.primary};
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -141,9 +141,9 @@ export const LearnMoreButton = styled.div`
   margin-top: auto;
   
   &:hover, &:focus {
-    background-color: #006835; /* Even darker on hover/focus for better UX */
+    background-color: ${({ theme }) => theme.colors.primary};
     transform: translateY(-2px);
-    outline: 2px solid #ffffff;
+    outline: 2px solid ${({ theme }) => theme.colors.primary};
     outline-offset: 2px;
   }
   
@@ -151,7 +151,7 @@ export const LearnMoreButton = styled.div`
   &:focus-visible {
     outline: 3px solid #ffffff;
     outline-offset: 3px;
-    box-shadow: 0 0 0 2px #007e41;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary};
   }
   
   svg {

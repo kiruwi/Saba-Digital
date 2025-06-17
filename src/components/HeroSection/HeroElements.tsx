@@ -1,5 +1,7 @@
 import styled, { keyframes, css } from "styled-components";
 import { FaChevronRight, FaArrowRight } from "react-icons/fa";
+import { FiArrowUpRight } from "react-icons/fi";
+import { Button } from "../ButtonElements";
 import { ServicesWrapper } from "../Services/ServicesElements";
 
 /* ── layout grid ────────────────────────────────────── */
@@ -101,6 +103,43 @@ export const ArrowFwd = styled(FaArrowRight)`
 export const ArrowRt = styled(FaChevronRight)`
   margin-left: 8px;
   font-size: 18px;
+`;
+
+/* ── Portfolio CTA styles ─────────────────────────── */
+export const PortfolioButton = styled(Button)`
+  position: relative;
+  overflow: visible;
+  border-radius: 28px;
+  background: ${({ theme }) => theme.colors.primary};
+  padding: 18px 64px 18px 32px;
+  color: transparent; /* hide text visually */
+  font-size: 0;
+  border: none;
+  transition: background 0.3s ease;
+
+  &:hover,
+  &:focus {
+    background: ${({ theme }) => theme.colors.primary};
+    text-decoration: none;
+  }
+`;
+
+export const ArrowBadge = styled.span`
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 48px;
+  height: 48px;
+  background: #f7d338; /* yellow */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ArrowUpIcon = styled(FiArrowUpRight)`
+  color: #000000;
+  font-size: 24px;
 `;
 
 /* ── rail column ───────────────────────────────────── */

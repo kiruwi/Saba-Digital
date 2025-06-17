@@ -149,18 +149,6 @@ const BackButton = styled.button`
   }
 `;
 
-interface ProjectType {
-  id: string;
-  title: string;
-  shortDescription: string;
-  fullDescription: string;
-  fullDescription2?: string;
-  fullDescription3?: Array<{heading: string; content: string}>;
-  image: string;
-  additionalImages?: string[];
-  category?: string;
-  link?: string;
-}
 
 // Using ThemeContext directly - no props needed
 

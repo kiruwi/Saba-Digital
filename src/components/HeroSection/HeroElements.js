@@ -1,5 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { FaChevronRight, FaArrowRight } from "react-icons/fa";
+import { FiArrowUpRight } from "react-icons/fi";
+import { Button } from "../ButtonElements";
 import { ServicesWrapper } from "../Services/ServicesElements";
 
 /* ── layout grid ────────────────────────────────────── */
@@ -89,9 +91,49 @@ export const BtnWrap = styled.div`
 `;
 
 export const ArrowFwd = styled(FaArrowRight)`margin-left:8px;font-size:18px;`;
-export const ArrowRt  = styled(FaChevronRight)`margin-left:8px;font-size:18px;`;
+export const ArrowRt = styled(FaChevronRight)`margin-left:8px;font-size:18px;`;
 
-/* ── rail column ───────────────────────────────────── */
+export const PortfolioButton = styled(Button)`
+  position: relative;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 28px;
+  background: ${({ theme }) => theme.colors.primary};
+  padding: 18px 64px 18px 32px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  border: none;
+  transition: background 0.3s ease;
+
+  &:hover,
+  &:focus {
+    background: ${({ theme }) => theme.colors.primary};
+    text-decoration: none;
+  }
+`;
+
+export const ArrowBadge = styled.span`
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 48px;
+  height: 48px;
+  background: #f7d338;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ArrowUpIcon = styled(FiArrowUpRight)`
+  color: #000000;
+  font-size: 24px;
+`;
+
 export const HeroRight = styled.div`
   height: 100vh;
   display: flex;

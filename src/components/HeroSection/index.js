@@ -1,7 +1,7 @@
 // src/components/HeroSection/index.js
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import meImage from "../../images/me.png";
-import { Button } from "../ButtonElements";
+
 import { animateScroll as scroll } from "react-scroll";
 
 /* Services */
@@ -19,9 +19,10 @@ import {
   Rail,
   MobileImg,
   DesktopImg,
-  BtnWrap,
-  ArrowFwd,
-  ArrowRt,
+   BtnWrap,
+  PortfolioButton,
+  ArrowBadge,
+  ArrowUpIcon,
   ScrollIndicatorWrapper,
   ScrollText,
   ScrollArrow,
@@ -30,7 +31,6 @@ import {
 } from "./HeroElements";
 
 const HeroSection = () => {
-  const [hover, setHover] = useState(false);
   const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(true);
   const railRef = useRef(null);
   const hasScrolled = useRef(false);
@@ -228,16 +228,20 @@ const HeroSection = () => {
         </TitleBackground>
 
         <BtnWrap>
-          <Button
+          <PortfolioButton
             to="services"
             onClick={handleViewServicesClick}
-            primary="true"
-            dark="true"
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
+            smooth={true}
+            duration={500}
+            spy={true}
+            exact="true"
+            offset={0}
+            aria-label="View Portfolio"
           >
-            View Portfolio {hover ? <ArrowFwd /> : <ArrowRt />}
-          </Button>
+            View Portfolio <ArrowBadge>
+              <ArrowUpIcon />
+            </ArrowBadge>
+          </PortfolioButton>
         </BtnWrap>
       </HeroText>
 

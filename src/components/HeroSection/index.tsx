@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import meImage from "../../images/me.png";
-import { Button } from "../ButtonElements";
 import { animateScroll as scroll } from "react-scroll";
 import { useTheme } from "../../contexts/ThemeContext";
 
@@ -20,8 +19,9 @@ import {
   MobileImg,
   DesktopImg,
   BtnWrap,
-  ArrowFwd,
-  ArrowRt,
+  PortfolioButton,
+  ArrowBadge,
+  ArrowUpIcon,
   ScrollIndicatorWrapper,
   ScrollText,
   ScrollArrow,
@@ -33,7 +33,6 @@ const HeroSection: React.FC = () => {
   // Get theme from context
   const { theme } = useTheme();
   
-  const [hover, setHover] = useState<boolean>(false);
   const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState<boolean>(true);
   const railRef = useRef<HTMLDivElement | null>(null);
   const hasScrolled = useRef<boolean>(false);
@@ -233,25 +232,20 @@ const HeroSection: React.FC = () => {
         </TitleBackground>
 
         <BtnWrap>
-          <div 
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
+          <PortfolioButton
+            to="services"
+            onClick={handleViewServicesClick}
+            smooth={true}
+            duration={500}
+            spy={true}
+            exact="true"
+            offset={0}
+            aria-label="View Portfolio"
           >
-            <Button 
-              to="services" 
-              onClick={handleViewServicesClick}
-              $primary="true"
-              $dark="true"
-              smooth={true}
-              duration={500}
-              spy={true}
-              exact="true"
-              offset={0}
-            >
-              {`View Services ${hover ? ' ' : ' '}`}
-              {hover ? <ArrowFwd /> : <ArrowRt />}
-            </Button>
-          </div>
+            <ArrowBadge>
+              <ArrowUpIcon />
+            </ArrowBadge>
+          </PortfolioButton>
         </BtnWrap>
       </HeroText>
 

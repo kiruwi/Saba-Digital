@@ -12,7 +12,7 @@ import {
   LearnMoreButton
 } from "./ServicesElements";
 import { Link } from "react-router-dom";
-import { FaArrowRight } from "react-icons/fa";
+import { FiArrowUpRight } from "react-icons/fi";
 import { useTheme } from "../../contexts/ThemeContext";
 
 // Define the services data structure
@@ -56,7 +56,7 @@ const Services: React.FC = () => {
                 <ServicesH2>{title}</ServicesH2>
                 <ServicesP>{desc}</ServicesP>
                 <LearnMoreButton aria-label={`Learn more about ${title}`} role="button">
-                  Learn More <FaArrowRight aria-hidden="true" />
+                  Learn More <FiArrowUpRight aria-hidden="true" />
                 </LearnMoreButton>
               </TextOverlay>
             </Card>
@@ -82,7 +82,7 @@ export const ServicesRail: React.FC = () => {
                 <ServicesH2>{title}</ServicesH2>
                 <ServicesP>{desc}</ServicesP>
                 <LearnMoreButton aria-label={`Learn more about ${title}`} role="button">
-                  Learn More <FaArrowRight aria-hidden="true" />
+                  Learn More <FiArrowUpRight aria-hidden="true" />
                 </LearnMoreButton>
               </TextOverlay>
             </Card>
