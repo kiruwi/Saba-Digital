@@ -16,6 +16,7 @@ import LoadingFallback from "./components/LoadingFallback";
 import "./App.css";
 import "./fonts.css"; // Import SpotifyMix font definitions
 import ScrollToTop from "./components/ScrollToTop";
+import CookieBanner from "./components/CookieBanner";
 
 // Lazy load components for better code splitting
 const Home = lazy(() => import("./pages").then(module => ({ default: module.Home })));
@@ -55,6 +56,7 @@ function AppContent() {
     <HelmetProvider>
       <StyledThemeProvider theme={themeObject}>
         <GlobalStyles />
+        <CookieBanner />
         <Router>
           {/* Skip navigation link removed */}
           {/* <AccessibilityTester /> */}
