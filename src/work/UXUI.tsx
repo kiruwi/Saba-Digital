@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { FC } from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-// Import hardcoded data
 import { uxProjects } from "../data/projects";
 import styled from "styled-components";
 import AnimatedSection from "../components/AnimatedSection";
-import LazyImage from "../components/LazyImage";
 import { Link } from "react-router-dom";
+import ufanisiImg from "../images/ufanisi.jpg";
 import { FaUsers, FaRocket, FaShoppingCart, FaLanguage, FaUniversalAccess, FaMicrophone, FaHistory, FaCreditCard, FaStarHalfAlt } from 'react-icons/fa';
 // Import Ufanisi styled components for responsive layout
 import { UfanisiSideBySide, UfanisiMobileImageFirst, UfanisiMobileTextSecond } from "./UfanisiResortElements";
 import { useTheme } from "../contexts/ThemeContext";
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 const MainContainer = styled.main`
   padding: 7rem 1.5rem 4rem 1.5rem;
@@ -219,37 +219,27 @@ const UXUI: React.FC = () => {
         {ufanisiProject && (
           <ContentWrapper>
             <AnimatedSection animationType="fadeIn" delay={300} duration={1000}>
-              <ProjectImage>
+              {/* <ProjectImage>
                 <LazyImage 
                   src={ufanisiProject.image} 
                   alt={ufanisiProject.title} 
                   threshold={0.1}
                   rootMargin="200px"
                 />
-              </ProjectImage>
+              </ProjectImage> */}
 
               <SectionTitle>{ufanisiProject.title}</SectionTitle>
-              <ProjectDescription>{ufanisiProject.fullDescription}</ProjectDescription>
-              <ProjectDescription>{ufanisiProject.fullDescription2}</ProjectDescription>
+              {/* <ProjectDescription>{ufanisiProject.fullDescription}</ProjectDescription> */}
+              {/* <ProjectDescription>{ufanisiProject.fullDescription2}</ProjectDescription> */}
 
 
 
-              {ufanisiProject.fullDescription3 && ufanisiProject.fullDescription3.map((section, index) => (
-                <AnimatedSection 
-                  key={index}
-                  animationType="fadeInUp" 
-                  delay={400 + (index * 100)} 
-                  duration={800}
-                >
-                  <SectionTitle>{section.heading}</SectionTitle>
-                  <ProjectDescription>{section.content}</ProjectDescription>
-                </AnimatedSection>
-              ))}
+
 
               <UfanisiSideBySide>
                 <UfanisiMobileImageFirst>
                   <img 
-                    src={require('../images/ufanisi.jpg')} 
+                    src={ufanisiImg} 
                     alt="Ufanisi Design Transformation" 
                     style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover', maxHeight: '400px' }} 
                   />
@@ -274,7 +264,7 @@ const UXUI: React.FC = () => {
                 </UfanisiMobileTextSecond>
               </UfanisiSideBySide>
 
-              <SectionTitle>Design Process</SectionTitle>
+              {/* <SectionTitle>Design Process</SectionTitle>
               <ProcessStepsContainer>
                 {designSteps.map((step, index) => (
                   <AnimatedSection 
@@ -315,7 +305,8 @@ const UXUI: React.FC = () => {
                 ))}
               </ul>
 
-              <ButtonLink to="/ufanisi">View Detailed Case Study</ButtonLink>
+              */}
+              <ButtonLink to="/work/ux-ui/ufanisi-resort">View Detailed Case Study</ButtonLink>
             </AnimatedSection>
           </ContentWrapper>
         )}

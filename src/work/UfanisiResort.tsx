@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ProcessSection from "../components/ProcessSection";
 import { useTheme } from "../contexts/ThemeContext";
 import { Theme } from "../themes/theme";
-import LazyImage from "../components/LazyImage";
+
 import { preloadImage, preloadSectionImages } from "../utils/preloadImages";
 import {
   UfanisiMainContainer,
@@ -128,19 +128,12 @@ const UfanisiResort: React.FC = () => {
           </UfanisiBackButton>
           
           {/* Hero Image with Title Overlay */}
-          <UfanisiHeroContainer>
+          <UfanisiHeroContainer style={{ backgroundImage: `url(${project.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <UfanisiHeroContent>
               {!isMobile ? (
                 <>
-                  <LazyImage 
-                    src={project.image} 
-                    alt={project.title} 
-                    threshold={0.01}
-                    rootMargin="200px"
-                  />
-                  <UfanisiHeroOverlay>
-                    <UfanisiTitle style={{ color: 'white', margin: 0 }}>{project.title}</UfanisiTitle>
-                  </UfanisiHeroOverlay>
+                  
+                  <UfanisiTitle style={{ color: 'white', margin: 0, textShadow: '0 2px 6px rgba(0,0,0,0.6)' }}>{project.title}</UfanisiTitle>
                 </>
               ) : (
                 <UfanisiMobileTitle>
@@ -162,13 +155,11 @@ const UfanisiResort: React.FC = () => {
           {!isMobile && (
             <div style={{ display: 'flex', flexDirection: 'row', gap: '2rem', marginBottom: '2rem', marginTop: '2rem' }}>
               {/* Using absolute path that works in both environments */}
-              <LazyImage 
-                src={require('../assets/projects/ux-ui/u-r.jpg')} 
-                alt="Previous design issues" 
-                height="400px"
-                threshold={0.01}
-                rootMargin="200px"
-              />
+              <img 
+                 src={require('../assets/projects/ux-ui/u-r.jpg')} 
+                 alt="Previous design issues" 
+                 style={{ width: '100%', height: '400px', objectFit: 'cover' }}
+               />
               <div style={{ flex: '0 0 50%' }}>
                 <UfanisiHeading>My Design Transformation</UfanisiHeading>
               </div>
@@ -179,12 +170,11 @@ const UfanisiResort: React.FC = () => {
           {isMobile && (
             <UfanisiSideBySide>
               <UfanisiMobileImageFirst>
-                <LazyImage 
-                  src={require('../assets/projects/ux-ui/u-r.jpg')} 
-                  alt="Previous design issues" 
-                  threshold={0.01}
-                  rootMargin="200px"
-                />
+                <img 
+                   src={require('../assets/projects/ux-ui/u-r.jpg')} 
+                   alt="Previous design issues" 
+                   style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+                 />
               </UfanisiMobileImageFirst>
               <UfanisiMobileTextSecond>
                 <UfanisiHeading>My Design Transformation</UfanisiHeading>
