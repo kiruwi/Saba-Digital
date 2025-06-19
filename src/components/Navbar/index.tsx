@@ -3,7 +3,7 @@ import { FaChevronDown, FaSun, FaMoon } from "react-icons/fa"; // Using icons fr
 import { animateScroll as scroll } from "react-scroll";
 import { useLocation } from "react-router-dom";
 import signature from "../../images/signature.svg";
-import styled, { keyframes, css } from "styled-components";
+import styled from "styled-components";
 import "./Navbar.css";
 import { useTheme } from "../../contexts/ThemeContext"; // Import useTheme hook
 
@@ -15,18 +15,7 @@ import {
   NavBtnLink,
 } from "./NavbarElements";
 
-// Define keyframes properly
-const pulse = keyframes`
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-`;
+
 
 // Styled component for mobile theme toggle
 const MobileThemeToggle = styled.div`

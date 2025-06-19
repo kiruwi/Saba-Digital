@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { Suspense, lazy, useEffect } from "react";
+import React, { Suspense, lazy } from "react";
 // import { enhanceKeyboardNavigation } from "./utils/keyboardNavigation";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";

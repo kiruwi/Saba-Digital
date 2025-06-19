@@ -7,7 +7,7 @@ import { graphicsProjects } from "../data/projects";
 import styled from "styled-components";
 import AnimatedSection from "../components/AnimatedSection";
 import usePerformanceOptimization from "../hooks/usePerformanceOptimization";
-import { useNavigate } from "react-router-dom";
+
 import { useTheme } from "../contexts/ThemeContext";
 import GraphicsProjectCard from "../components/ProjectCard/GraphicsProjectCard";
 
@@ -44,7 +44,7 @@ const Graphics: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const navigate = useNavigate();
+
   
   // Theme is now passed as props
   
