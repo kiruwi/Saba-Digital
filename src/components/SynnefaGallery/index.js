@@ -55,7 +55,7 @@ const SynnefaGallery = () => {
         <div>
           <h3>3D Product Visualization for FarmShield™</h3>
           <p>
-            I modelled the FarmShield™ device in Blender, applied Synnefa’s new colours, and rendered
+            I modelled the FarmShield™ device in Adobe Illustrator, applied Synnefa’s new colours, and rendered
             a clean hero shot used in brochures, decks, and the website.
           </p>
         </div>

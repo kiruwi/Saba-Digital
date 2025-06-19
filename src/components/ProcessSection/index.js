@@ -146,7 +146,7 @@ const ProcessSection = () => {
         <StepContent>
           <p>
             High-contrast palette, 48 px minimum tap targets, alt text for images, 
-            voice-over labels — mirrors the case study's inclusive guidelines.
+            & voice-over labels, mirrors the case study's inclusive guidelines.
           </p>
         </StepContent>
         {/*
