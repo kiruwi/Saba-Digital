@@ -7,21 +7,16 @@ const CONSENT_KEY = 'cookie_consent';
 
 // Dynamically load the Clarity script tag
 function injectClarity() {
-  if (document.getElementById('clarity-script')) return;
+  if ((window as any).clarity) return;
 
-  const projectId = process.env.REACT_APP_CLARITY_PROJECT_ID || 's20bk117ff'; // fallback to hard-coded ID
-
-  // Create wrapper to mimic window.clarity queue until script loads
-  (window as any).clarity = (window as any).clarity || function () {
-    ((window as any).clarity.q = (window as any).clarity.q || []).push(arguments);
-  };
-
-  const t = document.createElement('script');
-  t.id = 'clarity-script';
-  t.async = true;
-  t.src = `https://www.clarity.ms/tag/${projectId}`;
-  const y = document.getElementsByTagName('script')[0];
-  y.parentNode?.insertBefore(t, y);
+  (function (c: any, l: any, a: string, r: string, i: string) {
+    c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+    const t = l.createElement(r) as HTMLScriptElement;
+    t.async = true;
+    t.src = 'https://www.clarity.ms/tag/' + i;
+    const y = l.getElementsByTagName(r)[0];
+    y.parentNode!.insertBefore(t, y);
+  })(window, document, 'clarity', 'script', 's22e2bgovv');
 }
 
 // Styled banner components
