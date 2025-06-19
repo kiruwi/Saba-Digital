@@ -1,20 +1,27 @@
 // src/components/CookieBanner.tsx
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Clarity from '@microsoft/clarity';
 
 // Key used in localStorage to remember the visitor's choice
 const CONSENT_KEY = 'cookie_consent';
 
-// Fire up Clarity only after consent
-function enableClarity() {
-  try {
-    Clarity.consent(true);
-    const id = process.env.REACT_APP_CLARITY_PROJECT_ID;
-    if (id) Clarity.init(id);
-  } catch {
-    /* ignore */
-  }
+// Dynamically load the Clarity script tag
+function injectClarity() {
+  if (document.getElementById('clarity-script')) return;
+
+  const projectId = process.env.REACT_APP_CLARITY_PROJECT_ID || 's20bk117ff'; // fallback to hard-coded ID
+
+  // Create wrapper to mimic window.clarity queue until script loads
+  (window as any).clarity = (window as any).clarity || function () {
+    ((window as any).clarity.q = (window as any).clarity.q || []).push(arguments);
+  };
+
+  const t = document.createElement('script');
+  t.id = 'clarity-script';
+  t.async = true;
+  t.src = `https://www.clarity.ms/tag/${projectId}`;
+  const y = document.getElementsByTagName('script')[0];
+  y.parentNode?.insertBefore(t, y);
 }
 
 // Styled banner components
@@ -55,11 +62,9 @@ const CookieBanner: React.FC = () => {
   useEffect(() => {
     const stored = localStorage.getItem(CONSENT_KEY);
     if (stored === 'accepted') {
-      enableClarity();
+      injectClarity();
     } else if (!stored) {
       setVisible(true);
-    } else if (stored === 'declined') {
-      Clarity.consent(false);
     }
   }, []);
 
@@ -67,13 +72,12 @@ const CookieBanner: React.FC = () => {
 
   const handleAccept = () => {
     localStorage.setItem(CONSENT_KEY, 'accepted');
-    enableClarity();
+    injectClarity();
     setVisible(false);
   };
 
   const handleDecline = () => {
     localStorage.setItem(CONSENT_KEY, 'declined');
-    Clarity.consent(false);
     setVisible(false);
   };
 
