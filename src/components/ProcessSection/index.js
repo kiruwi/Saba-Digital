@@ -193,7 +193,7 @@ const ProcessSection = () => {
         <StepContent>
           <p>
             Keep returning customers in the flow with saved address, card, and "repeat last order" 
-            button — a direct win noted in the second usability round.
+            button, a direct win noted in the second usability round.
           </p>
         </StepContent>
         {/*
