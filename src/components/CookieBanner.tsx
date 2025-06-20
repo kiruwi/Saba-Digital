@@ -22,27 +22,45 @@ function injectClarity() {
 // Styled banner components
 const Banner = styled.div`
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #0e1322;
-  color: #fff;
-  padding: 12px 16px;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  max-width: calc(100% - 40px);
+  background: #ffffff;
+  color: ${({ theme }) => theme.colors?.text ?? '#121212'};
+  padding: 16px;
   font-size: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
   z-index: 9999;
+  flex-direction: row;
+  border-radius: 4px;
+
+  @media (max-width: 768px) {
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
 `;
 
 const Message = styled.span`
   flex: 1 1 auto;
   margin-right: 12px;
+  color: ${({ theme }) => theme.colors?.secondary ?? '#6c757d'};
+`;
+
+const ButtonsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: 32px;
 `;
 
 const Button = styled.button<{ $secondary?: boolean }>`
-  background: ${({ $secondary }) => ($secondary ? '#6c757d' : '#00cf95')};
-  color: #fff;
+  background: ${({ $secondary, theme }) => ($secondary ? 'rgba(0,0,0,0.05)' : (theme.colors?.primary ?? '#00cf95'))};
+  color: ${({ $secondary, theme }) => ($secondary ? (theme.colors?.secondary ?? '#6c757d') : '#ffffff')};
   border: none;
   padding: 6px 14px;
   margin-left: 8px;
@@ -79,12 +97,12 @@ const CookieBanner: React.FC = () => {
   return (
     <Banner>
       <Message>
-        This website uses cookies to enhance your experience.“Accept”.
+        By using iancheruiyot.work site, you agree with our use of cookies to better the website.
       </Message>
-      <Button onClick={handleDecline} $secondary>
-        Decline
-      </Button>
-      <Button onClick={handleAccept}>Accept</Button>
+      <ButtonsWrapper>
+        <Button onClick={handleAccept}>Accept all</Button>
+        <Button onClick={handleDecline} $secondary>Reject all</Button>
+      </ButtonsWrapper>
     </Banner>
   );
 };
