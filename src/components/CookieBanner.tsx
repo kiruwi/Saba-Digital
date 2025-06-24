@@ -100,10 +100,10 @@ const CookieBanner: React.FC = () => {
         By using iancheruiyot.work site, you agree with our use of cookies to better the website.
       </Message>
       <ButtonsWrapper>
-        <Button onClick={handleAccept}>Accept all</Button>
-        <Button onClick={handleDecline} $secondary>Reject all</Button>
+        <Button onClick={handleAccept}>Accept</Button>
+        <Button onClick={handleDecline} $secondary>Reject</Button>
       </ButtonsWrapper>
-    </Banner>
+     </Banner>
   );
 };
 
