@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Navbar from "../components/Navbar";
+
 import Footer from "../components/Footer";
 import { uxProjects } from "../data/projects";
 import { FaArrowLeft } from "react-icons/fa";
@@ -44,8 +44,8 @@ import {
 } from "./UfanisiResortElements";
 
 const UfanisiResort: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+
+
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -103,7 +103,7 @@ const UfanisiResort: React.FC = () => {
   if (!project) {
     return (
       <>
-        <Navbar toggle={toggle} isOpen={isOpen} />
+
         <UfanisiMainContainer>
           <UfanisiContainer ref={contentRef}>
             <UfanisiBackButton onClick={() => navigate(-1)}>
@@ -120,7 +120,7 @@ const UfanisiResort: React.FC = () => {
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} />
+
       <UfanisiMainContainer>
         <UfanisiContainer>
           <UfanisiBackButton onClick={() => navigate(-1)}>

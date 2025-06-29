@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import React from "react";
+
 import Footer from "../components/Footer";
 import { 
   ProjectDetailContainer, 
@@ -20,8 +20,8 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { uxProjects } from "../data/projects";
 
 const UfanisiProjectPage: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+
+
   const navigate = useNavigate();
   
   // Get the Ufanisi project directly
@@ -30,7 +30,7 @@ const UfanisiProjectPage: React.FC = () => {
   if (!ufanisiProject) {
     return (
       <>
-        <Navbar toggle={toggle} isOpen={isOpen} />
+
         <main style={{ padding: "7rem 1.5rem 4rem 1.5rem", marginTop: "10px", background: "#000", color: "#fff" }}>
           <ProjectDetailContainer>
             <BackButton to="" onClick={() => navigate(-1)}>
@@ -47,7 +47,7 @@ const UfanisiProjectPage: React.FC = () => {
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} />
+
       <main style={{ padding: "7rem 1.5rem 4rem 1.5rem", marginTop: "10px", background: "#000", color: "#fff" }}>
         <ProjectDetailContainer>
           <BackButton to="" onClick={() => navigate(-1)}>

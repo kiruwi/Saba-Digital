@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Navbar from "../components/Navbar";
+
 import Footer from "../components/Footer";
 import { webProjects } from "../data/projects";
 import styled from "styled-components";
@@ -194,8 +194,8 @@ const WebDevDetail: React.FC = () => {
   // destructuring them ensures the component subscribes to context changes
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { theme, toggleTheme } = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+
+
   const { id } = useParams<{ id: string }>();
   const [project, setProject] = useState<ProjectType | null>(null);
   
@@ -227,7 +227,7 @@ const WebDevDetail: React.FC = () => {
   if (!project) {
     return (
       <>
-        <Navbar toggle={toggle} isOpen={isOpen} />
+
         <MainContainer>
           <AnimatedSection animationType="fadeIn" duration={800}>
             <ProjectHeader>
@@ -246,7 +246,7 @@ const WebDevDetail: React.FC = () => {
   
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} />
+
       <MainContainer>
         <ContentWrapper>
           <AnimatedSection animationType="fadeInDown" duration={800}>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import React from "react";
+
 import Footer from "../components/Footer";
 import { uxProjects } from "../data/projects";
 import styled from "styled-components";
@@ -144,8 +144,8 @@ const UXUI: React.FC = () => {
   // destructuring them ensures the component subscribes to context changes
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { theme, toggleTheme } = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+  
+  
 
   // Get the Ufanisi Resort project
   const ufanisiProject = uxProjects.find(project => project.id === "ufanisi-resort");
@@ -210,7 +210,7 @@ const UXUI: React.FC = () => {
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} />
+
       <MainContainer>
         <AnimatedSection animationType="fadeInDown" duration={800}>
           <PageTitle>UX / UI Design</PageTitle>

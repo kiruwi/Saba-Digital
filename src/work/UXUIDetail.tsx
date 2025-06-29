@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
+import React, { useEffect } from "react";
+
 import Footer from "../components/Footer";
 import UXUIProjectDetail from "../components/ProjectDetail/UXUIProjectDetail";
 import { uxProjects } from "../data/projects";
@@ -22,8 +22,8 @@ const UXUIDetail: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { theme, toggleTheme } = useTheme();
   
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+
+
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   
@@ -55,7 +55,7 @@ const UXUIDetail: React.FC = () => {
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} />
+
       <MainContent>
         <UXUIProjectDetail projects={uxProjects} />
       </MainContent>

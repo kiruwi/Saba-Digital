@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import React from "react";
 import Footer from "../components/Footer";
+
 import { uxProjects } from "../data/projects";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -116,8 +116,8 @@ const FeatureItem = styled.li`
 `;
 
 const UfanisiSpecialPage: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+
+
   const navigate = useNavigate();
   
   // Get the Ufanisi Resort project data
@@ -126,7 +126,7 @@ const UfanisiSpecialPage: React.FC = () => {
   if (!project) {
     return (
       <>
-        <Navbar toggle={toggle} isOpen={isOpen} />
+
         <main style={{ padding: "7rem 1.5rem 4rem 1.5rem", marginTop: "10px", background: "#000", color: "#fff" }}>
           <Container>
             <BackButton onClick={() => navigate(-1)}>
@@ -143,7 +143,7 @@ const UfanisiSpecialPage: React.FC = () => {
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} />
+
       <main style={{ padding: "7rem 1.5rem 4rem 1.5rem", marginTop: "10px", background: "#000", color: "#fff" }}>
         <Container>
           <BackButton onClick={() => navigate(-1)}>

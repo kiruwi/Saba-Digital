@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import React from "react";
+
 import Footer from "../components/Footer";
 import { WebDevGrid } from "./WebDevElements";
 // Import hardcoded data
@@ -36,12 +36,12 @@ const WebDev: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { theme, toggleTheme } = useTheme();
   
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+  
+  
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} />
+
       <MainContent>
         <ProjectsContainer>
           <AnimatedSection animationType="fadeInDown" duration={800}>

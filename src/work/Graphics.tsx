@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import React from "react";
+
 import Footer from "../components/Footer";
 import { GraphicsGrid } from "./GraphicsElements";
 // Import hardcoded data
@@ -42,8 +42,7 @@ const Graphics: React.FC = () => {
   // destructuring them ensures the component subscribes to context changes
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { theme, toggleTheme } = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+
 
   
   // Theme is now passed as props
@@ -63,7 +62,7 @@ const Graphics: React.FC = () => {
 
   return (
     <>
-      <Navbar toggle={toggle} isOpen={isOpen} />
+
       <MainContainer>
         <AnimatedSection animationType="fadeInDown" duration={800}>
           <PageTitle>Graphics Projects</PageTitle>

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../components/Button";
 import { uxProjects } from "../data/projects";
-import Navbar from "../components/Navbar";
+
 import Footer from "../components/Footer";
 import styled from "styled-components";
 
@@ -93,8 +93,8 @@ const ErrorPage: React.FC<ErrorProps> = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+  
+  
 
   // Check if this is the Ufanisi Resort path
   const isUfanisiResort = location.pathname.includes('ufanisi-resort') ||
@@ -120,7 +120,7 @@ const ErrorPage: React.FC<ErrorProps> = ({
   if (isUfanisiResort && ufanisiProject) {
     return (
       <>
-        <Navbar toggle={toggle} isOpen={isOpen} />
+        
         <main style={{ padding: "7rem 1.5rem 4rem 1.5rem", marginTop: "10px", background: "#000", color: "#fff" }}>
           <ProjectContainer>
             <BackButton onClick={handleGoBack}>← Go Back</BackButton>
