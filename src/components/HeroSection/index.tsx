@@ -674,6 +674,7 @@ export const CardGrid = styled.div<{ visible: boolean }>`
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   transition: opacity 0.2s ease 0.05s; /* fade in after button grows */
   pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
+  animation: slideInUp 0.45s ease both;
 
   border-radius: 24px;
   overflow: hidden;
