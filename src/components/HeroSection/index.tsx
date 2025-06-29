@@ -320,7 +320,7 @@ const HeroSection: FC = () => {
   const lowEndDevice = prefersReducedMotion || ((navigator as any).deviceMemory && (navigator as any).deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
 
   const [expanded, setExpanded] = useState(false);
-  const [scrollIndicatorVisible, setScrollIndicatorVisible] = useState(true);
+  const [, setScrollIndicatorVisible] = useState(true); // scroll indicator removed
 
   // hide scroll arrow when popup expanded
   useEffect(() => {
@@ -643,11 +643,7 @@ const HeroSection: FC = () => {
       </SlideIndicatorsContainer>
       )}
 
-      {/* Mobile scroll indicator */}
-      <ScrollIndicatorWrapper visible={scrollIndicatorVisible}>
-        <ScrollText>Scroll</ScrollText>
-        <ScrollArrow />
-      </ScrollIndicatorWrapper>
+      {/* Scroll indicator removed */}
     </HeroContainer>
   );
 };
