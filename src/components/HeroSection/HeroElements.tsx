@@ -4,8 +4,11 @@ import { ServicesWrapper } from '../Services/ServicesElements';
 
 /* ── layout grid ─────────────────────────────────── */
 export const HeroContainer = styled.section`
+  max-width: 90vw;
+  margin: 0 auto;
+  column-gap: 2rem;
   display: grid;
-  grid-template-columns: 1fr 480px;
+  grid-template-columns: minmax(0, 1fr) 500px;
   min-height: 100vh;
   background: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
@@ -19,7 +22,7 @@ export const HeroText = styled.div`
   position: sticky;
   top: 0;
   max-width: 700px;
-  padding: 8rem 3rem 3rem;
+  padding: 8rem 1.5rem 3rem;
 
   @media (max-width: 1000px) {
     padding: 4rem 1.5rem 2rem;
