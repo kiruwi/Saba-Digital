@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaChevronDown, FaSun, FaMoon } from "react-icons/fa";
 import { FiArrowUpRight } from 'react-icons/fi'; // Using icons from react-icons/fa
 import { animateScroll as scroll } from "react-scroll";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import signature from "../../images/signature.svg";
 import styled from "styled-components";
 import "./Navbar.css";
@@ -128,6 +128,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
 
   const [scrollNav, setScrollNav] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme(); // Get theme and toggleTheme from context
   
   // Check if current path is in the work section or contact page
@@ -173,8 +174,8 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
           {/* Direct theme toggle for mobile - positioned to the left of dropdown */}
           {portfolioExpanded && (
             <NavArrowBadge
-              aria-label="Collapse portfolio"
-              onClick={() => window.dispatchEvent(new Event('collapsePortfolio'))}
+              aria-label="Go to homepage"
+              onClick={() => navigate('/')}
             >
               <FiArrowUpRight style={{transform:'rotate(-180deg)', color:'#000'}} />
             </NavArrowBadge>
