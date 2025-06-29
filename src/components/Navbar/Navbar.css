@@ -1,5 +1,5 @@
 .navbar {
-  background: transparent;
+  background: var(--navbar-bg, #0e1322);
   height: 80px;
   margin-top: -80px;
   display: flex;
@@ -8,7 +8,7 @@
   font-size: 1rem;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 10000; /* ensures navbar above portfolio overlay */
   transition: all 0.3s ease-in-out;
   color: var(--text-color, #343a40);
 }
@@ -34,7 +34,14 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
+/* Hide burger dropdown icon when portfolio expanded to allow arrow badge replacement */
+
+
 @media screen and (max-width: 768px) {
+  .navbar {
+    margin-top: 0;
+    background: var(--navbar-bg, #0e1322);
+  }
   .navbar {
     transition: 0.8s all ease;
   }

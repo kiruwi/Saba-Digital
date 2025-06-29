@@ -13,6 +13,11 @@ export const ServicesContainer = styled.div`
   background: ${({ theme }) => theme.colors.background};
   display: flex;
   justify-content: center;
+
+  /* hide below hero on mobile; hero overlay already shows cards */
+  @media (max-width: 1000px) {
+    display: none;
+  }
 `;
 
 export const ServicesInline = styled(ServicesContainer)`
@@ -29,8 +34,21 @@ export const ServicesWrapper = styled.div`
   @media (max-width: 1000px) {
     grid-template-columns: repeat(2, 1fr);
   }
+  /* Turn grid into horizontal carousel on small screens */
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding-bottom: 1rem;
+
+    /* hide default scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+    &::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
   }
 `;
 
@@ -58,6 +76,7 @@ interface CardProps {
 export const ServicesCard = styled.div.withConfig(cardConfig)<CardProps>`
   position: relative;
   overflow: hidden;
+  border-radius: 24px;
   width: 90%;
   aspect-ratio: 1 / 1;
   margin: auto;
@@ -65,16 +84,22 @@ export const ServicesCard = styled.div.withConfig(cardConfig)<CardProps>`
   min-height: 300px;
   height: 90%;
   max-height: 90vh;
+  cursor: pointer;
 
   @media (max-width: 768px) {
-    padding: 1rem;
+    /* dimensions for carousel slide */
+    flex: 0 0 80%;
+    width: 80%;
+    margin: 0 10%;
+    padding: 0;
   }
 
   &::before {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: ${({ bg }) => (bg ? `url(${bg})` : 'none')};
+    border-radius: inherit;
+     background-image: ${({ bg }) => (bg ? `url(${bg})` : 'none')};
     background-position: center;
     background-size: cover;
     transform: scale(1.1);

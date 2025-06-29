@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FaChevronDown, FaSun, FaMoon } from "react-icons/fa"; // Using icons from react-icons/fa
+import { FaChevronDown, FaSun, FaMoon } from "react-icons/fa";
+import { FiArrowUpRight } from 'react-icons/fi'; // Using icons from react-icons/fa
 import { animateScroll as scroll } from "react-scroll";
 import { useLocation } from "react-router-dom";
 import signature from "../../images/signature.svg";
@@ -16,6 +17,27 @@ import {
 } from "./NavbarElements";
 
 
+
+// Styled component for arrow badge when portfolio expanded (mobile only)
+const NavArrowBadge = styled.button`
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+     transform: translateY(-50%);
+    right: 84px; /* moved 2px right from previous */
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #f7d338;
+    border: none;
+    z-index: 15;
+    cursor: pointer;
+  }
+`;
 
 // Styled component for mobile theme toggle
 const MobileThemeToggle = styled.div`
@@ -97,6 +119,13 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
+  const [portfolioExpanded,setPortfolioExpanded]=useState(false);
+  useEffect(()=>{
+    const handler=(e:any)=> setPortfolioExpanded(!!e.detail);
+    window.addEventListener('portfolioExpanded', handler);
+    return ()=> window.removeEventListener('portfolioExpanded', handler);
+  },[]);
+
   const [scrollNav, setScrollNav] = useState(false);
   const location = useLocation();
   const { theme, toggleTheme } = useTheme(); // Get theme and toggleTheme from context
@@ -142,6 +171,14 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
             <span style={{ verticalAlign: 'middle', color: 'inherit' }}>Ian Cheruiyot</span>
           </NavLogo>
           {/* Direct theme toggle for mobile - positioned to the left of dropdown */}
+          {portfolioExpanded && (
+            <NavArrowBadge
+              aria-label="Collapse portfolio"
+              onClick={() => window.dispatchEvent(new Event('collapsePortfolio'))}
+            >
+              <FiArrowUpRight style={{transform:'rotate(-180deg)', color:'#000'}} />
+            </NavArrowBadge>
+          )}
           <MobileThemeToggle>
             <button
               onClick={(e) => {
@@ -174,7 +211,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
                 : <FaMoon style={{color: '#5D4E7A'}} />}
             </button>
           </MobileThemeToggle>
-          <MobileDropdownIcon $isOpen={isOpen} onClick={toggle}>
+          <MobileDropdownIcon className="mobile-dropdown-icon" $isOpen={isOpen} onClick={toggle}>
             <FaChevronDown />
           </MobileDropdownIcon>
           <NavMenu>

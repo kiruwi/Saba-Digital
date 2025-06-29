@@ -26,7 +26,7 @@ interface ServiceItem {
 const items: ServiceItem[] = [
   {
     title: "Product Design",
-    desc: "Creating user‑friendly and visually appealing interfaces.",
+    desc: "Creating user-friendly and visually appealing interfaces.",
     path: "/work/ux-ui"
   },
   {
@@ -38,20 +38,25 @@ const items: ServiceItem[] = [
     title: "Branding",
     desc: "Creating visually stunning and engaging brand identities.",
     path: "/work/graphics"
-  },
+  }
 ];
 
 /* full‑width section (phones / other pages) */
 const Services: React.FC = () => {
+  // hide entire section on mobile (hero overlay shows cards)
+  if (typeof window !== 'undefined' && window.innerWidth <= 1000) {
+    return null;
+  }
   // Get theme from context
   const { theme } = useTheme();
   
+
   return (
     <ServicesContainer id="services">
       <ServicesWrapper>
         {items.map(({ title, desc, path }, i) => (
-          <Link key={title} to={path} style={{ textDecoration: 'none' }}>
-            <Card bg={serviceBackgrounds[i]}>
+          <Link key={title} to={path} style={{ textDecoration: 'none', width: '100%' }}>
+            <Card bg={serviceBackgrounds[i]} role="button" tabIndex={0}>
               <TextOverlay>
                 <ServicesH2>{title}</ServicesH2>
                 <ServicesP>{desc}</ServicesP>

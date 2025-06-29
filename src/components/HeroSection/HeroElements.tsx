@@ -1,33 +1,23 @@
-import styled, { keyframes, css } from "styled-components";
-import { FaChevronRight, FaArrowRight } from "react-icons/fa";
-import { FiArrowUpRight } from "react-icons/fi";
-import { Button } from "../ButtonElements";
-import { ServicesWrapper } from "../Services/ServicesElements";
+import styled, { keyframes, css } from 'styled-components';
+import { FiArrowUpRight } from 'react-icons/fi';
+import { ServicesWrapper } from '../Services/ServicesElements';
 
-/* ── layout grid ────────────────────────────────────── */
+/* ── layout grid ─────────────────────────────────── */
 export const HeroContainer = styled.section`
   display: grid;
   grid-template-columns: 1fr 480px;
   min-height: 100vh;
   background: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.theme === 'light' ? '#000000' : '#ffffff'};
+  color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
   overflow: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
-
-  @media (max-width: 1000px) {
-    display: block;
-  }
 `;
 
-export const HeroBg = styled.div`
-  display: none; /* placeholder only */
-`;
+export const HeroBg = styled.div``;
 
-/* ── copy column (sticky) ───────────────────────────── */
+/* ── copy column ─────────────────────────────────── */
 export const HeroText = styled.div`
   position: sticky;
   top: 0;
-  align-self: start;
   max-width: 700px;
   padding: 8rem 3rem 3rem;
 
@@ -37,12 +27,9 @@ export const HeroText = styled.div`
 `;
 
 export const TitleBackground = styled.div`
-  background: transparent;
-  padding: 0.7em 1.2em;
   display: inline-flex;
   flex-direction: column;
   gap: 0.3em;
-  border-radius: 8px;
 `;
 
 const baseTitle = `
@@ -55,94 +42,126 @@ const baseTitle = `
 export const HeroTitleTop = styled.h1`
   ${baseTitle};
   font-size: clamp(2.5rem, 4vw, 5rem);
-  color: ${({ theme }) => theme.theme === 'light' ? '#000000' : '#ffffff'};
-  transition: color 0.3s ease;
+  color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
 `;
 
 export const HeroTitleBottom = styled.h1`
   ${baseTitle};
   font-size: clamp(2.5rem, 4vw, 5rem);
   color: ${({ theme }) => theme.colors.primary};
-  transition: color 0.3s ease;
 `;
 
-export const HeroP = styled.p`
-  margin: 1rem 0 0;
-  color: ${({ theme }) => theme.theme === 'light' ? '#333333' : '#cccccc'};
-  font-size: clamp(1rem, 1.5vw, 1.5rem);
-  line-height: 1.5;
-  max-width: 600px;
-  transition: color 0.3s ease;
-  
-  @media (max-width: 1000px) {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-`;
-
+/* ── CTA wrapper ─────────────────────────────────── */
 export const BtnWrap = styled.div`
   margin-top: 3rem;
   display: flex;
-  gap: 1rem;
-  
+
   @media (max-width: 1000px) {
     justify-content: center;
   }
 `;
 
-export const ArrowFwd = styled(FaArrowRight)`
-  margin-left: 8px;
-  font-size: 18px;
-  
-  @media screen and (max-width: 1000px) {
-    display: none;
-  }
-`;
+/* ── Portfolio CTA ───────────────────────────────── */
+export const PortfolioButton = styled.button<{ expanded: boolean; lowEnd: boolean }>`
+  position: ${({ expanded }) => (expanded ? 'fixed' : 'relative')};
+  top: ${({ expanded }) => (expanded ? '50%' : 'auto')};
+  left: ${({ expanded }) => (expanded ? '50%' : 'auto')};
+  transform: ${({ expanded }) => (expanded ? 'translate(-50%, -50%)' : 'none')};
 
-export const ArrowRt = styled(FaChevronRight)`
-  margin-left: 8px;
-  font-size: 18px;
-`;
+  width: ${({ expanded }) => (expanded ? '90vw' : 'auto')};
+  max-width: ${({ expanded }) => (expanded ? '90vw' : '75rem')};
+  min-height: ${({ expanded }) => (expanded ? '500px' : 'auto')};
+  padding: ${({ expanded }) => (expanded ? '48px' : '18px 64px 18px 32px')};
 
-/* ── Portfolio CTA styles ─────────────────────────── */
-export const PortfolioButton = styled(Button)`
-  position: relative;
-  overflow: visible;
-  border-radius: 28px;
-  background: ${({ theme }) => theme.colors.primary};
-  padding: 18px 64px 18px 32px;
-  color: transparent; /* hide text visually */
-  font-size: 0;
-  border: none;
-  transition: background 0.3s ease;
-
-  &:hover,
-  &:focus {
-    background: ${({ theme }) => theme.colors.primary};
-    text-decoration: none;
-  }
-`;
-
-export const ArrowBadge = styled.span`
-  position: absolute;
-  top: -14px;
-  right: -14px;
-  width: 48px;
-  height: 48px;
-  background: #f7d338; /* yellow */
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  border: none;
+  border-radius: ${({ expanded }) => (expanded ? '12px' : '28px')};
+  background: ${({ expanded, theme }) =>
+    expanded ? 'rgba(38, 197, 95, 0.25)' : theme.colors.primary};
+  backdrop-filter: ${({ expanded, lowEnd }) => (expanded && !lowEnd ? 'blur(8px) saturate(180%)' : 'none')};
+  -webkit-backdrop-filter: ${({ expanded, lowEnd }) => (expanded && !lowEnd ? 'blur(8px) saturate(180%)' : 'none')};
+  color: #fff;
+  font-size: ${({ expanded }) => (expanded ? 0 : '1rem')};
+  cursor: pointer;
+  z-index: ${({ expanded }) => (expanded ? 999 : 'auto')};
+
+  will-change: transform, width, height;
+  transition: ${({ lowEnd }) =>
+    lowEnd
+      ? 'none'
+      : `width 0.45s ease,
+    height 0.45s ease,
+    padding 0.45s ease,
+    top 0.45s ease,
+    left 0.45s ease,
+    transform 0.45s ease,
+    border-radius 0.45s ease`};
 `;
 
-export const ArrowUpIcon = styled(FiArrowUpRight)`
-  color: #000000;
+/* label */
+export const CtaLabel = styled.span<{ expanded: boolean }>`
+  opacity: ${({ expanded }) => (expanded ? 0 : 1)};
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+`;
+
+/* yellow badge */
+export const ArrowBadge = styled.span<{ expanded: boolean }>`
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #f7d338;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* collapsed: hangs off top-right */
+  top: -14px;
+  right: -14px;
+
+  transition:
+    top 0.45s ease,
+    right 0.45s ease,
+    bottom 0.45s ease,
+    left 0.45s ease;
+
+  ${({ expanded }) =>
+    expanded &&
+    css`
+      /* ---------- desktop (≥769px): bottom-left inside expanded button ---------- */
+      @media (min-width: 769px) {
+        position: absolute;
+        top: auto;
+        right: auto;
+        bottom: 16px;
+        left: 16px;
+      }
+
+      /* ---------- mobile (≤768px): fixed top-right of viewport ---------- */
+      @media (max-width: 768px) {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        bottom: auto;
+        left: auto;
+        z-index: 10002; /* above overlay and navbar */
+      }
+    `}
+`;
+
+/* arrow icon */
+export const ArrowUpIcon = styled(FiArrowUpRight)<{ expanded: boolean }>`
   font-size: 24px;
+  color: #000;
+  transition: transform 0.45s ease;
+  transform: ${({ expanded }) => (expanded ? 'rotate(-180deg)' : 'rotate(0deg)')};
 `;
 
-/* ── rail column ───────────────────────────────────── */
+/* ── rail column ─────────────────────────────────── */
 export const HeroRight = styled.div`
   height: 100vh;
   display: flex;
@@ -158,12 +177,9 @@ export const Rail = styled.div`
   overflow-y: auto;
   scroll-snap-type: y mandatory;
 
-  /* show one slide at a time */
   & ${ServicesWrapper} {
     display: flex;
     flex-direction: column;
-    gap: 0;
-    grid-template-columns: none;
   }
 `;
 
@@ -171,7 +187,6 @@ export const DesktopImg = styled.img`
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  flex-shrink: 0;
 `;
 
 export const MobileImg = styled.img`
@@ -179,15 +194,19 @@ export const MobileImg = styled.img`
   aspect-ratio: 1 / 1;
   object-fit: cover;
 
-  @media (min-width: 1000px) { display: none; }
+  @media (min-width: 1000px) {
+    display: none;
+  }
 `;
 
-/* ── scroll indicator ────────────────────────────────── */
-interface ScrollIndicatorProps {
-  visible: boolean;
-}
+/* ── scroll hint ─────────────────────────────────── */
+const bounce = keyframes`
+  0%,20%,50%,80%,100% { transform: translateY(0) rotate(45deg); }
+  40% { transform: translateY(-10px) rotate(45deg); }
+  60% { transform: translateY(-5px) rotate(45deg); }
+`;
 
-export const ScrollIndicatorWrapper = styled.div<ScrollIndicatorProps>`
+export const ScrollIndicatorWrapper = styled.div<{ visible: boolean }>`
   position: absolute;
   bottom: 20px;
   left: 50%;
@@ -195,31 +214,15 @@ export const ScrollIndicatorWrapper = styled.div<ScrollIndicatorProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 5;
+  opacity: ${({ visible }) => (visible ? 1 : 0)};
   pointer-events: none;
   transition: opacity 0.3s ease;
-  opacity: ${props => props.visible ? '1' : '0'};
 `;
 
 export const ScrollText = styled.div`
   color: ${({ theme }) => theme.colors.text};
-  margin-bottom: 5px;
-  font-size: 12px;
-  text-transform: uppercase;
+  font-size: 0.75rem;
   letter-spacing: 1px;
-  opacity: 0.8;
-`;
-
-const bounce = keyframes`
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0) rotate(45deg);
-  }
-  40% {
-    transform: translateY(-10px) rotate(45deg);
-  }
-  60% {
-    transform: translateY(-5px) rotate(45deg);
-  }
 `;
 
 export const ScrollArrow = styled.div`
@@ -228,11 +231,10 @@ export const ScrollArrow = styled.div`
   border-right: 2px solid ${({ theme }) => theme.colors.text};
   border-bottom: 2px solid ${({ theme }) => theme.colors.text};
   transform: rotate(45deg);
-  margin-top: 10px;
-  animation: ${css`${bounce} 2s infinite`};
+  animation: ${bounce} 2s infinite;
 `;
 
-// Slide indicators container
+/* ── slide dots ─────────────────────────────────── */
 export const SlideIndicatorsContainer = styled.div`
   position: absolute;
   right: 20px;
@@ -241,39 +243,23 @@ export const SlideIndicatorsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  z-index: 5;
-  
-  @media screen and (max-width: 1000px) {
+
+  @media (max-width: 1000px) {
     display: none;
   }
 `;
 
-// Individual slide indicator dot
-interface SlideIndicatorProps {
-  $active: boolean;
-}
-
-export const SlideIndicator = styled.div<SlideIndicatorProps>`
+export const SlideIndicator = styled.div<{ $active: boolean }>`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: ${(props) => {
-    if (props.$active) {
-      return props.theme.theme === 'light' ? props.theme.colors.primary : '#ffffff';
-    } else {
-      return props.theme.theme === 'light' ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.5)';
-    }
-  }};
-  transition: all 0.3s ease;
   cursor: pointer;
-  
-  &:hover {
-    background-color: ${(props) => {
-      if (props.$active) {
-        return props.theme.theme === 'light' ? props.theme.colors.primary : '#ffffff';
-      } else {
-        return props.theme.theme === 'light' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.8)';
-      }
-    }};
-  }
+  background: ${({ $active, theme }) =>
+    $active
+      ? theme.theme === 'light'
+        ? theme.colors.primary
+        : '#fff'
+      : theme.theme === 'light'
+      ? 'rgba(0,0,0,0.3)'
+      : 'rgba(255,255,255,0.5)'};
 `;

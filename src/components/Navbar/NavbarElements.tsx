@@ -11,10 +11,7 @@ interface MobileIconProps {
 }
 
 export const Nav = styled.nav<NavProps>`
-  background: ${({ $scrollNav, theme }) =>
-    theme.theme === 'dark'
-      ? theme.colors.background
-      : ($scrollNav ? theme.colors.background : 'transparent')};
+  background: ${({ theme }) => theme.colors.background};
   height: 80px;
   margin-top: -80px;
   display: flex;
@@ -28,6 +25,12 @@ export const Nav = styled.nav<NavProps>`
 
   @media screen and (max-width: 960px) {
     transition: 0.8s all ease;
+  }
+
+  /* Mobile: let nav occupy its own space instead of overlaying hero */
+  @media screen and (max-width: 768px) {
+    margin-top: 0;
+    background: ${({ theme }) => theme.colors.background};
   }
 `;
 
