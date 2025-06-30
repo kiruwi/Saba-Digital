@@ -39,9 +39,7 @@ const ProjectContent = styled.div`
   gap: 2rem;
   margin-bottom: 3rem;
   
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
+  /* Force vertical stacking on all viewports */
 `;
 
 const ProjectImageContainer = styled.div`

@@ -1,5 +1,6 @@
 // src/data/projects.js
 import uxImage1 from "../assets/projects/ux-ui/u-r.jpg";
+import mutaiImage from "../images/service2-bg.jpg";
 import webImage from "../assets/projects/web-dev/app1.jpg";
 
 // UX/UI Projects
@@ -68,6 +69,36 @@ export const webProjects = [
       "Apache HTTP Server",
     ],
     year: "2023",
+  },
+  {
+    id: "mutai-enterprises",
+    title: "Mutai Enterprises Limited",
+    shortDescription: "Freight forwarding & logistics solutions website for a Kenyan transport company.",
+    fullDescription: "Mutai Enterprises Limited entrusted me to design and develop a modern website that showcases their freight forwarding, bulk transport and logistics services across Kenya and Uganda. The site emphasises their trusted reputation built since 1970, provides clear CTAs for quote requests, and highlights key service corridors such as Nairobi – Mombasa – Kampala.",
+    fullDescription2: "Built with Next.js and React, styled using Tailwind CSS, and deployed on Vercel’s edge network. Webpack ensures efficient bundling, Priority Hints boost performance, and Google Analytics & Google Tag Manager provide actionable insights—resulting in 90+ Lighthouse scores and solid SEO.",
+    image: "/images/m2.png",
+    additionalImages: [mutaiImage],
+    tags: ["Next.js", "Tailwind CSS", "React", "Vercel"],
+    category: "webdev",
+    features: [
+      "Responsive UI across devices",
+      "Service-specific landing pages",
+      "Embedded quote request forms",
+      "SEO-optimised metadata & JSON-LD",
+      "Performance-optimised images & lazy loading"
+    ],
+    tools: [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "Vercel",
+      "Webpack",
+      "Google Analytics",
+      "Google Tag Manager",
+      "Google Analytics",
+      "Cloudflare CDN"
+    ],
+    year: "2025",
   },
 ];
 

@@ -1,6 +1,7 @@
 // src/data/projects.ts - Updated Ufanisi Resort content
 import uxImage1 from "../assets/projects/ux-ui/u-r.jpg";
 import webImage from "../assets/projects/web-dev/app1.jpg";
+import mutaiImage from "../images/service2-bg.jpg";
 
 // Define types for the project data structure
 export interface DescriptionSection {
@@ -95,6 +96,34 @@ export const webProjects: ProjectType[] = [
       "Apache HTTP Server",
     ],
     year: "2023",
+  },
+  {
+    id: "mutai-enterprises",
+    title: "Mutai Enterprises Limited",
+    shortDescription: "Freight forwarding & logistics solutions website for a Kenyan transport company.",
+    fullDescription: "Mutai Enterprises Limited entrusted me to design and develop a modern website that showcases their freight forwarding, bulk transport and logistics services across Kenya and Uganda. The site emphasises their trusted reputation built since 1970, provides clear CTAs for quote requests, and highlights key service corridors such as Nairobi – Mombasa – Kampala.",
+    fullDescription2: "Built with Next.js and React, styled using Tailwind CSS, and deployed on Vercel’s edge network. The project uses Webpack for efficient bundling, implements Priority Hints, and integrates Google Analytics & Google Tag Manager for insights—all contributing to 90+ Lighthouse performance scores and strong SEO.",
+    image: "/images/m2.png",
+    additionalImages: [mutaiImage],
+    tags: ["Next.js", "Tailwind CSS", "React", "Vercel"],
+    category: "webdev",
+    features: [
+      "Responsive UI across devices",
+      "Service-specific landing pages",
+      "Embedded quote request forms",
+      "SEO-optimised metadata & JSON-LD",
+      "Performance-optimised images & lazy loading"
+    ],
+    tools: [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "Vercel",
+      "Webpack",
+      "Google Analytics",
+      "Google Tag Manager"
+    ],
+    year: "2025",
   },
 ];
 
