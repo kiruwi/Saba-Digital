@@ -1,5 +1,5 @@
 // src/components/ProjectDetail/GraphicsProjectDetail.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { 
   GraphicsDetailContainer, 
@@ -13,9 +13,11 @@ import {
   GraphicsGalleryItem,
   GraphicsGalleryImage
 } from '../../work/GraphicsElements';
-import OsimLaiBrandGallery from '../OsimLaiBrandGallery';
-import SynnefaGallery from '../SynnefaGallery';
-import GSCGallery from '../GSCGallery';
+
+const OsimLaiBrandGallery = React.lazy(() => import('../OsimLaiBrandGallery'));
+const SynnefaGallery = React.lazy(() => import('../SynnefaGallery'));
+const GSCGallery = React.lazy(() => import('../GSCGallery'));
+
 import { FaArrowLeft } from 'react-icons/fa';
 
 const GraphicsProjectDetail = ({ projects }) => {
@@ -119,6 +121,10 @@ const GraphicsProjectDetail = ({ projects }) => {
               {project.fullDescription2}
             </p>
           )}
+            <p style={{ marginTop: '1rem', fontWeight: 'normal' }}>
+              {project.fullDescription2}
+            </p>
+   
           
           {project.fullDescription3 && Array.isArray(project.fullDescription3) && project.fullDescription3.map((section, index) => {
             return (
@@ -144,17 +150,23 @@ const GraphicsProjectDetail = ({ projects }) => {
       
       {/* Project-specific galleries */}
       {project.id === 'osim-lai-branding' && (
-        <OsimLaiBrandGallery />
+        <Suspense fallback={null}>
+          <OsimLaiBrandGallery />
+        </Suspense>
       )}
       
       {/* Synnefa Gallery - specific to this project */}
       {project.id === 'synnefa-rebrand' && (
-        <SynnefaGallery />
+        <Suspense fallback={null}>
+          <SynnefaGallery />
+        </Suspense>
       )}
       
       {/* GSC Hauling Gallery */}
       {project.id === 'gsc-hauling' && (
-        <GSCGallery />
+        <Suspense fallback={null}>
+          <GSCGallery />
+        </Suspense>
       )}
       
       {/* Generic gallery for projects with additionalImages */}

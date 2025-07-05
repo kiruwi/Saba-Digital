@@ -1,7 +1,6 @@
 // src/work/UXUIElements.tsx
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Theme } from '../themes/theme';
 
 // Grid layout for the UX/UI projects page
 export const UXUIGrid = styled.div`
@@ -190,13 +189,34 @@ export const UXUISideBySideContainer = styled.div`
   }
 `;
 
+// Image appears first on mobile, left side on desktop
 export const UXUIMobileImageFirst = styled.div`
   width: 100%;
   margin-bottom: 2.5rem;
-  
+
   @media screen and (min-width: 768px) {
     width: 45%;
     margin-bottom: 0;
+  }
+`;
+
+
+// Image wrapper that is ONLY visible on mobile (hidden on ≥768px)
+export const UXUIMobileOnlyImage = styled.div`
+  width: 100%;
+  margin-bottom: 1.5rem;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`;
+
+// Text wrapper that appears second on mobile / side-by-side on desktop
+export const UXUIMobileTextSecond = styled.div`
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    width: 55%;
   }
 `;
 

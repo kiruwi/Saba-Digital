@@ -1,7 +1,6 @@
 // src/work/GraphicsElements.tsx
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Theme } from '../themes/theme';
 
 // Grid layout for the Graphics projects page
 export const GraphicsGrid = styled.div`

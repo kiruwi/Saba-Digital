@@ -1,7 +1,6 @@
 // src/work/WebDevElements.tsx
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Theme } from '../themes/theme';
 
 // Grid layout for the WebDev projects page
 export const WebDevGrid = styled.div`

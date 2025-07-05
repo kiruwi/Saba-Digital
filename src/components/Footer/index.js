@@ -1,4 +1,5 @@
 import React from "react";
+
 import { FaInstagram, FaLinkedin, FaBehance, FaGithub } from "react-icons/fa";
 import {
   FooterContainer,
@@ -29,7 +30,6 @@ function Footer() {
             </FooterLinkItems>
             <FooterLinkItems>
               <FooterLinkTitle>Lets Talk</FooterLinkTitle>
-              <FooterLink to="/contactus">iankcheruiyot@gmail.com</FooterLink>
               <FooterLink to="/contactus">+254 704 456 165</FooterLink>
             </FooterLinkItems>
           </FooterLinksWrapper>

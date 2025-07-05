@@ -51,13 +51,14 @@ const GraphicsProjectCard: FC<GraphicsProjectCardProps> = ({ project }) => {
       }
     );
     
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
+    const currentCard = cardRef.current;
+    if (currentCard) {
+      observer.observe(currentCard);
     }
     
     return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
+      if (currentCard) {
+        observer.unobserve(currentCard);
       }
     };
   }, []);
