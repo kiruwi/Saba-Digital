@@ -12,7 +12,8 @@ import { FiArrowUpRight } from 'react-icons/fi';
 /* ── layout grid ───────────────────────────────────── */
 export const HeroContainer = styled.section`
   display: grid;
-  grid-template-columns: 1fr 480px;
+  /* Increased portrait column width by 10% (480px → 528px) to enlarge profile image */
+  grid-template-columns: 1fr 528px;
   min-height: 100vh;
   background: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
