@@ -47,7 +47,7 @@ export type ThemeType = 'light' | 'dark';
 export const lightTheme: Theme = {
   theme: 'light',
   colors: {
-    primary: '#007e41', // Darker green for better contrast with white text
+    primary: '#3db54e', // Darker green for better contrast with white text
     secondary: '#6c757d',
     background: '#ffffff',
     text: '#343a40',
