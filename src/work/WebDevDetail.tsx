@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { FiArrowUpRight } from 'react-icons/fi';
 
 import Footer from "../components/Footer";
 import { webProjects } from "../data/projects";
@@ -163,10 +164,22 @@ const BackButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   &:hover {
     background-color: ${({ theme }) => theme.colors.accent};
     transform: translateY(-2px);
+  }
+`;
+
+// Visit site button styled using BackButton styles plus blue background
+const VisitSiteButton = styled(BackButton)`
+  background-color: #0d6efd;
+  margin-left: 1rem;
+  &:hover {
+    background-color: #0b5ed7;
   }
 `;
 
@@ -316,6 +329,16 @@ const WebDevDetail: React.FC = () => {
           {/* Back button */}
           <BackButtonContainer>
             <BackButton onClick={handleBack}>Back to Projects</BackButton>
+            {project?.id === 'mutai-enterprises' && (
+               <VisitSiteButton as="a" href="https://mutai.co.ke" target="_blank" rel="noopener noreferrer">
+                 Visit mutai.co.ke <FiArrowUpRight />
+               </VisitSiteButton>
+             )}
+             {project?.id === 'makvo-llc' && (
+               <VisitSiteButton as="a" href="https://makvo.co.ke" target="_blank" rel="noopener noreferrer">
+                 Visit makvo.co.ke <FiArrowUpRight />
+               </VisitSiteButton>
+             )}
           </BackButtonContainer>
         </ContentWrapper>
       </MainContainer>

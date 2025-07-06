@@ -24,6 +24,24 @@ import {
   CodeSnippetContent
 } from '../../work/WebDevElements';
 import { FaArrowLeft } from 'react-icons/fa';
+import { FiArrowUpRight } from 'react-icons/fi';
+import styled from 'styled-components';
+
+// Blue visit-site button styled on top of back button style
+const VisitSiteButton = styled(WebDevBackButton)`
+  background: #0d6efd; /* bootstrap blue */
+  color: #ffffff;
+  padding: 0.4rem 0.9rem;
+  margin-left: 1rem;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  &:hover {
+    opacity: 0.9;
+    text-decoration: none;
+  }
+`;
 
 const WebDevProjectDetail = ({ projects }) => {
   const { id } = useParams();
@@ -87,9 +105,21 @@ const WebDevProjectDetail = ({ projects }) => {
 
   return (
     <WebDevDetailContainer>
-      <WebDevBackButton onClick={() => navigate(-1)}>
-        <FaArrowLeft style={{ marginRight: '0.5rem' }} /> Go Back
-      </WebDevBackButton>
+      <div style={{display:'flex',alignItems:'center',marginBottom:'2rem'}}>
+        <WebDevBackButton onClick={() => navigate(-1)}>
+          <FaArrowLeft style={{ marginRight: '0.5rem' }} /> Go Back
+        </WebDevBackButton>
+        {project.id === 'mutai-enterprises' && (
+          <VisitSiteButton as="a" href="https://mutai.co.ke" target="_blank" rel="noopener noreferrer">
+            Visit mutai.co.ke <FiArrowUpRight />
+          </VisitSiteButton>
+        )}
+        {project.id === 'makvo-llc' && (
+          <VisitSiteButton as="a" href="https://makvo.co.ke" target="_blank" rel="noopener noreferrer">
+            Visit makvo.co.ke <FiArrowUpRight />
+          </VisitSiteButton>
+        )}
+      </div>
       
       {/* Hero Image with Title Overlay */}
       <div style={{ position: 'relative', marginBottom: '2rem' }}>

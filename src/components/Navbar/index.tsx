@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaChevronDown, FaSun, FaMoon } from "react-icons/fa";
 import { FiArrowUpRight } from 'react-icons/fi'; // Using icons from react-icons/fa
+import { Link } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import { useLocation, useNavigate } from "react-router-dom";
 import signature from "../../images/signature.svg";
@@ -150,7 +151,12 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
     }
   }, []);
 
+  const collapsePortfolio = () => {
+    window.dispatchEvent(new Event('collapsePortfolio'));
+  };
+
   const toggleHome = () => {
+    collapsePortfolio();
     scroll.scrollToTop();
   };
 
@@ -174,8 +180,10 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
           {/* Direct theme toggle for mobile - positioned to the left of dropdown */}
           {portfolioExpanded && (
             <NavArrowBadge
-              aria-label="Go to homepage"
-              onClick={() => navigate('/')}
+               as={Link}
+               to="/"
+               aria-label="Go to homepage"
+               onClick={collapsePortfolio}
             >
               <FiArrowUpRight style={{transform:'rotate(-180deg)', color:'#000'}} />
             </NavArrowBadge>
