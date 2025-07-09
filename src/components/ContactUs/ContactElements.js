@@ -8,8 +8,8 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 24px;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#000000' : '#f8f9fa'};
+  padding: 120px 24px 24px;
+  background: ${({ theme }) => theme.colors.background};
   position: relative;
 `;
 
@@ -38,12 +38,19 @@ export const FormContent = styled.div`
 /* Main box */
 export const Form = styled.form`
   width: 100%;
-  max-width: 700px;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#111111' : '#ffffff'};
+  max-width: 900px;
+  background: ${({ theme }) => theme.colors.background};
   padding: 50px 32px;
   display: grid;
-  border: 1px solid ${({ theme }) => theme.theme === 'dark' ? '#333' : '#ddd'};   /* subtle border */
-  border-radius: 0;         /* square corners */
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 8px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 
@@ -54,7 +61,7 @@ export const Form = styled.form`
 
 export const FormH1 = styled.h1`
   margin-bottom: 40px;
-  color: #fff;
+  color: ${({ theme }) => theme.colors.headingText};
   font-size: 24px;
   font-weight: 500;
   text-align: center;
@@ -114,9 +121,9 @@ export const FormInput = styled.input`
 export const FormButton = styled.button`
   padding: 16px 0;
   border: 2px solid ${({ theme }) => theme.colors.primary};
-  border-radius: 0;
+  border-radius: 28px;
   background: ${({ theme }) => theme.colors.primary};
-  color: #fff;
+  color: ${({ theme }) => theme.colors.buttonText};
   font-size: 18px;
   font-weight: 500;
   text-transform: uppercase;
@@ -136,6 +143,25 @@ export const FormButton = styled.button`
 `;
 
 /* Back‑to‑hero link */
+export const InfoColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: ${({ theme }) => theme.spacing.lg};
+  color: ${({ theme }) => theme.colors.text};
+
+  @media (max-width: 768px) {
+    padding-right: 0;
+    margin-bottom: 2rem;
+  }
+`;
+
+export const FieldsColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+/* Back-to-hero link */
 export const BackButton = styled(Link)`
   position: absolute;
   top: 24px;

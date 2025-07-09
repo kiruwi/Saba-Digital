@@ -9,6 +9,8 @@ import {
   FormWrap,
   FormInput,
   FormLabel,
+  InfoColumn,
+  FieldsColumn,
 } from "./ContactElements";
 
 const Result = () => <p>Your message has been successfully sent! I'll get back to you soon.</p>;
@@ -82,10 +84,14 @@ function ContactUs() {
             {/* Hidden fields needed for Netlify Forms */}
             <input type="hidden" name="form-name" value="contact" />
             <input type="hidden" name="bot-field" />
-            <FormH1>
+            <InfoColumn>
+              <FormH1>
               Got a project you’d like to team up on? Drop your info or reach out directly and let’s start the
               conversation!
             </FormH1>
+            </InfoColumn>
+
+            <FieldsColumn>
 
             <FormInput 
               type="text" 
@@ -132,6 +138,7 @@ function ContactUs() {
               {result && <Result />}
               {error && <ErrorResult />}
             </FormLabel>
+            </FieldsColumn>
           </Form>
         </FormContent>
       </FormWrap>

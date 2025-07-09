@@ -10,9 +10,24 @@ export const HeroContainer = styled.section`
   display: grid;
   grid-template-columns: minmax(0, 1fr) 500px;
   min-height: 100vh;
-  background: ${({ theme }) => theme.colors.background};
+  background: ${({ theme }) => `
+    radial-gradient(circle at 70% 40%, #00adee 0%, #032648 70%),
+    radial-gradient(circle at 20% 85%, #28c76f 0%, #032648 70%)
+  `};
   color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
   overflow: hidden;
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 75% 35%, rgba(0,173,238,0.45) 0%, transparent 60%),
+                radial-gradient(circle at 20% 75%, rgba(40,199,111,0.4) 0%, transparent 65%);
+    z-index: 0;
+    pointer-events: none;
+  }
 `;
 
 export const HeroBg = styled.div``;
@@ -169,6 +184,7 @@ export const HeroRight = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background: radial-gradient(circle at center, #0b5d86 0%, transparent 70%);
 
   @media (max-width: 1000px) {
     display: none;
@@ -183,6 +199,7 @@ export const Rail = styled.div`
   & ${ServicesWrapper} {
     display: flex;
     flex-direction: column;
+    background: transparent;
   }
 `;
 
