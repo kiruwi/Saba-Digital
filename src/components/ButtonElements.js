@@ -10,7 +10,7 @@ export const Button = styled(LinkS).attrs(props => ({
   exact: props.exact || 'true',
   offset: props.offset || -80
 }))`
-  border-radius: 0;  /* ← rectangular */
+  border-radius: 28px;
   background: ${({ primary, theme }) => (primary ? theme?.colors.primary : theme?.theme === 'dark' ? '#010606' : '#f8f9fa')};
   white-space: nowrap;
   padding: ${({ big }) => (big ? '14px 48px' : '12px 30px')};

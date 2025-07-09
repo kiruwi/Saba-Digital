@@ -160,7 +160,7 @@ export const BackButton = styled(Link)`
   padding: 0.5rem 1rem;
   background: ${({ theme }) => theme.colors.cardBackground};
   color: #2db670;
-  border-radius: 0px;
+  border-radius: 28px;
   text-decoration: none;
   font-size: 0.9rem;
   margin-bottom: 1.5rem;

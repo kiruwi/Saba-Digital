@@ -138,7 +138,7 @@ const BackButton = styled.button`
   background-color: ${({ theme }) => theme.colors.primary};
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 28px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;

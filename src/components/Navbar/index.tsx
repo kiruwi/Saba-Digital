@@ -3,7 +3,7 @@ import { FaChevronDown, FaSun, FaMoon } from "react-icons/fa";
 import { FiArrowUpRight } from 'react-icons/fi'; // Using icons from react-icons/fa
 import { Link } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import signature from "../../images/signature.svg";
 import styled from "styled-components";
 import "./Navbar.css";
@@ -129,7 +129,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
 
   const [scrollNav, setScrollNav] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
+
   const { theme, toggleTheme } = useTheme(); // Get theme and toggleTheme from context
   
   // Check if current path is in the work section or contact page
@@ -217,7 +217,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
             >
               {theme === 'dark' 
                 ? <FaSun style={{color: '#F9D71C'}} /> 
-                : <FaMoon style={{color: '#5D4E7A'}} />}
+                : <FaMoon style={{color: '#032648'}} />}
             </button>
           </MobileThemeToggle>
           <MobileDropdownIcon className="mobile-dropdown-icon" $isOpen={isOpen} onClick={toggle}>
@@ -257,7 +257,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
               >
                 {theme === 'dark' 
                   ? <FaSun style={{color: '#F9D71C'}} /> 
-                  : <FaMoon style={{color: '#5D4E7A'}} />}
+                  : <FaMoon style={{color: '#032648'}} />}
               </button>
             </DesktopThemeToggle>
             <NavBtnLink 

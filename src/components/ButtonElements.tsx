@@ -13,7 +13,7 @@ interface StyledButtonProps {
 
 // Create a styled component for the button
 const ButtonStyle = styled.button<StyledButtonProps>`
-  border-radius: 0;  /* ← rectangular */
+  border-radius: 28px;
   background: ${({ $primary, theme }) => ($primary ? theme.colors.primary : theme.colors.background)};
   white-space: nowrap;
   padding: ${({ $big }) => ($big ? '14px 48px' : '12px 30px')};

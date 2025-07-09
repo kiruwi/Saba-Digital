@@ -5,27 +5,34 @@ export const GalleryContainer = styled.div`
   margin: 2rem 0 3rem;
 `;
 
+// Masonry style container using CSS columns
 export const GalleryGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: 15px;
+  column-count: 3;
+  column-gap: 16px;
+  width: 100%;
   margin-top: 20px;
-  
+
+  @media screen and (max-width: 1200px) {
+    column-count: 2;
+  }
+
   @media screen and (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    grid-gap: 10px;
+    column-count: 1;
   }
 `;
 
 export const GalleryItem = styled.div`
+  display: inline-block; /* Needed for CSS columns */
+  width: 100%;
+  margin: 0 0 16px; /* bottom margin acts as gap between masonry items */
   position: relative;
   overflow: hidden;
   border-radius: 8px;
   cursor: pointer;
-  aspect-ratio: 3/2;
   background-color: rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
-  
+  break-inside: avoid; /* Prevent items from breaking across columns */
+
   &:hover {
     transform: translateY(-5px);
   }
@@ -33,10 +40,10 @@ export const GalleryItem = styled.div`
 
 export const GalleryItemImage = styled.img`
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
   transition: transform 0.5s ease;
-  
+
   &:hover {
     transform: scale(1.05);
   }
@@ -47,7 +54,7 @@ export const ImageItem = styled.div`
   overflow: hidden;
   box-shadow: 0 4px 12px ${({ theme }) => theme.colors.shadow};
   transition: transform 0.3s ease;
-  aspect-ratio: 16/9;
+  
   cursor: pointer;
   
   &:hover {
