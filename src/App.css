@@ -32,7 +32,7 @@
   --link-color: #00aeff;
   --navbar-bg: #032648;
   --navbar-text: #f8f9fa;
-  --card-bg: #1e1e1e;
+  --card-bg: #eefbff;
   --card-shadow: rgba(0, 0, 0, 0.5);
   transition: all var(--transition-speed);
 }

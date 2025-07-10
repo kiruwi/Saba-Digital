@@ -98,7 +98,7 @@ export const darkTheme: Theme = {
     shadow: 'rgba(0, 0, 0, 0.5)',
     accent: '#3db54e', // Same darker green for accent
     error: '#e35d6a',
-    cardBackground: '#1e1e1e', // Dark card background
+    cardBackground: '#032648', // Dark card background
     headingText: '#ffffff', // Light heading text for dark theme
     buttonText: '#ffffff' // White text for buttons
   },
