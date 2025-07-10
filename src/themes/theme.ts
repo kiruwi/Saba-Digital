@@ -49,13 +49,13 @@ export const lightTheme: Theme = {
   colors: {
     primary: '#3db54e', // Darker green for better contrast with white text
     secondary: '#6c757d',
-    background: '#ffffff',
+    background: '#eefbff',
     text: '#343a40',
     border: '#dee2e6',
     shadow: 'rgba(0, 0, 0, 0.1)',
     accent: '#007e41', // Same darker green for accent
     error: '#dc3545',
-    cardBackground: '#f8f9fa', // Light card background
+    cardBackground: '#eefbff', // Light card background
     headingText: '#000000', // Pure black heading text for light theme
     buttonText: '#ffffff' // White text for buttons
   },
