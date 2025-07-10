@@ -17,7 +17,7 @@ export const GraphicsCardContainer = styled(Link)`
   display: flex;
   flex-direction: column;
   background: ${({ theme }) => theme.colors.cardBackground};
-  border-radius: 0px;
+  border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
   transition: all 0.5s ease-in-out;
@@ -117,7 +117,7 @@ export const GraphicsProjectTags = styled.div`
 export const GraphicsTag = styled.span`
   padding: 0.25rem 0.75rem;
   background: ${({ theme }) => theme.colors.cardBackground};
-  border-radius: 0px;
+  border-radius: 4px;
   font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.primary};
 `;
@@ -128,7 +128,7 @@ export const GraphicsDetailContainer = styled.div`
   margin: 0 auto;
   padding: 2rem;
   background: ${({ theme }) => theme.colors.cardBackground};
-  border-radius: 0px;
+  border-radius: 24px;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
 `;
 

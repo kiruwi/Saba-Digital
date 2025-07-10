@@ -51,6 +51,7 @@ const cardConfig = { shouldForwardProp: (prop) => prop !== "bg" };
 
 /* ── card with bg prop ─────────────────────────────── */
 export const ServicesCard = styled.div.withConfig(cardConfig)`
+  border-radius: 24px;
   position: relative;
   overflow: hidden;
   width: 90%;
@@ -85,10 +86,10 @@ export const ServicesCard = styled.div.withConfig(cardConfig)`
 /* ── overlay ───────────────────────────────────────── */
 export const TextOverlay = styled.div`
   position: absolute;
-  top: 20%;
-  right: 20%;
-  bottom: 20%;
-  left: 20%;
+  top: 15%;
+  right: 15%;
+  bottom: 15%;
+  left: 15%;
   background: ${({ theme }) => theme.theme === 'light' ? '#ffffff' : theme.colors.background};
   color: ${({ theme }) => theme.theme === 'light' ? '#000000' : '#ffffff'};
   display: flex;
@@ -96,6 +97,7 @@ export const TextOverlay = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding: 2rem;
+  border-radius: 24px;
   transform: translateY(100%);
   opacity: 0;
   transition: transform 0.4s ease, opacity 0.4s ease;

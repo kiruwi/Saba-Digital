@@ -52,10 +52,10 @@ export const lightTheme: Theme = {
     background: '#eefbff',
     text: '#343a40',
     border: '#dee2e6',
-    shadow: 'rgba(0, 0, 0, 0.1)',
+    shadow: 'rgba(0, 0, 0, 0.1) 40%',
     accent: '#007e41', // Same darker green for accent
     error: '#dc3545',
-    cardBackground: '#eefbff', // Light card background
+    cardBackground: '#ffffff', // Light card background
     headingText: '#000000', // Pure black heading text for light theme
     buttonText: '#ffffff' // White text for buttons
   },
@@ -95,10 +95,10 @@ export const darkTheme: Theme = {
     background: '#032648',
     text: '#f8f9fa',
     border: '#495057',
-    shadow: 'rgba(0, 0, 0, 0.5)',
+    shadow: 'rgba(0, 0, 0, 0.5) 40%',
     accent: '#3db54e', // Same darker green for accent
     error: '#e35d6a',
-    cardBackground: '#032648', // Dark card background
+    cardBackground: '#0e5d82', // Dark card background
     headingText: '#ffffff', // Light heading text for dark theme
     buttonText: '#ffffff' // White text for buttons
   },

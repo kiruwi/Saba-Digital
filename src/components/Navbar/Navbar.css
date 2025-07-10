@@ -31,7 +31,7 @@
 :root[data-theme="dark"] .navbar.scrolled {
   background: #032648;
   color: #f8f9fa;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) 40%;
 }
 
 /* Hide burger dropdown icon when portfolio expanded to allow arrow badge replacement */

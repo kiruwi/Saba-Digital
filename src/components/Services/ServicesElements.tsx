@@ -115,10 +115,10 @@ export const ServicesCard = styled.div.withConfig(cardConfig)<CardProps>`
 /* ── overlay ───────────────────────────────────────── */
 export const TextOverlay = styled.div`
   position: absolute;
-  top: 20%;
-  right: 20%;
-  bottom: 20%;
-  left: 20%;
+  top: 15%;
+  right: 15%;
+  bottom: 15%;
+  left: 15%;
   background: ${({ theme }) => theme.theme === 'light' ? '#ffffff' : theme.colors.background};
   color: ${({ theme }) => theme.theme === 'light' ? '#000000' : '#ffffff'};
   display: flex;
@@ -126,6 +126,7 @@ export const TextOverlay = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding: 2rem;
+  border-radius: 24px;
   transform: translateY(100%);
   opacity: 0;
   transition: transform 0.4s ease, opacity 0.4s ease;
