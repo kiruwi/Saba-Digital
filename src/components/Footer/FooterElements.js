@@ -74,7 +74,7 @@ export const SocialMedia = styled.section`
 `
 export const SocialMediaWrap = styled.div`
  display: flex;
- justify-content: space-between;
+ justify-content: flex-start;
  align-items: center;
  max-width: 1100px;
  margin: 40px auto 0 auto;
@@ -105,6 +105,7 @@ export const SocialIcons = styled.div`
  justify-content: space-between;
  align-items: center;
  width: 240px;
+ margin-left: auto;
 `
 export const SocialIconLink = styled.a`
  color: ${({ theme }) => theme.colors.text};
