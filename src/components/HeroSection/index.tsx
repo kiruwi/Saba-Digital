@@ -62,7 +62,7 @@ export const HeroTitleTop = styled.h1`
   color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
 `;
 
-export const HeroTitleBottom = styled.h1`
+export const HeroTitleBottom = styled.h2`
   ${baseTitle};
   font-size: clamp(2.5rem, 4vw, 5rem);
   color: ${({ theme }) => theme.colors.primary};

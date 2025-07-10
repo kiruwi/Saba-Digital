@@ -59,7 +59,7 @@ export const Form = styled.form`
   }
 `;
 
-export const FormH1 = styled.h1`
+export const FormH1 = styled.h2`
   margin-bottom: 40px;
   color: ${({ theme }) => theme.colors.headingText};
   font-size: 24px;

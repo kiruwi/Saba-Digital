@@ -76,7 +76,7 @@ export const TopLine2 = styled.p`
   margin-bottom: 16px;
 `;
 
-export const Heading = styled.h1`
+export const Heading = styled.h2`
   margin-bottom: 16px;
   font-size: 18px;
   line-height: 1.1;
