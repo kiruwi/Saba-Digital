@@ -126,16 +126,7 @@ export const PortfolioButton = styled.button<{ expanded: boolean; lowEnd?: boole
   z-index: ${({ expanded }) => (expanded ? 9999 : 'auto')};
 
   will-change: transform, width, height;
-  transition: ${({ lowEnd }) =>
-    lowEnd
-      ? 'none'
-      : `width 0.25s ease,
-    height 0.25s ease,
-    padding 0.25s ease,
-    top 0.25s ease,
-    left 0.25s ease,
-    transform 0.25s ease,
-    border-radius 0.25s ease`};
+  transition: none;
 `;
 
 /* button label */
@@ -669,7 +660,6 @@ export const CardGrid = styled.div<{ visible: boolean }>`
     padding: 104px 16px 48px;
   }
   opacity: ${({ visible }) => (visible ? 1 : 0)};
-  transition: none;
   pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
 
 
