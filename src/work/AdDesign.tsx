@@ -5,11 +5,11 @@ import { useTheme } from '../contexts/ThemeContext';
 
 // Import images from addesign folder
 import Artboard1 from '../images/addesign/Artboard 1.jpg';
-import Asset5 from '../images/addesign/Asset 5@2x-100.jpg';
-import Asset6 from '../images/addesign/Asset 6@2x-100.jpg';
+import Asset5 from '../images/addesign/Asset 52x-100.jpg';
+import Asset6 from '../images/addesign/Asset 62x-100.jpg';
 import BrightSquad from '../images/addesign/Bright Squad cleaners.jpg';
 import EidAlAdha from '../images/addesign/eid.jpg';
-import Soc from '../images/addesign/sOC@4x-100.jpg';
+import Soc from '../images/addesign/sOC4x-100.jpg';
 
 const Main = styled.main`
   padding: 7rem 0 4rem;
