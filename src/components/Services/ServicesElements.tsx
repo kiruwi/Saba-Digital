@@ -5,7 +5,13 @@ import Bg2 from "../../images/service2-bg.jpg";
 import Bg3 from "../../images/service3-bg.jpg";
 
 /* make images available to Services/index.js */
-export const serviceBackgrounds = [Bg1, Bg2, Bg3];
+export const serviceBackgrounds = [
+  Bg1,
+  Bg2,
+  Bg3,
+  require('../../images/addesign/eid.jpg'), // Ad Design background
+  'https://i.ytimg.com/vi/BVneKsVK1aY/maxresdefault.jpg' // Motion Graphics - Synnefa Rebrand Logo Animation thumbnail
+];
 
 /* ── outer containers ──────────────────────────────── */
 export const ServicesContainer = styled.div`

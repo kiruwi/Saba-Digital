@@ -51,7 +51,7 @@ export const FooterLinkItems = styled.div`
      width: 100%
  }
 `
-export const FooterLinkTitle = styled.h3`
+export const FooterLinkTitle = styled.h1`
  font-size: 14px;
  margin-bottom: 16px;
  color: ${({ theme }) => theme.colors.text};
@@ -74,7 +74,7 @@ export const SocialMedia = styled.section`
 `
 export const SocialMediaWrap = styled.div`
  display: flex;
- justify-content: flex-start;
+ justify-content: space-between;
  align-items: center;
  max-width: 1100px;
  margin: 40px auto 0 auto;
@@ -105,7 +105,6 @@ export const SocialIcons = styled.div`
  justify-content: space-between;
  align-items: center;
  width: 240px;
- margin-left: auto;
 `
 export const SocialIconLink = styled.a`
  color: ${({ theme }) => theme.colors.text};

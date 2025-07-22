@@ -19,7 +19,7 @@ const MainContent = styled.main`
 const SectionTitle = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.theme === 'dark' ? theme.colors.headingText : theme.colors.primary};
   text-align: center;
 `;
 

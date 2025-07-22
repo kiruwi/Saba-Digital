@@ -3,9 +3,18 @@ import styled from "styled-components";
 import Bg1 from "../../images/ufanisi.jpg";
 import Bg2 from "../../images/service2-bg.jpg";
 import Bg3 from "../../images/service3-bg.jpg";
+import Bg4 from "../../images/service1-bg.jpg";
 
 /* make images available to Services/index.js */
-export const serviceBackgrounds = [Bg1, Bg2, Bg3];
+import EidBg from '../../images/addesign/eid.jpg';
+
+export const serviceBackgrounds = [
+  Bg1, 
+  Bg2, 
+  Bg3, 
+  EidBg, // Ad Design background
+  'https://i.ytimg.com/vi/BVneKsVK1aY/maxresdefault.jpg' // Motion Graphics - Synnefa Rebrand Logo Animation thumbnail
+];
 
 /* ── outer containers ──────────────────────────────── */
 export const ServicesContainer = styled.div`
@@ -29,8 +38,23 @@ export const ServicesWrapper = styled.div`
   @media (max-width: 1000px) {
     grid-template-columns: repeat(2, 1fr);
   }
+  /* Turn grid into a smooth horizontal carousel on small screens */
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth; /* smooth kinetic scrolling */
+    -webkit-overflow-scrolling: touch; /* momentum on iOS */
+    gap: 1rem;
+    padding-bottom: 1rem;
+
+    /* hide default scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+    &::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
   }
 `;
 

@@ -32,6 +32,16 @@ const items = [
     desc: "Creating visually stunning and engaging brand identities.",
     path: "/work/graphics"
   },
+  {
+    title: "Ad Design",
+    desc: "Crafting compelling and effective advertising materials.",
+    path: "/work/ad-design"
+  },
+  {
+    title: "Motion Graphics",
+    desc: "Creating dynamic and engaging animated visual content.",
+    path: "/work/motion"
+  },
 ];
 
 /* full‑width section (phones / other pages) */

@@ -10,7 +10,9 @@ import { ThemeProvider as CustomThemeProvider, useTheme } from "./contexts/Theme
 // import { AccessibilityProvider } from "./components/AccessibilityProvider";
 // import { AccessibilityTester } from "./components/AccessibilityTester";
 import { lightTheme, darkTheme } from "./themes/theme";
-import Layout from "./components/Layout";
+import Layout from './components/Layout';
+import AdDesign from './work/AdDesign';
+import MotionGraphics from './work/MotionGraphics';
 import ErrorPage from "./pages/Error";
 import LoadingFallback from "./components/LoadingFallback";
 import "./App.css";
@@ -87,6 +89,16 @@ function AppContent() {
               <Route path="/work/graphics" element={
                 <Layout>
                   <Graphics />
+                </Layout>
+              } />
+              <Route path="/work/ad-design" element={
+                <Layout>
+                  <AdDesign />
+                </Layout>
+              } />
+              <Route path="/work/motion" element={
+                <Layout>
+                  <MotionGraphics />
                 </Layout>
               } />
               <Route path="/work/ux-ui/:id" element={

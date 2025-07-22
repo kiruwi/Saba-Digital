@@ -1,5 +1,12 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /.well-known/
+Disallow: /api/
+Disallow: /content-api/
 
+# Allow search engines to access all public content
+Allow: /
+
+# Link to sitemap
 Sitemap: https://iancheruiyot.work/sitemap.xml

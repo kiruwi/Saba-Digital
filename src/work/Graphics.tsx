@@ -21,7 +21,7 @@ const MainContainer = styled.main`
 const PageTitle = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.theme === 'dark' ? theme.colors.headingText : theme.colors.primary};
   text-align: center;
 `;
 
@@ -52,7 +52,7 @@ const Graphics: React.FC = () => {
     // Preload the first few images as critical resources
     graphicsProjects
       .filter((project: any) => project.category === 'graphics')
-      .slice(0, 3)
+      .slice(0, 4)
       .map((project: any) => project.image),
     [],
     'image'

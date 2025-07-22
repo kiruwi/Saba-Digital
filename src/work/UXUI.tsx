@@ -56,7 +56,7 @@ const ProjectImage = styled.div`
 const SectionTitle = styled.h2`
   font-size: 2rem;
   margin: 2rem 0 1rem;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.theme === 'dark' ? theme.colors.headingText : theme.colors.primary};
 `;
 
 const ProjectDescription = styled.p`
@@ -248,7 +248,7 @@ const UXUI: React.FC = () => {
                   <SectionTitle>My Design Transformation</SectionTitle>
                   <ProjectDescription>
                     My previous design suffered from fundamental flaws in typography and layout that I needed to address. My original interface 
-                    featured a chaotic mix of font families—I had combined serif, sans-serif, and decorative fonts without clear purpose. 
+                    featured a chaotic mix of font families, I had combined serif, sans-serif, and decorative fonts without clear purpose. 
                     Font weights varied randomly throughout sections, which created visual confusion and made content hierarchy unclear.
                   </ProjectDescription>
                   <ProjectDescription>

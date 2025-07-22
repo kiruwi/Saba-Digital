@@ -1,12 +1,44 @@
 import styled, { keyframes, css } from 'styled-components';
 import React, { useState, useEffect, useRef, useCallback, FC } from 'react';
 import meImage from '../../images/me.png';
-import { ServicesCardHover as ServiceCard, TextOverlay, ServicesH2, ServicesP, serviceBackgrounds } from '../Services/ServicesElements';
+import { ServicesCardHover as ServiceCard, TextOverlay, ServicesH2, ServicesP, serviceBackgrounds, Slide } from '../Services/ServicesElements';
 import { animateScroll as scroll } from 'react-scroll';
 import { useNavigate } from 'react-router-dom';
-
-import { Slide } from '../Services/ServicesElements';
 import { FiArrowUpRight } from 'react-icons/fi';
+
+// Service items for the portfolio popup grid (first row visible, more rows lazy-load)
+export const SERVICE_ITEMS = [
+  {
+    title: 'Product Design',
+    desc: 'Creating user-friendly and visually appealing interfaces.',
+    path: '/work/ux-ui',
+  },
+  {
+    title: 'Website Development',
+    desc: 'Mocking up and developing websites for clients.',
+    path: '/work/web-dev',
+  },
+  {
+    title: 'Branding',
+    desc: 'Creating visually stunning and engaging brand identities.',
+    path: '/work/graphics',
+  },
+
+  {
+    title: 'Ad Design',
+    desc: 'High-impact advert creatives for campaigns.',
+    path: '/work/ad-design',
+  },
+  {
+    title: 'Motion Graphics',
+    desc: 'Engaging animations and motion design for storytelling.',
+    path: '/work/motion',
+  }
+
+];
+
+
+
 
 
 /* ── layout grid ───────────────────────────────────── */
@@ -320,15 +352,55 @@ const HeroSection: FC = () => {
   }, [expanded]);
   const railRef = useRef<HTMLDivElement | null>(null);
   const cardGridRef = useRef<HTMLDivElement | null>(null);
+
+  // How many cards are currently visible (lazy-load one row ~3 cards at a time)
+  const [visibleCount, setVisibleCount] = useState(3);
+
+  // Reset or expand visible cards whenever popup opens
+  useEffect(() => {
+    if (!expanded) return;
+    if (window.innerWidth > 1000) {
+      setVisibleCount(SERVICE_ITEMS.length); // show all on desktop for horizontal scroll
+    } else {
+      setVisibleCount(3); // mobile keeps lazy-load
+    }
+  }, [expanded]);
+
+  // Reveal next row when user scrolls to near-bottom of the grid
+  useEffect(() => {
+    if (!expanded) return;
+    const grid = cardGridRef.current;
+    if (!grid) return;
+    const onScroll = () => {
+      if (grid.scrollTop + grid.clientHeight >= grid.scrollHeight - 50) {
+        setVisibleCount((prev) => Math.min(prev + 3, SERVICE_ITEMS.length));
+      }
+    };
+    grid.addEventListener('scroll', onScroll);
+    return () => grid.removeEventListener('scroll', onScroll);
+  }, [expanded]);
   const portfolioBtnRef = useRef<HTMLButtonElement | null>(null);
   const hasScrolled = useRef(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
 
+  // desktop drag-to-scroll hint for card grid
+  const [draggingCards, setDraggingCards] = useState(false);
+  const [showDragHint, setShowDragHint] = useState(false);
+  const [dragHintPos, setDragHintPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const dragStartX = useRef(0);
+  const dragStartScroll = useRef(0);
+  const didDrag = useRef(false);
+
   const navigate = useNavigate();
 
   // navigate to page when card clicked inside portfolio popup
   const handleServiceClick = (e: React.MouseEvent<HTMLDivElement>, path: string) => {
+    // If the user has just dragged, ignore the click
+    if (didDrag.current) {
+      didDrag.current = false; // reset for next interaction
+      return;
+    }
     e.stopPropagation();
     setExpanded(false);
     navigate(path);
@@ -373,7 +445,80 @@ const HeroSection: FC = () => {
     }
   }, [expanded]);
 
-  const handlePortfolioClick = () => {
+  // Attach click-and-drag horizontal scroll for desktop card grid
+  useEffect(() => {
+    if (!expanded || window.innerWidth <= 1000) return;
+    const grid = cardGridRef.current;
+    if (!grid) return;
+
+    const handleMouseEnter = () => setShowDragHint(true);
+    const handleMouseLeave = () => {
+      grid.classList.remove('dragging');
+      setShowDragHint(false);
+      setDraggingCards(false);
+    };
+    const handleMouseMove = (e: MouseEvent) => {
+      e.preventDefault();
+      // If the pointer moved, mark as drag so subsequent click is suppressed
+      if (!didDrag.current && Math.abs(e.pageX - (dragStartX.current + grid.offsetLeft)) > 5) {
+        didDrag.current = true;
+      }
+      setDragHintPos({ x: e.clientX, y: e.clientY });
+      if (!draggingCards) return;
+      const x = e.pageX - grid.offsetLeft;
+      const walk = dragStartX.current - x;
+      grid.scrollLeft = dragStartScroll.current + walk;
+    };
+    const handleMouseDown = (e: MouseEvent) => {
+      didDrag.current = false; // reset at drag start
+      setDraggingCards(true);
+      grid.classList.add('dragging');
+      // temporarily disable snap so drag feels smooth
+      grid.style.scrollSnapType = 'none';
+      grid.style.scrollBehavior = 'auto';
+      e.preventDefault();
+      dragStartX.current = e.pageX - grid.offsetLeft;
+      dragStartScroll.current = grid.scrollLeft;
+    };
+    const handleMouseUp = () => {
+      setDraggingCards(false);
+      grid.classList.remove('dragging');
+      // restore snap
+      grid.style.scrollSnapType = 'x mandatory';
+    };
+
+    grid.addEventListener('mouseenter', handleMouseEnter);
+    grid.addEventListener('mouseleave', handleMouseLeave);
+    grid.addEventListener('mousemove', handleMouseMove);
+    grid.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
+    // swallow click immediately after a drag so no card / wrapper click fires
+    const handleClickCapture = (e: MouseEvent) => {
+      if (didDrag.current) {
+        e.stopPropagation();
+        e.preventDefault();
+        didDrag.current = false;
+      }
+    };
+    grid.addEventListener('click', handleClickCapture, true);
+
+    return () => {
+      grid.removeEventListener('mouseenter', handleMouseEnter);
+      grid.removeEventListener('mouseleave', handleMouseLeave);
+      grid.removeEventListener('mousemove', handleMouseMove);
+      grid.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mouseup', handleMouseUp);
+      grid.removeEventListener('click', handleClickCapture, true);
+    };
+  }, [expanded, draggingCards]);
+
+  const handlePortfolioClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+     // if just dragged, swallow the click that follows
+     if (didDrag.current) {
+       didDrag.current = false; // reset for next legitimate click
+       e.stopPropagation();
+       return;
+     }
     if (expanded) {
       // collapse and smooth scroll to services section
       setExpanded(false);
@@ -548,40 +693,23 @@ const HeroSection: FC = () => {
             expanded={expanded}
             lowEnd={lowEndDevice}
             onClick={handlePortfolioClick}
-            aria-label="View Portfolio"
-            aria-expanded={expanded}
-            ref={portfolioBtnRef}
-          >
+              aria-label="View Portfolio"
+              aria-expanded={expanded}
+              ref={portfolioBtnRef}
+            >
             <CtaLabel expanded={expanded}>View Portfolio</CtaLabel>
             <ArrowBadge expanded={expanded}>
               <ArrowUpIcon expanded={expanded} />
             </ArrowBadge>
 
-            {/* Grid of service cards becomes visible when expanded */}
             {expanded && (
               <CardGrid visible ref={cardGridRef}>
-                {[
-                    {
-                      title: 'Product Design',
-                      desc: 'Creating user-friendly and visually appealing interfaces.',
-                      path: '/work/ux-ui',
-                    },
-                    {
-                      title: 'Website Development',
-                      desc: 'Mocking up and developing websites for clients.',
-                      path: '/work/web-dev',
-                    },
-                    {
-                      title: 'Branding',
-                      desc: 'Creating visually stunning and engaging brand identities.',
-                      path: '/work/graphics',
-                    },
-                  ].map(({ title, desc, path }, i) => (
-                  <ServiceCard 
+                {SERVICE_ITEMS.slice(0, visibleCount).map(({ title, desc, path }, i) => (
+                  <ServiceCard
                     key={title}
                     bg={serviceBackgrounds[i]}
-                    style={{ width: '100%', aspectRatio: '1 / 1', height: 'auto', minHeight: '0' }}
-                    onClick={(e) => handleServiceClick(e, path)}
+                    style={{ flex: '0 0 320px', width: '320px', aspectRatio: '1 / 1', height: 'auto', minHeight: '0' }}
+                    onClick={(e) => handleServiceClick(e as React.MouseEvent<HTMLDivElement>, path)}
                     role="button"
                     tabIndex={0}
                     onKeyDown={(e) => {
@@ -590,11 +718,11 @@ const HeroSection: FC = () => {
                       }
                     }}
                   >
-                      <TextOverlay>
-                        <ServicesH2>{title}</ServicesH2>
-                        <ServicesP>{desc}</ServicesP>
-                      </TextOverlay>
-                    </ServiceCard>
+                    <TextOverlay>
+                      <ServicesH2>{title}</ServicesH2>
+                      <ServicesP>{desc}</ServicesP>
+                    </TextOverlay>
+                  </ServiceCard>
                 ))}
               </CardGrid>
             )}
@@ -644,20 +772,40 @@ const HeroSection: FC = () => {
 export const CardGrid = styled.div<{ visible: boolean }>`
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  grid-auto-rows: auto;
+  display: flex;
+  flex-wrap: nowrap;
   gap: 32px;
   width: 100%;
-  align-content: flex-start; /* start at top */
-  overflow-y: auto;
-  padding: 48px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* extra breathing space on both ends so first/last cards are not flush */
+  padding: 48px 96px;
 
+  /* spacer flex items at both ends */
+  &::before,
+  &::after {
+    content: "";
+    flex: 0 0 16px; /* 16-px visual gap */
+  }
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* smooth on iOS */
+
+  /* hide scrollbar visually */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* mobile reverts to vertical list */
   @media (max-width: 1000px) {
-    grid-template-columns: 1fr; /* single column */
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 24px;
-    /* extra top padding (navbar 80px + 24px gap) */
-    padding: 104px 16px 48px;
+    padding: 80px 16px 48px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: none;
   }
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
@@ -673,6 +821,21 @@ export const CardGrid = styled.div<{ visible: boolean }>`
   
 
 
+`;
+
+export const DragHint = styled.div<{ dragging: boolean }>`
+  position: fixed;
+  pointer-events: none;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 0.75rem;
+  border-radius: 8px;
+  opacity: ${({ dragging }) => (dragging ? 0.95 : 0.8)};
+  transform: translate(-50%, -50%) scale(${({ dragging }) => (dragging ? 1.1 : 1)});
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  white-space: nowrap;
+  z-index: 99999;
 `;
 
 export const Card = styled.div`
