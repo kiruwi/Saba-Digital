@@ -360,10 +360,63 @@ const HeroSection: FC = () => {
   useEffect(() => {
     if (lowEndDevice) return;
     const ctx = gsap.context(() => {
-      gsap.from(titleTopRef.current, { opacity: 0, y: 40, duration: 1, ease: 'power3.out' });
-      gsap.from(titleBottomRef.current, { opacity: 0, y: 40, duration: 1, ease: 'power3.out', delay: 0.15 });
+      // Split the top title into individual word spans for staggered animation
+      if (titleTopRef.current) {
+        const titleEl = titleTopRef.current;
+        const originalHTML = titleEl.innerHTML;
+        const words = titleEl.innerText.trim().split(' ');
+        titleEl.innerHTML = words
+          .map((w) => `<span class="word" style="display:inline-block;">${w}</span>`) // inline-block so GSAP can move them
+          .join('&nbsp;');
+        const wordSpans = titleEl.querySelectorAll('.word');
+        let animation: gsap.core.Tween | null = null;
+        gsap.from(wordSpans, {
+          opacity: 0,
+          y: 40,
+          duration: 1,
+          ease: 'power3.out',
+          stagger: 0.06,
+        });
+        // click handler to reshuffle words
+        const handleClick = () => {
+          animation?.revert();
+          animation = gsap.from(wordSpans, {
+            y: -100,
+            opacity: 0,
+            rotation: 'random(-80, 80)',
+            duration: 0.7,
+            ease: 'back.out(1.7)',
+            stagger: 0.15,
+          });
+        };
+        titleEl.addEventListener('click', handleClick);
+
+        // store for cleanup
+        (titleEl as any)._originalHTML = originalHTML;
+        (titleEl as any)._cleanupClick = () => {
+          titleEl.removeEventListener('click', handleClick);
+          animation?.revert();
+        };
+      }
+
+      gsap.from(titleBottomRef.current, {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        ease: 'power3.out',
+        delay: 0.15,
+      });
     });
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      if (titleTopRef.current) {
+        const t = titleTopRef.current as any;
+        if (t._cleanupClick) t._cleanupClick();
+        if (t._originalHTML) {
+          titleTopRef.current.innerHTML = t._originalHTML;
+        }
+      }
+    };
   }, []);
 
   // glow pulse on drag hint while dragging
@@ -716,7 +769,7 @@ const HeroSection: FC = () => {
       {/* left column */}
       <HeroText>
         <TitleBackground>
-          <HeroTitleTop ref={titleTopRef}>Currently a Digital Designer.</HeroTitleTop>
+          <HeroTitleTop ref={titleTopRef} id="hero-top-title">Currently a Digital Designer.</HeroTitleTop>
           <HeroTitleBottom ref={titleBottomRef}>
             Living in Nairobi, creating products that empower clients.
           </HeroTitleBottom>
