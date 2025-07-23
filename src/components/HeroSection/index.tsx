@@ -346,9 +346,15 @@ const HeroSection: FC = () => {
 
   const titleTopRef = useRef<HTMLHeadingElement>(null);
   const titleBottomRef = useRef<HTMLHeadingElement>(null);
+  const dragHintRef = useRef<HTMLDivElement>(null);
 
   const [expanded, setExpanded] = useState(false);
   const [, setScrollIndicatorVisible] = useState(true); // scroll indicator removed
+
+  // desktop drag-to-scroll hint for card grid
+  const [draggingCards, setDraggingCards] = useState(false);
+  const [showDragHint, setShowDragHint] = useState(false);
+  const [dragHintPos, setDragHintPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   // initial hero heading animation
   useEffect(() => {
@@ -359,6 +365,23 @@ const HeroSection: FC = () => {
     });
     return () => ctx.revert();
   }, []);
+
+  // glow pulse on drag hint while dragging
+  useEffect(() => {
+    if (lowEndDevice) return;
+    if (draggingCards && dragHintRef.current) {
+      const tween = gsap.to(dragHintRef.current, {
+        boxShadow: '0 0 16px rgba(255,255,255,0.5)',
+        duration: 0.6,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+      });
+      return () => {
+        tween.kill();
+      };
+    }
+  }, [draggingCards]);
 
   // hide scroll arrow when popup expanded
   useEffect(() => {
@@ -398,10 +421,7 @@ const HeroSection: FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
 
-  // desktop drag-to-scroll hint for card grid
-  const [draggingCards, setDraggingCards] = useState(false);
-  const [showDragHint, setShowDragHint] = useState(false);
-  const [dragHintPos, setDragHintPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+
   const dragStartX = useRef(0);
   const dragStartScroll = useRef(0);
   const didDrag = useRef(false);
@@ -781,7 +801,8 @@ const HeroSection: FC = () => {
 
       {showDragHint && (
         <DragHint
-          dragging={draggingCards}
+           ref={dragHintRef}
+           dragging={draggingCards}
           style={{ top: dragHintPos.y, left: dragHintPos.x }}
         >
           {draggingCards ? 'Drag to scroll' : 'Click and drag'}
@@ -802,14 +823,19 @@ export const CardGrid = styled.div<{ visible: boolean }>`
   overflow-x: auto;
   overflow-y: hidden;
   /* extra breathing space on both ends so first/last cards are not flush */
-  padding: 48px 96px;
+  /* inner padding provides vertical space and half of the edge gap */
+  padding: 48px 48px;
 
-  /* spacer flex items at both ends */
-  &::before,
-  &::after {
-    content: "";
-    flex: 0 0 16px; /* 16-px visual gap */
+  /* breathing room via margins on first and last cards */
+  & > *:first-child {
+    margin-left: 48px;
   }
+  & > *:last-child {
+    margin-right: 48px;
+  }
+
+  /* provide consistent snap-start offset */
+  scroll-padding: 0 48px;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch; /* smooth on iOS */
 
@@ -829,6 +855,20 @@ export const CardGrid = styled.div<{ visible: boolean }>`
     overflow-y: auto;
     overflow-x: hidden;
     max-height: none;
+    /* ensure cards span full width and prevent horizontal overflow */
+    & > * {
+      width: 100% !important;
+      flex: 0 0 auto !important;
+    }
+    /* scroll padding not needed in vertical layout */
+    scroll-padding: 0;
+    /* remove extra margins in single-column mobile layout */
+    & > *:first-child {
+      margin-left: 0;
+    }
+    & > *:last-child {
+      margin-right: 0;
+    }
   }
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
