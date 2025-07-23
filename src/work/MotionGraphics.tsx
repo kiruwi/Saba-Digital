@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Layout from '../components/Layout';
+
 import { useTheme } from '../contexts/ThemeContext';
 
 const Main = styled.main`
@@ -82,27 +82,25 @@ const MotionGraphics: React.FC = () => {
   ];
 
   return (
-    <Layout>
-      <Main>
-        <div style={{ padding: '0 1.5rem' }}>
-          <PageTitle>Motion Graphics</PageTitle>
-          <MasonryGrid>
-            {videos.map((video: Video) => (
-              <div className="youtube-container" key={video.id}>
-                <iframe
-                  src={`https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1`}
-                  title={video.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  style={{ width: '100%', aspectRatio: '9/16', borderRadius: '8px' }}
-                />
-                <VideoTitle>{video.title}</VideoTitle>
-              </div>
-            ))}
-          </MasonryGrid>
-        </div>
-      </Main>
-    </Layout>
+    <Main>
+      <div style={{ padding: '0 1.5rem' }}>
+        <PageTitle>Motion Graphics</PageTitle>
+        <MasonryGrid>
+          {videos.map((video: Video) => (
+            <div className="youtube-container" key={video.id}>
+              <iframe
+                src={`https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1`}
+                title={video.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{ width: '100%', aspectRatio: '9/16', borderRadius: '8px' }}
+              />
+              <VideoTitle>{video.title}</VideoTitle>
+            </div>
+          ))}
+        </MasonryGrid>
+      </div>
+    </Main>
   );
 };
 

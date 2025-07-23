@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Layout from '../components/Layout';
+
 import { useTheme } from '../contexts/ThemeContext';
 
 // Import images from addesign folder
@@ -73,20 +73,18 @@ const AdDesign: React.FC = () => {
   ];
 
   return (
-    <Layout>
-      <Main>
-        <div style={{ padding: '0 1.5rem' }}>
-          <PageTitle>Ad Design</PageTitle>
-          <MasonryGrid>
-            {adImages.map((image, idx) => (
-              <AdImageWrapper key={idx}>
-                <img src={image.src} alt={image.alt} />
-              </AdImageWrapper>
-            ))}
-          </MasonryGrid>
-        </div>
-      </Main>
-    </Layout>
+    <Main>
+      <div style={{ padding: '0 1.5rem' }}>
+        <PageTitle>Ad Design</PageTitle>
+        <MasonryGrid>
+          {adImages.map((image, idx) => (
+            <AdImageWrapper key={idx}>
+              <img src={image.src} alt={image.alt} />
+            </AdImageWrapper>
+          ))}
+        </MasonryGrid>
+      </div>
+    </Main>
   );
 };
 

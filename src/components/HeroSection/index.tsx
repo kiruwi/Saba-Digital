@@ -362,7 +362,7 @@ const HeroSection: FC = () => {
     if (window.innerWidth > 1000) {
       setVisibleCount(SERVICE_ITEMS.length); // show all on desktop for horizontal scroll
     } else {
-      setVisibleCount(3); // mobile keeps lazy-load
+      setVisibleCount(SERVICE_ITEMS.length); // show all on mobile
     }
   }, [expanded]);
 
