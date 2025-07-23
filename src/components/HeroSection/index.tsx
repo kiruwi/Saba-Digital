@@ -399,13 +399,25 @@ const HeroSection: FC = () => {
         };
       }
 
-      gsap.from(titleBottomRef.current, {
-        opacity: 0,
-        y: 40,
-        duration: 1,
-        ease: 'power3.out',
-        delay: 0.15,
-      });
+      if (titleBottomRef.current) {
+        const bottomEl = titleBottomRef.current;
+        const bottomOriginalHTML = bottomEl.innerHTML;
+        const bottomWords = bottomEl.innerText.trim().split(' ');
+        bottomEl.innerHTML = bottomWords
+          .map((w) => `<span class="word" style="display:inline-block;">${w}</span>`) // inline-block so GSAP can move them
+          .join('&nbsp;');
+        const bottomWordSpans = bottomEl.querySelectorAll('.word');
+        gsap.from(bottomWordSpans, {
+          y: -100,
+          opacity: 0,
+          rotation: 'random(-80, 80)',
+          duration: 0.7,
+          ease: 'back.out(1.7)',
+          stagger: 0.15,
+          delay: 0.15,
+        });
+        (bottomEl as any)._originalHTML = bottomOriginalHTML;
+      }
     });
     return () => {
       ctx.revert();
@@ -414,6 +426,12 @@ const HeroSection: FC = () => {
         if (t._cleanupClick) t._cleanupClick();
         if (t._originalHTML) {
           titleTopRef.current.innerHTML = t._originalHTML;
+        }
+      }
+      if (titleBottomRef.current) {
+        const b = titleBottomRef.current as any;
+        if (b._originalHTML) {
+          titleBottomRef.current.innerHTML = b._originalHTML;
         }
       }
     };
