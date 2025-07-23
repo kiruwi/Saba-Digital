@@ -5,6 +5,7 @@ import { ServicesCardHover as ServiceCard, TextOverlay, ServicesH2, ServicesP, s
 import { animateScroll as scroll } from 'react-scroll';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowUpRight } from 'react-icons/fi';
+import { gsap } from 'gsap';
 
 // Service items for the portfolio popup grid (first row visible, more rows lazy-load)
 export const SERVICE_ITEMS = [
@@ -343,8 +344,21 @@ const HeroSection: FC = () => {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const lowEndDevice = prefersReducedMotion || ((navigator as any).deviceMemory && (navigator as any).deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
 
+  const titleTopRef = useRef<HTMLHeadingElement>(null);
+  const titleBottomRef = useRef<HTMLHeadingElement>(null);
+
   const [expanded, setExpanded] = useState(false);
   const [, setScrollIndicatorVisible] = useState(true); // scroll indicator removed
+
+  // initial hero heading animation
+  useEffect(() => {
+    if (lowEndDevice) return;
+    const ctx = gsap.context(() => {
+      gsap.from(titleTopRef.current, { opacity: 0, y: 40, duration: 1, ease: 'power3.out' });
+      gsap.from(titleBottomRef.current, { opacity: 0, y: 40, duration: 1, ease: 'power3.out', delay: 0.15 });
+    });
+    return () => ctx.revert();
+  }, []);
 
   // hide scroll arrow when popup expanded
   useEffect(() => {
@@ -682,8 +696,8 @@ const HeroSection: FC = () => {
       {/* left column */}
       <HeroText>
         <TitleBackground>
-          <HeroTitleTop>Currently a Digital Designer.</HeroTitleTop>
-          <HeroTitleBottom>
+          <HeroTitleTop ref={titleTopRef}>Currently a Digital Designer.</HeroTitleTop>
+          <HeroTitleBottom ref={titleBottomRef}>
             Living in Nairobi, creating products that empower clients.
           </HeroTitleBottom>
         </TitleBackground>
