@@ -764,6 +764,15 @@ const HeroSection: FC = () => {
       )}
 
       {/* Scroll indicator removed */}
+
+      {showDragHint && (
+        <DragHint
+          dragging={draggingCards}
+          style={{ top: dragHintPos.y, left: dragHintPos.x }}
+        >
+          {draggingCards ? 'Drag to scroll' : 'Click and drag'}
+        </DragHint>
+      )}
     </HeroContainer>
   );
 };
