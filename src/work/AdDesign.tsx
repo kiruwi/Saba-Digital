@@ -10,6 +10,8 @@ import Asset6 from '../images/addesign/Asset 62x-100.jpg';
 import BrightSquad from '../images/addesign/Bright Squad cleaners.jpg';
 import EidAlAdha from '../images/addesign/eid.jpg';
 import Soc from '../images/addesign/sOC4x-100.jpg';
+import Ad1 from '../images/addesign/1st2x-100.jpg';
+import Ad2 from '../images/addesign/2nd2x-100.jpg';
 
 const Main = styled.main`
   padding: 7rem 0 4rem;
@@ -69,7 +71,9 @@ const AdDesign: React.FC = () => {
     { src: Asset6, alt: 'Asset 6 Design' },
     { src: BrightSquad, alt: 'Bright Squad Cleaners' },
     { src: EidAlAdha, alt: 'Eid Al Adha Celebration' },
-    { src: Soc, alt: 'SOC Design' }
+    { src: Soc, alt: 'SOC Design' },
+    { src: Ad1, alt: 'Ad Design 1' },
+    { src: Ad2, alt: 'Ad Design 2' }
   ];
 
   return (

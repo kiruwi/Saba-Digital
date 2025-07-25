@@ -22,10 +22,11 @@ function injectClarity() {
 // Styled banner components
 const Banner = styled.div`
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 320px;
-  max-width: calc(100% - 40px);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: none;
   background: #ffffff;
   color: ${({ theme }) => theme.colors?.text ?? '#121212'};
   padding: 16px;
@@ -36,12 +37,10 @@ const Banner = styled.div`
   flex-direction: column;
   z-index: 9999;
   flex-direction: row;
-  border-radius: 4px;
+  border-radius: 0;
 
   @media (max-width: 768px) {
-    right: 10px;
-    left: 10px;
-    width: auto;
+    padding: 12px;
   }
 `;
 
@@ -53,7 +52,7 @@ const Message = styled.span`
 
 const ButtonsWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 8px;
   margin-left: 32px;
 `;
@@ -97,7 +96,7 @@ const CookieBanner: React.FC = () => {
   return (
     <Banner>
       <Message>
-        By using iancheruiyot.work site, you agree with our use of cookies to better the website.
+        By continuing to browse iancheruiyot.work you consent to our use of cookies and similar technologies to improve your experience, analyze site traffic, and tailor content. For more information, please review our Privacy Policy.
       </Message>
       <ButtonsWrapper>
         <Button onClick={handleAccept}>Accept</Button>
