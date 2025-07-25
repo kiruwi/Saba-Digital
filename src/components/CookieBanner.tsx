@@ -40,6 +40,7 @@ const Banner = styled.div`
   border-radius: 0;
 
   @media (max-width: 768px) {
+    flex-direction: column;
     padding: 12px;
   }
 `;
@@ -55,6 +56,12 @@ const ButtonsWrapper = styled.div`
   flex-direction: row;
   gap: 8px;
   margin-left: 32px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin-left: 0;
+    margin-top: 12px;
+  }
 `;
 
 const Button = styled.button<{ $secondary?: boolean }>`
@@ -66,6 +73,11 @@ const Button = styled.button<{ $secondary?: boolean }>`
   cursor: pointer;
   font-size: 14px;
   border-radius: 0;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    width: 100%;
+  }
 `;
 
 const CookieBanner: React.FC = () => {

@@ -170,7 +170,7 @@ function ContactUs() {
             data-netlify="true" 
             data-netlify-honeypot="bot-field"
             onSubmit={handleSubmit}
-            autoComplete="off" 
+             
           >
             {/* Hidden fields needed for Netlify Forms */}
             <input type="hidden" name="form-name" value="contact" />
@@ -190,38 +190,33 @@ function ContactUs() {
             <FormInput 
               type="text" 
               name="name" 
-              placeholder="Your Name" 
+              placeholder="Your Name"
+              autoComplete="name" 
               required 
               maxLength="50"
               value={formState.name}
               onChange={handleChange}
-              onChange={handleChange}
-              value={formState.name}
             />
             {formErrors.email && <p style={{ color: 'red', fontSize: '12px', margin: '0' }}>{formErrors.email}</p>}
             <FormInput 
               type="email" 
               name="email" 
-              placeholder="Your Email" 
+              placeholder="Your Email"
+              autoComplete="email" 
               required 
               maxLength="100"
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
               value={formState.email}
               onChange={handleChange}
-              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-              onChange={handleChange}
-              value={formState.email}
             />
             {formErrors.subject && <p style={{ color: 'red', fontSize: '12px', margin: '0' }}>{formErrors.subject}</p>}
             <FormInput 
               type="text" 
               name="subject" 
               placeholder="Subject" 
-              required 
               maxLength="100"
               value={formState.subject}
               onChange={handleChange}
-              onChange={handleChange}
-              value={formState.subject}
             />
             {formErrors.message && <p style={{ color: 'red', fontSize: '12px', margin: '0' }}>{formErrors.message}</p>}
             <FormInput 
@@ -239,8 +234,6 @@ function ContactUs() {
                 marginBottom: '30px',
                 padding: '16px'
               }} 
-              onChange={handleChange}
-              value={formState.message}
             />
 
             <FormButton 
