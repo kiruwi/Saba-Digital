@@ -48,6 +48,9 @@ export const TitleBackground = styled.div`
   display: inline-flex;
   flex-direction: column;
   gap: 0.3em;
+  /* Added to enable 3D perspective for SplitText line-flip */
+  perspective: 600px;
+  perspective-origin: 50% 50%;
 `;
 
 const baseTitle = `
@@ -63,11 +66,7 @@ export const HeroTitleTop = styled.h1`
   color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
 `;
 
-export const HeroTitleBottom = styled.h2`
-  ${baseTitle};
-  font-size: clamp(2.5rem, 4vw, 5rem);
-  color: ${({ theme }) => theme.colors.primary};
-`;
+
 
 /* ── CTA wrapper ─────────────────────────────────── */
 export const BtnWrap = styled.div`
