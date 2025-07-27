@@ -6,6 +6,8 @@ import { animateScroll as scroll } from 'react-scroll';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { gsap } from 'gsap';
+import SplitText from 'gsap/SplitText';
+gsap.registerPlugin(SplitText);
 
 // Service items for the portfolio popup grid (first row visible, more rows lazy-load)
 export const SERVICE_ITEMS = [
@@ -80,6 +82,9 @@ export const TitleBackground = styled.div`
   display: inline-flex;
   flex-direction: column;
   gap: 0.3em;
+  /* Added to enable 3D depth for line-flip animation */
+  perspective: 600px;
+  perspective-origin: 50% 50%;
 `;
 
 const baseTitle = `
@@ -95,10 +100,10 @@ export const HeroTitleTop = styled.h1`
   color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
 `;
 
-export const HeroTitleBottom = styled.h2`
-  ${baseTitle};
-  font-size: clamp(2.5rem, 4vw, 5rem);
-  color: ${({ theme }) => theme.colors.primary};
+
+
+export const AccentGreen = styled.span`
+  color: #3db54e;
 `;
 
 /* ── CTA wrapper ───────────────────────────────────── */
@@ -344,8 +349,7 @@ const HeroSection: FC = () => {
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const lowEndDevice = prefersReducedMotion || ((navigator as any).deviceMemory && (navigator as any).deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
 
-  const titleTopRef = useRef<HTMLHeadingElement>(null);
-  const titleBottomRef = useRef<HTMLHeadingElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const dragHintRef = useRef<HTMLDivElement>(null);
 
   const [expanded, setExpanded] = useState(false);
@@ -356,86 +360,49 @@ const HeroSection: FC = () => {
   const [showDragHint, setShowDragHint] = useState(false);
   const [dragHintPos, setDragHintPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
-  // initial hero heading animation
+  // hero heading line-flip animation
   useEffect(() => {
     if (lowEndDevice) return;
-    const ctx = gsap.context(() => {
-      // Split the top title into individual word spans for staggered animation
-      if (titleTopRef.current) {
-        const titleEl = titleTopRef.current;
-        const originalHTML = titleEl.innerHTML;
-        const words = titleEl.innerText.trim().split(' ');
-        titleEl.innerHTML = words
-          .map((w) => `<span class="word" style="display:inline-block;">${w}</span>`) // inline-block so GSAP can move them
-          .join('&nbsp;');
-        const wordSpans = titleEl.querySelectorAll('.word');
-        let animation: gsap.core.Tween | null = null;
-        gsap.from(wordSpans, {
-          opacity: 0,
-          y: 40,
-          duration: 1,
-          ease: 'power3.out',
-          stagger: 0.06,
-        });
-        // click handler to reshuffle words
-        const handleClick = () => {
-          animation?.revert();
-          animation = gsap.from(wordSpans, {
-            y: -100,
-            opacity: 0,
-            rotation: 'random(-80, 80)',
-            duration: 0.7,
-            ease: 'back.out(1.7)',
-            stagger: 0.15,
-          });
-        };
-        titleEl.addEventListener('click', handleClick);
+    if (!titleRef.current) return;
 
-        // store for cleanup
-        (titleEl as any)._originalHTML = originalHTML;
-        (titleEl as any)._cleanupClick = () => {
-          titleEl.removeEventListener('click', handleClick);
-          animation?.revert();
-        };
-      }
+    let split: any;
+    let animation: gsap.core.Tween | null = null;
 
-      if (titleBottomRef.current) {
-        const bottomEl = titleBottomRef.current;
-        const bottomOriginalHTML = bottomEl.innerHTML;
-        const bottomWords = bottomEl.innerText.trim().split(' ');
-        bottomEl.innerHTML = bottomWords
-          .map((w) => `<span class="word" style="display:inline-block;">${w}</span>`) // inline-block so GSAP can move them
-          .join('&nbsp;');
-        const bottomWordSpans = bottomEl.querySelectorAll('.word');
-        gsap.from(bottomWordSpans, {
-          y: -100,
-          opacity: 0,
-          rotation: 'random(-80, 80)',
-          duration: 0.7,
-          ease: 'back.out(1.7)',
-          stagger: 0.15,
-          delay: 0.15,
-        });
-        (bottomEl as any)._originalHTML = bottomOriginalHTML;
-      }
-    });
-    return () => {
-      ctx.revert();
-      if (titleTopRef.current) {
-        const t = titleTopRef.current as any;
-        if (t._cleanupClick) t._cleanupClick();
-        if (t._originalHTML) {
-          titleTopRef.current.innerHTML = t._originalHTML;
-        }
-      }
-      if (titleBottomRef.current) {
-        const b = titleBottomRef.current as any;
-        if (b._originalHTML) {
-          titleBottomRef.current.innerHTML = b._originalHTML;
-        }
-      }
+    const setup = () => {
+      if (!titleRef.current) return;
+      split && split.revert();
+      animation && animation.revert();
+      split = SplitText.create(titleRef.current, { type: 'lines' });
     };
-  }, []);
+
+    const play = () => {
+      animation && animation.revert();
+      animation = gsap.from(split.lines, {
+        rotationX: -100,
+        transformOrigin: '50% 50% -160px',
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3',
+        stagger: 0.25,
+      });
+    };
+
+    setup();
+    play();
+
+    const handleClick = () => play();
+    titleRef.current.addEventListener('click', handleClick);
+    window.addEventListener('resize', setup);
+
+    return () => {
+      titleRef.current?.removeEventListener('click', handleClick);
+      window.removeEventListener('resize', setup);
+      split && split.revert();
+      animation && animation.revert();
+    };
+  }, [lowEndDevice]);
+      
+
 
   // glow pulse on drag hint while dragging
   useEffect(() => {
@@ -646,27 +613,21 @@ const HeroSection: FC = () => {
   };
 
   // Function to scroll to a specific slide
+  // Function to scroll to a specific slide
   const scrollToSlide = useCallback(
     (slideIndex: number) => {
-      if (railRef.current && slideIndex >= 0 && slideIndex < totalSlides) {
-        setIsScrolling(true);
-        const slideHeight = window.innerHeight;
+      if (!railRef.current) return;
+      if (slideIndex < 0 || slideIndex > totalSlides) return;
 
-        railRef.current.scrollTo({
-          top: slideHeight * slideIndex,
-          behavior: 'smooth',
-        });
+      setIsScrolling(true);
+      const slideHeight = window.innerHeight;
+      railRef.current.scrollTo({
+        top: slideHeight * slideIndex,
+        behavior: 'smooth',
+      });
 
-        setCurrentSlide(slideIndex);
-        hasScrolled.current = true;
-        setScrollIndicatorVisible(slideIndex === 0);
-
-        // Reset scrolling state after animation completes
-        setTimeout(() => setIsScrolling(false), 1000);
-      } else if (slideIndex >= totalSlides) {
-        // Scroll to footer when we've gone through all slides
-        scroll.scrollToBottom();
-      }
+      // Reset scrolling flag after animation duration (~600ms)
+      setTimeout(() => setIsScrolling(false), 700);
     },
     []
   );
@@ -787,10 +748,7 @@ const HeroSection: FC = () => {
       {/* left column */}
       <HeroText>
         <TitleBackground>
-          <HeroTitleTop ref={titleTopRef} id="hero-top-title">Currently a Digital Designer.</HeroTitleTop>
-          <HeroTitleBottom ref={titleBottomRef}>
-            Living in Nairobi, creating products that empower clients.
-          </HeroTitleBottom>
+          <HeroTitleTop ref={titleRef} id="hero-title" className="hero-text">Currently a Digital Designer.<br/><AccentGreen>Living in Nairobi, creating products that empower clients.</AccentGreen></HeroTitleTop>
         </TitleBackground>
 
         <BtnWrap>
