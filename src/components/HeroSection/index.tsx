@@ -1,8 +1,9 @@
 import styled, { keyframes, css } from 'styled-components';
 import React, { useState, useEffect, useRef, useCallback, FC } from 'react';
 import meImage from '../../images/me.png';
+import LightRays from '../LightRays';
 import { ServicesCardHover as ServiceCard, TextOverlay, ServicesH2, ServicesP, serviceBackgrounds, Slide } from '../Services/ServicesElements';
-import { animateScroll as scroll } from 'react-scroll';
+
 import { useNavigate } from 'react-router-dom';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { gsap } from 'gsap';
@@ -85,6 +86,15 @@ export const TitleBackground = styled.div`
   /* Added to enable 3D depth for line-flip animation */
   perspective: 600px;
   perspective-origin: 50% 50%;
+`;
+
+const LightRaysWrapper = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 1;
+  mix-blend-mode: screen;
 `;
 
 const baseTitle = `
@@ -365,6 +375,8 @@ const HeroSection: FC = () => {
     if (lowEndDevice) return;
     if (!titleRef.current) return;
 
+    const titleEl = titleRef.current;
+
     let split: any;
     let animation: gsap.core.Tween | null = null;
 
@@ -391,11 +403,11 @@ const HeroSection: FC = () => {
     play();
 
     const handleClick = () => play();
-    titleRef.current.addEventListener('click', handleClick);
+    titleEl?.addEventListener('click', handleClick);
     window.addEventListener('resize', setup);
 
     return () => {
-      titleRef.current?.removeEventListener('click', handleClick);
+      titleEl?.removeEventListener('click', handleClick);
       window.removeEventListener('resize', setup);
       split && split.revert();
       animation && animation.revert();
@@ -419,7 +431,7 @@ const HeroSection: FC = () => {
         tween.kill();
       };
     }
-  }, [draggingCards]);
+  }, [draggingCards, lowEndDevice]);
 
   // hide scroll arrow when popup expanded
   useEffect(() => {
@@ -743,6 +755,21 @@ const HeroSection: FC = () => {
 
   return (
     <HeroContainer id="home">
+      <LightRaysWrapper>
+        <LightRays 
+          raysColor="#f0f4ff" 
+          raysSpeed={0.2} 
+          lightSpread={0.65} 
+          rayLength={0.7} 
+          pulsating={true} 
+          fadeDistance={1.0} 
+          saturation={0.3} 
+          followMouse={true}
+          mouseInfluence={0.1}
+          noiseAmount={0.05}
+          distortion={0.05}
+        />
+      </LightRaysWrapper>
       
 
       {/* left column */}
