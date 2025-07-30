@@ -13,6 +13,13 @@
   color: var(--text-color, #032648);
 }
 
+/* Transparent navbar on homepage before scroll */
+.navbar.home {
+  background: transparent;
+  box-shadow: none;
+}
+
+
 /* Apply consistent theming for scrolled navbar and on specific pages */
 .navbar.scrolled {
   background: var(--navbar-bg, #032648);

@@ -131,6 +131,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
   const location = useLocation();
 
   const { theme, toggleTheme } = useTheme(); // Get theme and toggleTheme from context
+
+  // Determine if current route is the homepage (Hero section)
+  const isHomeRoute = location.pathname === "/";
   
   // Check if current path is in the work section or contact page
   const isWorkRoute = location.pathname.includes("/work/");
@@ -167,7 +170,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
 
   return (
     <>
-      <nav className={`navbar ${scrollNav || isWorkRoute || isContactRoute ? 'scrolled' : ''}`}>
+      <nav className={`navbar ${isHomeRoute ? 'home' : ''} ${scrollNav || isWorkRoute || isContactRoute ? 'scrolled' : ''}`}>
         <NavbarContainer>
           <NavLogo to="/" onClick={toggleHome}>
             <img src={signature} alt="Signature" style={{ 

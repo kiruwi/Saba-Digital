@@ -1,12 +1,10 @@
-import React, { memo, FC } from "react";
+import React from "react";
 import HeroSection from "../components/HeroSection";   // contains the Services rail
 import Footer from "../components/Footer";            // optional footer
 // CMSDebug component removed
 
-
-
-export const Home: FC = memo(() => {
-
+// Main Home component that uses HeroSection for the profile layout
+const Home = () => {
   return (
     <>
       <HeroSection />
@@ -16,6 +14,6 @@ export const Home: FC = memo(() => {
       <Footer />
     </>
   );
-});
+};
 
-Home.displayName = 'Home';
+export default Home;

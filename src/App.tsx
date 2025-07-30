@@ -21,7 +21,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import CookieBanner from "./components/CookieBanner";
 
 // Lazy load components for better code splitting
-const Home = lazy(() => import("./pages").then(module => ({ default: module.Home })));
+const Home = lazy(() => import("./pages/index"));
 const ContactPage = lazy(() => import("./pages/contactus"));
 const UXUI = lazy(() => import("./work/UXUI"));
 const WebDev = lazy(() => import("./work/WebDev"));
