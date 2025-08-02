@@ -162,7 +162,7 @@ export const graphicsProjects: ProjectType[] = [
     year: "2023",
   },
   {
-    id: "osim-lai-brand",
+    id: "osim-lai-branding",
     title: "Osim Lai Brand Identity",
     shortDescription: "Complete brand identity design for a lifestyle company.",
     fullDescription: "I developed a comprehensive brand identity for Osim Lai, a lifestyle company focused on wellness and modern living. The project involved creating a distinctive visual identity that would stand out in the competitive wellness market while conveying sophistication and approachability.",
@@ -173,13 +173,14 @@ export const graphicsProjects: ProjectType[] = [
       { heading: "Brand Guidelines", content: "I created comprehensive brand guidelines documenting proper logo usage, color specifications, typography rules, and application examples. These guidelines ensure consistent brand presentation across all media and provide clear direction for future brand extensions." },
       { heading: "Applications", content: "The brand identity was applied across various touchpoints including business cards, letterhead, packaging design, social media templates, and website elements. Each application maintains brand consistency while being optimized for its specific use case." }
     ],
-    image: "/assets/projects/3d-graphics/osim-lai-images/osim1.jpg",
+    image: "/assets/projects/3d-graphics/osim-lai-images/logo-page2x-100.jpg",
     additionalImages: [
-      "/assets/projects/3d-graphics/osim-lai-images/osim1.jpg",
-      "/assets/projects/3d-graphics/osim-lai-images/osim2.jpg",
-      "/assets/projects/3d-graphics/osim-lai-images/osim3.jpg",
-      "/assets/projects/3d-graphics/osim-lai-images/osim4.jpg",
-      "/assets/projects/3d-graphics/osim-lai-images/osim5.jpg"
+      "/assets/projects/3d-graphics/osim-lai-images/logo-page2x-100.jpg",
+      "/assets/projects/3d-graphics/osim-lai-images/logo-design2x-100.jpg",
+      "/assets/projects/3d-graphics/osim-lai-images/color-and-mockup.2x-100.jpg",
+      "/assets/projects/3d-graphics/osim-lai-images/Font-type2x-100.jpg",
+      "/assets/projects/3d-graphics/osim-lai-images/assets2x-100.jpg",
+      "/assets/projects/3d-graphics/osim-lai-images/mockup2x-100.jpg"
     ],
     tags: ["Brand Identity", "Logo Design", "Style Guide"],
     category: "graphics",
@@ -209,25 +210,30 @@ export const graphicsProjects: ProjectType[] = [
     additionalImages: [],
     gallery: [
       {
-        src: '/assets/projects/3d-graphics/synnefa-images/synnefa1.jpg',
-        alt: 'Initial brand exploration and concept development'
+        src: '/assets/projects/3d-graphics/synnefa-images/mind-map.jpg',
+        alt: 'Brief & Brand Concept Mind Map'
       },
       {
-        src: '/assets/projects/3d-graphics/synnefa-images/synnefa2.jpg',
-        alt: 'Logo variations and typography studies'
+        src: '/assets/projects/3d-graphics/synnefa-images/mood-board.jpg',
+        alt: 'Mood Board and Visual Direction'
       },
       {
-        src: '/assets/projects/3d-graphics/synnefa-images/synnefa3.jpg',
-        alt: 'Color palette development and brand applications'
+        src: '/assets/projects/3d-graphics/synnefa-images/design-process.jpg',
+        alt: 'Design Process and Development'
       },
       {
-        src: '/assets/projects/3d-graphics/synnefa-images/synnefa4.jpg',
-        alt: 'Final brand identity system and guidelines'
+        src: '/assets/projects/3d-graphics/synnefa-images/logo-variations.jpg',
+        alt: 'Logo Variations and Style Exploration'
+      },
+      {
+        src: '/assets/projects/3d-graphics/synnefa-images/synnefa-logo.jpg',
+        alt: 'Final Synnefa Logo Design'
       },
       {
         src: '/assets/projects/3d-graphics/synnefa-images/service3-bg.jpg',
         alt: '3D Product Visualization for FarmShield™ Device'
       }
+
     ],
     tags: ["Rebranding", "3D Modeling", "Product Visualization"],
     category: "graphics",

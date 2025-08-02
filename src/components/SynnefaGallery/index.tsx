@@ -15,29 +15,30 @@ interface GalleryImage {
 }
 
 const SynnefaGallery: React.FC = () => {
+  const img = (file: string) => `${process.env.PUBLIC_URL || ''}/assets/projects/3d-graphics/synnefa-images/${file}`;
   const gallery: GalleryImage[] = [
     {
-      src: '/assets/projects/3d-graphics/synnefa-images/mind-map.jpg',
+      src: img('mind-map.jpg'),
       alt: 'Brief & Brand Concept Mind Map',
       caption: 'Brief & Brand Concept Mind Map'
     },
     {
-      src: '/assets/projects/3d-graphics/synnefa-images/mood-board.jpg',
+      src: img('mood-board.jpg'),
       alt: 'Mood Board and Visual Direction',
       caption: 'Mood Board and Visual Direction'
     },
     {
-      src: '/assets/projects/3d-graphics/synnefa-images/design-process.jpg',
+      src: img('design-process.jpg'),
       alt: 'Design Process and Development',
       caption: 'Design Process and Development'
     },
     {
-      src: '/assets/projects/3d-graphics/synnefa-images/logo-variations.jpg',
+      src: img('logo-variations.jpg'),
       alt: 'Logo Variations and Style Exploration',
       caption: 'Logo Variations and Style Exploration'
     },
     {
-      src: '/assets/projects/3d-graphics/synnefa-images/synnefa-logo.jpg',
+      src: img('synnefa-logo.jpg'),
       alt: 'Final Synnefa Logo Design',
       caption: 'Final Synnefa Logo Design'
     }
@@ -80,7 +81,7 @@ const SynnefaGallery: React.FC = () => {
         </div>
 
         <img
-          src="/assets/projects/3d-graphics/synnefa-images/service3-bg.jpg"
+          src={img('service3-bg.jpg')}
           alt="3D Product Visualization of FarmShield™"
           style={{
             width: '100%',

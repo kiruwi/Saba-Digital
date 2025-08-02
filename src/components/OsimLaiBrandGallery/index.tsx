@@ -25,34 +25,35 @@ const GalleryHeader = styled.div`
 `;
 
 const OsimLaiBrandGallery: React.FC = () => {
+  const img = (file: string) => `${process.env.PUBLIC_URL || ''}/assets/projects/3d-graphics/osim-lai-images/${file}`; 
   const imageData: ImageData[] = [
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/logo-page2x-100.jpg',
+      src: img('logo-page2x-100.jpg'),
       alt: 'Osim Lai Logo Presentation',
       caption: 'Osim Lai Logo Presentation'
     },
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/logo-design2x-100.jpg',
+      src: img('logo-design2x-100.jpg'),
       alt: 'Osim Lai Logo Design Process',
       caption: 'Osim Lai Logo Design Process'
     },
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/color-and-mockup.2x-100.jpg',
+      src: img('color-and-mockup.2x-100.jpg'),
       alt: 'Osim Lai Color Palette and Mockups',
       caption: 'Osim Lai Color Palette and Mockups'
     },
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/Font-type2x-100.jpg',
+      src: img('Font-type2x-100.jpg'),
       alt: 'Osim Lai Typography System',
       caption: 'Osim Lai Typography System'
     },
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/assets2x-100.jpg',
+      src: img('assets2x-100.jpg'),
       alt: 'Osim Lai Brand Assets',
       caption: 'Osim Lai Brand Assets'
     },
     {
-      src: '/assets/projects/3d-graphics/osim-lai-images/mockup2x-100.jpg',
+      src: img('mockup2x-100.jpg'),
       alt: 'Osim Lai Brand Mockups',
       caption: 'Osim Lai Brand Mockups'
     }
