@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import LazyImage from '../LazyImage';
-import { createPlaceholderImage } from '../../utils/imageUtils';
 
 interface GalleryImage {
   src: string;

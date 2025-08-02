@@ -1,4 +1,4 @@
-// src/components/ProjectDetail/index.js
+// src/components/ProjectDetail/index.tsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
@@ -12,13 +12,17 @@ import {
   MobileImageFirst,
   MobileTextSecond,
   MobileOnlyImage,
-  DesktopOnlyImage
+
 } from '../ProjectCard/ProjectCardElements';
 import ProcessSection from '../ProcessSection';
 import OsimLaiBrandGallery from '../OsimLaiBrandGallery';
 import { FaArrowLeft } from 'react-icons/fa';
 
-const ProjectDetail = ({ projects }) => {
+interface ProjectDetailProps {
+  projects: any[]; // TODO: Use proper Project type from types/projects
+}
+
+const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
@@ -40,15 +44,14 @@ const ProjectDetail = ({ projects }) => {
   }, []);
   
   // Find the project by id
-  console.log('Current ID param:', id);
-  console.log('Available projects:', projects);
+  // Debug: Current ID param and available projects
   
   // Directly hardcode Ufanisi Resort if the path is malformed
   let project = null;
   if (window.location.hash.includes('ufanisi-resort')) {
     // Force-load Ufanisi Resort from the uxProjects array
     project = projects.find(p => p.id === 'ufanisi-resort');
-    console.log('Forcing Ufanisi project:', project);
+    // Using Ufanisi project as fallback
   } else {
     // Regular lookup by ID
     project = projects.find(project => project.id === id);
@@ -106,7 +109,7 @@ const ProjectDetail = ({ projects }) => {
       {/* Project Content Below Image */}
       <ProjectDetailHeader style={{ width: '100%', maxWidth: '100%' }}>
         <DetailDescription>
-          {project.fullDescription.split('\n\n').map((paragraph, index) => {
+          {project.fullDescription.split('\n\n').map((paragraph: string, index: number) => {
             // Check if this paragraph is a heading or number marker
             const isHeading = /^\d+\.?$/.test(paragraph.trim());
             
@@ -130,7 +133,7 @@ const ProjectDetail = ({ projects }) => {
             </p>
           )}
           
-          {project.fullDescription3 && Array.isArray(project.fullDescription3) && project.fullDescription3.map((section, index) => {
+          {project.fullDescription3 && Array.isArray(project.fullDescription3) && project.fullDescription3.map((section: any, index: number) => {
             // Check if this is the "Previous Design Issues" section
             const isPreviousDesignIssues = section.heading === "Previous Design Issues";
             
@@ -202,7 +205,7 @@ const ProjectDetail = ({ projects }) => {
       <div style={{ marginTop: '2rem' }}>
         <h3>Features</h3>
         <ul>
-          {project.features.map((feature, index) => (
+          {project.features.map((feature: string, index: number) => (
             <li key={index}>{feature}</li>
           ))}
         </ul>

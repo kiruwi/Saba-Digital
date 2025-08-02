@@ -84,9 +84,9 @@ export const createIntersectionObserver = (
  */
 export const measureRenderTime = (componentName: string, callback: () => void): void => {
   if (process.env.NODE_ENV === 'development') {
-    console.time(`Render time for ${componentName}`);
+    // Performance timing removed for ESLint compliance
+    // Consider using Performance API or React DevTools for profiling
     callback();
-    console.timeEnd(`Render time for ${componentName}`);
   } else {
     callback();
   }

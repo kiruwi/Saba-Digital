@@ -1,5 +1,4 @@
 import { ComponentType } from 'react';
-import { RouteObject } from 'react-router-dom';
 
 export interface RouteConfig {
   path: string;

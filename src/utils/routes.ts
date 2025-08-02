@@ -1,19 +1,18 @@
-import React from 'react';
 import { RouteObject } from 'react-router-dom';
 
 // Define route paths enum for consistency
 export enum RoutePaths {
   Home = '/',
-  Contact = '/contactus',
-  Error = '*',
-  // Work page paths
+  Contact = '/contact',
+  Error = '/404',
+  // Work routes
   Work = '/work',
   GraphicsWork = '/work/graphics',
   GraphicsDetail = '/work/graphics/:id',
-  UXUIWork = '/work/uxui',
-  UXUIDetail = '/work/uxui/:id',
-  WebDevWork = '/work/webdev',
-  WebDevDetail = '/work/webdev/:id',
+  UXUIWork = '/work/ux-ui',
+  UXUIDetail = '/work/ux-ui/:id',
+  WebDevWork = '/work/web-dev',
+  WebDevDetail = '/work/web-dev/:id'
 }
 
 /**

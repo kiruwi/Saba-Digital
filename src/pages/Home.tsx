@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SEO from '../components/SEO';
-import { APP, SEO as SEOConstants } from '../utils/constants';
+import { APP } from '../utils/constants';
 import LazyImage from '../components/LazyImage';
 import AnimatedSection from '../components/AnimatedSection';
 import usePerformanceOptimization from '../hooks/usePerformanceOptimization';
@@ -68,7 +68,7 @@ const Button = styled.a`
 
 const Home: React.FC = () => {
   // Use our performance optimization hook
-  const { resourcesLoaded } = usePerformanceOptimization(
+  usePerformanceOptimization(
     ['/images/hero-image.jpg'], // Critical resources
     [], // Non-critical resources
     'image'

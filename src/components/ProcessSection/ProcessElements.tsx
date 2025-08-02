@@ -1,6 +1,5 @@
 // src/components/ProcessSection/ProcessElements.tsx
 import styled from 'styled-components';
-import { Theme } from '../../themes/theme';
 
 interface ProcessStepProps {
   number?: string;

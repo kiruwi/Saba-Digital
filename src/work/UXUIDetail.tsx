@@ -19,8 +19,8 @@ const MainContent = styled.main`
 const UXUIDetail: React.FC = () => {
   // Get theme from context - even though we don't use these variables directly,
   // destructuring them ensures the component subscribes to context changes
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { theme, toggleTheme } = useTheme();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+  const { theme } = useTheme();
   
 
 
@@ -29,21 +29,19 @@ const UXUIDetail: React.FC = () => {
   
   // Theme is now accessed from context
   
-  // Debug location information
-  console.log('UXUIDetail - Current location:', location);
-  console.log('UXUIDetail - ID param:', id);
+  // Debug location information (removed for production)
   
   // Check if this is the Ufanisi Resort by URL fragment
   const isUfanisiResort = id === 'ufanisi-resort' || 
                           location.pathname.includes('ufanisi-resort') ||
                           location.hash.includes('ufanisi-resort');
   
-  console.log('UXUIDetail - Is Ufanisi Resort:', isUfanisiResort);
+  // Ufanisi Resort detection logic
   
   useEffect(() => {
     // Reload the page if we detect URL issues with Ufanisi Resort
     if (id === 'ufanisi-resort' && !isUfanisiResort) {
-      console.log('UXUIDetail - Forcing refresh for Ufanisi Resort');
+      // Forcing refresh for Ufanisi Resort
       window.location.hash = '/work/uxui/ufanisi-resort';
     }
   }, [id, isUfanisiResort]);

@@ -104,9 +104,7 @@ const ErrorPage: React.FC<ErrorProps> = ({
   const ufanisiProject = isUfanisiResort ? 
     uxProjects.find(p => p.id === "ufanisi-resort") : null;
   
-  console.log('Current location:', location);
-  console.log('Is Ufanisi Resort:', isUfanisiResort);
-  console.log('Ufanisi Project:', ufanisiProject);
+  // Debug logging removed for production build
   
   const handleGoBack = () => {
     navigate(-1);

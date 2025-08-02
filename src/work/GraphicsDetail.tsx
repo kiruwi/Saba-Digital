@@ -155,8 +155,8 @@ const BackButton = styled.button`
 const GraphicsDetail: React.FC = () => {
   // Get theme from context - even though we don't use these variables directly,
   // destructuring them ensures the component subscribes to context changes
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { theme, toggleTheme } = useTheme();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+  const { theme } = useTheme();
 
 
   const { id } = useParams<{ id: string }>();

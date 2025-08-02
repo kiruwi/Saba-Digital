@@ -33,14 +33,19 @@ const useRouteOptimization = (): void => {
     
     // Preload images for the current section
     if (section) {
-      preloadSectionImages(section).catch(console.error);
+      preloadSectionImages(section).catch((error) => {
+        if (process.env.NODE_ENV === 'development') {
+          // eslint-disable-next-line no-console
+          console.error('Error preloading section images:', error);
+        }
+      });
     }
     
     // Prefetch related routes
     prefetchRelatedRoutes(currentPath);
     
     // Track page view (could integrate with analytics here)
-    console.log(`Page view: ${currentPath}`);
+    // Page view tracked
     
   }, [location.pathname]);
 };

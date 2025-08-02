@@ -64,7 +64,10 @@ export const checkImageExists = async (url: string): Promise<boolean> => {
     const response = await fetch(url, { method: 'HEAD' });
     return response.ok;
   } catch (error) {
-    console.error('Error checking image existence:', error);
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('Error checking image existence:', error);
+    }
     return false;
   }
 };
@@ -123,7 +126,10 @@ export const getDominantColor = async (imageUrl: string): Promise<string> => {
           const hex = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
           resolve(hex);
         } catch (err) {
-          console.error('Error processing image for dominant color:', err);
+          if (process.env.NODE_ENV === 'development') {
+            // eslint-disable-next-line no-console
+            console.error('Error processing image for dominant color:', err);
+          }
           resolve(defaultColor);
         }
       };
@@ -134,7 +140,10 @@ export const getDominantColor = async (imageUrl: string): Promise<string> => {
       
       img.src = imageUrl;
     } catch (err) {
-      console.error('Error loading image for dominant color:', err);
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.error('Error loading image for dominant color:', err);
+      }
       resolve(defaultColor);
     }
   });

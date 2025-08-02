@@ -13,7 +13,6 @@ import {
 } from "./ServicesElements";
 import { Link } from "react-router-dom";
 import { FiArrowUpRight } from "react-icons/fi";
-import { useTheme } from "../../contexts/ThemeContext";
 
 // Define the services data structure
 interface ServiceItem {
@@ -53,12 +52,12 @@ const items: ServiceItem[] = [
 
 /* full‑width section (phones / other pages) */
 const Services: React.FC = () => {
+  // Theme context available but not needed in this component
+  
   // hide entire section on mobile (hero overlay shows cards)
   if (typeof window !== 'undefined' && window.innerWidth <= 1000) {
     return null;
   }
-  // Get theme from context
-  const { theme } = useTheme();
   
 
   return (
@@ -84,8 +83,7 @@ const Services: React.FC = () => {
 
 /* individual service slides for the hero rail */
 export const ServicesRail: React.FC = () => {
-  // Get theme from context
-  const { theme } = useTheme();
+  // Theme context available but not needed in this component
   
   return (
     <>

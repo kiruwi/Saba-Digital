@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { useEffect } from "react";
+// src/components/ContactUs/index.tsx
+import React, { useState, useRef, useEffect } from "react";
 
 import {
   Container,
@@ -14,22 +14,37 @@ import {
   FieldsColumn,
 } from "./ContactElements";
 
-const Result = () => <p>Your message has been successfully sent! I'll get back to you soon.</p>;
-const ErrorResult = () => <p style={{ color: 'red' }}>Something went wrong. Please try again later.</p>;
+const Result: React.FC = () => <p>Your message has been successfully sent! I'll get back to you soon.</p>;
+const ErrorResult: React.FC = () => <p style={{ color: 'red' }}>Something went wrong. Please try again later.</p>;
+
+// TypeScript interfaces
+interface FormState {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+}
 
 // Simple email validation regex
-const validateEmail = (email) => {
+const validateEmail = (email: string): boolean => {
   const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return re.test(String(email).toLowerCase());
 };
 
-function ContactUs() {
-  const [result, showResult] = useState(false);
-  const [error, showError] = useState(false);
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const submitTimeRef = useRef(Date.now());
-  const [formState, setFormState] = useState({
+const ContactUs: React.FC = () => {
+  const [result, showResult] = useState<boolean>(false);
+  const [error, showError] = useState<boolean>(false);
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const submitTimeRef = useRef<number>(Date.now());
+  const [formState, setFormState] = useState<FormState>({
     name: "",
     email: "",
     subject: "",
@@ -41,8 +56,8 @@ function ContactUs() {
     submitTimeRef.current = Date.now();
   }, []);
 
-  const validateForm = () => {
-    let errors = {};
+  const validateForm = (): { isValid: boolean; errors: FormErrors } => {
+    let errors: FormErrors = {};
     let isValid = true;
 
     // Name validation
@@ -76,10 +91,10 @@ function ContactUs() {
     }
 
     setFormErrors(errors);
-    return isValid;
+    return { isValid, errors };
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     
     // Basic input sanitization - strip HTML tags
@@ -91,11 +106,12 @@ function ContactUs() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     // Validate form
-    if (!validateForm()) {
+    const validation = validateForm();
+    if (!validation.isValid) {
       return;
     }
     
@@ -103,7 +119,7 @@ function ContactUs() {
     const timeSinceLoad = Date.now() - submitTimeRef.current;
     if (timeSinceLoad < 1500) {
       // Form submitted too quickly - likely a bot
-      console.log("Form submitted too quickly. Possible bot detected.");
+      // Silent bot detection - no logging needed
       setTimeout(() => {
         showResult(true); // Show success but don't actually submit
         setTimeout(() => showResult(false), 5000);
@@ -114,7 +130,7 @@ function ContactUs() {
     setIsSubmitting(true);
     
     // Get form data
-    const form = e.target;
+    const form = e.target as HTMLFormElement;
     
     // Submit form data to Netlify using fetch with CSRF protection
     const formData = new FormData(form);
@@ -124,7 +140,7 @@ function ContactUs() {
       headers: { 
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      body: new URLSearchParams(formData).toString()
+      body: new URLSearchParams(formData as any).toString()
     })
     .then((response) => {
       if (!response.ok) {
@@ -150,7 +166,7 @@ function ContactUs() {
       setTimeout(() => showResult(false), 5000);
     })
     .catch((error) => {
-      console.error('Form submission error:', error);
+      // Form submission error handled silently
       showError(true);
       setTimeout(() => showError(false), 5000);
     })
@@ -193,7 +209,7 @@ function ContactUs() {
               placeholder="Your Name"
               autoComplete="name" 
               required 
-              maxLength="50"
+              maxLength={50}
               value={formState.name}
               onChange={handleChange}
             />
@@ -204,7 +220,7 @@ function ContactUs() {
               placeholder="Your Email"
               autoComplete="email" 
               required 
-              maxLength="100"
+              maxLength={100}
               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
               value={formState.email}
               onChange={handleChange}
@@ -214,18 +230,18 @@ function ContactUs() {
               type="text" 
               name="subject" 
               placeholder="Subject" 
-              maxLength="100"
+              maxLength={100}
               value={formState.subject}
               onChange={handleChange}
             />
             {formErrors.message && <p style={{ color: 'red', fontSize: '12px', margin: '0' }}>{formErrors.message}</p>}
             <FormInput 
               as="textarea" 
-              rows="5" 
+              rows={5} 
               name="message" 
               placeholder="Your Message" 
               required 
-              maxLength="5000"
+              maxLength={5000}
               value={formState.message}
               onChange={handleChange}
               style={{ 

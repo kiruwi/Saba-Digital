@@ -47,9 +47,13 @@ export const preloadCriticalImages = async (): Promise<void> => {
     ];
     
     await preloadImages(criticalImages);
-    console.log('Critical images preloaded successfully');
+    // Critical images preloaded successfully
   } catch (error) {
-    console.warn('Failed to preload some critical images:', error);
+    // Failed to preload some critical images - log only in development
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.warn('Failed to preload some critical images:', error);
+    }
   }
 };
 
@@ -96,9 +100,13 @@ export const preloadSectionImages = async (section: string): Promise<void> => {
     }
     
     await preloadImages(sectionImages);
-    console.log(`Images for ${section} section preloaded successfully`);
+    // Images preloaded successfully
   } catch (error) {
-    console.warn(`Failed to preload images for ${section} section:`, error);
+    // Failed to preload images - log only in development
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.warn(`Failed to preload images for ${section} section:`, error);
+    }
   }
 };
 

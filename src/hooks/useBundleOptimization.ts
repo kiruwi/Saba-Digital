@@ -122,7 +122,10 @@ export const useBundleOptimization = (options: BundleOptimizationOptions = {}) =
       try {
         observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input'] });
       } catch (error) {
-        console.warn('Performance observer not supported:', error);
+        if (process.env.NODE_ENV === 'development') {
+          // eslint-disable-next-line no-console
+          console.warn('Performance observer not supported:', error);
+        }
       }
 
       return () => observer.disconnect();

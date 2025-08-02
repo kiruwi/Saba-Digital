@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Skeleton } from './Skeleton';
 

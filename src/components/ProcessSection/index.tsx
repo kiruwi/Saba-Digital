@@ -20,16 +20,8 @@ import {
   ProcessStep,
   StepTitle,
   StepContent,
-  ImageGrid,
-  ImageCard,
-  ImageCaption,
-  BeforeAfterContainer,
-  BeforeAfterPanel,
-  NextActions
-} from './ProcessElements';
 
-// Placeholder for your actual images
-const placeholderImgUrl = 'https://via.placeholder.com/600x400/252525/2db670?text=Process+Image';
+} from './ProcessElements';
 
 /**
  * ProcessSection component displays the UX/UI design process for Ufanisi Restaurant

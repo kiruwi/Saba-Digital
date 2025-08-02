@@ -55,17 +55,17 @@ const ThemeToggle: React.FC<ThemeToggleProps> = () => {
     e.stopPropagation();
     e.preventDefault();
     
-    console.log('🔘 Theme toggle button clicked, current theme before toggle:', theme);
+    // Theme toggle clicked
     
     try {
       // APPROACH 1: Use the context toggle function
       if (typeof toggleTheme === 'function') {
-        console.log('✅ Using context toggleTheme function');
+        // Using context toggleTheme function
         toggleTheme();
       } 
       // APPROACH 2: Direct DOM and localStorage manipulation as fallback
       else {
-        console.log('⚠️ toggleTheme not available, using direct DOM manipulation');
+        // Using direct DOM manipulation as fallback
         // Determine current theme
         const currentTheme = document.documentElement.getAttribute('data-theme') || theme || 'light';
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
@@ -80,7 +80,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = () => {
         // Force refresh by updating data attribute
         document.documentElement.setAttribute('data-theme-updated', Date.now().toString());
         
-        console.log('✅ Emergency theme toggle via DOM: changed to', newTheme);
+        // Emergency theme toggle via DOM
         
         // Try to force React re-render
         window.dispatchEvent(new Event('storage'));
@@ -90,7 +90,11 @@ const ThemeToggle: React.FC<ThemeToggleProps> = () => {
       // alert('Theme toggle clicked! Check console logs.');
       
     } catch (error) {
-      console.error('❌ Error in theme toggle:', error);
+      // Error in theme toggle - log only in development
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.error('❌ Error in theme toggle:', error);
+      }
       alert('Error toggling theme. See console for details.');
     }
   };

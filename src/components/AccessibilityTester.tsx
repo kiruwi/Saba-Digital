@@ -117,7 +117,7 @@ const CloseButton = styled.button`
 export const AccessibilityTester: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [report, setReport] = useState<AccessibilityReport | null>(null);
-  const { highContrast, keyboardNavigation } = useAccessibility();
+  const { highContrast: _, keyboardNavigation } = useAccessibility();
 
   // Calculate color contrast ratio
   const calculateContrast = (color1: string, color2: string): number => {
@@ -169,7 +169,7 @@ export const AccessibilityTester: React.FC = () => {
     });
     
     // Check if focus styles are defined
-    const hasFocusStyles = document.styleSheets.length > 0;
+    const _hasFocusStyles = document.styleSheets.length > 0;
 
     // Test focusable elements
     const focusableElements = document.querySelectorAll(

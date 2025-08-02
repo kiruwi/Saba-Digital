@@ -11,8 +11,7 @@ import {
   SideBySideContainer,
   MobileImageFirst,
   MobileTextSecond,
-  MobileOnlyImage,
-  DesktopOnlyImage
+  MobileOnlyImage
 } from '../components/ProjectCard/ProjectCardElements';
 import ProcessSection from '../components/ProcessSection';
 import { useNavigate } from 'react-router-dom';

@@ -5,8 +5,6 @@ import { uxProjects } from "../data/projects";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import ProcessSection from "../components/ProcessSection";
-import { useTheme } from "../contexts/ThemeContext";
-import { Theme } from "../themes/theme";
 
 import { preloadImage, preloadSectionImages } from "../utils/preloadImages";
 import {
@@ -15,7 +13,7 @@ import {
   UfanisiTitle,
   UfanisiDescription,
   UfanisiBackButton,
-  UfanisiImage,
+
   UfanisiHeading,
   UfanisiTagsContainer,
   UfanisiTag,
@@ -30,7 +28,7 @@ import {
   UfanisiMobileTextSecond,
   UfanisiHeroContainer,
   UfanisiHeroContent,
-  UfanisiHeroOverlay,
+
   UfanisiMobileTitle,
   // Food Delivery styled components
   FoodDeliverySection,
@@ -48,12 +46,11 @@ const UfanisiResort: React.FC = () => {
 
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isVisible, setIsVisible] = useState(true); // Start visible by default
+  const [, setIsLoaded] = useState(false);
+  const [, setIsVisible] = useState(true); // Start visible by default
   const contentRef = useRef<HTMLDivElement>(null);
   
-  // Get theme from context
-  const { theme, toggleTheme } = useTheme();
+  // Theme context available but not needed in this component
   
   // Set up mobile detection
   useEffect(() => {
@@ -79,15 +76,26 @@ const UfanisiResort: React.FC = () => {
       preloadImage(project.image)
         .then(() => {
           setIsLoaded(true);
-          console.log('Main image preloaded successfully');
         })
-        .catch(err => console.warn('Failed to preload main image:', err));
+        .catch(err => {
+          if (process.env.NODE_ENV === 'development') {
+            // eslint-disable-next-line no-console
+            console.warn('Failed to preload main image:', err);
+          }
+        });
     }
 
     // Preload other section images
     preloadSectionImages('uxui')
-      .then(() => console.log('UXUI section images preloaded'))
-      .catch(err => console.warn('Failed to preload UXUI section images:', err));
+      .then(() => {
+        // UXUI section images preloaded
+      })
+      .catch(err => {
+        if (process.env.NODE_ENV === 'development') {
+          // eslint-disable-next-line no-console
+          console.warn('Failed to preload UXUI section images:', err);
+        }
+      });
 
     // Force visibility after a short delay regardless of scroll position
     const timer = setTimeout(() => {

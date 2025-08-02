@@ -1,6 +1,5 @@
 // src/components/GlobalStyles.tsx
 import { createGlobalStyle } from 'styled-components';
-import { Theme } from '../themes/theme';
 
 /**
  * Global styles component that applies theme-based styling across the application

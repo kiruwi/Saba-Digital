@@ -3,33 +3,51 @@
   <!-- Main Pages -->
   <url>
     <loc>https://iancheruiyot.work/</loc>
-    <lastmod>2025-06-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://iancheruiyot.work/contactus</loc>
-    <lastmod>2025-06-29</lastmod>
+    <loc>https://iancheruiyot.work/contact</loc>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <!-- Work Category Pages -->
   <url>
+    <loc>https://iancheruiyot.work/work</loc>
+    <lastmod>2025-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://iancheruiyot.work/work/ux-ui</loc>
-    <lastmod>2025-06-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://iancheruiyot.work/work/web-dev</loc>
-    <lastmod>2025-06-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://iancheruiyot.work/work/graphics</loc>
-    <lastmod>2025-06-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://iancheruiyot.work/work/ad-design</loc>
+    <lastmod>2025-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://iancheruiyot.work/work/motion</loc>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -37,7 +55,7 @@
   <!-- UX/UI Project Detail Pages -->
   <url>
     <loc>https://iancheruiyot.work/work/ux-ui/ufanisi-resort</loc>
-    <lastmod>2025-06-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -45,26 +63,26 @@
   <!-- Graphics Project Detail Pages -->
   <url>
     <loc>https://iancheruiyot.work/work/graphics/gsc-hauling</loc>
-    <lastmod>2025-06-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://iancheruiyot.work/work/graphics/synnefa-rebrand</loc>
-    <lastmod>2025-06-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://iancheruiyot.work/work/graphics/osim-lai-branding</loc>
-    <lastmod>2025-06-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <!-- Web Dev Project Detail Pages -->
   <url>
     <loc>https://iancheruiyot.work/work/web-dev/makvo-llc</loc>
-    <lastmod>2025-06-29</lastmod>
+    <lastmod>2025-08-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

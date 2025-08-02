@@ -1,4 +1,4 @@
-// src/components/ProjectCard/index.js
+// src/components/ProjectCard/index.tsx
 import React, { useRef, useEffect } from 'react';
 import {
   CardContainer,
@@ -11,9 +11,20 @@ import {
   Tag
 } from './ProjectCardElements';
 
-const ProjectCard = ({ project }) => {
+interface ProjectCardProps {
+  project: {
+    id: string;
+    title: string;
+    shortDescription: string;
+    image: string;
+    tags: string[];
+    category: string;
+  };
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const { id, title, shortDescription, image, tags, category } = project;
-  const cardRef = useRef(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
 
   // Add animation class after component mounts to trigger CSS animations
   useEffect(() => {
