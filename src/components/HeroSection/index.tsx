@@ -391,7 +391,7 @@ const HeroSection: FC = () => {
       animation && animation.revert();
       animation = gsap.from(split.lines, {
         rotationX: -100,
-        transformOrigin: '50% 50% -160px',
+        transformOrigin: '50% 50% -20px',
         opacity: 0,
         duration: 0.8,
         ease: 'power3',
