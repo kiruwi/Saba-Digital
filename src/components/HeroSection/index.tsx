@@ -798,7 +798,13 @@ const HeroSection: FC = () => {
                   <ServiceCard
                     key={title}
                     bg={serviceBackgrounds[i]}
-                    style={{ flex: '0 0 320px', width: '320px', aspectRatio: '1 / 1', height: 'auto', minHeight: '0' }}
+                    style={{
+                      flex: window.innerWidth <= 1000 ? '0 0 auto' : '0 0 320px',
+                      width: window.innerWidth <= 1000 ? '100%' : '320px',
+                      aspectRatio: '1 / 1',
+                      height: 'auto',
+                      minHeight: '0'
+                    }}
                     onClick={(e) => handleServiceClick(e as React.MouseEvent<HTMLDivElement>, path)}
                     role="button"
                     tabIndex={0}
@@ -911,20 +917,16 @@ export const CardGrid = styled.div<{ visible: boolean }>`
     overflow-y: auto;
     overflow-x: hidden;
     max-height: none;
+    justify-items: center;
     /* ensure cards span full width and prevent horizontal overflow */
     & > * {
       width: 100% !important;
       flex: 0 0 auto !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
     }
     /* scroll padding not needed in vertical layout */
     scroll-padding: 0;
-    /* remove extra margins in single-column mobile layout */
-    & > *:first-child {
-      margin-left: 0;
-    }
-    & > *:last-child {
-      margin-right: 0;
-    }
   }
   opacity: ${({ visible }) => (visible ? 1 : 0)};
   pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
