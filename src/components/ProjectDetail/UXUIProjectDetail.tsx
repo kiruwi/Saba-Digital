@@ -1,6 +1,6 @@
 // src/components/ProjectDetail/UXUIProjectDetail.tsx
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { 
   UXUIDetailContainer, 
   UXUIDetailHeader,
@@ -40,6 +40,7 @@ interface UXUIProjectDetailProps {
 const UXUIProjectDetail: React.FC<UXUIProjectDetailProps> = ({ projects }) => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isMobile, setIsMobile] = useState(false);
   
   // Set up mobile detection
@@ -60,7 +61,7 @@ const UXUIProjectDetail: React.FC<UXUIProjectDetailProps> = ({ projects }) => {
   
   // Find the project by id
   let project = null;
-  if (window.location.hash.includes('ufanisi-resort')) {
+  if (location.pathname.includes('ufanisi-resort')) {
     // Force-load Ufanisi Resort from the uxProjects array
     project = projects.find(p => p.id === 'ufanisi-resort');
   } else {

@@ -97,8 +97,7 @@ const ErrorPage: React.FC<ErrorProps> = ({
   
 
   // Check if this is the Ufanisi Resort path
-  const isUfanisiResort = location.pathname.includes('ufanisi-resort') ||
-                          location.hash.includes('ufanisi-resort');
+  const isUfanisiResort = location.pathname.includes('ufanisi-resort');
   
   // Get the Ufanisi Resort project data if needed
   const ufanisiProject = isUfanisiResort ? 

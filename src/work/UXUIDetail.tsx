@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import Footer from "../components/Footer";
 import UXUIProjectDetail from "../components/ProjectDetail/UXUIProjectDetail";
 import { uxProjects } from "../data/projects";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useTheme } from "../contexts/ThemeContext";
 
@@ -26,15 +26,14 @@ const UXUIDetail: React.FC = () => {
 
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
+  const navigate = useNavigate();
   
   // Theme is now accessed from context
   
   // Debug location information (removed for production)
   
   // Check if this is the Ufanisi Resort by URL fragment
-  const isUfanisiResort = id === 'ufanisi-resort' || 
-                          location.pathname.includes('ufanisi-resort') ||
-                          location.hash.includes('ufanisi-resort');
+  const isUfanisiResort = id === 'ufanisi-resort' || location.pathname.includes('ufanisi-resort');
   
   // Ufanisi Resort detection logic
   
@@ -42,9 +41,9 @@ const UXUIDetail: React.FC = () => {
     // Reload the page if we detect URL issues with Ufanisi Resort
     if (id === 'ufanisi-resort' && !isUfanisiResort) {
       // Forcing refresh for Ufanisi Resort
-      window.location.hash = '/work/uxui/ufanisi-resort';
+      navigate('/work/uxui/ufanisi-resort');
     }
-  }, [id, isUfanisiResort]);
+  }, [id, isUfanisiResort, navigate]);
 
   useEffect(() => {
     // Scroll to top immediately with auto behavior to ensure consistent positioning

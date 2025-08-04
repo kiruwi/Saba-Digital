@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaChevronDown, FaSun, FaMoon } from "react-icons/fa";
+import { FiSearch } from 'react-icons/fi';
 import { FiArrowUpRight } from 'react-icons/fi'; // Using icons from react-icons/fa
 import { Link } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
@@ -8,6 +9,8 @@ import signature from "../../images/signature.svg";
 import styled from "styled-components";
 import "./Navbar.css";
 import { useTheme } from "../../contexts/ThemeContext"; // Import useTheme hook
+import AISearchTrigger from "../AISearchTrigger";
+import AISearch from "../AISearch";
 
 import {
   NavbarContainer,
@@ -53,6 +56,42 @@ const MobileThemeToggle = styled.div`
     display: none;
   }
 `;
+
+// Styled component for mobile search trigger
+const MobileSearchTrigger = styled.div`
+  position: absolute;
+  top: 24px;
+  right: 95px;
+  z-index: 15;
+  @media screen and (min-width: 769px) {
+    display: none;
+  }
+`;
+
+// Circular button inside mobile search trigger
+const MobileSearchButton = styled.button<{ theme?: any }>`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.text};
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0,207,149,0.3);
+  &:hover {
+    background: ${({ theme }) => theme.colors.primary};
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
 
 // Define props interface for the styled component
 interface MobileDropdownIconProps {
@@ -121,6 +160,8 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
   const [portfolioExpanded,setPortfolioExpanded]=useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  
   useEffect(()=>{
     const handler=(e:any)=> setPortfolioExpanded(!!e.detail);
     window.addEventListener('portfolioExpanded', handler);
@@ -223,6 +264,12 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
                 : <FaMoon style={{color: '#032648'}} />}
             </button>
           </MobileThemeToggle>
+          {/* Mobile search trigger */}
+          <MobileSearchTrigger>
+            <MobileSearchButton onClick={() => setSearchOpen(true)}  aria-label="Search projects" title="Search">
+              <FiSearch />
+            </MobileSearchButton>
+          </MobileSearchTrigger>
           <MobileDropdownIcon className="mobile-dropdown-icon" $isOpen={isOpen} onClick={toggle}>
             <FaChevronDown />
           </MobileDropdownIcon>
@@ -230,6 +277,11 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
             {/* No items in the middle nav menu now */}
           </NavMenu>
           <NavBtn>
+            {/* AI Search Trigger */}
+            <div style={{ marginRight: '15px' }}>
+              <AISearchTrigger onClick={() => setSearchOpen(true)} />
+            </div>
+            
             {/* New direct theme toggle for desktop - positioned next to Resume button */}
             <DesktopThemeToggle>
               <button
@@ -276,6 +328,12 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
           </NavBtn>
         </NavbarContainer>
       </nav>
+      
+      {/* AI Search Modal */}
+      <AISearch 
+        isOpen={searchOpen} 
+        onClose={() => setSearchOpen(false)} 
+      />
     </>
   );
 };

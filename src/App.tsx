@@ -1,7 +1,7 @@
 // src/App.tsx
 import React, { Suspense, lazy } from "react";
 // import { enhanceKeyboardNavigation } from "./utils/keyboardNavigation";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import GlobalStyles from "./components/GlobalStyles";

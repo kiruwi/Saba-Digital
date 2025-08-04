@@ -62,8 +62,7 @@ const WebDevProjectDetail: React.FC<WebDevProjectDetailProps> = ({ projects }) =
   
   // Check for makvo-llc in various URL formats
   if (id === 'makvo-llc' || 
-      location.pathname.includes('makvo-llc') || 
-      location.hash.includes('makvo-llc')) {
+      location.pathname.includes('makvo-llc')) {
     project = projects.find(p => p.id === 'makvo-llc');
   } else {
     // Regular lookup by ID
@@ -73,7 +72,7 @@ const WebDevProjectDetail: React.FC<WebDevProjectDetailProps> = ({ projects }) =
   useEffect(() => {
     // Reload the page if we detect URL issues with Makvo LLC
     if (id === 'makvo-llc' && !project) {
-      window.location.hash = '/work/web-dev/makvo-llc';
+      navigate('/work/web-dev/makvo-llc');
     }
   }, [id, project]);
   

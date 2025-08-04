@@ -54,7 +54,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     // Use the styled component styles but with a regular anchor tag
     return (
       <a 
-        href="#/work/uxui/ufanisi-resort" 
+        href="/work/uxui/ufanisi-resort" 
         ref={cardRef}
         className="card"
         style={{

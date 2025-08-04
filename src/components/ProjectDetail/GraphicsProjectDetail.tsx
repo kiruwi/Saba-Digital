@@ -38,7 +38,7 @@ const GraphicsProjectDetail: React.FC<GraphicsProjectDetailProps> = ({ projects 
   const targetId = projectIds.find(projectId => 
     id === projectId || 
     location.pathname.includes(projectId) || 
-    location.hash.includes(projectId)
+    location.pathname.includes(projectId)
   );
   
   if (targetId) {
@@ -51,7 +51,7 @@ const GraphicsProjectDetail: React.FC<GraphicsProjectDetailProps> = ({ projects 
   useEffect(() => {
     // Reload the page if we detect URL issues with specific projects
     if (targetId && !project) {
-      window.location.hash = `/work/graphics/${targetId}`;
+      navigate(`/work/graphics/${targetId}`);
     }
   }, [id, project, targetId]);
   

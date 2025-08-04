@@ -37,7 +37,6 @@ const Footer: React.FC = () => {
 
         <SocialMedia>
           <SocialMediaWrap>
-            <SocialLogo to="/">Saba Digital</SocialLogo>
             <WebsiteRights>
               Saba Digital © {new Date().getFullYear()} All rights reserved.
             </WebsiteRights>

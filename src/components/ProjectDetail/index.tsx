@@ -1,6 +1,6 @@
 // src/components/ProjectDetail/index.tsx
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { 
   ProjectDetailContainer, 
   ProjectDetailHeader,
@@ -25,6 +25,7 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isMobile, setIsMobile] = useState(false);
   
   // Set up mobile detection
@@ -48,7 +49,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
   
   // Directly hardcode Ufanisi Resort if the path is malformed
   let project = null;
-  if (window.location.hash.includes('ufanisi-resort')) {
+  if (location.pathname.includes('ufanisi-resort')) {
     // Force-load Ufanisi Resort from the uxProjects array
     project = projects.find(p => p.id === 'ufanisi-resort');
     // Using Ufanisi project as fallback
