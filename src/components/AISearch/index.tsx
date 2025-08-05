@@ -274,12 +274,12 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
 
           {!query && (
             <div style={{ textAlign: 'center', padding: '40px 20px', opacity: 0.7 }}>
-              <h3 style={{ margin: '0 0 8px 0', color: theme.colors.text }}>
+              {/* <h3 style={{ margin: '0 0 8px 0', color: theme.colors.text }}>
                 AI-Powered Portfolio Search
               </h3>
               <p style={{ color: theme.colors.text, opacity: 0.8 }}>
                 Use natural language to find projects, skills, and work samples
-              </p>
+              </p> */}
               <div style={{ 
                 display: 'flex', 
                 flexWrap: 'wrap', 
@@ -287,7 +287,7 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                 justifyContent: 'center',
                 marginTop: '20px'
               }}>
-                {['UX Research', 'Ads', 'React Projects', '3D Design', 'Branding', 'Mobile Apps'].map(term => (
+                {['UX Research', 'Ads', 'Websites', '3D', 'Branding', 'Motion'].map(term => (
                   <FilterChip
                     key={term}
                     theme={theme}
