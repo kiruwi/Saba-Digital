@@ -37,7 +37,9 @@ const StyledIcon = styled.div`
 
 export const SidebarWrapper = styled.div`
   color: ${({ theme }) => theme.colors.text};
+  padding-top: 80px; /* push content below navbar height on mobile */
 `;
+
 
 export const SidebarMenu = styled.ul`
   display: grid;

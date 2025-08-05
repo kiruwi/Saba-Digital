@@ -265,8 +265,10 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
             </button>
           </MobileThemeToggle>
           {/* Mobile search trigger */}
-          <MobileSearchTrigger>
-            <MobileSearchButton onClick={() => setSearchOpen(true)}  aria-label="Search projects" title="Search">
+          <MobileSearchTrigger
+            style={{ right: portfolioExpanded ? '127px' : '95px' }}
+          >
+            <MobileSearchButton onClick={() => setSearchOpen(true)} aria-label="Search projects" title="Search">
               <FiSearch />
             </MobileSearchButton>
           </MobileSearchTrigger>

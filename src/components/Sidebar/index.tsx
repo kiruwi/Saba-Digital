@@ -4,12 +4,10 @@ import styled from "styled-components";
 import { useTheme } from "../../contexts/ThemeContext";
 import SidebarContainer from "./SidebarContainer";
 import {
-  Icon,
-  CloseIcon,
   SidebarWrapper,
   SidebarMenu,
   SidebarLink,
-  SidebarRoute,
+  SidebarRouterLink,
   SideBtnWrap,
 } from "./SidebarElements";
 
@@ -67,9 +65,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggle }) => {
   
   return (
     <SidebarContainer isOpen={isOpen} onClick={toggle}>
-      <Icon onClick={toggle}>
-        <CloseIcon />
-      </Icon>
+
       <SidebarWrapper>
         <SidebarMenu>
           <SidebarLink to='services' onClick={toggle}>Portfolio</SidebarLink>
@@ -81,12 +77,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggle }) => {
           >
             Résumé
           </ResumeLink>
-          <SidebarRoute 
+          <SidebarRouterLink 
             to='/ContactUs' 
             onClick={toggle} 
           >
             Contact Me
-          </SidebarRoute>
+          </SidebarRouterLink>
         </SidebarMenu>
         <SideBtnWrap>
           <SidebarThemeToggle>
