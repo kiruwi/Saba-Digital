@@ -36,7 +36,7 @@ const GlobalStyles = createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
     transition: all 0.3s ease;
-    font-family: 'SpotifyMix', sans-serif;
+    font-family: 'Nohemi', sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -65,7 +65,7 @@ const GlobalStyles = createGlobalStyle`
   p, h1, h2, h3, h4, h5, h6, span, div, ul, li, a {
     color: ${({ theme }) => theme.colors.text};
     transition: color 0.3s ease;
-    font-family: 'SpotifyMix', sans-serif;
+    font-family: 'Nohemi', sans-serif;
   }
 
   /* Improved heading hierarchy */

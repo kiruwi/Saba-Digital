@@ -58,8 +58,8 @@ const ProjectImageContainer = styled.div`
 `;
 
 const SynnefaGifContainer = styled.div`
-  width: 50%;
-  float: left;
+  width: 100%;
+  float: none;
   margin-right: 2rem;
   margin-bottom: 2rem;
   overflow: hidden;
@@ -79,8 +79,9 @@ const SynnefaGifContainer = styled.div`
 `;
 
 const Synnefa3DImageContainer = styled.div`
-  width: 40%;
-  float: left;
+  /* existing styles */
+  width: 80%;
+  float: none;
   margin-right: 2rem;
   margin-bottom: 2rem;
   overflow: hidden;
@@ -96,6 +97,33 @@ const Synnefa3DImageContainer = styled.div`
     width: 100%;
     height: auto;
     display: block;
+  }
+`;
+
+
+const SynnefaGrid = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const SynnefaInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+const VisualizationRow = styled.div`
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  @media (max-width: 768px) {
+    flex-direction: column;
   }
 `;
 
@@ -222,60 +250,119 @@ const GraphicsDetail: React.FC = () => {
           
           {/* Wrapper div for content with clearfix */}
           <div style={{ overflow: 'hidden' }}>
-            {/* Special Synnefa GIF display - floated left */}
-            {project.id === 'synnefa-rebrand' && (
-              <AnimatedSection animationType="fadeIn" delay={200} duration={800}>
-                <SynnefaGifContainer>
-                  <LazyImage 
-                    src="/images/Synnefa rebrand.gif" 
-                    alt={project.title} 
-                    threshold={0.1}
-                    rootMargin="200px"
-                  />
-                </SynnefaGifContainer>
-              </AnimatedSection>
-            )}
+
           
-            {/* Main project content */}
-            <ProjectContent>
-            <AnimatedSection animationType="fadeInLeft" delay={300} duration={1000}>
-              {project.id !== 'synnefa-rebrand' && (
-                <ProjectImageContainer>
-                  <LazyImage 
-                    src={project.image} 
-                    alt={project.title} 
-                    threshold={0.1}
-                    rootMargin="200px"
-                  />
-                </ProjectImageContainer>
-              )}
-            </AnimatedSection>
-            
-            <AnimatedSection animationType="fadeInRight" delay={300} duration={1000}>
-              <ProjectInfo>
-                <ProjectDescription>{project.fullDescription}</ProjectDescription>
-                {project.fullDescription2 && (
-                  <ProjectDescription>{project.fullDescription2}</ProjectDescription>
-                )}
-                {project.fullDescription3 && project.fullDescription3.map((section: {heading: string; content: string}, index: number) => (
-                  <div key={index} style={{ overflow: 'hidden' }}>
-        {project.id === 'synnefa-rebrand' && section.heading === '3D Product Visualization' && (
-          <Synnefa3DImageContainer>
-            <LazyImage 
-              src="/assets/projects/3d-graphics/synnefa-images/service3-bg.jpg" 
-              alt="3D Product Visualization" 
-              threshold={0.1}
-              rootMargin="200px"
-            />
-          </Synnefa3DImageContainer>
-        )}
-                    <h3>{section.heading}</h3>
-                    <ProjectDescription>{section.content}</ProjectDescription>
-                  </div>
-                ))}
-              </ProjectInfo>
-            </AnimatedSection>
+            {/* Synnefa specific layout */}
+            {project.id === 'synnefa-rebrand' ? (
+              <>
+                {/* 3-column grid: column 1 GIF, columns 2-3 combined info (up to Brand Development) */}
+                <AnimatedSection animationType="fadeIn" delay={200} duration={800}>
+                  <SynnefaGrid>
+                    <SynnefaGifContainer>
+                      <LazyImage
+                        src="/images/Synnefa rebrand.gif"
+                        alt={project.title}
+                        threshold={0.1}
+                        rootMargin="200px"
+                      />
+                    </SynnefaGifContainer>
+
+                    <SynnefaInfo>
+                      {project.fullDescription3 &&
+                        project.fullDescription3
+                          .filter((s: { heading: string }) =>
+                            ["Rebranding Challenge", "Brand Development"].includes(s.heading)
+                          )
+                          .map((s: { heading: string; content: string }, idx: number) => (
+                            <div key={idx}>
+                              <h3>{s.heading}</h3>
+                              <ProjectDescription>{s.content}</ProjectDescription>
+                            </div>
+                          ))}
+                    </SynnefaInfo>
+                  </SynnefaGrid>
+                </AnimatedSection>
+
+                {/* Row for 3D Product Visualization (text + image) */}
+                {project.fullDescription3 &&
+                  project.fullDescription3.find(
+                    (s: { heading: string }) => s.heading === "3D Product Visualization"
+                  ) && (
+                    <AnimatedSection animationType="fadeInUp" delay={400} duration={800}>
+                      <VisualizationRow>
+                        {/* text */}
+                        <div>
+                          <h3>3D Product Visualization</h3>
+                          <ProjectDescription>
+                            {
+                              project.fullDescription3.find(
+                                (s: { heading: string }) => s.heading === "3D Product Visualization"
+                              )!.content
+                            }
+                          </ProjectDescription>
+                        </div>
+                        {/* image */}
+                        <Synnefa3DImageContainer>
+                          <LazyImage
+                            src="/assets/projects/3d-graphics/synnefa-images/service3-bg.jpg"
+                            alt="3D Product Visualization"
+                            threshold={0.1}
+                            rootMargin="200px"
+                          />
+                        </Synnefa3DImageContainer>
+                      </VisualizationRow>
+                    </AnimatedSection>
+                  )}
+
+                {/* Implementation section afterwards */}
+                {project.fullDescription3 &&
+                  project.fullDescription3.find(
+                    (s: { heading: string }) => s.heading === "Implementation"
+                  ) && (
+                    <AnimatedSection animationType="fadeInUp" delay={500} duration={800}>
+                      <ProjectDescription style={{ marginBottom: "2rem" }}>
+                        <h3>Implementation</h3>
+                        {
+                          project.fullDescription3.find(
+                            (s: { heading: string }) => s.heading === "Implementation"
+                          )!.content
+                        }
+                      </ProjectDescription>
+                    </AnimatedSection>
+                  )}
+              </>
+             ) : (
+               <ProjectContent>
+                <AnimatedSection animationType="fadeInLeft" delay={300} duration={1000}>
+                  {project.id !== 'synnefa-rebrand' && (
+                    <ProjectImageContainer>
+                      <LazyImage 
+                        src={project.image} 
+                        alt={project.title} 
+                        threshold={0.1}
+                        rootMargin="200px"
+                      />
+                    </ProjectImageContainer>
+                  )}
+                </AnimatedSection>
+                
+                <AnimatedSection animationType="fadeInRight" delay={300} duration={1000}>
+                  <ProjectInfo>
+                    <ProjectDescription>{project.fullDescription}</ProjectDescription>
+                    {project.fullDescription2 && (
+                      <ProjectDescription>{project.fullDescription2}</ProjectDescription>
+                    )}
+                    {project.fullDescription3 &&
+                      project.fullDescription3.map((section: { heading: string; content: string }, index: number) => (
+                        <div key={index} style={{ overflow: 'hidden' }}>
+                          <h3>{section.heading}</h3>
+                          <ProjectDescription>{section.content}</ProjectDescription>
+                        </div>
+                      ))}
+                  </ProjectInfo>
+                </AnimatedSection>
           </ProjectContent>
+          )}
           </div>
           
           {/* Additional images gallery */}

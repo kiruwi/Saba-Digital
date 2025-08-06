@@ -198,8 +198,8 @@ export const graphicsProjects: ProjectType[] = [
     id: "synnefa-rebrand",
     title: "Synnefa Rebrand & 3D",
     shortDescription: "Complete rebrand and 3D product visualization for technology startup.",
-    fullDescription: "I led the complete rebranding of Synnefa, a technology startup focused on innovative IoT solutions. The project involved developing a new visual identity that would position the company as a forward-thinking technology leader while maintaining approachability for their diverse client base.",
-    fullDescription2: "In addition to the brand identity work, I created detailed 3D product visualizations for their flagship FarmShield™ device, providing realistic renderings that showcase the product's design and functionality for marketing and investor presentations.",
+    fullDescription: "",
+    fullDescription2: "",
     fullDescription3: [
       { heading: "Rebranding Challenge", content: "Synnefa needed a complete visual overhaul to reflect their evolution from a startup to an established technology company. The existing brand identity was outdated and didn't effectively communicate their expertise in IoT solutions and agricultural technology." },
       { heading: "Brand Development", content: "I developed a modern, tech-forward brand identity that combines clean typography with dynamic visual elements. The new logo incorporates subtle references to connectivity and growth, reflecting both the company's technology focus and their agricultural applications." },

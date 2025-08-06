@@ -54,7 +54,7 @@ export const TitleBackground = styled.div`
 `;
 
 const baseTitle = `
-  font-family: 'SpotifyMix', sans-serif;
+  font-family: 'Nohemi', sans-serif;
   font-weight: 500;
   line-height: 1.05;
   margin: 0;

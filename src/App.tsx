@@ -16,7 +16,7 @@ import MotionGraphics from './work/MotionGraphics';
 import ErrorPage from "./pages/Error";
 import LoadingFallback from "./components/LoadingFallback";
 import "./App.css";
-import "./fonts.css"; // Import SpotifyMix font definitions
+import "./nohemi-fonts.css"; // Import Nohemi font definitions
 import ScrollToTop from "./components/ScrollToTop";
 import CookieBanner from "./components/CookieBanner";
 

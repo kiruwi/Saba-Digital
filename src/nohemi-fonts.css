@@ -1,0 +1,91 @@
+/* Nohemi Font Definitions */
+
+/* Nohemi Thin */
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../public/font/Nohemi-Thin.woff2') format('woff2'),
+       url('../public/font/Nohemi-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Nohemi ExtraLight */
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../public/font/Nohemi-ExtraLight.woff2') format('woff2'),
+       url('../public/font/Nohemi-ExtraLight.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Nohemi Light */
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../public/font/Nohemi-Light.woff2') format('woff2'),
+       url('../public/font/Nohemi-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Nohemi Regular */
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../public/font/Nohemi-Regular.woff2') format('woff2'),
+       url('../public/font/Nohemi-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Nohemi Medium */
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../public/font/Nohemi-Medium.woff2') format('woff2'),
+       url('../public/font/Nohemi-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Nohemi SemiBold */
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../public/font/Nohemi-SemiBold.woff2') format('woff2'),
+       url('../public/font/Nohemi-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Nohemi Bold */
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../public/font/Nohemi-Bold.woff2') format('woff2'),
+       url('../public/font/Nohemi-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Nohemi ExtraBold */
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../public/font/Nohemi-ExtraBold.woff2') format('woff2'),
+       url('../public/font/Nohemi-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Nohemi Black */
+@font-face {
+  font-family: 'Nohemi';
+  src: url('../public/font/Nohemi-Black.woff2') format('woff2'),
+       url('../public/font/Nohemi-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

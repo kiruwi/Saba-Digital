@@ -121,9 +121,9 @@ export const SearchTriggerShortcut = styled.span<{ theme?: any }>`
 
   ${SearchTriggerButton}:hover & {
     opacity: 1;
-    background: ${props => props.theme?.colors?.primary || '#2db670'};
+    background: ${props => props.theme?.colors?.primary || '#3db54e'};
     color: white;
-    border-color: ${props => props.theme?.colors?.primary || '#2db670'};
+    border-color: ${props => props.theme?.colors?.primary || '#3db54e'};
   }
 
   @media screen and (max-width: 768px) {

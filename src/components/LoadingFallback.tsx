@@ -38,7 +38,7 @@ const LoadingText = styled.p`
   font-size: 1.1rem;
   margin: 0;
   text-align: center;
-  font-family: 'SpotifyMix', sans-serif;
+  font-family: 'Nohemi', sans-serif;
 `;
 
 const LoadingSubtext = styled.p`

@@ -50,7 +50,7 @@ export const lightTheme: Theme = {
     primary: '#3db54e', // Darker green for better contrast with white text
     secondary: '#6c757d',
     background: '#eefbff',
-    text: '#343a40',
+    text: '#000000',
     border: '#dee2e6',
     shadow: 'rgba(0, 0, 0, 0.1) 40%',
     accent: '#007e41', // Same darker green for accent
