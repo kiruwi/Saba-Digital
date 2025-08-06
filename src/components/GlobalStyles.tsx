@@ -36,7 +36,7 @@ const GlobalStyles = createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
     transition: all 0.3s ease;
-    font-family: 'Nohemi', sans-serif;
+    font-family: 'Satoshi', 'Nohemi', sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -62,10 +62,10 @@ const GlobalStyles = createGlobalStyle`
   }
   
   /* Update text colors for regular elements */
-  p, h1, h2, h3, h4, h5, h6, span, div, ul, li, a {
+  p, span, div, ul, li, a {
     color: ${({ theme }) => theme.colors.text};
     transition: color 0.3s ease;
-    font-family: 'Nohemi', sans-serif;
+    font-family: 'Satoshi', 'Nohemi', sans-serif;
   }
 
   /* Improved heading hierarchy */
@@ -73,6 +73,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     font-weight: 600;
     line-height: 1.2;
+    font-family: 'Nohemi', sans-serif;
   }
 
   h1 { font-size: 2.5rem; }

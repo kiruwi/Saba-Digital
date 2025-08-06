@@ -17,6 +17,7 @@ import ErrorPage from "./pages/Error";
 import LoadingFallback from "./components/LoadingFallback";
 import "./App.css";
 import "./nohemi-fonts.css"; // Import Nohemi font definitions
+import "./satoshi-fonts.css"; // Import Satoshi font definitions
 import ScrollToTop from "./components/ScrollToTop";
 import CookieBanner from "./components/CookieBanner";
 
