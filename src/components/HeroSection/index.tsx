@@ -114,6 +114,7 @@ export const HeroTitleTop = styled.h1`
 
 export const AccentGreen = styled.span`
   color: #3db54e;
+  font-family: 'Nohemi', sans-serif; /* Ensure hero phrase uses Nohemi instead of Satoshi */
 `;
 
 /* ── CTA wrapper ───────────────────────────────────── */
