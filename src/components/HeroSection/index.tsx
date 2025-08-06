@@ -775,7 +775,7 @@ const HeroSection: FC = () => {
       {/* left column */}
       <HeroText>
         <TitleBackground>
-          <HeroTitleTop ref={titleRef} id="hero-title" className="hero-text">Currently a Digital Designer.<br/><AccentGreen>Living in Nairobi, creating products that empower clients.</AccentGreen></HeroTitleTop>
+          <HeroTitleTop ref={titleRef} id="hero-title" className="hero-text">Currently a Digital Designer.<br/><AccentGreen>Living Remotely, creating products that empower clients.</AccentGreen></HeroTitleTop>
         </TitleBackground>
 
         <BtnWrap>
