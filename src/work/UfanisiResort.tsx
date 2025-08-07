@@ -158,20 +158,67 @@ const UfanisiResort: React.FC = () => {
               {project.fullDescription2}
             </UfanisiDescription>
           </UfanisiDetailHeader>
-          
-          {/* Desktop-only content */}
-          {!isMobile && (
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '2rem', marginBottom: '2rem', marginTop: '2rem' }}>
-              {/* Using absolute path that works in both environments */}
-              <img 
-                 src={require('../assets/projects/ux-ui/u-r.jpg')} 
-                 alt="Previous design issues" 
-                 style={{ width: '100%', height: '400px', objectFit: 'cover' }}
-               />
-              <div style={{ flex: '0 0 50%' }}>
-                <UfanisiHeading>My Design Transformation</UfanisiHeading>
-              </div>
+
+          {/* Structured sections */}
+          {project.fullDescription3 && Array.isArray(project.fullDescription3) && (
+            <div style={{ marginTop: '1.5rem' }}>
+              {project.fullDescription3.map((section, index) => (
+                <div key={`sec-${index}`} style={{ marginBottom: '1.25rem' }}>
+                  <UfanisiHeading style={{ marginBottom: '0.5rem' }}>{section.heading}</UfanisiHeading>
+                  {section.heading === 'My Design Process' ? (
+                    (() => {
+                      let parts = section.content.split('\n').map(s => s.trim()).filter(Boolean);
+                      if (parts.length <= 1) {
+                        parts = section.content
+                          .split(/(?=\b\d+\.[\s\S]?)/g)
+                          .map(s => s.trim())
+                          .filter(Boolean);
+                      }
+                      return (
+                        <ol style={{ paddingLeft: '1.25rem', lineHeight: 1.6 }}>
+                          {parts.map((item, i) => (
+                            <li key={`proc-${i}`}>{item.replace(/^\d+\.\s*/, '')}</li>
+                          ))}
+                        </ol>
+                      );
+                    })()
+                  ) : (
+                    <UfanisiSectionContent>{section.content}</UfanisiSectionContent>
+                  )}
+                </div>
+              ))}
             </div>
+          )}
+          
+          {/* Desktop content (use same layout as mobile so image reliably shows) */}
+          {!isMobile && (
+            <UfanisiSideBySide>
+              <UfanisiMobileImageFirst>
+                <img
+                  src={require('../assets/projects/ux-ui/u-r.jpg')}
+                  alt="Previous design issues"
+                  style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+                />
+              </UfanisiMobileImageFirst>
+              <UfanisiMobileTextSecond>
+                <UfanisiHeading>My Design Transformation</UfanisiHeading>
+                <UfanisiSectionContent>
+                  My previous design suffered from fundamental flaws in typography and layout that I needed to address. My original interface 
+                  featured a chaotic mix of font families,I had combined serif, sans-serif, and decorative fonts without clear purpose. 
+                  Font weights varied randomly throughout sections, which created visual confusion and made content hierarchy unclear.
+                </UfanisiSectionContent>
+                <UfanisiSectionContent>
+                  Spacing was problematic throughout my first attempt, with inconsistent margins and padding that failed to create logical 
+                  relationships between elements. My excessive reliance on center alignment for nearly all elements created an 
+                  unbalanced layout that ignored natural reading patterns and made scanning difficult for users.
+                </UfanisiSectionContent>
+                <UfanisiSectionContent>
+                  User-unfriendly elements were abundant in my initial work, buttons lacked proper affordances, interactive elements had insufficient 
+                  contrast, and the navigation required users to hunt for basic functions. This second project served as a refresher for me, allowing me to 
+                  implement a consistent type system, thoughtful spacing hierarchy, and intuitive interaction patterns in my redesign.
+                </UfanisiSectionContent>
+              </UfanisiMobileTextSecond>
+            </UfanisiSideBySide>
           )}
           
           {/* Mobile-only content */}
@@ -212,7 +259,7 @@ const UfanisiResort: React.FC = () => {
           <FoodDeliverySection>
             <FoodDeliveryContainer>
               <FoodDeliveryTextSection>
-                <FoodDeliveryHeading>🍽️ Food Delivery App</FoodDeliveryHeading>
+                <FoodDeliveryHeading>Ufanisi Resort Food Delivery App</FoodDeliveryHeading>
                 <FoodDeliveryContent>
                   I can't lie, food delivery app projects excite me because food matters for your well-being. For many, eating isn't just fuel, it's a passion. As a self confessed foodie, I dive into anything food related. So for my first Google UX Design Certificate project, I had to pick this one
                 </FoodDeliveryContent>

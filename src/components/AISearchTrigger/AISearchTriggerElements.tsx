@@ -103,27 +103,23 @@ export const SearchTriggerText = styled.span<{ theme?: any }>`
 `;
 
 export const SearchTriggerShortcut = styled.span<{ theme?: any }>`
-  background: ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
-    ? 'rgba(255, 255, 255, 0.1)' 
-    : 'rgba(0, 0, 0, 0.1)'};
-  color: ${props => props.theme?.colors?.text || '#333'};
+  background: ${props => props.theme?.colors?.primary || '#2db670'};
+  color: #ffffff;
   padding: 3px 6px;
   border-radius: 4px;
   font-size: 11px;
   font-weight: 500;
-  opacity: 0.7;
+  opacity: 1;
   margin-left: 10px;
-  border: 1px solid ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
-    ? 'rgba(255, 255, 255, 0.05)' 
-    : 'rgba(0, 0, 0, 0.05)'};
+  border: 1px solid ${props => props.theme?.colors?.primary || '#2db670'};
   font-family: monospace;
   transition: all 0.3s ease;
 
   ${SearchTriggerButton}:hover & {
     opacity: 1;
-    background: ${props => props.theme?.colors?.primary || '#3db54e'};
-    color: white;
-    border-color: ${props => props.theme?.colors?.primary || '#3db54e'};
+    background: ${props => props.theme?.colors?.primary || '#2db670'};
+    color: #ffffff;
+    border-color: ${props => props.theme?.colors?.primary || '#2db670'};
   }
 
   @media screen and (max-width: 768px) {

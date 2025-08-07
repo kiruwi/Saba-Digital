@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 
 import Footer from "../components/Footer";
 import { 
@@ -60,7 +60,13 @@ const UfanisiProjectPage: React.FC = () => {
 
           {/* Project Content */}
           <ProjectDetailHeader style={{ width: '100%', maxWidth: '100%' }}>
-            <DetailDescription>
+            {/* Multi-column layout on wide screens */}
+            <DetailDescription
+              style={{
+                columnCount: typeof window !== 'undefined' && window.innerWidth >= 1024 ? 2 : 1,
+                columnGap: '2rem'
+              }}
+            >
               {ufanisiProject.fullDescription.split('\n\n').map((paragraph, index) => {
                 // Check if this paragraph is a heading or number marker
                 const isHeading = /^\d+\.?$/.test(paragraph.trim());
@@ -91,11 +97,11 @@ const UfanisiProjectPage: React.FC = () => {
                 
                 return (
                   <div key={`section-${index}`} style={{ marginTop: '1.5rem' }}>
-                    {/* Show the image above the heading for "Previous Design Issues" on mobile */}
+                    {/* Show the image above the heading for "Previous Design Issues" on all viewports */}
                     {isPreviousDesignIssues && (
-                      <MobileOnlyImage>
+                      <div style={{ marginBottom: '0.75rem' }}>
                         <DetailImage src="/assets/projects/ux-ui/u-r.jpg" alt="Previous design issues" />
-                      </MobileOnlyImage>
+                      </div>
                     )}
                     
                     <p 
@@ -108,9 +114,33 @@ const UfanisiProjectPage: React.FC = () => {
                     >
                       {section.heading}
                     </p>
-                    <p>
-                      {section.content}
-                    </p>
+                    {section.heading === "My Design Process" ? (
+                      (() => {
+                        // Prefer splitting on explicit newlines if present
+                        let parts = section.content.split('\n').map(s => s.trim()).filter(Boolean);
+                        // Fallback: split inline numbered items like "1. ... 2. ..."
+                        if (parts.length <= 1) {
+                          parts = section.content
+                            .split(/(?=\b\d+\.[\s\S]?)/g)
+                            .map(s => s.trim())
+                            .filter(Boolean);
+                        }
+                        return (
+                          <ol style={{ paddingLeft: '1.25rem', lineHeight: 1.6 }}>
+                            {parts.map((item, i) => (
+                              <li key={`proc-${i}`}>{item.replace(/^\d+\.\s*/, '')}</li>
+                            ))}
+                          </ol>
+                        );
+                      })()
+                    ) : (
+                      <p style={{
+                        columnCount: typeof window !== 'undefined' && window.innerWidth >= 1024 ? 2 : 1,
+                        columnGap: '2rem'
+                      }}>
+                        {section.content}
+                      </p>
+                    )}
                   </div>
                 );
               })}

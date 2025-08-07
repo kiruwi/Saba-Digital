@@ -149,6 +149,7 @@ export const FilterChip = styled.div<{ theme?: any }>`
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;

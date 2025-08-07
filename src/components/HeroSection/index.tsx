@@ -113,7 +113,7 @@ export const HeroTitleTop = styled.h1`
 
 
 export const AccentGreen = styled.span`
-  color: #3db54e;
+  color: ${({ theme }) => theme?.colors?.primary || '#2db670'};
   font-family: 'Nohemi', sans-serif; /* Ensure hero phrase uses Nohemi instead of Satoshi */
 `;
 
@@ -573,6 +573,8 @@ const HeroSection: FC = () => {
     const handleMouseUp = () => {
       setDraggingCards(false);
       grid.classList.remove('dragging');
+      // reset drag flag so subsequent clicks are not swallowed
+      didDrag.current = false;
       // restore snap
       grid.style.scrollSnapType = 'x mandatory';
     };
@@ -603,12 +605,16 @@ const HeroSection: FC = () => {
   }, [expanded, draggingCards]);
 
   const handlePortfolioClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-     // if just dragged, swallow the click that follows
-     if (didDrag.current) {
-       didDrag.current = false; // reset for next legitimate click
-       e.stopPropagation();
-       return;
-     }
+    // If a drag just happened, normally swallow the next click to avoid accidental opens
+    // But when expanded, allow this click to close immediately
+    if (didDrag.current) {
+      didDrag.current = false; // reset for next legitimate click
+      if (!expanded) {
+        e.stopPropagation();
+        return;
+      }
+      // if expanded, proceed to collapse
+    }
     if (expanded) {
       // collapse and smooth scroll to services section
       setExpanded(false);

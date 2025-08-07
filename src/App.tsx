@@ -7,7 +7,7 @@ import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import GlobalStyles from "./components/GlobalStyles";
 import { useGAPageViews } from "./utils/analytics";
 import { ThemeProvider as CustomThemeProvider, useTheme } from "./contexts/ThemeContext";
-// import { AccessibilityProvider } from "./components/AccessibilityProvider";
+import { AccessibilityProvider } from "./components/AccessibilityProvider";
 // import { AccessibilityTester } from "./components/AccessibilityTester";
 import { lightTheme, darkTheme } from "./themes/theme";
 import Layout from './components/Layout';
@@ -58,9 +58,10 @@ function AppContent() {
   return (
     <HelmetProvider>
       <StyledThemeProvider theme={themeObject}>
-        <GlobalStyles />
-        <CookieBanner />
-        <Router>
+        <AccessibilityProvider>
+          <GlobalStyles />
+          <CookieBanner />
+          <Router>
           {/* Skip navigation link removed */}
           {/* <AccessibilityTester /> */}
           <ScrollToTop /> {/* Add ScrollToTop to ensure proper scroll restoration */}
@@ -121,6 +122,7 @@ function AppContent() {
             </Routes>
           </Suspense>
         </Router>
+        </AccessibilityProvider>
       </StyledThemeProvider>
     </HelmetProvider>
   );

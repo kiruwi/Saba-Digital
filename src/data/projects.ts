@@ -37,10 +37,11 @@ export const uxProjects: ProjectType[] = [
     shortDescription:
       "User-focused interface for food delivery app in Kisii, Kenya.",
     fullDescription:
-      "# Ufanisi Resort Food Delivery App\n\n## Project Overview\n\nAs a self-proclaimed foodie, I'm naturally drawn to food-related topics. For my first Google UX Design Certificate project, I chose to redesign the Ufanisi Resort food delivery app, transforming it from a problematic interface to an intuitive, user-friendly experience for busy residents of Kisii, Kenya.",
+      "Ufanisi Resort Food Delivery App",
     fullDescription2:
-      "This case study documents my complete design process—from initial research and identifying pain points to creating wireframes, prototypes, and the final polished interface.",
+      "This case study documents my complete design process, from initial research and identifying pain points to creating wireframes, prototypes, and the final polished interface.",
     fullDescription3: [
+      { heading: "Project Overview", content: "As a self-proclaimed foodie, I'm naturally drawn to food-related topics. For my first Google UX Design Certificate project, I chose to redesign the Ufanisi Resort food delivery app, transforming it from a problematic interface to an intuitive, user-friendly experience for busy residents of Kisii, Kenya." },
       { heading: "The Challenge", content: "In today's fast-paced world, many people struggle to find time to cook or visit restaurants. I set out to solve this everyday problem: how can busy people in Kisii get delicious food from Ufanisi Resort without disrupting their packed schedules?" },
       { heading: "My Design Process", content: "1. User Research - Conducted interviews and surveys to understand user needs and pain points\n2. Competitive Analysis - Studied existing food delivery apps to identify best practices and opportunities\n3. Information Architecture - Created logical flow and navigation structure\n4. Wireframing - Developed low-fidelity designs to test core functionality\n5. Prototyping - Built interactive prototypes for user testing\n6. Usability Testing - Gathered feedback from real users to refine the design\n7. Visual Design - Applied brand identity and visual elements to create the final UI" },
       { heading: "My Role", content: "As the lead UX Designer on this project, I was responsible for the entire design process from research to final UI. I conducted user interviews, created wireframes and prototypes, ran usability tests, and developed the visual design system that aligned with Ufanisi Resort's brand identity." },

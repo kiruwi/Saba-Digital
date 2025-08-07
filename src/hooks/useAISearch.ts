@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import Fuse from 'fuse.js';
 import { allProjects } from '../data/projects';
 import type { ProjectType } from '../data/projects';
+import AdDesignImg from '../images/addesign/eid.jpg';
 
 // Enhanced search result interface for Fuse.js
 export interface SearchResult {
@@ -74,7 +75,7 @@ export const useAISearch = () => {
       tags: ['Advertising Design', 'Marketing', 'Graphics', 'Brand Advertising', 'Promotional Materials', 'Digital Ads', 'Print Ads', 'Creative Advertising'],
       tools: ['Photoshop', 'Illustrator', 'InDesign'],
       url: '/work/ad-design',
-      image: '/images/addesign/Bright Squad cleaners.jpg'
+      image: AdDesignImg
     });
 
     // Add Motion Graphics page

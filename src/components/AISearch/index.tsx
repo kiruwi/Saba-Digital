@@ -70,10 +70,6 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
       if (e.key === 'Escape' && isOpen) {
         onClose();
       }
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k' && !isOpen) {
-        e.preventDefault();
-        onClose(); // This will open the search since isOpen is false
-      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -91,10 +87,19 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
     inputRef.current?.focus();
   };
 
+  const toRouteSegment = (cat: string) => {
+    switch (cat) {
+      case 'uxui': return 'ux-ui';
+      case 'webdev': return 'web-dev';
+      default: return cat;
+    }
+  };
+
   const handleResultClick = (projectId: string, category: string) => {
     onClose();
-    // Navigate to project detail page
-    navigate(`/work/${category}/${projectId}`);
+    // Navigate to project detail page using correct route segment for category
+    const segment = toRouteSegment(category);
+    navigate(`/work/${segment}/${projectId}`);
   };
 
   const handleClearSearch = () => {
@@ -273,7 +278,7 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
           )}
 
           {!query && (
-            <div style={{ textAlign: 'center', padding: '40px 20px', opacity: 0.7 }}>
+            <div style={{ textAlign: 'center', padding: '40px 20px' }}>
               {/* <h3 style={{ margin: '0 0 8px 0', color: theme.colors.text }}>
                 AI-Powered Portfolio Search
               </h3>

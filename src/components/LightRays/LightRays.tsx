@@ -261,14 +261,20 @@ void main(){
       animationIdRef.current = requestAnimationFrame(loop);
 
       /* cleanup */
+      const containerEl = containerRef.current;
+      const canvasEl = gl.canvas;
       cleanupRef.current = () => {
         if (animationIdRef.current) cancelAnimationFrame(animationIdRef.current);
         window.removeEventListener('resize', updatePlacement);
 
         const ext = gl.getExtension('WEBGL_lose_context');
         ext?.loseContext();
-        containerRef.current?.removeChild(gl.canvas);
+        // Only remove if the canvas is still a child of the container
+        if (containerEl && canvasEl && canvasEl.parentNode === containerEl) {
+          containerEl.removeChild(canvasEl);
+        }
         rendererRef.current = null;
+        uniformsRef.current = null;
       };
     };
 

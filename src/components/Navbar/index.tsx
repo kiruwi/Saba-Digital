@@ -162,6 +162,26 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
   const [portfolioExpanded,setPortfolioExpanded]=useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   
+  // Global shortcut: Ctrl/Cmd + K opens search
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      const isCmdOrCtrlK = (e.key.toLowerCase() === 'k') && (e.ctrlKey || e.metaKey);
+      if (!isCmdOrCtrlK) return;
+
+      // Don't trigger when typing in inputs/textareas or editable elements
+      const target = e.target as HTMLElement | null;
+      const tag = (target?.tagName || '').toLowerCase();
+      const isEditable = !!(target && (target as any).isContentEditable);
+      if (tag === 'input' || tag === 'textarea' || isEditable) return;
+
+      e.preventDefault();
+      setSearchOpen(true);
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
+  
   useEffect(()=>{
     const handler=(e:any)=> setPortfolioExpanded(!!e.detail);
     window.addEventListener('portfolioExpanded', handler);
