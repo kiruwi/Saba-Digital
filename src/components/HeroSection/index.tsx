@@ -117,6 +117,11 @@ export const AccentGreen = styled.span`
   font-family: 'Nohemi', sans-serif; /* Ensure hero phrase uses Nohemi instead of Satoshi */
 `;
 
+/* Text span that forces Nohemi font while inheriting color */
+export const NohemiSpan = styled.span`
+  font-family: 'Nohemi', sans-serif;
+`;
+
 /* ── CTA wrapper ───────────────────────────────────── */
 export const BtnWrap = styled.div`
   margin-top: 3rem;
@@ -776,7 +781,7 @@ const HeroSection: FC = () => {
       {/* left column */}
       <HeroText>
         <TitleBackground>
-          <HeroTitleTop ref={titleRef} id="hero-title" className="hero-text">Currently a Digital Designer.<br/><AccentGreen>Living Remotely, creating products that empower clients.</AccentGreen></HeroTitleTop>
+          <HeroTitleTop ref={titleRef} id="hero-title" className="hero-text"><NohemiSpan>Currently a Digital Designer.</NohemiSpan><br/><AccentGreen>Living Remotely, creating products that empower clients.</AccentGreen></HeroTitleTop>
         </TitleBackground>
 
         <BtnWrap>
