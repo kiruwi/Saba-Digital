@@ -103,23 +103,28 @@ export const SearchTriggerText = styled.span<{ theme?: any }>`
 `;
 
 export const SearchTriggerShortcut = styled.span<{ theme?: any }>`
-  background: ${props => props.theme?.colors?.primary || '#2db670'};
-  color: #ffffff;
+  /* Muted pill instead of primary green */
+  background: ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
+    ? 'rgba(255, 255, 255, 0.08)'
+    : 'rgba(0, 0, 0, 0.06)'};
+  color: ${props => props.theme?.colors?.text || '#333'};
   padding: 3px 6px;
   border-radius: 4px;
   font-size: 11px;
   font-weight: 500;
-  opacity: 1;
+  opacity: 0.9;
   margin-left: 10px;
-  border: 1px solid ${props => props.theme?.colors?.primary || '#2db670'};
+  border: 1px solid ${props => props.theme?.colors?.border || 'rgba(0,0,0,0.15)'};
   font-family: monospace;
   transition: all 0.3s ease;
 
   ${SearchTriggerButton}:hover & {
     opacity: 1;
-    background: ${props => props.theme?.colors?.primary || '#2db670'};
-    color: #ffffff;
-    border-color: ${props => props.theme?.colors?.primary || '#2db670'};
+    background: ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
+      ? 'rgba(255, 255, 255, 0.12)'
+      : 'rgba(0, 0, 0, 0.10)'};
+    color: ${props => props.theme?.colors?.text || '#333'};
+    border-color: ${props => props.theme?.colors?.border || 'rgba(0,0,0,0.25)'};
   }
 
   @media screen and (max-width: 768px) {

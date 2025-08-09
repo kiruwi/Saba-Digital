@@ -236,10 +236,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
           <NavLogo to="/" onClick={toggleHome}>
             <img src={signature} alt="Signature" style={{ 
               height: '25px', 
-              marginRight: '10px',
+              marginRight: '0',
               verticalAlign: 'middle' 
             }} />
-            <span style={{ verticalAlign: 'middle', color: 'inherit' }}>Ian Cheruiyot</span>
           </NavLogo>
           {/* Direct theme toggle for mobile - positioned to the left of dropdown */}
           {portfolioExpanded && (
