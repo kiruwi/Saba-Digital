@@ -116,6 +116,21 @@ export const ServicesCard = styled.div.withConfig(cardConfig)<CardProps>`
   &:hover::before {
     transform: scale(1);
   }
+
+  /* Keyboard focus visibility */
+  &:focus-visible {
+    outline: 3px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 3px;
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary};
+  }
+
+  /* Dragging feedback and click suppression on children */
+  &.is-dragging {
+    cursor: grabbing;
+  }
+  &.is-dragging * {
+    pointer-events: none !important;
+  }
 `;
 
 /* ── overlay ───────────────────────────────────────── */

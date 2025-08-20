@@ -73,6 +73,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     font-weight: 600;
     line-height: 1.2;
+    letter-spacing: 0.01em;
     font-family: 'Nohemi', sans-serif;
   }
 

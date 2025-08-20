@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { FiArrowUpRight } from "react-icons/fi";
 
 // ---- Config ----
-const DRAG_THRESHOLD = 10;      // px mouse/touch movement before it's a drag
+const DRAG_THRESHOLD = 6;       // px movement before it's a drag
 const SCROLL_THRESHOLD = 5;     // px of window scroll considered as navigation-cancelling
 const SUPPRESS_MS = 250;        // ms to ignore ghost clicks after drag/scroll
 
@@ -61,6 +61,7 @@ const Services: React.FC = () => {
     startScrollYRef.current = window.pageYOffset || document.documentElement.scrollTop;
     isDraggingRef.current = false;
   };
+
 
   const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
     const { x, y } = getPoint(e);
@@ -177,40 +178,39 @@ export const ServicesRail: React.FC = () => {
   const startYRef = useRef(0);
   const startScrollYRef = useRef(0);
   const suppressClickUntilRef = useRef(0);
+  const movedRef = useRef(false);
 
-  const getPoint = (e: React.MouseEvent | React.TouchEvent) => {
-    if ("touches" in e && e.touches.length) {
-      return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-    }
-    const me = e as React.MouseEvent;
-    return { x: me.clientX, y: me.clientY };
-  };
-
-  const handleDown = (e: React.MouseEvent | React.TouchEvent) => {
-    const { x, y } = getPoint(e);
-    startXRef.current = x;
-    startYRef.current = y;
-    startScrollYRef.current = window.pageYOffset || document.documentElement.scrollTop;
+  // Pointer-based handlers for drag detection and click suppression
+  const onPointerDown = (e: React.PointerEvent) => {
     isDraggingRef.current = false;
+    movedRef.current = false;
+    startXRef.current = e.clientX;
+    startYRef.current = e.clientY;
+    startScrollYRef.current = window.pageYOffset || document.documentElement.scrollTop;
+    (e.currentTarget as any).setPointerCapture?.(e.pointerId);
+    (e.currentTarget as HTMLElement).classList.add("is-dragging");
   };
 
-  const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
-    const { x, y } = getPoint(e);
-    const dx = Math.abs(x - startXRef.current);
-    const dy = Math.abs(y - startYRef.current);
-    if (dx > DRAG_THRESHOLD || dy > DRAG_THRESHOLD) {
+  const onPointerMove = (e: React.PointerEvent) => {
+    const dx = Math.abs(e.clientX - startXRef.current);
+    const dy = Math.abs(e.clientY - startYRef.current);
+    if (!movedRef.current && (dx > DRAG_THRESHOLD || dy > DRAG_THRESHOLD)) {
+      movedRef.current = true;
       isDraggingRef.current = true;
     }
   };
 
-  const handleUp = () => {
+  const onPointerEnd = (e: React.PointerEvent) => {
     const scrollDelta = Math.abs(
       (window.pageYOffset || document.documentElement.scrollTop) - startScrollYRef.current
     );
-    if (isDraggingRef.current || scrollDelta > SCROLL_THRESHOLD) {
+    if (movedRef.current || isDraggingRef.current || scrollDelta > SCROLL_THRESHOLD) {
       suppressClickUntilRef.current = Date.now() + SUPPRESS_MS;
     }
     isDraggingRef.current = false;
+    movedRef.current = false;
+    (e.currentTarget as any).releasePointerCapture?.(e.pointerId);
+    (e.currentTarget as HTMLElement).classList.remove("is-dragging");
   };
 
   const canNavigateRail = () => {
@@ -219,6 +219,7 @@ export const ServicesRail: React.FC = () => {
     );
     return (
       !isDraggingRef.current &&
+      !movedRef.current &&
       scrollDelta <= SCROLL_THRESHOLD &&
       Date.now() >= suppressClickUntilRef.current
     );
@@ -228,9 +229,7 @@ export const ServicesRail: React.FC = () => {
     if (canNavigateRail()) navigate(path);
   };
 
-  const handleTouchEndRail = (path: string) => {
-    if (canNavigateRail()) navigate(path);
-  };
+  
 
   const onClickCaptureGuard = (e: React.MouseEvent) => {
     if (!canNavigateRail()) {
@@ -251,15 +250,10 @@ export const ServicesRail: React.FC = () => {
               draggable={false}
               onClickCapture={onClickCaptureGuard}
               onClick={() => handleRailClick(path)}
-              onMouseDown={handleDown}
-              onMouseMove={handleMove}
-              onMouseUp={handleUp}
-              onTouchStart={handleDown}
-              onTouchMove={handleMove}
-              onTouchEnd={() => {
-                handleUp();
-                handleTouchEndRail(path);
-              }}
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerEnd}
+              onPointerCancel={onPointerEnd}
               onDragStart={(e: React.DragEvent) => e.preventDefault()}
               onKeyDown={(e: React.KeyboardEvent) => {
                 if (e.key === "Enter" || e.key === " ") {

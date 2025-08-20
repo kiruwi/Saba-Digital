@@ -235,7 +235,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
         <NavbarContainer>
           <NavLogo to="/" onClick={toggleHome}>
             <img src={signature} alt="Signature" style={{ 
-              height: '25px', 
+              height: '40px', 
               marginRight: '0',
               verticalAlign: 'middle' 
             }} />

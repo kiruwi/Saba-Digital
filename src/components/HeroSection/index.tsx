@@ -71,7 +71,8 @@ export const HeroBg = styled.div``;
 export const HeroText = styled.div`
   position: sticky;
   top: 0;
-  max-width: 700px;
+  width: 100%;
+  max-width: none;
   padding: 8rem 3rem 3rem;
 
   @media (max-width: 1000px) {
@@ -80,7 +81,8 @@ export const HeroText = styled.div`
 `;
 
 export const TitleBackground = styled.div`
-  display: inline-flex;
+  display: flex;
+  width: 100%;
   flex-direction: column;
   gap: 0.3em;
   /* Added to enable 3D depth for line-flip animation */
@@ -106,8 +108,20 @@ const baseTitle = `
 
 export const HeroTitleTop = styled.h1`
   ${baseTitle};
-  font-size: clamp(2.5rem, 4vw, 5rem);
-  color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
+  font-size: clamp(4rem, 6vw, 6rem);
+  color: ${({ theme }) => theme?.colors?.primary || '#2db670'};
+  width: 100%;
+  
+  /* Ensure inline spans inside the title always use the theme green */
+  & span {
+    color: ${({ theme }) => theme?.colors?.primary || '#2db670'};
+  }
+
+  /* Keep font-size consistent; adjust tracking on the second line to reach target width */
+  & > span:last-of-type {
+    display: inline-block;
+    letter-spacing: 0.02em; /* fine-tune to align the end of "Designer." with the visual guide */
+  }
 `;
 
 
@@ -120,6 +134,17 @@ export const AccentGreen = styled.span`
 /* Text span that forces Nohemi font while inheriting color */
 export const NohemiSpan = styled.span`
   font-family: 'Nohemi', sans-serif;
+  color: inherit; /* ensure global span color doesn't override HeroTitleTop color */
+`;
+
+/* Subtitle under the main hero title using paragraph font */
+export const HeroSubtitle = styled.h2`
+  font-family: 'Satoshi', 'Nohemi', sans-serif; /* match paragraph font */
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0;
+  color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
+  width: 100%;
 `;
 
 /* ── CTA wrapper ───────────────────────────────────── */
@@ -176,6 +201,7 @@ export const PortfolioButton = styled.button<{ expanded: boolean; lowEnd?: boole
   -webkit-backdrop-filter: none;
   color: #fff;
   font-size: ${({ expanded }) => (expanded ? 0 : '1rem')};
+  font-weight: 700; /* make CTA label bold */
   cursor: pointer;
   z-index: ${({ expanded }) => (expanded ? 9999 : 'auto')};
 
@@ -787,7 +813,13 @@ const HeroSection: FC = () => {
       {/* left column */}
       <HeroText>
         <TitleBackground>
-          <HeroTitleTop ref={titleRef} id="hero-title" className="hero-text"><NohemiSpan>Currently a Digital Designer.</NohemiSpan><br/><AccentGreen>Living Remotely, creating products that empower clients.</AccentGreen></HeroTitleTop>
+          <HeroTitleTop ref={titleRef} id="hero-title" className="hero-text">
+            <NohemiSpan>Built Different</NohemiSpan><br/>
+            <NohemiSpan>Designed Better</NohemiSpan>
+          </HeroTitleTop>
+          <HeroSubtitle>
+            I'm Ian, creating products that empower clients.
+          </HeroSubtitle>
         </TitleBackground>
 
         <BtnWrap>

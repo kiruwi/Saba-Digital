@@ -70,8 +70,8 @@ export const NavLogo = styled(LinkR)`
   @media screen and (max-width: 768px) {
     position: absolute;
     left: 15px;
-    top: 28px; /* Fixed position to match exact logo height */
-    height: 24px;
+    top: 24px; /* Center a 32px-tall logo in 80px navbar (center at 40px) */
+    height: 32px;
     padding: 0;
   }
 
