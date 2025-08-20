@@ -107,7 +107,7 @@ const Home: React.FC = () => {
       <AnimatedSection animationType="fadeInUp" delay={900} duration={800}>
         <ButtonContainer>
           <Button href="/work">View My Work</Button>
-          <Button href="/contactus">Contact Me</Button>
+          <Button href="/contact">Contact Me</Button>
         </ButtonContainer>
       </AnimatedSection>
     </Container>

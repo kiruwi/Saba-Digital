@@ -27,7 +27,7 @@ const useRouteOptimization = (): void => {
       section = 'webdev';
     } else if (currentPath.includes('/work')) {
       section = 'work';
-    } else if (currentPath.includes('/contactus')) {
+    } else if (currentPath.includes('/contact')) {
       section = 'contact';
     }
     

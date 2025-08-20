@@ -24,12 +24,12 @@ const Footer: React.FC = () => {
           <FooterLinksWrapper>
             <FooterLinkItems>
               <FooterLinkTitle>Nairobi</FooterLinkTitle>
-              <FooterLink to="/contactus">Kilimani, Naivasha Rd</FooterLink>
-              <FooterLink to="/contactus">305</FooterLink>
+              <FooterLink to="/contact">Kilimani, Naivasha Rd</FooterLink>
+              <FooterLink to="/contact">305</FooterLink>
             </FooterLinkItems>
             <FooterLinkItems>
               <FooterLinkTitle>Lets Talk</FooterLinkTitle>
-              <FooterLink to="/contactus">+254 704 456 165</FooterLink>
+              <FooterLink to="/contact">+254 704 456 165</FooterLink>
             </FooterLinkItems>
           </FooterLinksWrapper>
         </FooterLinksContainer>

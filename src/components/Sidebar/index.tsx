@@ -78,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggle }) => {
             Résumé
           </ResumeLink>
           <SidebarRouterLink 
-            to='/ContactUs' 
+            to='/contact' 
             onClick={toggle} 
           >
             Contact Me

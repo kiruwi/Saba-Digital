@@ -198,7 +198,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
   
   // Check if current path is in the work section or contact page
   const isWorkRoute = location.pathname.includes("/work/");
-  const isContactRoute = location.pathname.includes("/ContactUs");
+  const isContactRoute = location.pathname.includes("/contact");
 
   const changeNav = () => {
     if (window.scrollY >= 80) {
@@ -343,7 +343,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
             >
               Résumé
             </NavBtnLink>
-            <NavBtnLink to="/contactus">
+            <NavBtnLink to="/contact">
               Contact Me
             </NavBtnLink>
           </NavBtn>

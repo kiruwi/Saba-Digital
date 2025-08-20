@@ -18,7 +18,7 @@ const ContactPage: React.FC = memo(() => {
           name="keywords"
           content="contact, hire designer, UX UI designer, web developer, graphic designer"
         />
-        <link rel="canonical" href="https://iancheruiyot.work/contactus" />
+        <link rel="canonical" href="https://iancheruiyot.work/contact" />
       </Helmet>
 
       <main role="main">

@@ -1,8 +1,9 @@
 # Redirect all routes to index.html for SPA handling
+/contactus              /contact      301
 /*  /index.html  200
 
 # Explicitly list sitemap routes for SEO
-/contactus              /index.html  200
+/contact               /index.html  200
 /work/ux-ui             /index.html  200
 /work/web-dev           /index.html  200
 /work/graphics          /index.html  200
