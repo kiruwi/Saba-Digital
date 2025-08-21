@@ -1,9 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { FiSearch, FiX } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { useTheme as useStyledTheme } from 'styled-components';
 import { useAISearch } from '../../hooks/useAISearch';
-
 import {
   SearchContainer,
   SearchBar,
@@ -28,6 +27,15 @@ import {
   SearchOverlay
 } from './AISearchElements';
 
+// Helper function for route segments
+const toRouteSegment = (cat: string) => {
+  switch (cat) {
+    case 'uxui': return 'ux-ui';
+    case 'webdev': return 'web-dev';
+    default: return cat;
+  }
+};
+
 interface AISearchProps {
   isOpen: boolean;
   onClose: () => void;
@@ -39,6 +47,8 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [selectedResultIndex, setSelectedResultIndex] = useState(-1);
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
   
   const {
     query,
@@ -51,8 +61,36 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
     removeFilter,
     clearSearch,
     hasResults,
-    searchCount
+    searchCount,
+    highlightMatch
   } = useAISearch();
+
+  // Helper functions - useCallback for functions used in useEffect dependencies
+  const handleSuggestionClick = useCallback((suggestion: string) => {
+    setQuery(suggestion);
+    setShowSuggestions(false);
+    setSelectedSuggestionIndex(-1);
+    inputRef.current?.focus();
+  }, [setQuery]);
+
+  const handleResultClick = useCallback((projectId: string, category: string) => {
+    onClose();
+    // Navigate to project detail page using correct route segment for category
+    const segment = toRouteSegment(category);
+    navigate(`/work/${segment}/${projectId}`);
+  }, [onClose, navigate]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    setShowSuggestions(true);
+    setSelectedResultIndex(-1);
+    setSelectedSuggestionIndex(-1);
+  };
+
+  const handleClearSearch = () => {
+    clearSearch();
+    inputRef.current?.focus();
+  };
 
   // Focus input when search opens
   useEffect(() => {
@@ -64,48 +102,59 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
     }
   }, [isOpen, initialQuery, setQuery]);
 
-  // Handle keyboard shortcuts
+  // Handle keyboard shortcuts and navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (!isOpen) return;
+      
+      if (e.key === 'Escape') {
         onClose();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (showSuggestions && suggestions.length > 0) {
+          setSelectedSuggestionIndex(prev => 
+            prev < suggestions.length - 1 ? prev + 1 : 0
+          );
+        } else if (hasResults) {
+          setSelectedResultIndex(prev => 
+            prev < Math.min(results.length - 1, 7) ? prev + 1 : 0
+          );
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (showSuggestions && suggestions.length > 0) {
+          setSelectedSuggestionIndex(prev => 
+            prev > 0 ? prev - 1 : suggestions.length - 1
+          );
+        } else if (hasResults) {
+          setSelectedResultIndex(prev => 
+            prev > 0 ? prev - 1 : Math.min(results.length - 1, 7)
+          );
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (showSuggestions && selectedSuggestionIndex >= 0) {
+          handleSuggestionClick(suggestions[selectedSuggestionIndex]);
+        } else if (hasResults && selectedResultIndex >= 0) {
+          const result = results[selectedResultIndex];
+          const item = result.item;
+          if (item.url) {
+            if (item.url.startsWith('/')) {
+              onClose();
+              navigate(item.url);
+            } else {
+              window.open(item.url, '_blank');
+            }
+          } else if (item.type === 'project' && item.project) {
+            handleResultClick(item.project.id, item.project.category);
+          }
+        }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-    setShowSuggestions(true);
-  };
-
-  const handleSuggestionClick = (suggestion: string) => {
-    setQuery(suggestion);
-    setShowSuggestions(false);
-    inputRef.current?.focus();
-  };
-
-  const toRouteSegment = (cat: string) => {
-    switch (cat) {
-      case 'uxui': return 'ux-ui';
-      case 'webdev': return 'web-dev';
-      default: return cat;
-    }
-  };
-
-  const handleResultClick = (projectId: string, category: string) => {
-    onClose();
-    // Navigate to project detail page using correct route segment for category
-    const segment = toRouteSegment(category);
-    navigate(`/work/${segment}/${projectId}`);
-  };
-
-  const handleClearSearch = () => {
-    clearSearch();
-    inputRef.current?.focus();
-  };
+  }, [isOpen, onClose, showSuggestions, suggestions, hasResults, results, selectedResultIndex, selectedSuggestionIndex, navigate, handleResultClick, handleSuggestionClick]);
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -144,6 +193,13 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                 key={index}
                 theme={theme}
                 onClick={() => handleSuggestionClick(suggestion)}
+                onMouseEnter={() => setSelectedSuggestionIndex(index)}
+                style={{
+                  backgroundColor: selectedSuggestionIndex === index ? 
+                    (theme.theme === 'dark' ? 'rgba(45, 182, 112, 0.2)' : 'rgba(45, 182, 112, 0.1)') : 
+                    'transparent',
+                  outline: selectedSuggestionIndex === index ? '2px solid ' + theme.colors.primary : 'none',
+                }}
               >
                 💡 {suggestion}
               </SuggestionItem>
@@ -224,6 +280,15 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                         handleResultClick(item.project.id, item.project.category);
                       }
                     }}
+                    onMouseEnter={() => setSelectedResultIndex(index)}
+                    style={{
+                      backgroundColor: selectedResultIndex === index ? 
+                        (theme.theme === 'dark' ? 'rgba(45, 182, 112, 0.1)' : 'rgba(45, 182, 112, 0.05)') : 
+                        'transparent',
+                      outline: selectedResultIndex === index ? '2px solid ' + theme.colors.primary : 'none',
+                      transform: selectedResultIndex === index ? 'scale(1.02)' : 'scale(1)',
+                      transition: 'all 0.2s ease',
+                    }}
                   >
                     <ResultImage
                       src={displayImage.startsWith('/') ? displayImage : displayImage}
@@ -232,7 +297,9 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                     />
                     <ResultContent theme={theme}>
                       <ResultTitle theme={theme}>
-                        {displayTitle}
+                        <span dangerouslySetInnerHTML={{ 
+                          __html: highlightMatch(displayTitle, query) 
+                        }} />
                         <span style={{ 
                           fontSize: '12px', 
                           opacity: 0.7, 
@@ -243,7 +310,9 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                         </span>
                       </ResultTitle>
                       <ResultDescription theme={theme}>
-                        {displayDescription}
+                        <span dangerouslySetInnerHTML={{ 
+                          __html: highlightMatch(displayDescription || '', query) 
+                        }} />
                       </ResultDescription>
                       <ResultTags theme={theme}>
                         <small style={{ opacity: 0.8, marginRight: '8px' }}>
@@ -274,6 +343,9 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                 <li>"3D visualization"</li>
                 <li>"Mobile app design"</li>
               </ul>
+              <div style={{ marginTop: '20px', fontSize: '14px', opacity: 0.7 }}>
+                💡 Tip: Use ↑↓ arrow keys to navigate results, Enter to select
+              </div>
             </NoResults>
           )}
 
@@ -292,7 +364,7 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                 justifyContent: 'center',
                 marginTop: '20px'
               }}>
-                {['UX Research', 'Ads', 'Websites', '3D', 'Branding', 'Motion'].map(term => (
+                {['UX Research', 'Ads', 'Website', '3D', 'Branding', 'Motion'].map(term => (
                   <FilterChip
                     key={term}
                     theme={theme}

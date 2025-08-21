@@ -501,11 +501,7 @@ const HeroSection: FC = () => {
   const portfolioBtnRef = useRef<HTMLButtonElement | null>(null);
   const hasScrolled = useRef(false);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
-
-
-  const dragStartX = useRef(0);
-  const dragStartScroll = useRef(0);
+  const isScrolling = useRef(false);
   const didDrag = useRef(false);
 
   const navigate = useNavigate();
@@ -561,74 +557,150 @@ const HeroSection: FC = () => {
     }
   }, [expanded]);
 
-  // Attach click-and-drag horizontal scroll for desktop card grid
+  // Attach momentum-based drag-to-scroll for desktop card grid
   useEffect(() => {
     if (!expanded || window.innerWidth <= 1000) return;
-    const grid = cardGridRef.current;
-    if (!grid) return;
+    const container = cardGridRef.current;
+    if (!container) return;
+
+    interface CarouselState {
+      isDragging: boolean;
+      startX: number;
+      scrollLeft: number;
+      velocity: number;
+      lastX: number;
+      lastTime: number;
+      dragDistance: number;
+      animationId?: number;
+    }
+
+    const state: CarouselState = {
+      isDragging: false,
+      startX: 0,
+      scrollLeft: 0,
+      velocity: 0,
+      lastX: 0,
+      lastTime: 0,
+      dragDistance: 0
+    };
+
+    const snapToNearest = () => {
+      const cards = Array.from(container.children) as HTMLElement[];
+      const containerCenter = container.scrollLeft + container.offsetWidth / 2;
+      let nearest = cards[0];
+      let minDist = Infinity;
+      cards.forEach(card => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const dist = Math.abs(containerCenter - cardCenter);
+        if (dist < minDist) { 
+          minDist = dist; 
+          nearest = card; 
+        }
+      });
+      container.style.scrollSnapType = 'x mandatory';
+      container.scrollTo({ 
+        left: nearest.offsetLeft - (container.offsetWidth - nearest.offsetWidth) / 2, 
+        behavior: 'smooth' 
+      });
+    };
+
+    const handlePointerDown = (e: PointerEvent) => {
+      state.isDragging = true;
+      state.startX = e.pageX - container.offsetLeft;
+      state.scrollLeft = container.scrollLeft;
+      state.lastX = e.pageX;
+      state.lastTime = Date.now();
+      state.dragDistance = 0;
+      container.style.scrollSnapType = 'none';
+      container.style.cursor = 'grabbing';
+      container.classList.add('dragging');
+      if (state.animationId) cancelAnimationFrame(state.animationId);
+      didDrag.current = false;
+      draggingCards.current = true;
+      e.preventDefault();
+    };
+
+    const handlePointerMove = (e: PointerEvent) => {
+      if (!state.isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (state.startX - x) * 1.2;
+      state.dragDistance = Math.abs(walk);
+      container.scrollLeft = state.scrollLeft + walk;
+      
+      // Calculate velocity for momentum
+      const now = Date.now();
+      const dt = now - state.lastTime;
+      if (dt > 0) state.velocity = (e.pageX - state.lastX) / dt;
+      state.lastX = e.pageX;
+      state.lastTime = now;
+      
+      // Mark as dragged if moved more than 5px
+      if (state.dragDistance > 5) didDrag.current = true;
+      
+      setDragHintPos({ x: e.clientX, y: e.clientY });
+    };
+
+    const handlePointerUp = (e: PointerEvent) => {
+      if (!state.isDragging) return;
+      state.isDragging = false;
+      container.style.cursor = 'grab';
+      container.classList.remove('dragging');
+      draggingCards.current = false;
+      
+      // Prevent click if dragged
+      if (state.dragDistance > 5) {
+        e.preventDefault();
+        // Apply momentum
+        const momentum = state.velocity * 300;
+        const targetScroll = container.scrollLeft - momentum;
+        
+        const animate = () => {
+          const diff = targetScroll - container.scrollLeft;
+          if (Math.abs(diff) > 1) {
+            container.scrollLeft += diff * 0.1;
+            state.animationId = requestAnimationFrame(animate);
+          } else {
+            snapToNearest();
+            setTimeout(() => { didDrag.current = false; }, 100);
+          }
+        };
+        state.animationId = requestAnimationFrame(animate);
+      } else {
+        container.style.scrollSnapType = 'x mandatory';
+        setTimeout(() => { didDrag.current = false; }, 100);
+      }
+    };
 
     const handleMouseEnter = () => setShowDragHint(true);
     const handleMouseLeave = () => {
-      grid.classList.remove('dragging');
       setShowDragHint(false);
+      state.isDragging = false;
       draggingCards.current = false;
     };
-    const handleMouseMove = (e: MouseEvent) => {
-      e.preventDefault();
-      // If the pointer moved, mark as drag so subsequent click is suppressed
-      if (!didDrag.current && Math.abs(e.clientX - dragStartX.current) > 5) {
-        didDrag.current = true;
-      }
-      setDragHintPos({ x: e.clientX, y: e.clientY });
-      if (!draggingCards.current) return;
-      const walk = (dragStartX.current - e.clientX) * 1.5; // multiply by 1.5 for faster scroll
-      grid.scrollLeft = dragStartScroll.current + walk;
-    };
-    const handleMouseDown = (e: MouseEvent) => {
-      didDrag.current = false; // reset at drag start
-      draggingCards.current = true;
-      grid.classList.add('dragging');
-      // temporarily disable snap so drag feels smooth
-      grid.style.scrollSnapType = 'none';
-      grid.style.scrollBehavior = 'auto';
-      e.preventDefault();
-      dragStartX.current = e.clientX;
-      dragStartScroll.current = grid.scrollLeft;
-    };
-    
-    const handleMouseUp = () => {
-      draggingCards.current = false;
-      grid.classList.remove('dragging');
-      // Delay resetting the drag flag to ensure click events can check it first
-      setTimeout(() => {
-        didDrag.current = false;
-      }, 100);
-      // restore snap
-      grid.style.scrollSnapType = 'x mandatory';
-    };
-    
-    // swallow click immediately after a drag so no card / wrapper click fires
+
     const handleClickCapture = (e: MouseEvent) => {
       if (didDrag.current) {
         e.stopPropagation();
         e.preventDefault();
       }
     };
-    
-    grid.addEventListener('mouseenter', handleMouseEnter);
-    grid.addEventListener('mouseleave', handleMouseLeave);
-    grid.addEventListener('mousemove', handleMouseMove);
-    grid.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    grid.addEventListener('click', handleClickCapture, true);
+
+    container.addEventListener('mouseenter', handleMouseEnter);
+    container.addEventListener('mouseleave', handleMouseLeave);
+    container.addEventListener('pointerdown', handlePointerDown);
+    container.addEventListener('pointermove', handlePointerMove);
+    container.addEventListener('pointerup', handlePointerUp);
+    container.addEventListener('click', handleClickCapture, true);
 
     return () => {
-      grid.removeEventListener('mouseenter', handleMouseEnter);
-      grid.removeEventListener('mouseleave', handleMouseLeave);
-      grid.removeEventListener('mousemove', handleMouseMove);
-      grid.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-      grid.removeEventListener('click', handleClickCapture, true);
+      container.removeEventListener('mouseenter', handleMouseEnter);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+      container.removeEventListener('pointerdown', handlePointerDown);
+      container.removeEventListener('pointermove', handlePointerMove);
+      container.removeEventListener('pointerup', handlePointerUp);
+      container.removeEventListener('click', handleClickCapture, true);
+      if (state.animationId) cancelAnimationFrame(state.animationId);
     };
   }, [expanded]);
 
@@ -636,7 +708,7 @@ const HeroSection: FC = () => {
     // If a drag just happened, normally swallow the next click to avoid accidental opens
     // But when expanded, allow this click to close immediately
     if (didDrag.current) {
-      didDrag.current = false; // reset for next legitimate click
+      didDrag.current = false; // reset for next interaction
       if (!expanded) {
         e.stopPropagation();
         return;
@@ -670,7 +742,7 @@ const HeroSection: FC = () => {
       if (!railRef.current) return;
       if (slideIndex < 0 || slideIndex > totalSlides) return;
 
-      setIsScrolling(true);
+      isScrolling.current = true;
       const slideHeight = window.innerHeight;
       railRef.current.scrollTo({
         top: slideHeight * slideIndex,
@@ -678,7 +750,7 @@ const HeroSection: FC = () => {
       });
 
       // Reset scrolling flag after animation duration (~600ms)
-      setTimeout(() => setIsScrolling(false), 700);
+      setTimeout(() => { isScrolling.current = false; }, 700);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []

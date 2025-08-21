@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import Fuse from 'fuse.js';
 import { allProjects } from '../data/projects';
 import type { ProjectType } from '../data/projects';
@@ -36,7 +36,36 @@ export interface SearchFilters {
 
 export const useAISearch = () => {
   const [query, setQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
   const [filters, setFilters] = useState<SearchFilters>({});
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
+  const [resultsCache, setResultsCache] = useState<Map<string, SearchResult[]>>(new Map());
+
+  // Load search history from localStorage
+  useEffect(() => {
+    const history = localStorage.getItem('searchHistory');
+    if (history) {
+      try {
+        setSearchHistory(JSON.parse(history));
+      } catch {}
+    }
+  }, []);
+
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query);
+      // Save to history if query is meaningful
+      if (query.trim().length > 2) {
+        const newHistory = [query.trim(), ...searchHistory.filter(h => h !== query.trim())].slice(0, 10);
+        setSearchHistory(newHistory);
+        localStorage.setItem('searchHistory', JSON.stringify(newHistory));
+      }
+    }, 300); // 300ms debounce
+
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
 
   // Create comprehensive search index
   const searchIndex = useMemo(() => {
@@ -138,16 +167,22 @@ export const useAISearch = () => {
   }, [searchIndex]);
 
   const searchResults = useMemo(() => {
-    const trimmedQuery = query.trim().toLowerCase();
+    const trimmedQuery = debouncedQuery.trim().toLowerCase();
     if (!trimmedQuery) return [];
 
+    // Check cache first
+    const cacheKey = `${trimmedQuery}_${JSON.stringify(filters)}`;
+    if (resultsCache.has(cacheKey)) {
+      return resultsCache.get(cacheKey) || [];
+    }
+
     // Perform fuzzy search first
-    const results = fuse.search(trimmedQuery);
+    let results = fuse.search(trimmedQuery);
 
     // Ensure each returned item actually contains the raw query terms
     const queryWords = trimmedQuery.split(/\s+/);
 
-    const filtered = results.filter(result => {
+    let filtered = results.filter(result => {
       const { title, description, tags = [], tools = [] } = result.item;
       const haystack = (
         `${title} ${description} ${tags.join(' ')} ${tools?.join(' ')}`
@@ -156,17 +191,77 @@ export const useAISearch = () => {
       return queryWords.every(word => haystack.includes(word));
     });
 
-    return filtered.slice(0, 10).map((result, index) => ({
+    // Apply filters
+    if (filters.category) {
+      filtered = filtered.filter(result => 
+        result.item.category.toLowerCase() === filters.category?.toLowerCase()
+      );
+    }
+
+    if (filters.year) {
+      filtered = filtered.filter(result => {
+        const itemYear = result.item.year;
+        return itemYear && itemYear.toString() === filters.year?.toString();
+      });
+    }
+
+    if (filters.tools && filters.tools.length > 0) {
+      filtered = filtered.filter(result => {
+        const itemTools = result.item.tools || [];
+        return filters.tools?.some(tool => 
+          itemTools.some(itemTool => 
+            itemTool.toLowerCase().includes(tool.toLowerCase())
+          )
+        );
+      });
+    }
+
+    if (filters.tags && filters.tags.length > 0) {
+      filtered = filtered.filter(result => {
+        const itemTags = result.item.tags || [];
+        return filters.tags?.some(tag => 
+          itemTags.some(itemTag => 
+            itemTag.toLowerCase().includes(tag.toLowerCase())
+          )
+        );
+      });
+    }
+
+    const finalResults = filtered.slice(0, 10).map((result, index) => ({
       item: result.item,
       score: result.score || 0,
       refIndex: index
     }));
-  }, [query, fuse]);
+
+    // Cache the results
+    const newCache = new Map(resultsCache);
+    newCache.set(cacheKey, finalResults);
+    // Limit cache size
+    if (newCache.size > 50) {
+      const firstKey = newCache.keys().next().value;
+      if (firstKey !== undefined) {
+        newCache.delete(firstKey);
+      }
+    }
+    setResultsCache(newCache);
+
+    return finalResults;
+  }, [debouncedQuery, fuse, filters, resultsCache]);
 
   const suggestions = useMemo(() => {
-    if (query.length < 2) return [];
+    // Show search history when query is empty or very short
+    if (query.length < 2) {
+      return searchHistory.slice(0, 5);
+    }
     
     const allTerms = new Set<string>();
+    
+    // Add matching search history items first
+    searchHistory.forEach(historyItem => {
+      if (historyItem.toLowerCase().includes(query.toLowerCase())) {
+        allTerms.add(historyItem);
+      }
+    });
     
     searchIndex.forEach(item => {
       // Add tags
@@ -195,12 +290,32 @@ export const useAISearch = () => {
     });
     
     return Array.from(allTerms).slice(0, 5);
-  }, [query, searchIndex]);
+  }, [query, searchIndex, searchHistory]);
 
   const clearSearch = () => {
     setQuery('');
+    setDebouncedQuery('');
     setFilters({});
   };
+
+  const clearHistory = useCallback(() => {
+    setSearchHistory([]);
+    localStorage.removeItem('searchHistory');
+  }, []);
+
+  const highlightMatch = useCallback((text: string, searchQuery: string): string => {
+    if (!searchQuery.trim()) return text;
+    
+    const words = searchQuery.trim().split(/\s+/);
+    let highlighted = text;
+    
+    words.forEach(word => {
+      const regex = new RegExp(`(${word})`, 'gi');
+      highlighted = highlighted.replace(regex, '<mark>$1</mark>');
+    });
+    
+    return highlighted;
+  }, []);
 
   const applyFilter = (newFilters: Partial<SearchFilters>) => {
     setFilters(prev => ({ ...prev, ...newFilters }));
@@ -224,7 +339,10 @@ export const useAISearch = () => {
     applyFilter,
     removeFilter,
     clearSearch,
+    clearHistory,
     hasResults: searchResults.length > 0,
-    searchCount: searchResults.length
+    searchCount: searchResults.length,
+    searchHistory,
+    highlightMatch
   };
 };
