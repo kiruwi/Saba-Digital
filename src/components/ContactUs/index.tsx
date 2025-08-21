@@ -254,9 +254,10 @@ const ContactUs: React.FC = () => {
 
             <FormButton 
               type="submit" 
-              value={isSubmitting ? "Sending..." : "Send"} 
-              disabled={isSubmitting} 
-            />
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Sending..." : "Send"}
+            </FormButton>
 
             <FormLabel>
               {result && <Result />}
