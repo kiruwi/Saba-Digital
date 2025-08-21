@@ -818,7 +818,7 @@ const HeroSection: FC = () => {
             <NohemiSpan>Designed Better</NohemiSpan>
           </HeroTitleTop>
           <HeroSubtitle>
-            I'm Ian, creating products that empower clients.
+            I'm Ian, and I create products that empower clients.
           </HeroSubtitle>
         </TitleBackground>
 
