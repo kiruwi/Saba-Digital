@@ -398,7 +398,7 @@ const HeroSection: FC = () => {
   const [, setScrollIndicatorVisible] = useState(true); // scroll indicator removed
 
   // desktop drag-to-scroll hint for card grid
-  const [draggingCards, setDraggingCards] = useState(false);
+  const draggingCards = useRef(false);
   const [showDragHint, setShowDragHint] = useState(false);
   const [dragHintPos, setDragHintPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
@@ -451,7 +451,7 @@ const HeroSection: FC = () => {
   // glow pulse on drag hint while dragging
   useEffect(() => {
     if (lowEndDevice) return;
-    if (draggingCards && dragHintRef.current) {
+    if (draggingCards.current && dragHintRef.current) {
       const tween = gsap.to(dragHintRef.current, {
         boxShadow: '0 0 16px rgba(255,255,255,0.5)',
         duration: 0.6,
@@ -463,7 +463,7 @@ const HeroSection: FC = () => {
         tween.kill();
       };
     }
-  }, [draggingCards, lowEndDevice]);
+  }, [lowEndDevice]);
 
   // hide scroll arrow when popup expanded
   useEffect(() => {
@@ -571,53 +571,55 @@ const HeroSection: FC = () => {
     const handleMouseLeave = () => {
       grid.classList.remove('dragging');
       setShowDragHint(false);
-      setDraggingCards(false);
+      draggingCards.current = false;
     };
     const handleMouseMove = (e: MouseEvent) => {
       e.preventDefault();
       // If the pointer moved, mark as drag so subsequent click is suppressed
-      if (!didDrag.current && Math.abs(e.pageX - (dragStartX.current + grid.offsetLeft)) > 5) {
+      if (!didDrag.current && Math.abs(e.clientX - dragStartX.current) > 5) {
         didDrag.current = true;
       }
       setDragHintPos({ x: e.clientX, y: e.clientY });
-      if (!draggingCards) return;
-      const x = e.pageX - grid.offsetLeft;
-      const walk = dragStartX.current - x;
+      if (!draggingCards.current) return;
+      const walk = (dragStartX.current - e.clientX) * 1.5; // multiply by 1.5 for faster scroll
       grid.scrollLeft = dragStartScroll.current + walk;
     };
     const handleMouseDown = (e: MouseEvent) => {
       didDrag.current = false; // reset at drag start
-      setDraggingCards(true);
+      draggingCards.current = true;
       grid.classList.add('dragging');
       // temporarily disable snap so drag feels smooth
       grid.style.scrollSnapType = 'none';
       grid.style.scrollBehavior = 'auto';
       e.preventDefault();
-      dragStartX.current = e.pageX - grid.offsetLeft;
+      dragStartX.current = e.clientX;
       dragStartScroll.current = grid.scrollLeft;
     };
+    
     const handleMouseUp = () => {
-      setDraggingCards(false);
+      draggingCards.current = false;
       grid.classList.remove('dragging');
-      // reset drag flag so subsequent clicks are not swallowed
-      didDrag.current = false;
+      // Delay resetting the drag flag to ensure click events can check it first
+      setTimeout(() => {
+        didDrag.current = false;
+      }, 100);
       // restore snap
       grid.style.scrollSnapType = 'x mandatory';
     };
-
-    grid.addEventListener('mouseenter', handleMouseEnter);
-    grid.addEventListener('mouseleave', handleMouseLeave);
-    grid.addEventListener('mousemove', handleMouseMove);
-    grid.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
+    
     // swallow click immediately after a drag so no card / wrapper click fires
     const handleClickCapture = (e: MouseEvent) => {
       if (didDrag.current) {
         e.stopPropagation();
         e.preventDefault();
-        didDrag.current = false;
       }
     };
+    
+    grid.addEventListener('mouseenter', handleMouseEnter);
+    grid.addEventListener('mouseleave', handleMouseLeave);
+    grid.addEventListener('mousemove', handleMouseMove);
+    grid.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
     grid.addEventListener('click', handleClickCapture, true);
 
     return () => {
@@ -628,7 +630,7 @@ const HeroSection: FC = () => {
       window.removeEventListener('mouseup', handleMouseUp);
       grid.removeEventListener('click', handleClickCapture, true);
     };
-  }, [expanded, draggingCards]);
+  }, [expanded]);
 
   const handlePortfolioClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     // If a drag just happened, normally swallow the next click to avoid accidental opens
@@ -663,7 +665,6 @@ const HeroSection: FC = () => {
   };
 
   // Function to scroll to a specific slide
-  // Function to scroll to a specific slide
   const scrollToSlide = useCallback(
     (slideIndex: number) => {
       if (!railRef.current) return;
@@ -679,6 +680,7 @@ const HeroSection: FC = () => {
       // Reset scrolling flag after animation duration (~600ms)
       setTimeout(() => setIsScrolling(false), 700);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -908,10 +910,10 @@ const HeroSection: FC = () => {
       {showDragHint && (
         <DragHint
            ref={dragHintRef}
-           dragging={draggingCards}
+           dragging={draggingCards.current}
           style={{ top: dragHintPos.y, left: dragHintPos.x }}
         >
-          {draggingCards ? 'Drag to scroll' : 'Click and drag'}
+          {draggingCards.current ? 'Drag to scroll' : 'Click and drag'}
         </DragHint>
       )}
     </HeroContainer>

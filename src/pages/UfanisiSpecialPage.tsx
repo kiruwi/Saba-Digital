@@ -2,118 +2,25 @@ import React from "react";
 import Footer from "../components/Footer";
 
 import { uxProjects } from "../data/projects";
-import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import ProcessSection from "../components/ProcessSection";
-import styled from "styled-components";
-
-// Styled components specifically for this page
-const Container = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-`;
-
-const Title = styled.h1`
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-const BackButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  margin-bottom: 2rem;
-  background: none;
-  border: none;
-  color: ${({ theme }) => theme.colors.primary};
-  text-decoration: none;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 0;
-  
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const ProjectImage = styled.img`
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  margin-bottom: 2rem;
-`;
-
-const Description = styled.p`
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-const TagsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-`;
-
-const Tag = styled.span`
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-`;
-
-const SideBySideContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 3rem 0;
-  
-  @media screen and (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 2rem;
-  }
-`;
-
-const ImageColumn = styled.div`
-  width: 100%;
-  margin-bottom: 2rem;
-  
-  @media screen and (min-width: 768px) {
-    width: 45%;
-    margin-bottom: 0;
-  }
-`;
-
-const TextColumn = styled.div`
-  width: 100%;
-  
-  @media screen and (min-width: 768px) {
-    width: 55%;
-  }
-`;
-
-const SectionHeading = styled.h2`
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-const FeaturesList = styled.ul`
-  margin-bottom: 2rem;
-  padding-left: 1.5rem;
-`;
-
-const FeatureItem = styled.li`
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  color: ${({ theme }) => theme.colors.text};
-`;
+import {
+  SpecialMainContainer,
+  Container,
+  Title,
+  BackButton,
+  BackIcon,
+  ProjectImage,
+  Description,
+  TagsContainer,
+  Tag,
+  SideBySideContainer,
+  ImageColumn,
+  TextColumn,
+  SectionHeading,
+  FeaturesList,
+  FeatureItem,
+} from "./UfanisiSpecialPageElements";
 
 const UfanisiSpecialPage: React.FC = () => {
 
@@ -127,15 +34,15 @@ const UfanisiSpecialPage: React.FC = () => {
     return (
       <>
 
-        <main style={{ padding: "7rem 1.5rem 4rem 1.5rem", marginTop: "10px", background: "#000", color: "#fff" }}>
+        <SpecialMainContainer>
           <Container>
             <BackButton onClick={() => navigate(-1)}>
-              <FaArrowLeft style={{ marginRight: '0.5rem' }} /> Go Back
+              <BackIcon /> Go Back
             </BackButton>
             <Title>Project Not Found</Title>
             <Description>The Ufanisi Resort project you're looking for doesn't exist or has been moved.</Description>
           </Container>
-        </main>
+        </SpecialMainContainer>
         <Footer />
       </>
     );
@@ -144,10 +51,10 @@ const UfanisiSpecialPage: React.FC = () => {
   return (
     <>
 
-      <main style={{ padding: "7rem 1.5rem 4rem 1.5rem", marginTop: "10px", background: "#000", color: "#fff" }}>
+      <SpecialMainContainer>
         <Container>
           <BackButton onClick={() => navigate(-1)}>
-            <FaArrowLeft style={{ marginRight: '0.5rem' }} /> Go Back
+            <BackIcon /> Go Back
           </BackButton>
           
           <Title>{project.title}</Title>
@@ -203,7 +110,7 @@ const UfanisiSpecialPage: React.FC = () => {
             ))}
           </FeaturesList>
         </Container>
-      </main>
+      </SpecialMainContainer>
       <Footer />
     </>
   );

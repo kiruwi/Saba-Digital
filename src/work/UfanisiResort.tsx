@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 
 import Footer from "../components/Footer";
 import { uxProjects } from "../data/projects";
-import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import ProcessSection from "../components/ProcessSection";
 
@@ -13,23 +12,30 @@ import {
   UfanisiTitle,
   UfanisiDescription,
   UfanisiBackButton,
-
+  BackIcon,
   UfanisiHeading,
+  UfanisiSectionHeading,
   UfanisiTagsContainer,
   UfanisiTag,
   UfanisiFeaturesList,
   UfanisiFeatureItem,
+  UfanisiOrderedList,
+  UfanisiListItem,
   UfanisiToolsContainer,
   UfanisiTool,
   UfanisiSectionContent,
+  UfanisiSections,
+  UfanisiSection,
   UfanisiDetailHeader,
   UfanisiSideBySide,
   UfanisiMobileImageFirst,
   UfanisiMobileTextSecond,
   UfanisiHeroContainer,
   UfanisiHeroContent,
-
+  UfanisiHeroOverlay,
+  UfanisiHeroTitle,
   UfanisiMobileTitle,
+  UfanisiImage,
   // Food Delivery styled components
   FoodDeliverySection,
   FoodDeliveryContainer,
@@ -115,7 +121,7 @@ const UfanisiResort: React.FC = () => {
         <UfanisiMainContainer>
           <UfanisiContainer ref={contentRef}>
             <UfanisiBackButton onClick={() => navigate(-1)}>
-              <FaArrowLeft style={{ marginRight: '0.5rem' }} /> Go Back
+              <BackIcon /> Go Back
             </UfanisiBackButton>
             <UfanisiTitle>Project Not Found</UfanisiTitle>
             <UfanisiDescription>The Ufanisi Resort project you're looking for doesn't exist or has been moved.</UfanisiDescription>
@@ -132,17 +138,15 @@ const UfanisiResort: React.FC = () => {
       <UfanisiMainContainer>
         <UfanisiContainer>
           <UfanisiBackButton onClick={() => navigate(-1)}>
-            <FaArrowLeft style={{ marginRight: '0.5rem' }} /> Go Back
+            <BackIcon /> Go Back
           </UfanisiBackButton>
           
           {/* Hero Image with Title Overlay */}
-          <UfanisiHeroContainer style={{ backgroundImage: `url(${project.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          <UfanisiHeroContainer $bgImage={project.image}>
+            <UfanisiHeroOverlay />
             <UfanisiHeroContent>
               {!isMobile ? (
-                <>
-                  
-                  <UfanisiTitle style={{ color: 'white', margin: 0, textShadow: '0 2px 6px rgba(0,0,0,0.6)' }}>{project.title}</UfanisiTitle>
-                </>
+                <UfanisiHeroTitle>{project.title}</UfanisiHeroTitle>
               ) : (
                 <UfanisiMobileTitle>
                   <UfanisiTitle>{project.title}</UfanisiTitle>
@@ -161,10 +165,10 @@ const UfanisiResort: React.FC = () => {
 
           {/* Structured sections */}
           {project.fullDescription3 && Array.isArray(project.fullDescription3) && (
-            <div style={{ marginTop: '1.5rem' }}>
+            <UfanisiSections>
               {project.fullDescription3.map((section, index) => (
-                <div key={`sec-${index}`} style={{ marginBottom: '1.25rem' }}>
-                  <UfanisiHeading style={{ marginBottom: '0.5rem' }}>{section.heading}</UfanisiHeading>
+                <UfanisiSection key={`sec-${index}`}>
+                  <UfanisiSectionHeading>{section.heading}</UfanisiSectionHeading>
                   {section.heading === 'My Design Process' ? (
                     (() => {
                       let parts = section.content.split('\n').map(s => s.trim()).filter(Boolean);
@@ -175,29 +179,28 @@ const UfanisiResort: React.FC = () => {
                           .filter(Boolean);
                       }
                       return (
-                        <ol style={{ paddingLeft: '1.25rem', lineHeight: 1.6 }}>
+                        <UfanisiOrderedList>
                           {parts.map((item, i) => (
-                            <li key={`proc-${i}`}>{item.replace(/^\d+\.\s*/, '')}</li>
+                            <UfanisiListItem key={`proc-${i}`}>{item.replace(/^\d+\.\s*/, '')}</UfanisiListItem>
                           ))}
-                        </ol>
+                        </UfanisiOrderedList>
                       );
                     })()
                   ) : (
                     <UfanisiSectionContent>{section.content}</UfanisiSectionContent>
                   )}
-                </div>
+                </UfanisiSection>
               ))}
-            </div>
+            </UfanisiSections>
           )}
           
           {/* Desktop content (use same layout as mobile so image reliably shows) */}
           {!isMobile && (
             <UfanisiSideBySide>
               <UfanisiMobileImageFirst>
-                <img
+                <UfanisiImage
                   src={require('../assets/projects/ux-ui/u-r.jpg')}
                   alt="Previous design issues"
-                  style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                 />
               </UfanisiMobileImageFirst>
               <UfanisiMobileTextSecond>
@@ -225,10 +228,9 @@ const UfanisiResort: React.FC = () => {
           {isMobile && (
             <UfanisiSideBySide>
               <UfanisiMobileImageFirst>
-                <img 
+                <UfanisiImage 
                    src={require('../assets/projects/ux-ui/u-r.jpg')} 
                    alt="Previous design issues" 
-                   style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                  />
               </UfanisiMobileImageFirst>
               <UfanisiMobileTextSecond>

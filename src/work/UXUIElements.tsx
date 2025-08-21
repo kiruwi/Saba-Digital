@@ -1,6 +1,7 @@
 // src/work/UXUIElements.tsx
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 
 // Grid layout for the UX/UI projects page
 export const UXUIGrid = styled.div`
@@ -160,6 +161,38 @@ export const UXUIDetailImage = styled.img`
   filter: none;
 `;
 
+export const UXUIHeroContainer = styled.div`
+  position: relative;
+  margin-bottom: 2rem;
+`;
+
+export const UXUIHeroInner = styled.div`
+  width: 100%;
+  height: auto;
+  position: relative;
+`;
+
+export const UXUIHeroOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 100%);
+  color: white;
+`;
+
+export const UXUIHeroTitle = styled(UXUIDetailTitle)`
+  color: white;
+  margin: 0;
+`;
+
+export const UXUIHeroTitleBand = styled.div`
+  padding: 2rem 0;
+  background-color: ${({ theme }) => theme.colors.cardBackground};
+  text-align: center;
+`;
+
 export const UXUIBackButton = styled.button`
   display: inline-flex;
   align-items: center;
@@ -175,6 +208,10 @@ export const UXUIBackButton = styled.button`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+export const UXUIBackIcon = styled(FaArrowLeft)`
+  margin-right: 0.5rem;
 `;
 
 export const UXUISideBySideContainer = styled.div`
@@ -234,18 +271,16 @@ export const UXUIDetailSubtitle = styled.h3`
   color: ${({ theme }) => theme.colors.headingText};
 `;
 
-export const UXUIDetailParagraph = styled.p`
+export const UXUIDetailParagraph = styled.p<{ $hasTopMargin?: boolean; $isHeading?: boolean }>`
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.text};
-  margin-bottom: 1rem;
   line-height: 1.6;
+  margin-top: ${({ $hasTopMargin }) => ($hasTopMargin ? '1rem' : '0')};
+  font-weight: ${({ $isHeading }) => ($isHeading ? 'bold' : 'normal')};
+  font-size: ${({ $isHeading }) => ($isHeading ? '1.1rem' : 'inherit')};
 `;
 
-// Special components for the UX/UI gallery
-export const UXUIGalleryContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
+export const UXUISectionSpacer = styled.div`
   margin: 2rem 0;
 `;
 
@@ -350,4 +385,33 @@ export const UXUIHeading = styled.h3`
   font-size: 1.5rem;
   margin-bottom: 1rem;
   color: ${({ theme }) => theme.colors.headingText};
+`;
+
+export const UXUISection = styled.div`
+  margin-top: 2rem;
+`;
+
+export const UXUISectionMd = styled.div`
+  margin-top: 1.5rem;
+`;
+
+export const UXUISectionLg = styled.div`
+  margin: 3rem 0;
+`;
+
+export const UXUISectionHeading = styled.p`
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: ${({ theme }) => theme.colors.primary};
+  margin-bottom: 0.5rem;
+`;
+
+export const UXUIList = styled.ul`
+  padding-left: 1.25rem;
+  line-height: 1.6;
+`;
+
+export const UXUIListItem = styled.li`
+  margin-bottom: 0.5rem;
+  color: ${({ theme }) => theme.colors.text};
 `;

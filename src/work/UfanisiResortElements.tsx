@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { FaArrowLeft } from 'react-icons/fa';
 
 // Performance optimization - animations commented out per user request
 // will-change properties also commented out to prevent unnecessary GPU usage
@@ -61,6 +62,10 @@ export const UfanisiBackButton = styled.button`
   }
 `;
 
+export const BackIcon = styled(FaArrowLeft)`
+  margin-right: 0.5rem;
+`;
+
 export const UfanisiImage = styled.img`
   width: 100%;
   height: auto;
@@ -81,6 +86,10 @@ export const UfanisiHeading = styled.h2`
   font-size: 1.8rem;
   margin: 2rem 0 1rem;
   color: ${({ theme }) => theme.colors.text};
+`;
+
+export const UfanisiSectionHeading = styled(UfanisiHeading)`
+  margin: 0 0 0.5rem;
 `;
 
 export const UfanisiTagsContainer = styled.div`
@@ -109,6 +118,17 @@ export const UfanisiFeatureItem = styled.li`
   color: ${({ theme }) => theme.colors.text};
 `;
 
+export const UfanisiOrderedList = styled.ol`
+  padding-left: 1.25rem;
+  line-height: 1.6;
+`;
+
+export const UfanisiListItem = styled.li`
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.colors.text};
+`;
+
 export const UfanisiToolsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -128,6 +148,14 @@ export const UfanisiTool = styled.div`
 
 export const UfanisiSectionContent = styled.div`
   margin-bottom: 3rem;
+`;
+
+export const UfanisiSections = styled.div`
+  margin-top: 1.5rem;
+`;
+
+export const UfanisiSection = styled.div`
+  margin-bottom: 1.25rem;
 `;
 
 // Side-by-side layout
@@ -159,11 +187,15 @@ export const UfanisiMobileTextSecond = styled.div`
   }
 `;
 
-export const UfanisiHeroContainer = styled.div`
+export const UfanisiHeroContainer = styled.div<{ $bgImage?: string }>`
   position: relative;
   height: 50vh;
   min-height: 400px;
   margin-bottom: 2rem;
+  background-image: ${({ $bgImage }) => ($bgImage ? `url(${$bgImage})` : 'none')};
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   
   @media screen and (min-width: 768px) {
     height: 60vh;
@@ -180,6 +212,12 @@ export const UfanisiHeroContent = styled.div`
     bottom: 4rem;
     left: 4rem;
   }
+`;
+
+export const UfanisiHeroTitle = styled(UfanisiTitle)`
+  margin: 0;
+  color: white;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 `;
 
 export const UfanisiHeroOverlay = styled.div`
