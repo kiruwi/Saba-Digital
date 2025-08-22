@@ -73,10 +73,11 @@ export const HeroText = styled.div`
   top: 0;
   width: 100%;
   max-width: none;
-  padding: 8rem 3rem 3rem;
+  padding: 11rem 3rem 3rem;
 
   @media (max-width: 1000px) {
     padding: 4rem 1.5rem 2rem;
+    text-align: center;
   }
 `;
 
@@ -102,7 +103,7 @@ const LightRaysWrapper = styled.div`
 const baseTitle = `
   font-family: 'Nohemi', sans-serif;
   font-weight: 500;
-  line-height: 1.05;
+  line-height: 0.9;
   margin: 0;
 `;
 
@@ -201,7 +202,7 @@ export const PortfolioButton = styled.button<{ expanded: boolean; lowEnd?: boole
   -webkit-backdrop-filter: none;
   color: #fff;
   font-size: ${({ expanded }) => (expanded ? 0 : '1rem')};
-  font-weight: 700; /* make CTA label bold */
+  font-weight: 500; /* revert CTA label to normal weight */
   cursor: pointer;
   z-index: ${({ expanded }) => (expanded ? 9999 : 'auto')};
 

@@ -122,7 +122,7 @@ export const darkTheme: Theme = {
   },
   meta: {
     title: 'Ian K. Cheruiyot | Graphics & UX/UI Designer in Nairobi',
-    description: 'Ian K. Cheruiyot – Graphics Designer & UX/UI specialist in Nairobi. Portfolio of 3D visualization, brand identity and web design projects.',
+    description: 'Ian K. Cheruiyot | Graphics Designer & UX/UI specialist in Nairobi. Portfolio of 3D visualization, brand identity and web design projects.',
     image: '/images/logo.png',
     keywords: ['digital', 'web', 'design', 'development'],
     url: 'https://saba-digital.com'
