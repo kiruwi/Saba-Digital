@@ -45,6 +45,7 @@ function AppContent() {
   // Convert theme string to the appropriate theme object
   const themeObject = theme === 'light' ? lightTheme : darkTheme;
   
+
   // Apply keyboard navigation enhancement on mount and when routes change
   // useEffect(() => {
   //   // Short timeout to ensure DOM is fully rendered
