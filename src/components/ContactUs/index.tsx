@@ -165,7 +165,7 @@ const ContactUs: React.FC = () => {
       // Hide success message after 5 seconds
       setTimeout(() => showResult(false), 5000);
     })
-    .catch((error) => {
+    .catch((_error) => {
       // Form submission error handled silently
       showError(true);
       setTimeout(() => showError(false), 5000);

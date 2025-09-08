@@ -4,15 +4,9 @@
   "private": true,
   "homepage": "/",
   "dependencies": {
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.17",
     "axios": "^1.9.0",
-    "emailjs-com": "^3.2.0",
     "fuse.js": "^7.1.0",
     "gsap": "^3.13.0",
     "ogl": "^1.0.11",
@@ -21,14 +15,11 @@
     "react-helmet-async": "^2.0.0",
     "react-icons": "^5.4.0",
     "react-intersection-observer": "^9.16.0",
-    "react-markdown": "^10.1.0",
     "react-router-dom": "^6.20.0",
     "react-scripts": "5.0.1",
     "react-scroll": "^1.8.9",
-    "react-youtube": "^10.1.0",
     "styled-components": "^6.0.8",
-    "typescript": "^5.3.3",
-    "web-vitals": "^3.5.0"
+    "typescript": "^5.3.3"
   },
   "scripts": {
     "start": "cross-env REACT_APP_USE_TS=true react-scripts start",
@@ -60,18 +51,10 @@
   },
   "devDependencies": {
     "@types/react-scroll": "^1.8.10",
-    "@typescript-eslint/eslint-plugin": "^6.15.0",
-    "@typescript-eslint/parser": "^6.15.0",
-    "ajv": "^8.17.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.56.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-config-react-app": "^7.0.1",
     "gh-pages": "^5.0.0",
-    "gray-matter": "^4.0.3",
-    "webpack-bundle-analyzer": "^4.10.2"
+    "gray-matter": "^4.0.3"
   }
 }

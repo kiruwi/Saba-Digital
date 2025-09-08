@@ -44,7 +44,7 @@ const ButtonStyled = styled.button<ButtonProps>`
       !disabled && variant === 'outline' ? theme.colors.primary :
       undefined
     };
-    color: ${({ theme, variant, disabled }) => 
+    color: ${({ variant, disabled }) => 
       !disabled && variant === 'outline' ? 'white' : undefined
     };
   }

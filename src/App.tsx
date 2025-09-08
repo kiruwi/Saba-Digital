@@ -8,6 +8,7 @@ import GlobalStyles from "./components/GlobalStyles";
 import { useGAPageViews } from "./utils/analytics";
 import { ThemeProvider as CustomThemeProvider, useTheme } from "./contexts/ThemeContext";
 import { AccessibilityProvider } from "./components/AccessibilityProvider";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 // import { AccessibilityTester } from "./components/AccessibilityTester";
 import { lightTheme, darkTheme } from "./themes/theme";
 import Layout from './components/Layout';
@@ -61,14 +62,15 @@ function AppContent() {
   return (
     <HelmetProvider>
       <StyledThemeProvider theme={themeObject}>
+        <ErrorBoundary>
         <AccessibilityProvider>
           <GlobalStyles />
-          <CookieBanner />
           <Router>
           {/* Skip navigation link removed */}
           {/* <AccessibilityTester /> */}
           <ScrollToTop /> {/* Add ScrollToTop to ensure proper scroll restoration */}
           <RouteChangeTracker />
+          <CookieBanner />
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
               <Route path="/" element={
@@ -137,6 +139,7 @@ function AppContent() {
           </Suspense>
         </Router>
         </AccessibilityProvider>
+        </ErrorBoundary>
       </StyledThemeProvider>
     </HelmetProvider>
   );

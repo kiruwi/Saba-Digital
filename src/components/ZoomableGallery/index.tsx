@@ -34,7 +34,7 @@ interface ZoomableGalleryProps {
 const ZoomableGallery: React.FC<ZoomableGalleryProps> = ({
   images,
   title,
-  showInstructions = true // currently unused but kept for future UI
+  showInstructions: _showInstructions = true // currently unused but kept for future UI
 }) => {
   /* ------------------------------------------------------------------
    * State & helpers

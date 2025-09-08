@@ -10,7 +10,7 @@ export const HeroContainer = styled.section`
   display: grid;
   grid-template-columns: minmax(0, 1fr) 500px;
   min-height: 100vh;
-  background: ${({ theme }) => `
+  background: ${() => `
     radial-gradient(circle at 70% 40%, #00adee 0%, #032648 70%),
     radial-gradient(circle at 20% 85%, #28c76f 0%, #032648 70%)
   `};

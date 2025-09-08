@@ -1,5 +1,5 @@
 // src/components/AccessibilityTester.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { useAccessibility } from './AccessibilityProvider';
 import { trackAccessibilityEvent } from '../utils/analytics';
@@ -90,7 +90,7 @@ const ReportItem = styled.div<{ status: 'pass' | 'fail' | 'warning' }>`
       status === 'pass' ? '"✓"' : 
       status === 'fail' ? '"✗"' : 
       '"⚠"'};
-    color: ${({ status, theme }) => 
+    color: ${({ status }) => 
       status === 'pass' ? '#4CAF50' : 
       status === 'fail' ? '#F44336' : 
       '#FF9800'};
@@ -117,7 +117,7 @@ const CloseButton = styled.button`
 export const AccessibilityTester: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [report, setReport] = useState<AccessibilityReport | null>(null);
-  const { highContrast: _, keyboardNavigation } = useAccessibility();
+  const { highContrast, keyboardNavigation } = useAccessibility();
 
   // Calculate color contrast ratio
   const calculateContrast = (color1: string, color2: string): number => {
@@ -142,7 +142,7 @@ export const AccessibilityTester: React.FC = () => {
     return (brightest + 0.05) / (darkest + 0.05);
   };
 
-  const runAccessibilityTest = (): AccessibilityReport => {
+  const runAccessibilityTest = useCallback((): AccessibilityReport => {
     // Test color contrast
     const colorPairs = [
       { bg: '#ffffff', fg: '#343a40', name: 'Main text' },
@@ -169,7 +169,8 @@ export const AccessibilityTester: React.FC = () => {
     });
     
     // Check if focus styles are defined
-    const _hasFocusStyles = document.styleSheets.length > 0;
+    // Check if any stylesheets are present (kept for potential future checks)
+    // const hasFocusStyles = document.styleSheets.length > 0;
 
     // Test focusable elements
     const focusableElements = document.querySelectorAll(
@@ -204,7 +205,7 @@ export const AccessibilityTester: React.FC = () => {
       ariaLabels,
       keyboardNavigation
     };
-  };
+  }, [keyboardNavigation]);
 
   const handleToggle = () => {
     const newVisibility = !isVisible;
@@ -230,7 +231,7 @@ export const AccessibilityTester: React.FC = () => {
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [runAccessibilityTest]);
 
   if (!report) return null;
 
@@ -268,8 +269,8 @@ export const AccessibilityTester: React.FC = () => {
           <ReportItem status={report.focusableElements > 0 ? 'pass' : 'warning'}>
             {report.focusableElements} focusable elements
           </ReportItem>
-          <ReportItem status={'pass'}>
-            Keyboard navigation: enabled
+          <ReportItem status={keyboardNavigation ? 'pass' : 'warning'}>
+            Keyboard navigation: {keyboardNavigation ? 'enabled' : 'disabled'}
           </ReportItem>
         </ReportSection>
 
@@ -288,8 +289,8 @@ export const AccessibilityTester: React.FC = () => {
           <ReportItem status={report.ariaLabels.missing === 0 ? 'pass' : 'warning'}>
             {report.ariaLabels.present} labeled, {report.ariaLabels.missing} missing
           </ReportItem>
-          <ReportItem status={'pass'}>
-            High contrast: enabled
+          <ReportItem status={highContrast ? 'pass' : 'warning'}>
+            High contrast: {highContrast ? 'enabled' : 'disabled'}
           </ReportItem>
         </ReportSection>
       </TestContainer>

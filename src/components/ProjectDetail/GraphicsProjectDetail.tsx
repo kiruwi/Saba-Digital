@@ -53,7 +53,7 @@ const GraphicsProjectDetail: React.FC<GraphicsProjectDetailProps> = ({ projects 
     if (targetId && !project) {
       navigate(`/work/graphics/${targetId}`);
     }
-  }, [id, project, targetId]);
+  }, [id, project, targetId, navigate]);
   
   if (!project) {
     return (

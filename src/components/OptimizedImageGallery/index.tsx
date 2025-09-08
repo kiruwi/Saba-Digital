@@ -69,7 +69,7 @@ const OptimizedImageGallery: React.FC<OptimizedImageGalleryProps> = ({
   images,
   columns = 3,
   gap = '1.5rem',
-  aspectRatio = '4/3',
+  aspectRatio: _aspectRatio = '4/3',
   className,
 }) => {
   const [windowWidth, setWindowWidth] = useState(

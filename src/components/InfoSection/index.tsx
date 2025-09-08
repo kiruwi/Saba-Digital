@@ -52,7 +52,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
   alt,
   primary,
   dark,
-  dark2
+  dark2: _dark2
 }) => {
   return (
     <>

@@ -181,6 +181,17 @@ const LightboxGallery: React.FC<LightboxGalleryProps> = ({
     setActiveIndex(currentIndex);
   }, [currentIndex]);
   
+  // Navigation handlers must be declared before the effect that depends on them
+  const navigateNext = useCallback(() => {
+    setIsZoomed(false);
+    setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
+  }, [images.length]);
+  
+  const navigatePrev = useCallback(() => {
+    setIsZoomed(false);
+    setActiveIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  }, [images.length]);
+  
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
@@ -213,17 +224,9 @@ const LightboxGallery: React.FC<LightboxGalleryProps> = ({
       window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
-  }, [isOpen, activeIndex, images.length]);
+  }, [isOpen, activeIndex, images.length, onClose, navigateNext, navigatePrev]);
   
-  const navigateNext = useCallback(() => {
-    setIsZoomed(false);
-    setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
-  }, [images.length]);
   
-  const navigatePrev = useCallback(() => {
-    setIsZoomed(false);
-    setActiveIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-  }, [images.length]);
   
   const toggleZoom = () => {
     setIsZoomed(!isZoomed);
@@ -270,7 +273,7 @@ const LightboxGallery: React.FC<LightboxGalleryProps> = ({
         >
           <img 
             src={images[activeIndex]} 
-            alt={`Gallery image ${activeIndex + 1}`} 
+            alt={captions?.[activeIndex] ?? `Gallery item ${activeIndex + 1}`} 
           />
         </LightboxImage>
         
@@ -292,7 +295,7 @@ const LightboxGallery: React.FC<LightboxGalleryProps> = ({
         </ZoomButton>
       </LightboxContent>
       
-      {captions[activeIndex] && (
+      {captions?.[activeIndex] && (
         <Caption>{captions[activeIndex]}</Caption>
       )}
       

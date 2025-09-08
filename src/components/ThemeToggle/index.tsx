@@ -11,8 +11,8 @@ interface ToggleButtonProps {
 }
 
 const ToggleButton = styled.button<ToggleButtonProps>`
-  background: ${({ theme, $isDark }) => $isDark ? '#333' : '#fff'};
-  color: ${({ theme, $isDark }) => $isDark ? '#fff' : '#333'};
+  background: ${({ $isDark }) => ($isDark ? '#333' : '#fff')};
+  color: ${({ $isDark }) => ($isDark ? '#fff' : '#333')};
   border: 2px solid #00CF95; /* Use the green brand color for the border */
   border-radius: 30px;
   cursor: pointer;

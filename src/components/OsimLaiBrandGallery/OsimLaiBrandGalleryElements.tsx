@@ -199,4 +199,4 @@ export const NavigationButton = styled.button<NavigationButtonProps>`
   }
 `;
 
-export default {};
+// No default export needed; all components are named exports

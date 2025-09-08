@@ -74,7 +74,7 @@ const WebDevProjectDetail: React.FC<WebDevProjectDetailProps> = ({ projects }) =
     if (id === 'makvo-llc' && !project) {
       navigate('/work/web-dev/makvo-llc');
     }
-  }, [id, project]);
+  }, [id, project, navigate]);
   
   if (!project) {
     return (
