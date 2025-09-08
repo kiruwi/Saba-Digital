@@ -15,7 +15,13 @@ function injectClarity() {
     t.async = true;
     t.src = 'https://www.clarity.ms/tag/' + i;
     const y = l.getElementsByTagName(r)[0];
-    y.parentNode!.insertBefore(t, y);
+    if (y && y.parentNode) {
+      y.parentNode.insertBefore(t, y);
+    } else if (l.head) {
+      l.head.appendChild(t);
+    } else {
+      (l.documentElement || l.body).appendChild(t);
+    }
   })(window, document, 'clarity', 'script', 's22e2bgovv');
 }
 
