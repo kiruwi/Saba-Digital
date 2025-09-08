@@ -87,6 +87,18 @@ const CookieBanner: React.FC = () => {
     const stored = localStorage.getItem(CONSENT_KEY);
     if (stored === 'accepted') {
       injectClarity();
+      // Signal consent and a pageview once Clarity is available
+      setTimeout(() => {
+        try {
+          const c = (window as any).clarity;
+          if (typeof c === 'function') {
+            c('consent');
+            c('event', 'pageview');
+          }
+        } catch {
+          // no-op
+        }
+      }, 0);
     } else if (!stored) {
       setVisible(true);
     }
@@ -97,6 +109,18 @@ const CookieBanner: React.FC = () => {
   const handleAccept = () => {
     localStorage.setItem(CONSENT_KEY, 'accepted');
     injectClarity();
+    // Explicitly grant consent and log a pageview
+    setTimeout(() => {
+      try {
+        const c = (window as any).clarity;
+        if (typeof c === 'function') {
+          c('consent');
+          c('event', 'pageview');
+        }
+      } catch {
+        // no-op
+      }
+    }, 0);
     setVisible(false);
   };
 

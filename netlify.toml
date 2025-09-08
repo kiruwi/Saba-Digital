@@ -13,7 +13,7 @@
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://www.youtube.com https://www.youtube-nocookie.com https://www.clarity.ms 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://i.ytimg.com https://bat.bing.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://www.youtube.com https://www.youtube-nocookie.com https://www.clarity.ms https://bat.bing.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; upgrade-insecure-requests;"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://www.youtube.com https://www.youtube-nocookie.com https://www.clarity.ms 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://i.ytimg.com https://bat.bing.com https://www.clarity.ms; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://www.youtube.com https://www.youtube-nocookie.com https://www.clarity.ms https://bat.bing.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; upgrade-insecure-requests;"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
 
