@@ -403,6 +403,18 @@ const HeroSection: FC = () => {
   const [showDragHint, setShowDragHint] = useState(false);
   const [dragHintPos, setDragHintPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
+  // Keep the drag hint following the cursor whenever it's visible
+  useEffect(() => {
+    if (!showDragHint) return;
+    const onPointerMove = (e: PointerEvent) => {
+      setDragHintPos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('pointermove', onPointerMove);
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove);
+    };
+  }, [showDragHint]);
+
   // hero heading line-flip animation
   useEffect(() => {
     if (lowEndDevice) return;
@@ -727,6 +739,11 @@ const HeroSection: FC = () => {
       }
     } else {
       setExpanded(true);
+      // Show the drag hint immediately at the cursor when expanding on desktop
+      if (window.innerWidth > 1000) {
+        setShowDragHint(true);
+        setDragHintPos({ x: e.clientX, y: e.clientY });
+      }
       // ensure panel starts at top
       setTimeout(() => {
         if (window.innerWidth <= 1000) {
