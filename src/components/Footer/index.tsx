@@ -31,6 +31,11 @@ const Footer: React.FC = () => {
               <FooterLinkTitle>Lets Talk</FooterLinkTitle>
               <FooterLink to="/contact">+254 704 456 165</FooterLink>
             </FooterLinkItems>
+            <FooterLinkItems>
+              <FooterLinkTitle>Legal</FooterLinkTitle>
+              <FooterLink to="/privacy">Privacy Policy</FooterLink>
+              <FooterLink to="/cookies">Cookie Policy</FooterLink>
+            </FooterLinkItems>
           </FooterLinksWrapper>
         </FooterLinksContainer>
 

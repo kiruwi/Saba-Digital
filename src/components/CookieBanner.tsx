@@ -1,5 +1,6 @@
 // src/components/CookieBanner.tsx
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 // Key used in localStorage to remember the visitor's choice
@@ -55,6 +56,12 @@ const Message = styled.span`
   flex: 1 1 auto;
   margin-right: 12px;
   color: ${({ theme }) => theme.colors?.secondary ?? '#6c757d'};
+`;
+
+const PolicyLink = styled(Link)`
+  color: ${({ theme }) => theme.colors?.accent ?? '#007e41'};
+  text-decoration: underline;
+  &:hover { opacity: 0.9; }
 `;
 
 const ButtonsWrapper = styled.div`
@@ -138,7 +145,7 @@ const CookieBanner: React.FC = () => {
   return (
     <Banner>
       <Message>
-        By continuing to browse iancheruiyot.work you consent to our use of cookies and similar technologies to improve your experience, analyze site traffic, and tailor content. For more information, please review our Privacy Policy.
+        By continuing to browse iancheruiyot.work you consent to our use of cookies and similar technologies to improve your experience, analyze site traffic, and tailor content. For more information, please review our <PolicyLink to="/privacy">Privacy Policy</PolicyLink> and <PolicyLink to="/cookies">Cookie Policy</PolicyLink>.
       </Message>
       <ButtonsWrapper>
         <Button onClick={handleAccept}>Accept</Button>

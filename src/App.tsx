@@ -30,6 +30,8 @@ const Graphics = lazy(() => import("./work/Graphics"));
 const UXUIDetail = lazy(() => import("./work/UXUIDetail"));
 const WebDevDetail = lazy(() => import("./work/WebDevDetail"));
 const GraphicsDetail = lazy(() => import("./work/GraphicsDetail"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 
 // RouteChangeTracker component to track page views
 function RouteChangeTracker() {
@@ -118,6 +120,16 @@ function AppContent() {
               <Route path="/work/graphics/:id" element={
                 <Layout>
                   <GraphicsDetail />
+                </Layout>
+              } />
+              <Route path="/privacy" element={
+                <Layout>
+                  <PrivacyPolicy />
+                </Layout>
+              } />
+              <Route path="/cookies" element={
+                <Layout>
+                  <CookiePolicy />
                 </Layout>
               } />
               <Route path="*" element={<ErrorPage />} />
