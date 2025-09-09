@@ -106,12 +106,12 @@ export const SocialIcons = styled.div`
  align-items: center;
  width: 240px;
 `
-export const SocialIconLink = styled.a`
- color: ${({ theme }) => theme.colors.text};
- font-size: 24px;
+export const SocialIconLink = styled.a.attrs({ rel: 'noopener noreferrer' })`
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 24px;
 
- &:hover {
-     color: ${({ theme }) => theme.colors.primary};
-     transition: 0.3s ease-out;
- }
+  &:hover {
+      color: ${({ theme }) => theme.colors.primary};
+      transition: 0.3s ease-out;
+  }
 `
