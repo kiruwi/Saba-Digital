@@ -303,17 +303,35 @@ export const useAISearch = () => {
     localStorage.removeItem('searchHistory');
   }, []);
 
+  // Escape HTML to prevent XSS when using dangerouslySetInnerHTML for highlighting
+  const escapeHtml = (input: string): string =>
+    input
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+
+  // Escape RegExp special characters so user queries are treated literally
+  const escapeRegExp = (input: string): string => input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
   const highlightMatch = useCallback((text: string, searchQuery: string): string => {
-    if (!searchQuery.trim()) return text;
-    
-    const words = searchQuery.trim().split(/\s+/);
-    let highlighted = text;
-    
-    words.forEach(word => {
+    if (!searchQuery.trim()) return escapeHtml(text);
+
+    // Work with escaped text to ensure any HTML in source cannot execute
+    let highlighted = escapeHtml(text);
+    const words = searchQuery
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .map(escapeRegExp);
+
+    // Sequentially wrap each term with <mark> tags (safe since base string is escaped)
+    words.forEach((word) => {
       const regex = new RegExp(`(${word})`, 'gi');
       highlighted = highlighted.replace(regex, '<mark>$1</mark>');
     });
-    
+
     return highlighted;
   }, []);
 

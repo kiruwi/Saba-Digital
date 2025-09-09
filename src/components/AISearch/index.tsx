@@ -143,7 +143,8 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
               onClose();
               navigate(item.url);
             } else {
-              window.open(item.url, '_blank');
+              // Prevent reverse tabnabbing
+              window.open(item.url, '_blank', 'noopener,noreferrer');
             }
           } else if (item.type === 'project' && item.project) {
             handleResultClick(item.project.id, item.project.category);
@@ -274,7 +275,8 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                           onClose();
                           navigate(item.url);
                         } else {
-                          window.open(item.url, '_blank');
+                          // Prevent reverse tabnabbing
+                          window.open(item.url, '_blank', 'noopener,noreferrer');
                         }
                       } else if (isProject && item.project) {
                         handleResultClick(item.project.id, item.project.category);
