@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { Container, Heading, LogoCard, LogoImg, LogoTrack, Marquee, Section, Subtext } from './TrustedByElements';
 
@@ -48,6 +48,7 @@ const importLogos = (): LogoAsset[] => {
 const TrustedBy: React.FC = () => {
   const marqueeRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const [isReady, setIsReady] = useState(false);
 
   const logos = useMemo(() => importLogos(), []);
   const marqueeLogos = useMemo(() => {
@@ -55,40 +56,60 @@ const TrustedBy: React.FC = () => {
     return logos.length > 1 ? [...logos, ...logos] : logos;
   }, [logos]);
 
+  // Ensure component is mounted and ready
+  useEffect(() => {
+    setIsReady(true);
+  }, []);
+
   useLayoutEffect(() => {
+    if (!isReady) return;
+    
     const marqueeEl = marqueeRef.current;
     const trackEl = trackRef.current;
     if (!marqueeEl || !trackEl || logos.length === 0) return;
 
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>('.trusted-logo-card');
-      if (cards.length) {
-        gsap.fromTo(
-          cards,
-          { autoAlpha: 0, y: 24 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'power3.out',
-            stagger: { each: 0.08, from: 'edges' }
-          }
-        );
-      }
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        const cards = gsap.utils.toArray<HTMLElement>('.trusted-logo-card');
+        
+        // Ensure cards are visible initially
+        if (cards.length) {
+          // First set them visible
+          gsap.set(cards, { visibility: 'visible', opacity: 1, y: 0 });
+          
+          // Then animate them in
+          gsap.fromTo(
+            cards,
+            { opacity: 0, y: 24 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              ease: 'power3.out',
+              stagger: { each: 0.08, from: 'edges' }
+            }
+          );
+        }
 
-      if (logos.length > 1) {
-        const duration = Math.max(16, logos.length * 2.4);
-        gsap.to(trackEl, {
-          xPercent: -50,
-          duration,
-          ease: 'none',
-          repeat: -1
-        });
-      }
-    }, marqueeEl);
+        if (logos.length > 1) {
+          const duration = Math.max(16, logos.length * 2.4);
+          gsap.to(trackEl, {
+            xPercent: -50,
+            duration,
+            ease: 'none',
+            repeat: -1
+          });
+        }
+      }, marqueeEl);
 
-    return () => ctx.revert();
-  }, [logos]);
+      return () => ctx.revert();
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [logos, isReady]);
 
   const hasLogos = logos.length > 0;
 
@@ -113,7 +134,15 @@ const TrustedBy: React.FC = () => {
                   className="trusted-logo-card"
                   aria-label={logo.alt}
                 >
-                  <LogoImg src={logo.src} alt={logo.alt} loading="lazy" />
+                  <LogoImg 
+                    src={logo.src} 
+                    alt={logo.alt} 
+                    loading="eager"
+                    onError={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.style.display = 'none';
+                    }}
+                  />
                 </LogoCard>
               ))}
             </LogoTrack>

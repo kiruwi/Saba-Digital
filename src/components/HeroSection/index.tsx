@@ -159,22 +159,22 @@ export const BtnWrap = styled.div`
 `;
 
 /* ── Portfolio CTA button ─────────────────────────── */
-export const PortfolioButton = styled.button<{ expanded: boolean; lowEnd?: boolean }>`
-  position: ${({ expanded }) => (expanded ? 'fixed' : 'relative')};
-  top: ${({ expanded }) => (expanded ? '50%' : 'auto')};
-  left: ${({ expanded }) => (expanded ? '50%' : 'auto')};
-  transform: ${({ expanded }) => (expanded ? 'translate(-50%, -50%)' : 'none')};
+export const PortfolioButton = styled.button<{ $expanded: boolean; $lowEnd?: boolean }>`
+  position: ${({ $expanded }) => ($expanded ? 'fixed' : 'relative')};
+  top: ${({ $expanded }) => ($expanded ? '50%' : 'auto')};
+  left: ${({ $expanded }) => ($expanded ? '50%' : 'auto')};
+  transform: ${({ $expanded }) => ($expanded ? 'translate(-50%, -50%)' : 'none')};
 
-  width: ${({ expanded }) => (expanded ? '90vw' : 'auto')};
-  max-width: ${({ expanded }) => (expanded ? 'none' : '75rem')};
-  min-height: ${({ expanded }) => (expanded ? '500px' : 'auto')};
-  max-height: ${({ expanded }) => (expanded ? '90vh' : 'none')};
-  overflow-y: ${({ expanded }) => (expanded ? 'auto' : 'visible')};
+  width: ${({ $expanded }) => ($expanded ? '90vw' : 'auto')};
+  max-width: ${({ $expanded }) => ($expanded ? 'none' : '75rem')};
+  min-height: ${({ $expanded }) => ($expanded ? '500px' : 'auto')};
+  max-height: ${({ $expanded }) => ($expanded ? '90vh' : 'none')};
+  overflow-y: ${({ $expanded }) => ($expanded ? 'auto' : 'visible')};
   overscroll-behavior: contain;
 
   /* Full-screen overlay on small devices */
   @media (max-width: 1000px) {
-    ${({ expanded }) => expanded && css`
+    ${({ $expanded }) => $expanded && css`
       top: 0;
       left: 0;
       transform: none;
@@ -187,7 +187,7 @@ export const PortfolioButton = styled.button<{ expanded: boolean; lowEnd?: boole
       justify-content: flex-start;
     `}
   }
-  padding: ${({ expanded }) => (expanded ? 0 : '18px 64px 18px 32px')};
+  padding: ${({ $expanded }) => ($expanded ? 0 : '18px 64px 18px 32px')};
 
 
 
@@ -196,29 +196,29 @@ export const PortfolioButton = styled.button<{ expanded: boolean; lowEnd?: boole
   justify-content: center;
 
   border: none;
-  border-radius: ${({ expanded }) => (expanded ? '32px' : '28px')};
-  background: ${({ expanded, theme }) => (expanded ? 'transparent' : theme.colors.primary)};
+  border-radius: ${({ $expanded }) => ($expanded ? '32px' : '28px')};
+  background: ${({ $expanded, theme }) => ($expanded ? 'transparent' : theme.colors.primary)};
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   color: #fff;
-  font-size: ${({ expanded }) => (expanded ? 0 : '1rem')};
+  font-size: ${({ $expanded }) => ($expanded ? 0 : '1rem')};
   font-weight: 500; /* revert CTA label to normal weight */
   cursor: pointer;
-  z-index: ${({ expanded }) => (expanded ? 9999 : 'auto')};
+  z-index: ${({ $expanded }) => ($expanded ? 9999 : 'auto')};
 
   will-change: transform, width, height;
   transition: none;
 `;
 
 /* button label */
-export const CtaLabel = styled.span<{ expanded: boolean }>`
-  opacity: ${({ expanded }) => (expanded ? 0 : 1)};
+export const CtaLabel = styled.span<{ $expanded: boolean }>`
+  opacity: ${({ $expanded }) => ($expanded ? 0 : 1)};
   transition: opacity 0.45s ease;
   pointer-events: none;
 `;
 
 /* yellow circle */
-export const ArrowBadge = styled.span<{ expanded: boolean }>`
+export const ArrowBadge = styled.span<{ $expanded: boolean }>`
   position: absolute;
   width: 48px;
   height: 48px;
@@ -240,8 +240,8 @@ export const ArrowBadge = styled.span<{ expanded: boolean }>`
     bottom 0.45s ease,
     left 0.45s ease;
 
-  ${({ expanded }) =>
-    expanded &&
+  ${({ $expanded }) =>
+    $expanded &&
     css`
       /* ---------- desktop (≥769px): bottom-left inside expanded button ---------- */
       @media (min-width: 769px) {
@@ -265,11 +265,11 @@ export const ArrowBadge = styled.span<{ expanded: boolean }>`
 `;
 
 /* arrow icon */
-export const ArrowUpIcon = styled(FiArrowUpRight)<{ expanded: boolean }>`
+export const ArrowUpIcon = styled(FiArrowUpRight)<{ $expanded: boolean }>`
   font-size: 24px;
   color: #000;
   transition: transform 0.45s ease;
-  transform: ${({ expanded }) => (expanded ? 'rotate(-180deg)' : 'rotate(0deg)')};
+  transform: ${({ $expanded }) => ($expanded ? 'rotate(-180deg)' : 'rotate(0deg)')};
 `;
 
 /* ── rail column ───────────────────────────────────── */
@@ -347,14 +347,13 @@ export const ScrollArrow = styled.div`
   transform: rotate(45deg);
   animation: ${bounce} 2s infinite;
 `;
-
 /* ── slide dots ───────────────────────────────────── */
 export const SlideIndicatorsContainer = styled.div`
   position: absolute;
   right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
+  top: -8px;
+  right: -8px;
+  transform: none;
   flex-direction: column;
   gap: 10px;
 
@@ -916,16 +915,16 @@ const HeroSection: FC = () => {
 
         <BtnWrap>
           <PortfolioButton
-            expanded={expanded}
-            lowEnd={lowEndDevice}
+            $expanded={expanded}
+            $lowEnd={lowEndDevice}
             onClick={handlePortfolioClick}
               aria-label="View Portfolio"
               aria-expanded={expanded}
               ref={portfolioBtnRef}
             >
-            <CtaLabel expanded={expanded}>View Portfolio</CtaLabel>
-            <ArrowBadge expanded={expanded}>
-              <ArrowUpIcon expanded={expanded} />
+            <CtaLabel $expanded={expanded}>View Portfolio</CtaLabel>
+            <ArrowBadge $expanded={expanded}>
+              <ArrowUpIcon $expanded={expanded} />
             </ArrowBadge>
 
             {expanded && (

@@ -66,6 +66,10 @@ export const LogoCard = styled.div`
   border: none;
   box-shadow: none;
   border-radius: 0;
+  min-height: 52px;
+  flex-shrink: 0;
+  visibility: visible !important;
+  opacity: 1 !important;
   transition: transform 0.3s ease;
 
   &:hover {
@@ -74,9 +78,11 @@ export const LogoCard = styled.div`
 `;
 
 export const LogoImg = styled.img`
-  max-width: 100%;
-  max-height: clamp(28px, 5vw, 52px);
-  height: auto;
+  width: auto;
+  height: clamp(36px, 5vw, 52px);
+  min-width: 80px;
+  max-width: 180px;
+  display: block;
   object-fit: contain;
   filter: grayscale(1);
   opacity: 0.8;
