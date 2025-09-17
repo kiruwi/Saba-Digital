@@ -93,7 +93,29 @@ const MobileSearchButton = styled.button<{ theme?: any }>`
 `;
 
 
-// Define props interface for the styled component
+
+const ThemeToggleCircle = styled.button<{ $size: number; $iconSize: string }>`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: ${({ $size }) => `${$size}px`};
+  height: ${({ $size }) => `${$size}px`};
+  border-radius: 50%;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: ${({ $iconSize }) => $iconSize};
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px ${({ theme }) => `${theme.colors.primary}4D`};
+  outline: none;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px ${({ theme }) => `${theme.colors.primary}66`};
+  }
+`;// Define props interface for the styled component
 interface MobileDropdownIconProps {
   $isOpen: boolean;
 }
@@ -252,7 +274,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
             </NavArrowBadge>
           )}
           <MobileThemeToggle>
-            <button
+            <ThemeToggleCircle
+              $size={24}
+              $iconSize="1.2rem"
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
@@ -260,28 +284,11 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
               }}
               aria-label="Toggle theme"
               title="Toggle between light and dark theme"
-              style={{
-                cursor: 'pointer',
-                fontSize: '1.2rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '24px',
-                height: '24px',
-                borderRadius: '50%',
-                border: '2px solid #00CF95',
-                padding: 0,
-                color: 'inherit',
-                transition: 'all 0.3s ease',
-                background: 'transparent',
-                boxShadow: '0 0 10px rgba(0,207,149,0.3)',
-                outline: 'none',
-              }}
             >
               {theme === 'dark' 
                 ? <FaSun style={{color: '#F9D71C'}} /> 
                 : <FaMoon style={{color: '#032648'}} />}
-            </button>
+            </ThemeToggleCircle>
           </MobileThemeToggle>
           {/* Mobile search trigger */}
           <MobileSearchTrigger
@@ -305,7 +312,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
             
             {/* New direct theme toggle for desktop - positioned next to Resume button */}
             <DesktopThemeToggle>
-              <button
+              <ThemeToggleCircle
+                $size={40}
+                $iconSize="1.8rem"
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
@@ -313,35 +322,18 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
                 }}
                 aria-label="Toggle theme"
                 title="Toggle between light and dark theme"
-                style={{
-                  cursor: 'pointer',
-                  fontSize: '1.8rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  border: '2px solid #00CF95',
-                  padding: 0,
-                  color: 'inherit',
-                  transition: 'all 0.3s ease',
-                  background: 'transparent',
-                  boxShadow: '0 0 10px rgba(0,207,149,0.3)',
-                  outline: 'none',
-                }}
               >
                 {theme === 'dark' 
                   ? <FaSun style={{color: '#F9D71C'}} /> 
                   : <FaMoon style={{color: '#032648'}} />}
-              </button>
+              </ThemeToggleCircle>
             </DesktopThemeToggle>
             <NavBtnLink 
               to="https://drive.google.com/file/d/1-LmqGJNPkNZ0naITKqTo5PrQsX7iNpYP/view?usp=sharing" 
               target="_blank" 
               rel="noopener noreferrer"
             >
-              Résumé
+              Résumé 
             </NavBtnLink>
             <NavBtnLink to="/contact">
               Contact Me
