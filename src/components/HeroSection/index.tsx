@@ -417,12 +417,12 @@ const HeroSection: FC = () => {
   // hero heading line-flip animation
   useEffect(() => {
     if (lowEndDevice) return;
-    if (!titleRef.current) return;
-
     const titleEl = titleRef.current;
+    if (!titleEl) return;
 
-    let split: any;
+    let split: any = null;
     let animation: gsap.core.Tween | null = null;
+    let cancelled = false;
 
     const setup = () => {
       if (!titleRef.current) return;
@@ -432,6 +432,7 @@ const HeroSection: FC = () => {
     };
 
     const play = () => {
+      if (!split) return;
       animation && animation.revert();
       animation = gsap.from(split.lines, {
         rotationX: -100,
@@ -443,15 +444,24 @@ const HeroSection: FC = () => {
       });
     };
 
-    setup();
-    play();
-
-    const handleClick = () => play();
-    titleEl?.addEventListener('click', handleClick);
-    window.addEventListener('resize', setup);
+    const start = () => {
+      if (cancelled) return;
+      setup();
+      play();
+      titleEl.addEventListener('click', play);
+      window.addEventListener('resize', setup);
+    };
+    // Delay SplitText until fonts render to keep measurements stable
+    const fontsReady = (document as any)?.fonts?.ready;
+    if (fontsReady && typeof fontsReady.then === 'function') {
+      fontsReady.then(start).catch(start);
+    } else {
+      start();
+    }
 
     return () => {
-      titleEl?.removeEventListener('click', handleClick);
+      cancelled = true;
+      titleEl.removeEventListener('click', play);
       window.removeEventListener('resize', setup);
       split && split.revert();
       animation && animation.revert();
