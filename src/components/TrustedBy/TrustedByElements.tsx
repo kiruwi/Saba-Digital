@@ -19,16 +19,16 @@ export const Container = styled.div`
 
 export const Heading = styled.h2`
   margin: 0;
-  font-size: clamp(1.75rem, 3.6vw, 2.65rem);
+  font-size: clamp(1.75rem, 3.6vw, 1.65rem);
   line-height: 1.1;
-  color: ${({ theme }) => theme.colors.primary};
+  color: black;
 `;
 
 export const Subtext = styled.p`
   margin: 0 auto;
   max-width: 640px;
-  font-size: clamp(1.5rem, 1vw, 0.5rem);
-  color: #000000;
+  font-size: clamp(1.2rem, 1vw, 0.5rem);
+  color: black;
   opacity: 0.78;
 
   code {
