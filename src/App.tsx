@@ -15,7 +15,6 @@ import Layout from './components/Layout';
 import AdDesign from './work/AdDesign';
 import MotionGraphics from './work/MotionGraphics';
 import ErrorPage from "./pages/Error";
-import LoadingFallback from "./components/LoadingFallback";
 import "./App.css";
 import "./nohemi-fonts.css"; // Import Nohemi font definitions
 import "./satoshi-fonts.css"; // Import Satoshi font definitions
@@ -71,7 +70,7 @@ function AppContent() {
           <ScrollToTop /> {/* Add ScrollToTop to ensure proper scroll restoration */}
           <RouteChangeTracker />
           <CookieBanner />
-          <Suspense fallback={<LoadingFallback />}>
+          <Suspense fallback={null}>
             <Routes>
               <Route path="/" element={
                 <Layout>
@@ -154,3 +153,4 @@ function App() {
 }
 
 export default App;
+

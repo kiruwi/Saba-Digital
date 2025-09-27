@@ -1,5 +1,4 @@
 import React, { lazy, Suspense, ComponentType } from 'react';
-import LoadingFallback from '../components/LoadingFallback';
 import { preloadSectionImages } from './preloadImages';
 
 /**
@@ -26,7 +25,7 @@ export function lazyLoad<T extends ComponentType<any>>(
     }
     
     return (
-      <Suspense fallback={<LoadingFallback />}>
+      <Suspense fallback={null}>
         <LazyComponent {...props} />
       </Suspense>
     );
@@ -84,3 +83,4 @@ export const prefetchRelatedRoutes = (currentRoute: string): void => {
     relatedRoutes[routePattern].forEach(prefetchComponent);
   }
 };
+
