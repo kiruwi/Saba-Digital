@@ -24,13 +24,14 @@ interface EventParams {
 export const trackPageView = (path: string): void => {
   if (window.gtag) {
     // Skip on localhost to keep GA clean (optional)
-    if (window.location.hostname === 'localhost') return;
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') return;
     
     // Send a virtual page_view to GA4 with all required parameters
     window.gtag('event', 'page_view', {
       page_title: document.title,
       page_path: path,
       page_location: window.location.origin + path,
+      send_to: 'G-YQ8LPFFP43' // Explicitly specify the measurement ID
     });
   }
 };

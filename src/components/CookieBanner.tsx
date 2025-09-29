@@ -6,18 +6,47 @@ import Clarity from "@microsoft/clarity";
 
 const CONSENT_KEY = "cookie_consent";
 const CLARITY_ID = "s22e2bgovv";
+let clarityInitialized = false;
 
 function initClarity(consented: boolean) {
   try {
-    // Initialize Microsoft Clarity with project ID
-    Clarity.init(CLARITY_ID);
+    // Check if Clarity is available
+    if (typeof Clarity === 'undefined') {
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.warn('Microsoft Clarity is not available');
+      }
+      return;
+    }
+
+    // Prevent multiple initializations
+    if (!clarityInitialized) {
+      // Initialize Microsoft Clarity with project ID
+      Clarity.init(CLARITY_ID);
+      clarityInitialized = true;
+      
+      // Log initialization in development
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('Microsoft Clarity initialized with ID:', CLARITY_ID);
+      }
+    }
 
     if (consented) {
       // Grant consent for data collection
       Clarity.consent();
+      
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.log('Microsoft Clarity consent granted');
+      }
     }
   } catch (error) {
-    // Clarity initialization failed - continue without analytics
+    // Log error in development
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('Clarity initialization failed:', error);
+    }
   }
 }
 
@@ -43,8 +72,12 @@ const Actions = styled.div`
 const Btn = styled.button<{ $secondary?: boolean }>`
   padding: 6px 14px; font-size: 14px; border: 0; cursor: pointer;
   border-radius: 6px;
-  background: ${({ $secondary }) => ($secondary ? "rgba(0,0,0,0.05)" : "#00cf95")};
+  background: ${({ $secondary, theme }) => ($secondary ? "rgba(0,0,0,0.05)" : theme.colors.primary)};
   color: ${({ $secondary }) => ($secondary ? "#6c757d" : "#fff")};
+  transition: opacity 0.2s ease;
+  &:hover {
+    opacity: 0.9;
+  }
 `;
 
 const CookieBanner: React.FC = () => {
