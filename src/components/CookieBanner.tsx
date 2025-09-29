@@ -15,6 +15,16 @@ function injectClarity() {
     const t = l.createElement(r) as HTMLScriptElement;
     t.async = true;
     t.src = 'https://www.clarity.ms/tag/' + i;
+
+    // Add load event listener to know when script is ready
+    t.onload = () => {
+      console.log('Clarity script loaded successfully');
+    };
+
+    t.onerror = () => {
+      console.error('Failed to load Clarity script');
+    };
+
     const y = l.getElementsByTagName(r)[0];
     if (y && y.parentNode) {
       y.parentNode.insertBefore(t, y);
@@ -100,18 +110,26 @@ const CookieBanner: React.FC = () => {
     const stored = localStorage.getItem(CONSENT_KEY);
     if (stored === 'accepted') {
       injectClarity();
-      // Signal consent and a pageview once Clarity is available
-      setTimeout(() => {
+
+      // Wait for Clarity to fully initialize before signaling consent
+      const initClarity = () => {
         try {
           const c = (window as any).clarity;
           if (typeof c === 'function') {
             c('consent');
             c('event', 'pageview');
+            console.log('Clarity: Auto-initialized with existing consent');
+          } else {
+            // Retry if clarity isn't ready yet
+            setTimeout(initClarity, 100);
           }
-        } catch {
-          // no-op
+        } catch (error) {
+          console.warn('Clarity auto-initialization failed:', error);
         }
-      }, 0);
+      };
+
+      // Give the script time to load and initialize
+      setTimeout(initClarity, 500);
     } else if (!stored) {
       setVisible(true);
     }
@@ -122,18 +140,26 @@ const CookieBanner: React.FC = () => {
   const handleAccept = () => {
     localStorage.setItem(CONSENT_KEY, 'accepted');
     injectClarity();
-    // Explicitly grant consent and log a pageview
-    setTimeout(() => {
+
+    // Wait for Clarity to fully initialize before signaling consent
+    const initClarity = () => {
       try {
         const c = (window as any).clarity;
         if (typeof c === 'function') {
           c('consent');
           c('event', 'pageview');
+          console.log('Clarity: Consent granted and pageview tracked');
+        } else {
+          // Retry if clarity isn't ready yet
+          setTimeout(initClarity, 100);
         }
-      } catch {
-        // no-op
+      } catch (error) {
+        console.warn('Clarity initialization failed:', error);
       }
-    }, 0);
+    };
+
+    // Give the script more time to load and initialize
+    setTimeout(initClarity, 500);
     setVisible(false);
   };
 
