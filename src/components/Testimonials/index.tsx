@@ -14,21 +14,21 @@ const DEMO_REVIEWS: Review[] = [
   {
     id: "1",
     rating: 5,
-    text: "He did a very good website and he also does very good design work.",
+    text: "He did a very good job on my website. The site is clean, well-structured, and works smoothly across devices. He paid attention to both the technical setup and the overall usability, which made the process straightforward for me. His design work is equally impressive. He has a good eye for detail and creates layouts that look professional and are easy to use. The designs are not only visually appealing but also practical and functional, which is exactly what I needed. What I liked most is that he was responsive to feedback and willing to adjust things until I was satisfied. The combination of strong web development skills and quality design makes him a reliable person to work with. I would recommend him to anyone looking for someone who can deliver a good website and also handle design tasks well.",
     reviewerName: "Mark Biegon",
     reviewerTitle: "Makvo | Mutai Enterprises",
   },
   {
     id: "2", 
     rating: 5,
-    text: "Outstandingly remarkable! I would recommend him due to his exceptional creativity and attention to detail.",
+    text: "Outstandingly remarkable! His work reflects exceptional creativity and strong attention to detail. Every part of the project felt carefully thought through, from the layout to the final touches. He doesn’t just complete the task; he adds value by bringing in ideas that improve the overall outcome. The creativity in his designs sets them apart, and the precision he applies makes the final product look professional and reliable. I would recommend him without hesitation to anyone looking for someone who delivers high-quality work with consistency and care.",
     reviewerName: "Taita Ngetich",
     reviewerTitle: "Synnefa",
   },
   {
     id: "3",
     rating: 5,
-    text: "Ian, did a great Job designing our website and Is a very good product designer",
+    text: "Ian did a great job designing our website. The site looks professional, functions smoothly, and communicates exactly what we wanted. He combined technical skills with design insight to create something that is both user-friendly and visually appealing. Beyond web design, Ian is a very good product designer. He has the ability to take an idea and turn it into something practical and polished. His designs show clear thinking, creativity, and attention to usability. Working with him was straightforward, and he always took time to refine details until the outcome was right. I would highly recommend him for website projects as well as product design work.",
     reviewerName: "John Maingi",
     reviewerTitle: "Global Pathways Advisory",
   },
@@ -268,12 +268,12 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
   return (
     <section
       aria-label="Testimonials"
-      className="relative w-full bg-gradient-to-tl from-blue-50/100 to-white/100 py-16"
+      className="relative w-full bg-gradient-to-tl from-sky-100/100 to-white/100 py-16"
     >
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-green-600 text-sm font-semibold uppercase tracking-wider mb-2">
+          <p className="text-green-500 text-sm font-semibold uppercase tracking-wider mb-2">
             MY CLIENTS
           </p>
           <h2 className="text-3xl font-bold text-gray-900">
