@@ -1,55 +1,12 @@
 // src/components/CookieBanner.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Clarity from "@microsoft/clarity";
 
-const CONSENT_KEY = "cookie_consent";
+const CONSENT_KEY = "cookie_consent_v2";
 const CLARITY_ID = "s22e2bgovv";
-let clarityInitialized = false;
 
-function initClarity(consented: boolean) {
-  try {
-    // Check if Clarity is available
-    if (typeof Clarity === 'undefined') {
-      if (process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
-        console.warn('Microsoft Clarity is not available');
-      }
-      return;
-    }
-
-    // Prevent multiple initializations
-    if (!clarityInitialized) {
-      // Initialize Microsoft Clarity with project ID
-      Clarity.init(CLARITY_ID);
-      clarityInitialized = true;
-      
-      // Log initialization in development
-      if (process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
-        console.log('Microsoft Clarity initialized with ID:', CLARITY_ID);
-      }
-    }
-
-    if (consented) {
-      // Grant consent for data collection
-      Clarity.consent();
-      
-      if (process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
-        console.log('Microsoft Clarity consent granted');
-      }
-    }
-  } catch (error) {
-    // Log error in development
-    if (process.env.NODE_ENV === 'development') {
-      // eslint-disable-next-line no-console
-      console.error('Clarity initialization failed:', error);
-    }
-  }
-}
-
+// ---- Styles ----
 const Banner = styled.div`
   position: fixed; inset-inline: 0; bottom: 0;
   display: flex; align-items: center; gap: 12px;
@@ -70,56 +27,176 @@ const Actions = styled.div`
 `;
 
 const Btn = styled.button<{ $secondary?: boolean }>`
-  padding: 6px 14px; font-size: 14px; border: 0; cursor: pointer;
+  padding: 8px 14px; font-size: 14px; border: 0; cursor: pointer;
   border-radius: 6px;
-  background: ${({ $secondary, theme }) => ($secondary ? "rgba(0,0,0,0.05)" : theme.colors.primary)};
-  color: ${({ $secondary }) => ($secondary ? "#6c757d" : "#fff")};
+  background: ${({ $secondary, theme }) =>
+    $secondary ? "rgba(0,0,0,0.05)" : (theme?.colors?.primary ?? "#0d6efd")};
+  color: ${({ $secondary }) => ($secondary ? "#121212" : "#fff")};
   transition: opacity 0.2s ease;
-  &:hover {
-    opacity: 0.9;
-  }
+  &:hover { opacity: 0.9; }
 `;
 
-const CookieBanner: React.FC = () => {
-  const [show, setShow] = useState(false);
+const FloatingSettings = styled.button`
+  position: fixed; left: 12px; bottom: 12px; z-index: 9998;
+  padding: 6px 10px; font-size: 13px; border: 0; cursor: pointer;
+  border-radius: 999px; background: rgba(0,0,0,0.06); color: #121212;
+  backdrop-filter: blur(8px);
+`;
 
-  useEffect(() => {
-    // Guard for SSR
-    if (typeof window === "undefined") return;
+// ---- Helpers ----
+type ConsentStatus = "accepted" | "rejected";
+type StoredConsent = { status: ConsentStatus; updatedAt: string; version: number };
 
-    const stored = localStorage.getItem(CONSENT_KEY);
-    if (stored === "accepted") {
-      initClarity(true);
-      return;
+function readConsent(): StoredConsent | null {
+  try { return JSON.parse(localStorage.getItem(CONSENT_KEY) || "null"); }
+  catch { return null; }
+}
+
+function writeConsent(status: ConsentStatus) {
+  const payload: StoredConsent = { status, updatedAt: new Date().toISOString(), version: 1 };
+  localStorage.setItem(CONSENT_KEY, JSON.stringify(payload));
+}
+
+function clarityAvailable(): boolean {
+  return typeof (window as any).clarity === "function";
+}
+
+/** Initialize Clarity only after explicit consent (ConsentV2). */
+function initClarityAfterConsent() {
+  try {
+    if (!clarityAvailable()) return;
+    (window as any).clarity("consentv2", { analytics_Storage: "granted", ad_Storage: "denied" });
+    (window as any).clarity("init", CLARITY_ID);
+  } catch { /* no-op */ }
+}
+
+/** Deny consent defensively if script is present. */
+function setClarityDenied() {
+  try {
+    if (clarityAvailable()) {
+      (window as any).clarity("consentv2", { analytics_Storage: "denied", ad_Storage: "denied" });
     }
-    if (!stored) setShow(true);
+  } catch { /* no-op */ }
+}
+
+// ---- Component ----
+const CookieBanner: React.FC = () => {
+  const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLElement | null>(null); // to restore focus
+  const bannerRef = useRef<HTMLDivElement>(null);
+
+  // Show banner only if no stored choice
+  useEffect(() => {
+    const stored = readConsent();
+    if (!stored) setOpen(true);
+    if (stored?.status === "accepted") initClarityAfterConsent();
+    if (stored?.status === "rejected") setClarityDenied();
   }, []);
 
+  // Focus trap + Esc (kept modal) + restore focus
+  useEffect(() => {
+    if (!open) return;
+
+    // Save the currently focused element to restore later
+    if (document.activeElement instanceof HTMLElement) triggerRef.current = document.activeElement;
+
+    // Move focus to first focusable when the banner mounts/opens
+    const rootOnMount = bannerRef.current;
+    if (rootOnMount) {
+      const firstFocusable = rootOnMount.querySelector<HTMLElement>(
+        'button, a[href], [tabindex]:not([tabindex="-1"])'
+      );
+      firstFocusable?.focus();
+    }
+
+    function onKeydown(e: KeyboardEvent) {
+      // Always re-read the ref to satisfy TypeScript and avoid stale references
+      const root = bannerRef.current;
+      if (!root) return;
+
+      if (e.key === "Escape") {
+        // Keep it modal; do not close on Esc
+        e.preventDefault();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const focusables = root.querySelectorAll<HTMLElement>(
+          'button, a[href], [tabindex]:not([tabindex="-1"])'
+        );
+        const els = Array.from(focusables).filter(el => !el.hasAttribute("disabled"));
+        if (els.length === 0) return;
+
+        const first = els[0];
+        const last = els[els.length - 1];
+        const current = document.activeElement as HTMLElement | null;
+
+        if (e.shiftKey) {
+          if (current === first || !root.contains(current)) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (current === last || !root.contains(current)) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    }
+
+    document.addEventListener("keydown", onKeydown);
+    return () => {
+      document.removeEventListener("keydown", onKeydown);
+      // restore focus
+      triggerRef.current?.focus?.();
+    };
+  }, [open]);
+
   const accept = () => {
-    localStorage.setItem(CONSENT_KEY, "accepted");
-    setShow(false);
-    initClarity(true);
+    writeConsent("accepted");
+    setOpen(false);
+    initClarityAfterConsent();
   };
 
   const reject = () => {
-    localStorage.setItem(CONSENT_KEY, "declined");
-    setShow(false);
-    // No script injection on decline
+    writeConsent("rejected");
+    setOpen(false);
+    setClarityDenied();
   };
 
-  if (!show) return null;
+  const reopen = () => setOpen(true);
+
+  if (!open) {
+    return (
+      <FloatingSettings
+        type="button"
+        onClick={reopen}
+        aria-label="Open cookie settings"
+        title="Cookie settings"
+      >
+        Cookie settings
+      </FloatingSettings>
+    );
+  }
 
   return (
-    <Banner role="dialog" aria-label="Cookie consent">
+    <Banner
+      role="dialog"
+      aria-modal="true"
+      aria-label="Cookie consent"
+      ref={bannerRef}
+    >
       <Msg>
-        By continuing to browse iancheruiyot.work you consent to cookies and similar
-        technologies for experience and analytics. Read our{" "}
-        <Link to="/privacy">Privacy Policy</Link> and{" "}
-        <Link to="/cookies">Cookie Policy</Link>.
+        e use cookies to help our site work properly and learn how 
+        you use it, so we can give you the best experience.{" "}
+        <Link to="/privacy">Privacy Policy</Link>
+        <Link to="/cookies">Cookie Policy</Link>
       </Msg>
       <Actions>
-        <Btn onClick={accept}>Accept</Btn>
-        <Btn $secondary onClick={reject}>Reject</Btn>
+        <Btn onClick={accept}>Accept all</Btn>
+        <Btn $secondary onClick={reject}>Reject all</Btn>
+        {/* Add a granular settings panel here if you add categories */}
       </Actions>
     </Banner>
   );
