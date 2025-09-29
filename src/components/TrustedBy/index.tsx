@@ -110,21 +110,19 @@ const TrustedBy: React.FC = () => {
       clearTimeout(timer);
     };
   }, [logos, isReady]);
-
   const hasLogos = logos.length > 0;
 
   return (
     <Section aria-label="Trusted By">
       <Container>
-        <Heading>Logos don’t tell the whole story,</Heading>
+        <Heading>Logos don't tell the whole story,</Heading>
         {hasLogos ? (
-          <Subtext> but here are a few that dared to work different.</Subtext>
+          <Subtext> but here are a few that <span>dared to work different</span>.</Subtext>
         ) : (
           <Subtext>
             Add your client logos to <code>src/assets/logos</code> to showcase them here.
           </Subtext>
         )}
-
         {hasLogos && (
           <Marquee ref={marqueeRef}>
             <LogoTrack ref={trackRef}>
