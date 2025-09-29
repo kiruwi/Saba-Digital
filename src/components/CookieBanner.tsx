@@ -1,181 +1,105 @@
 // src/components/CookieBanner.tsx
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-// Key used in localStorage to remember the visitor's choice
-const CONSENT_KEY = 'cookie_consent';
+const CONSENT_KEY = "cookie_consent";
+const CLARITY_ID = "s22e2bgovv";
+const CLARITY_SRC = `https://www.clarity.ms/tag/${CLARITY_ID}`;
 
-// Dynamically load the Clarity script tag
-function injectClarity() {
-  if ((window as any).clarity) return;
-
-  (function (c: any, l: any, a: string, r: string, i: string) {
-    c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-    const t = l.createElement(r) as HTMLScriptElement;
-    t.async = true;
-    t.src = 'https://www.clarity.ms/tag/' + i;
-
-    // Add load event listener to know when script is ready
-    t.onload = () => {
-      // Script loaded successfully
-    };
-
-    t.onerror = () => {
-      // Failed to load script
-    };
-
-    const y = l.getElementsByTagName(r)[0];
-    if (y && y.parentNode) {
-      y.parentNode.insertBefore(t, y);
-    } else if (l.head) {
-      l.head.appendChild(t);
-    } else {
-      (l.documentElement || l.body).appendChild(t);
-    }
-  })(window, document, 'clarity', 'script', 's22e2bgovv');
+function loadScript(src: string) {
+  return new Promise<void>((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) return resolve();
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = src;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error("Failed to load script"));
+    document.head.appendChild(s);
+  });
 }
 
-// Styled banner components
+async function initClarity(consented: boolean) {
+  // MS Clarity bootstrap (minimal)
+  (window as any).clarity =
+    (window as any).clarity ||
+    function (...args: any[]) {
+      ((window as any).clarity.q = (window as any).clarity.q || []).push(args);
+    };
+
+  await loadScript(CLARITY_SRC);
+  const c = (window as any).clarity as (...a: any[]) => void;
+  if (consented) c("consent");
+}
+
 const Banner = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  max-width: none;
-  background: #ffffff;
-  color: ${({ theme }) => theme.colors?.text ?? '#121212'};
-  padding: 16px;
-  font-size: 14px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
+  position: fixed; inset-inline: 0; bottom: 0;
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; background: #fff; color: #121212;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
   z-index: 9999;
-  flex-direction: row;
-  border-radius: 0;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 12px;
-  }
+  @media (max-width: 768px) { flex-direction: column; align-items: stretch; }
 `;
 
-const Message = styled.span`
-  flex: 1 1 auto;
-  margin-right: 12px;
-  color: ${({ theme }) => theme.colors?.secondary ?? '#6c757d'};
+const Msg = styled.span`
+  flex: 1 1 auto; color: #6c757d;
 `;
 
-const PolicyLink = styled(Link)`
-  color: ${({ theme }) => theme.colors?.accent ?? '#007e41'};
-  text-decoration: underline;
-  &:hover { opacity: 0.9; }
+const Actions = styled.div`
+  display: flex; gap: 8px;
+  @media (max-width: 768px) { width: 100%; flex-direction: column; }
 `;
 
-const ButtonsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  margin-left: 32px;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    margin-left: 0;
-    margin-top: 12px;
-  }
-`;
-
-const Button = styled.button<{ $secondary?: boolean }>`
-  background: ${({ $secondary, theme }) => ($secondary ? 'rgba(0,0,0,0.05)' : (theme.colors?.primary ?? '#00cf95'))};
-  color: ${({ $secondary, theme }) => ($secondary ? (theme.colors?.secondary ?? '#6c757d') : '#ffffff')};
-  border: none;
-  padding: 6px 14px;
-  margin-left: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 0;
-
-  @media (max-width: 768px) {
-    margin-left: 0;
-    width: 100%;
-  }
+const Btn = styled.button<{ $secondary?: boolean }>`
+  padding: 6px 14px; font-size: 14px; border: 0; cursor: pointer;
+  border-radius: 6px;
+  background: ${({ $secondary }) => ($secondary ? "rgba(0,0,0,0.05)" : "#00cf95")};
+  color: ${({ $secondary }) => ($secondary ? "#6c757d" : "#fff")};
 `;
 
 const CookieBanner: React.FC = () => {
-  const [visible, setVisible] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
+    // Guard for SSR
+    if (typeof window === "undefined") return;
+
     const stored = localStorage.getItem(CONSENT_KEY);
-    if (stored === 'accepted') {
-      injectClarity();
-
-      // Wait for Clarity to fully initialize before signaling consent
-      const initClarity = () => {
-        try {
-          const c = (window as any).clarity;
-          if (typeof c === 'function') {
-            c('consent');
-            c('event', 'pageview');
-          } else {
-            // Retry if clarity isn't ready yet
-            setTimeout(initClarity, 100);
-          }
-        } catch (error) {
-          // Clarity auto-initialization failed
-        }
-      };
-
-      // Give the script time to load and initialize
-      setTimeout(initClarity, 500);
-    } else if (!stored) {
-      setVisible(true);
+    if (stored === "accepted") {
+      initClarity(true).catch(() => {});
+      return;
     }
+    if (!stored) setShow(true);
   }, []);
 
-  if (!visible) return null;
-
-  const handleAccept = () => {
-    localStorage.setItem(CONSENT_KEY, 'accepted');
-    injectClarity();
-
-    // Wait for Clarity to fully initialize before signaling consent
-    const initClarity = () => {
-      try {
-        const c = (window as any).clarity;
-        if (typeof c === 'function') {
-          c('consent');
-          c('event', 'pageview');
-        } else {
-          // Retry if clarity isn't ready yet
-          setTimeout(initClarity, 100);
-        }
-      } catch (error) {
-        // Clarity initialization failed
-      }
-    };
-
-    // Give the script more time to load and initialize
-    setTimeout(initClarity, 500);
-    setVisible(false);
+  const accept = async () => {
+    localStorage.setItem(CONSENT_KEY, "accepted");
+    setShow(false);
+    initClarity(true).catch(() => {});
   };
 
-  const handleDecline = () => {
-    localStorage.setItem(CONSENT_KEY, 'declined');
-    setVisible(false);
+  const reject = () => {
+    localStorage.setItem(CONSENT_KEY, "declined");
+    setShow(false);
+    // No script injection on decline
   };
+
+  if (!show) return null;
 
   return (
-    <Banner>
-      <Message>
-        By continuing to browse iancheruiyot.work you consent to our use of cookies and similar technologies to improve your experience, analyze site traffic, and tailor content. For more information, please review our <PolicyLink to="/privacy">Privacy Policy</PolicyLink> and <PolicyLink to="/cookies">Cookie Policy</PolicyLink>.
-      </Message>
-      <ButtonsWrapper>
-        <Button onClick={handleAccept}>Accept</Button>
-        <Button onClick={handleDecline} $secondary>Reject</Button>
-      </ButtonsWrapper>
-     </Banner>
+    <Banner role="dialog" aria-label="Cookie consent">
+      <Msg>
+        By continuing to browse iancheruiyot.work you consent to cookies and similar
+        technologies for experience and analytics. Read our{" "}
+        <Link to="/privacy">Privacy Policy</Link> and{" "}
+        <Link to="/cookies">Cookie Policy</Link>.
+      </Msg>
+      <Actions>
+        <Btn onClick={accept}>Accept</Btn>
+        <Btn $secondary onClick={reject}>Reject</Btn>
+      </Actions>
+    </Banner>
   );
 };
 
