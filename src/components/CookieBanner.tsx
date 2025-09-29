@@ -190,7 +190,7 @@ const CookieBanner: React.FC = () => {
       <Msg>
         I use cookies to help my site work properly and learn how 
         you use it, so I can give you the best experience.{" "}
-        <Link to="/privacy">Privacy Policy </Link>
+        <Link to="/privacy">Privacy Policy </Link>{" "}
         <Link to="/cookies">Cookie Policy</Link>
       </Msg>
       <Actions>
