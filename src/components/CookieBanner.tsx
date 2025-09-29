@@ -188,9 +188,9 @@ const CookieBanner: React.FC = () => {
       ref={bannerRef}
     >
       <Msg>
-        e use cookies to help our site work properly and learn how 
-        you use it, so we can give you the best experience.{" "}
-        <Link to="/privacy">Privacy Policy</Link>
+        I use cookies to help my site work properly and learn how 
+        you use it, so I can give you the best experience.{" "}
+        <Link to="/privacy">Privacy Policy </Link>
         <Link to="/cookies">Cookie Policy</Link>
       </Msg>
       <Actions>
