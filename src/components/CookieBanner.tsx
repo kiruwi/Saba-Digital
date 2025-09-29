@@ -18,11 +18,11 @@ function injectClarity() {
 
     // Add load event listener to know when script is ready
     t.onload = () => {
-      console.log('Clarity script loaded successfully');
+      // Script loaded successfully
     };
 
     t.onerror = () => {
-      console.error('Failed to load Clarity script');
+      // Failed to load script
     };
 
     const y = l.getElementsByTagName(r)[0];
@@ -118,13 +118,12 @@ const CookieBanner: React.FC = () => {
           if (typeof c === 'function') {
             c('consent');
             c('event', 'pageview');
-            console.log('Clarity: Auto-initialized with existing consent');
           } else {
             // Retry if clarity isn't ready yet
             setTimeout(initClarity, 100);
           }
         } catch (error) {
-          console.warn('Clarity auto-initialization failed:', error);
+          // Clarity auto-initialization failed
         }
       };
 
@@ -148,13 +147,12 @@ const CookieBanner: React.FC = () => {
         if (typeof c === 'function') {
           c('consent');
           c('event', 'pageview');
-          console.log('Clarity: Consent granted and pageview tracked');
         } else {
           // Retry if clarity isn't ready yet
           setTimeout(initClarity, 100);
         }
       } catch (error) {
-        console.warn('Clarity initialization failed:', error);
+        // Clarity initialization failed
       }
     };
 
