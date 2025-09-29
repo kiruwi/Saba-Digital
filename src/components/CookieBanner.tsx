@@ -2,34 +2,23 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Clarity from "@microsoft/clarity";
 
 const CONSENT_KEY = "cookie_consent";
 const CLARITY_ID = "s22e2bgovv";
-const CLARITY_SRC = `https://www.clarity.ms/tag/${CLARITY_ID}`;
 
-function loadScript(src: string) {
-  return new Promise<void>((resolve, reject) => {
-    if (document.querySelector(`script[src="${src}"]`)) return resolve();
-    const s = document.createElement("script");
-    s.async = true;
-    s.src = src;
-    s.onload = () => resolve();
-    s.onerror = () => reject(new Error("Failed to load script"));
-    document.head.appendChild(s);
-  });
-}
+function initClarity(consented: boolean) {
+  try {
+    // Initialize Microsoft Clarity with project ID
+    Clarity.init(CLARITY_ID);
 
-async function initClarity(consented: boolean) {
-  // MS Clarity bootstrap (minimal)
-  (window as any).clarity =
-    (window as any).clarity ||
-    function (...args: any[]) {
-      ((window as any).clarity.q = (window as any).clarity.q || []).push(args);
-    };
-
-  await loadScript(CLARITY_SRC);
-  const c = (window as any).clarity as (...a: any[]) => void;
-  if (consented) c("consent");
+    if (consented) {
+      // Grant consent for data collection
+      Clarity.consent();
+    }
+  } catch (error) {
+    // Clarity initialization failed - continue without analytics
+  }
 }
 
 const Banner = styled.div`
@@ -67,16 +56,16 @@ const CookieBanner: React.FC = () => {
 
     const stored = localStorage.getItem(CONSENT_KEY);
     if (stored === "accepted") {
-      initClarity(true).catch(() => {});
+      initClarity(true);
       return;
     }
     if (!stored) setShow(true);
   }, []);
 
-  const accept = async () => {
+  const accept = () => {
     localStorage.setItem(CONSENT_KEY, "accepted");
     setShow(false);
-    initClarity(true).catch(() => {});
+    initClarity(true);
   };
 
   const reject = () => {
