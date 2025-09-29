@@ -6,6 +6,7 @@ export type Review = {
   text: string;
   reviewerName: string;
   reviewerTitle?: string;
+  reviewerImage?: string; // Optional profile image
 };
 
 // Testimonial data matching the screenshot design
@@ -36,11 +37,11 @@ const DEMO_REVIEWS: Review[] = [
 const Stars: React.FC<{ rating: number }> = memo(({ rating }) => {
   const clamped = Math.max(0, Math.min(5, Math.round(rating)));
   return (
-    <div className="flex items-center justify-center gap-1 mb-4" aria-label={`Rating: ${clamped} out of 5`}>
+    <div className="flex items-center gap-1" aria-label={`Rating: ${clamped} out of 5`}>
       {Array.from({ length: 5 }).map((_, idx) => (
         <svg
           key={idx}
-          className={`w-4 h-4 ${
+          className={`w-3 h-3 ${
             idx < clamped 
               ? "text-yellow-400" 
               : "text-gray-300"
@@ -58,13 +59,54 @@ const Stars: React.FC<{ rating: number }> = memo(({ rating }) => {
 Stars.displayName = "Stars";
 
 const ReviewCard: React.FC<{ review: Review }> = memo(({ review }) => (
-  <div className="text-center p-6 bg-white">
-    <Stars rating={review.rating} />
-    <h3 className="text-lg font-semibold text-gray-900 mb-4">{review.reviewerTitle}</h3>
-    <p className="text-gray-600 text-sm leading-relaxed mb-6 px-2">
-      {review.text}
-    </p>
-    <p className="text-gray-900 font-semibold text-sm">{review.reviewerName}</p>
+  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 p-6 sm:p-8 bg-white rounded-lg shadow-sm">
+    {/* Left side - Reviewer Info */}
+    <div className="flex flex-col items-center min-w-[120px] sm:min-w-[150px]">
+      {/* Profile Image Placeholder */}
+      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-xl sm:text-2xl font-semibold mb-3">
+        {review.reviewerImage ? (
+          <img 
+            src={review.reviewerImage} 
+            alt={review.reviewerName} 
+            className="w-full h-full rounded-full object-cover"
+          />
+        ) : (
+          review.reviewerName.charAt(0).toUpperCase()
+        )}
+      </div>
+      
+      {/* Reviewer Name */}
+      <h3 className="text-gray-900 font-semibold text-sm text-center mb-1">
+        {review.reviewerName}
+      </h3>
+      
+      {/* Company/Title */}
+      <p className="text-gray-600 text-xs text-center mb-2">
+        {review.reviewerTitle}
+      </p>
+      
+      {/* Stars below name */}
+      <Stars rating={review.rating} />
+    </div>
+    
+    {/* Right side - Testimonial Text */}
+    <div className="flex-1 relative">
+      {/* Quote mark */}
+      <div className="absolute -top-2 -left-2 text-green-500 opacity-20 text-5xl sm:text-6xl font-serif">
+        "
+      </div>
+      
+      {/* Testimonial text */}
+      <p className="text-gray-700 leading-relaxed text-sm sm:text-base pl-4 sm:pl-6 pr-2 sm:pr-4 pt-3 sm:pt-4 relative z-10">
+        {review.text}
+      </p>
+      
+      {/* Closing quote mark */}
+      <div className="absolute -bottom-4 sm:-bottom-6 right-2 text-green-500 opacity-20 text-5xl sm:text-6xl font-serif rotate-180">
+        "
+      </div>
+    </div>
+    
     <meta itemProp="itemReviewed" content="Saba Digital" />
   </div>
 ));
@@ -239,18 +281,11 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
           </h2>
         </div>
 
-        {/* Desktop: Three Column Grid */}
-        <div className="hidden md:grid md:grid-cols-3 gap-8 mb-8">
-          {items.map((review) => (
-            <ReviewCard key={review.id} review={review} />
-          ))}
-        </div>
-
-        {/* Mobile: Carousel */}
-        <div className="md:hidden relative">
+        {/* Carousel Display - Single Review at a Time */}
+        <div className="relative max-w-4xl mx-auto">
           <div
             ref={scrollRef}
-            className="no-scrollbar flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory"
+            className="no-scrollbar flex gap-8 overflow-x-hidden scroll-smooth snap-x snap-mandatory"
             tabIndex={0}
             role="list"
             aria-label="Client testimonials"
@@ -263,12 +298,43 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
               <div
                 key={review.id}
                 data-card="true"
-                className="snap-center shrink-0 w-[85vw]"
+                className="snap-center shrink-0 w-full"
               >
                 <ReviewCard review={review} />
               </div>
             ))}
           </div>
+          
+          {/* Navigation Arrows */}
+          {items.length > 1 && (
+            <>
+              <button
+                onClick={() => scrollByStep(-1)}
+                className={`absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 sm:-translate-x-12 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center transition-all ${
+                  activeIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl'
+                }`}
+                disabled={activeIndex === 0}
+                aria-label="Previous testimonial"
+              >
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              
+              <button
+                onClick={() => scrollByStep(1)}
+                className={`absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 sm:translate-x-12 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center transition-all ${
+                  activeIndex === items.length - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl'
+                }`}
+                disabled={activeIndex === items.length - 1}
+                aria-label="Next testimonial"
+              >
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </>
+          )}
         </div>
 
         {/* Navigation Dots */}
