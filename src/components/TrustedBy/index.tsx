@@ -117,7 +117,7 @@ const TrustedBy: React.FC = () => {
       <Container>
         <Heading>Logos don't tell the whole story,</Heading>
         {hasLogos ? (
-          <Subtext> but here are a few that <span>dared to work different</span>.</Subtext>
+          <Subtext>but here are a few that <span>dared to work different.</span></Subtext>
         ) : (
           <Subtext>
             Add your client logos to <code>src/assets/logos</code> to showcase them here.

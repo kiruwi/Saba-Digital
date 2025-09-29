@@ -53,7 +53,7 @@ export const lightTheme: Theme = {
     text: '#000000',
     border: '#dee2e6',
     shadow: 'rgba(0, 0, 0, 0.1) 40%',
-    accent: '#007e41', // Same darker green for accent
+    accent: '#3db54e', // Same darker green for accent
     error: '#dc3545',
     cardBackground: '#ffffff', // Light card background
     headingText: '#000000', // Pure black heading text for light theme

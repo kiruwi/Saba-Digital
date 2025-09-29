@@ -51,15 +51,14 @@ export const Container = styled.div`
 
 export const Heading = styled.h2`
   margin: 0;
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  font-weight: 700;
-  line-height: 1.2;
-  color: #0c0c0c;
+  font-size: clamp(2rem, 4vw, 1rem);
+  font-weight: 500;
+  line-height: 0;
+  color: ${({ theme }) => theme.colors.accent || theme.colors.primary};
   letter-spacing: -0.02em;
   position: relative;
   
   /* Modern gradient effect on hover */
-  background: linear-gradient(135deg, #0c0c0c 0%, #0c0c0c 50%, #2db670 50%, #2db670 100%);
   background-size: 200% 100%;
   background-position: 0% 0%;
   -webkit-background-clip: text;
@@ -73,11 +72,11 @@ export const Heading = styled.h2`
 
 export const Subtext = styled.p`
   margin: 0.5rem auto 2rem;
-  max-width: 640px;
-  font-size: clamp(1rem, 1.5vw, 1.125rem);
-  font-weight: 400;
-  line-height: 1.6;
-  color: #555555;
+  max-width: 1000px;
+  font-size: clamp(2rem, 4vw, 1rem);
+  font-weight: 700;
+  line-height: 0;
+  color: #000000ff;
   position: relative;
   
   /* Subtle animation on load */
@@ -85,8 +84,10 @@ export const Subtext = styled.p`
   
   /* Highlight the important part */
   span {
-    color: #2db670;
-    font-weight: 500;
+    color: ${({ theme }) => theme.colors.accent || theme.colors.primary};
+    font-size: clamp(2rem, 4vw, 1rem);
+    line-height: 1.2;
+    font-weight: 700;
   }
 
   code {
@@ -96,7 +97,7 @@ export const Subtext = styled.p`
     border-radius: 6px;
     padding: 0.15rem 0.5rem;
     font-size: 0.9em;
-    color: #2db670;
+    color: ${({ theme }) => theme.colors.accent || theme.colors.primary};
     font-weight: 500;
   }
   
