@@ -59,7 +59,7 @@ const Stars: React.FC<{ rating: number }> = memo(({ rating }) => {
 Stars.displayName = "Stars";
 
 const ReviewCard: React.FC<{ review: Review }> = memo(({ review }) => (
-  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 p-6 sm:p-8 bg-white rounded-lg shadow-sm">
+  <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 p-6 sm:p-8 bg-white rounded-lg shadow-sm">
     {/* Left side - Reviewer Info */}
     <div className="flex flex-col items-center min-w-[120px] sm:min-w-[150px]">
       {/* Profile Image Placeholder */}
