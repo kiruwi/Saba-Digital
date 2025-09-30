@@ -80,7 +80,7 @@ const UfanisiSpecialPage: React.FC = () => {
               <SectionHeading>My Design Transformation</SectionHeading>
               <Description>
                 My previous design suffered from fundamental flaws in typography and layout that I needed to address. 
-                My original interface featured a chaotic mix of font families—I had combined serif, sans-serif, and 
+                My original interface featured a chaotic mix of font families, I had combined serif, sans-serif, and 
                 decorative fonts without clear purpose. Font weights varied randomly throughout sections, which created 
                 visual confusion and made content hierarchy unclear.
               </Description>
@@ -91,7 +91,7 @@ const UfanisiSpecialPage: React.FC = () => {
                 difficult for users.
               </Description>
               <Description>
-                User-unfriendly elements were abundant in my initial work—buttons lacked proper affordances, interactive 
+                User-unfriendly elements were abundant in my initial work, buttons lacked proper affordances, interactive 
                 elements had insufficient contrast, and the navigation required users to hunt for basic functions. This 
                 second project served as a refresher for me, allowing me to implement a consistent type system, thoughtful 
                 spacing hierarchy, and intuitive interaction patterns in my redesign.

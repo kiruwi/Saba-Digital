@@ -176,7 +176,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
             <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>My Design Transformation</h3>
             <p style={{ lineHeight: '1.6', marginBottom: '1rem' }}>
               My previous design suffered from fundamental flaws in typography and layout that I needed to address. My original interface 
-              featured a chaotic mix of font families—I had combined serif, sans-serif, and decorative fonts without clear purpose. 
+              featured a chaotic mix of font families, I had combined serif, sans-serif, and decorative fonts without clear purpose. 
               Font weights varied randomly throughout sections, which created visual confusion and made content hierarchy unclear.
             </p>
             <p style={{ lineHeight: '1.6', marginBottom: '1rem' }}>
@@ -185,7 +185,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
               unbalanced layout that ignored natural reading patterns and made scanning difficult for users.
             </p>
             <p style={{ lineHeight: '1.6' }}>
-              User-unfriendly elements were abundant in my initial work—buttons lacked proper affordances, interactive elements had insufficient 
+              User-unfriendly elements were abundant in my initial work, buttons lacked proper affordances, interactive elements had insufficient 
               contrast, and the navigation required users to hunt for basic functions. This second project served as a refresher for me, allowing me to 
               implement a consistent type system, thoughtful spacing hierarchy, and intuitive interaction patterns in my redesign.
             </p>
