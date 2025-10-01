@@ -144,7 +144,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
     
     // Pause auto-play when user manually navigates
     setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 8000); // Resume after 8 seconds
+    setTimeout(() => setIsAutoPlaying(true), 20000); // Resume after 20 seconds
   }, [activeIndex, items.length, scrollToIndex]);
 
   const handleKeyDown = useCallback(
@@ -192,7 +192,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
         const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
         scrollToIndex(nextIndex);
       }
-    }, 4000); // 4 seconds per slide
+    }, 20000); // 20 seconds per slide
   }, [activeIndex, items.length, isAutoPlaying, scrollToIndex]);
 
   const pauseAutoPlay = useCallback(() => {
