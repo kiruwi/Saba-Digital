@@ -104,11 +104,11 @@ const CookiePolicy: React.FC = () => {
 
         <Subtitle>3. Types of cookies we use</Subtitle>
         <List>
-          <li><strong>Necessary</strong> — Essential for core site functions, like remembering consent choices.</li>
-          <li><strong>Functional</strong> — Help improve security and performance of the site.</li>
-          <li><strong>Analytics</strong> — Collect anonymous statistics to help us improve the site (e.g. Google Analytics, Microsoft Clarity).</li>
-          <li><strong>Performance</strong> — Measure how well pages load and how users interact.</li>
-          <li><strong>Advertising</strong> — Used by third-party services (e.g. Microsoft Advertising, Bing) to deliver relevant ads.</li>
+          <li><strong>Necessary</strong>, Essential for core site functions, like remembering consent choices.</li>
+          <li><strong>Functional</strong>, Help improve security and performance of the site.</li>
+          <li><strong>Analytics</strong>, Collect anonymous statistics to help us improve the site (e.g. Google Analytics, Microsoft Clarity).</li>
+          <li><strong>Performance</strong>, Measure how well pages load and how users interact.</li>
+          <li><strong>Advertising</strong>, Used by third-party services (e.g. Microsoft Advertising, Bing) to deliver relevant ads.</li>
         </List>
 
         <Subtitle>4. Managing cookies</Subtitle>
@@ -133,4 +133,3 @@ const CookiePolicy: React.FC = () => {
 };
 
 export default CookiePolicy;
-

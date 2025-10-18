@@ -149,7 +149,7 @@ const ProcessSection: React.FC = () => {
         <StepContent>
           <p>
             High-contrast palette, 48 px minimum tap targets, alt text for images, 
-            voice-over labels — mirrors the case study's inclusive guidelines.
+            voice-over labels, mirrors the case study's inclusive guidelines.
           </p>
         </StepContent>
         {/*
@@ -196,7 +196,7 @@ const ProcessSection: React.FC = () => {
         <StepContent>
           <p>
             Keep returning customers in the flow with saved address, card, and "repeat last order" 
-            button — a direct win noted in the second usability round.
+            button, a direct win noted in the second usability round.
           </p>
         </StepContent>
         {/*

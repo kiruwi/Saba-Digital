@@ -103,7 +103,7 @@ export const webProjects: ProjectType[] = [
     title: "Mutai Enterprises Limited",
     shortDescription: "Freight forwarding & logistics solutions website for a Kenyan transport company.",
     fullDescription: "Mutai Enterprises Limited entrusted me to design and develop a modern website that showcases their freight forwarding, bulk transport and logistics services across Kenya and Uganda. The site emphasises their trusted reputation built since 1970, provides clear CTAs for quote requests, and highlights key service corridors such as Nairobi – Mombasa – Kampala.",
-    fullDescription2: "Built with Next.js and React, styled using Tailwind CSS, and deployed on Vercel’s edge network. The project uses Webpack for efficient bundling, implements Priority Hints, and integrates Google Analytics & Google Tag Manager for insights—all contributing to 90+ Lighthouse performance scores and strong SEO.",
+    fullDescription2: "Built with Next.js and React, styled using Tailwind CSS, and deployed on Vercel’s edge network. The project uses Webpack for efficient bundling, implements Priority Hints, and integrates Google Analytics & Google Tag Manager for insights, all contributing to 90+ Lighthouse performance scores and strong SEO.",
     image: "/images/m2.png",
     additionalImages: [mutaiImage],
     tags: ["Next.js", "Tailwind CSS", "React", "Vercel"],

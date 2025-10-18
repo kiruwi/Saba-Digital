@@ -129,7 +129,7 @@ const UXUI: React.FC = () => {
                     unbalanced layout that ignored natural reading patterns and made scanning difficult for users.
                   </ProjectDescription>
                   <ProjectDescription>
-                    User-unfriendly elements were abundant in my initial work—buttons lacked proper affordances, interactive elements had insufficient 
+                    User-unfriendly elements were abundant in my initial work, buttons lacked proper affordances, interactive elements had insufficient 
                     contrast, and the navigation required users to hunt for basic functions. This second project served as a refresher for me, allowing me to 
                     implement a consistent type system, thoughtful spacing hierarchy, and intuitive interaction patterns in my redesign.
                   </ProjectDescription>
