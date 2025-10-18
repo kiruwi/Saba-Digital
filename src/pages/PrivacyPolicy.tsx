@@ -129,11 +129,10 @@ const PrivacyPolicy: React.FC = () => {
           with any privacy concerns or complaints. We’ll review and reply in writing with next steps.
         </P>
 
-        <FooterNote>© 2025 iancheruiyot.work — All rights reserved.</FooterNote>
+        <FooterNote>© 2025 iancheruiyot.work, All rights reserved.</FooterNote>
       </Container>
     </PageWrap>
   );
 };
 
 export default PrivacyPolicy;
-

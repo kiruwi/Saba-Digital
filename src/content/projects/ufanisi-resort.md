@@ -20,7 +20,7 @@ As a self-proclaimed foodie, I'm naturally drawn to food-related topics. For my 
 
 <!--StartFragment-->
 
-This case study documents my complete design process—from initial research and identifying pain points to creating wireframes, prototypes, and the final polished interface.
+This case study documents my complete design process, from initial research and identifying pain points to creating wireframes, prototypes, and the final polished interface.
 
 <!--EndFragment-->
 
