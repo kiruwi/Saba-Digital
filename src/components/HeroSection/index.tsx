@@ -47,21 +47,34 @@ export const SERVICE_ITEMS = [
 
 /* ── layout grid ───────────────────────────────────── */
 export const HeroContainer = styled.section`
-  display: grid;
-  /* Increased portrait column width by 10% (480px → 528px) to enlarge profile image */
-  grid-template-columns: 1fr 528px;
+  position: relative;
+  width: 100%;
   min-height: 100vh;
   background: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
   overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   @media (max-width: 1000px) {
     overflow: auto; /* allow normal scrolling on mobile */
   }
-  transition: background-color 0.3s ease, color 0.3s ease;
+`;
+
+/* Centered inner grid to match other sections' max-width behavior */
+export const HeroContent = styled.div`
+  position: relative;
+  display: grid;
+  /* Increased portrait column width by 10% (480px → 528px) to enlarge profile image */
+  grid-template-columns: 1fr 528px;
+  gap: 0;
+  width: 100%;
+  max-width: 1250px; /* align with TrustedBy Container */
+  margin: 0 auto; /* center horizontally */
+  min-height: 100vh;
 
   @media (max-width: 1000px) {
     display: block;
+    min-height: auto;
   }
 `;
 
@@ -909,107 +922,106 @@ const HeroSection: FC = () => {
           distortion={0.05}
         />
       </LightRaysWrapper>
-      
 
-      {/* left column */}
-      <HeroText>
-        <TitleBackground>
-          <HeroTitleTop ref={titleRef} id="hero-title" className="hero-text">
-            <NohemiSpan>Built Different</NohemiSpan><br/>
-            <NohemiSpan>Designed Better</NohemiSpan>
-          </HeroTitleTop>
-          <HeroSubtitle>
-            I'm Ian, and I design products that empower clients.
-          </HeroSubtitle>
-        </TitleBackground>
+      <HeroContent>
+        {/* left column */}
+        <HeroText>
+          <TitleBackground>
+            <HeroTitleTop ref={titleRef} id="hero-title" className="hero-text">
+              <NohemiSpan>Built Different</NohemiSpan><br/>
+              <NohemiSpan>Designed Better</NohemiSpan>
+            </HeroTitleTop>
+            <HeroSubtitle>
+              I'm Ian, and I design products that empower clients.
+            </HeroSubtitle>
+          </TitleBackground>
 
-        <BtnWrap>
-          <PortfolioButton
-            $expanded={expanded}
-            $lowEnd={lowEndDevice}
-            onClick={handlePortfolioClick}
+          <BtnWrap>
+            <PortfolioButton
+              $expanded={expanded}
+              $lowEnd={lowEndDevice}
+              onClick={handlePortfolioClick}
               aria-label="View Portfolio"
               aria-expanded={expanded}
               ref={portfolioBtnRef}
             >
-            <CtaLabel $expanded={expanded}>View Portfolio</CtaLabel>
-            <ArrowBadge $expanded={expanded}>
-              <ArrowUpIcon $expanded={expanded} />
-            </ArrowBadge>
+              <CtaLabel $expanded={expanded}>View Portfolio</CtaLabel>
+              <ArrowBadge $expanded={expanded}>
+                <ArrowUpIcon $expanded={expanded} />
+              </ArrowBadge>
 
-            {expanded && (
-              <CardGrid visible ref={cardGridRef}>
-                {SERVICE_ITEMS.slice(0, visibleCount).map(({ title, desc, path }, i) => (
-                  <ServiceCard
-                    key={title}
-                    bg={serviceBackgrounds[i]}
-                    style={{
-                      flex: window.innerWidth <= 1000 ? '0 0 auto' : '0 0 320px',
-                      width: window.innerWidth <= 1000 ? '100%' : '320px',
-                      aspectRatio: '1 / 1',
-                      height: 'auto',
-                      minHeight: '0'
-                    }}
-                    onClick={(e) => handleServiceClick(e as React.MouseEvent<HTMLDivElement>, path)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        handleServiceClick(e as unknown as React.MouseEvent<HTMLDivElement>, path);
-                      }
-                    }}
-                  >
-                    <TextOverlay>
-                      <ServicesH2>{title}</ServicesH2>
-                      <ServicesP>{desc}</ServicesP>
-                    </TextOverlay>
-                  </ServiceCard>
-                ))}
-              </CardGrid>
-            )}
-          </PortfolioButton>
-        </BtnWrap>
-      </HeroText>
+              {expanded && (
+                <CardGrid visible ref={cardGridRef}>
+                  {SERVICE_ITEMS.slice(0, visibleCount).map(({ title, desc, path }, i) => (
+                    <ServiceCard
+                      key={title}
+                      bg={serviceBackgrounds[i]}
+                      style={{
+                        flex: window.innerWidth <= 1000 ? '0 0 auto' : '0 0 320px',
+                        width: window.innerWidth <= 1000 ? '100%' : '320px',
+                        aspectRatio: '1 / 1',
+                        height: 'auto',
+                        minHeight: '0'
+                      }}
+                      onClick={(e) => handleServiceClick(e as React.MouseEvent<HTMLDivElement>, path)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          handleServiceClick(e as unknown as React.MouseEvent<HTMLDivElement>, path);
+                        }
+                      }}
+                    >
+                      <TextOverlay>
+                        <ServicesH2>{title}</ServicesH2>
+                        <ServicesP>{desc}</ServicesP>
+                      </TextOverlay>
+                    </ServiceCard>
+                  ))}
+                </CardGrid>
+              )}
+            </PortfolioButton>
+          </BtnWrap>
+        </HeroText>
 
-      {/* mobile photo */}
-      <MobileImg src={meImage} alt="Ian Cheruiyot" />
+        {/* mobile photo */}
+        <MobileImg src={meImage} alt="Ian Cheruiyot" />
 
-      <HeroRight>
-        <Rail ref={railRef}>
-          {/* Desktop portrait image as the first slide */}
-          <Slide>
-            <DesktopImg src={meImage} alt="Ian Cheruiyot" />
-          </Slide>
+        <HeroRight>
+          <Rail ref={railRef}>
+            {/* Desktop portrait image as the first slide */}
+            <Slide>
+              <DesktopImg src={meImage} alt="Ian Cheruiyot" />
+            </Slide>
+          </Rail>
+        </HeroRight>
 
-          
-        </Rail>
-      </HeroRight>
-
-      {/* Slide indicators (desktop only) */}
-      {hasSlideNavigation && (
-        <SlideIndicatorsContainer>
-        {[...Array(totalSlides)].map((_, index) => (
-          <SlideIndicator
-            key={index}
-            $active={currentSlide === index}
-            onClick={() => scrollToSlide(index)}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-        <SlideIndicator
-          $active={false}
-          onClick={() => scrollToSlide(totalSlides)}
-          aria-label="Go to footer"
-        />
-      </SlideIndicatorsContainer>
-      )}
+        {/* Slide indicators (desktop only) */}
+        {hasSlideNavigation && (
+          <SlideIndicatorsContainer>
+            {[...Array(totalSlides)].map((_, index) => (
+              <SlideIndicator
+                key={index}
+                $active={currentSlide === index}
+                onClick={() => scrollToSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+            <SlideIndicator
+              $active={false}
+              onClick={() => scrollToSlide(totalSlides)}
+              aria-label="Go to footer"
+            />
+          </SlideIndicatorsContainer>
+        )}
+      </HeroContent>
 
       {/* Scroll indicator removed */}
 
       {showDragHint && (
         <DragHint
-           ref={dragHintRef}
-           dragging={draggingCards.current}
+          ref={dragHintRef}
+          dragging={draggingCards.current}
           style={{ top: dragHintPos.y, left: dragHintPos.x }}
         >
           {draggingCards.current ? 'Drag to scroll' : 'Click and drag'}
