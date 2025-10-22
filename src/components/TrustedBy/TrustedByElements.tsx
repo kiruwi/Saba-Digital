@@ -71,7 +71,7 @@ export const Heading = styled.h2`
 `;
 
 export const Subtext = styled.p`
-  margin: 0.01rem 0 2rem 0;
+  margin: 0.01rem 0 3rem 0;
   max-width: 1000px;
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 700;
