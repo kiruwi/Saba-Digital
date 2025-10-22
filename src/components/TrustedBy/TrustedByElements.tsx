@@ -44,7 +44,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: clamp(0.1rem, 0.5vw, 0.25rem);
+  gap: clamp(0.05rem, 0.3vw, 0.12rem);
   position: relative;
   z-index: 1;
 `;
@@ -71,7 +71,7 @@ export const Heading = styled.h2`
 `;
 
 export const Subtext = styled.p`
-  margin: 0.5rem auto 2rem;
+  margin: 0;
   max-width: 1000px;
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 700;
