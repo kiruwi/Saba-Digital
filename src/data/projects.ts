@@ -1,7 +1,7 @@
 // src/data/projects.ts - Updated Ufanisi Resort content
 import uxImage1 from "../assets/projects/ux-ui/u-r.jpg";
 import webImage from "../assets/projects/web-dev/app1.jpg";
-import mutaiImage from "../images/service2-bg.jpg";
+import mutaiImage from "../images/service2-bg.webp";
 
 // Define types for the project data structure
 export interface DescriptionSection {

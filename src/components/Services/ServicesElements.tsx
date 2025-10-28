@@ -1,15 +1,15 @@
 // src/components/Services/ServicesElements.tsx
 import styled from "styled-components";
-import Bg1 from "../../images/ufanisi.jpg";
-import Bg2 from "../../images/service2-bg.jpg";
-import Bg3 from "../../images/service3-bg.jpg";
+import Bg1 from "../../images/ufanisi.webp";
+import Bg2 from "../../images/service2-bg.webp";
+import Bg3 from "../../images/service3-bg.webp";
 
 /* make images available to Services/index.js */
 export const serviceBackgrounds = [
   Bg1,
   Bg2,
   Bg3,
-  require('../../images/addesign/eid.jpg'), // Ad Design background
+  require("../../images/addesign/eid.webp"), // Ad Design background
   'https://i.ytimg.com/vi/BVneKsVK1aY/maxresdefault.jpg' // Motion Graphics - Synnefa Rebrand Logo Animation thumbnail
 ];
 

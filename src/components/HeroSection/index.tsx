@@ -7,7 +7,7 @@ import React, {
   FC,
   useMemo,
 } from "react";
-import meImage from "../../images/me.png";
+import meImage from "../../images/me.webp";
 import LightRays from "../LightRays";
 import {
   ServicesCardHover as ServiceCard,
