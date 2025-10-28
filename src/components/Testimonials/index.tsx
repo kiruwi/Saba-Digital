@@ -1,4 +1,11 @@
-import React, { memo, useCallback, useMemo, useRef, useState, useEffect } from "react";
+import React, {
+  memo,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  useEffect,
+} from "react";
 import reviewerImage1 from "../../images/testimonials/mark.jpg";
 import reviewerImage2 from "../../images/testimonials/taita.jpeg";
 import reviewerImage3 from "../../images/testimonials/kamau.jpeg";
@@ -23,7 +30,7 @@ const DEMO_REVIEWS: Review[] = [
     reviewerImage: reviewerImage1,
   },
   {
-    id: "2", 
+    id: "2",
     rating: 5,
     text: "Outstandingly remarkable!  I would recommend him due to his exceptional creativity and attention to detail.",
     reviewerName: "Taita Ngetich",
@@ -43,14 +50,15 @@ const DEMO_REVIEWS: Review[] = [
 const Stars: React.FC<{ rating: number }> = memo(({ rating }) => {
   const clamped = Math.max(0, Math.min(5, Math.round(rating)));
   return (
-    <div className="flex items-center gap-1" aria-label={`Rating: ${clamped} out of 5`}>
+    <div
+      className="flex items-center gap-1"
+      aria-label={`Rating: ${clamped} out of 5`}
+    >
       {Array.from({ length: 5 }).map((_, idx) => (
         <svg
           key={idx}
           className={`w-3 h-3 ${
-            idx < clamped 
-              ? "text-yellow-400" 
-              : "text-gray-300"
+            idx < clamped ? "text-yellow-400" : "text-gray-300"
           }`}
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -71,54 +79,56 @@ const ReviewCard: React.FC<{ review: Review }> = memo(({ review }) => (
       {/* Profile Image Placeholder */}
       <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-xl sm:text-2xl font-semibold mb-3">
         {review.reviewerImage ? (
-          <img 
-            src={review.reviewerImage} 
-            alt={review.reviewerName} 
+          <img
+            src={review.reviewerImage}
+            alt={review.reviewerName}
             className="w-full h-full rounded-full object-cover"
           />
         ) : (
           review.reviewerName.charAt(0).toUpperCase()
         )}
       </div>
-      
+
       {/* Reviewer Name */}
       <h3 className="text-gray-900 font-semibold text-sm text-center mb-1">
         {review.reviewerName}
       </h3>
-      
+
       {/* Company/Title */}
       <p className="text-gray-600 text-xs text-center mb-2">
         {review.reviewerTitle}
       </p>
-      
+
       {/* Stars below name */}
       <Stars rating={review.rating} />
     </div>
-    
+
     {/* Right side - Testimonial Text */}
     <div className="flex-1 relative">
       {/* Quote mark */}
       <div className="absolute -top-2 -left-2 text-green-500 opacity-20 text-5xl sm:text-6xl font-serif">
         "
       </div>
-      
+
       {/* Testimonial text */}
       <p className="text-gray-700 leading-relaxed text-sm sm:text-base pl-4 sm:pl-6 pr-2 sm:pr-4 pt-3 sm:pt-4 relative z-10">
         {review.text}
       </p>
-      
+
       {/* Closing quote mark */}
       <div className="absolute -bottom-4 sm:-bottom-6 right-2 text-green-500 opacity-20 text-5xl sm:text-6xl font-serif rotate-180">
         "
       </div>
     </div>
-    
+
     <meta itemProp="itemReviewed" content="Saba Digital" />
   </div>
 ));
 ReviewCard.displayName = "ReviewCard";
 
-const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) => {
+const Testimonials: React.FC<{ items?: Review[] }> = ({
+  items = DEMO_REVIEWS,
+}) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -131,8 +141,14 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
     if (!container) return;
 
     const style = getComputedStyle(container);
-    const gap = parseFloat(style.getPropertyValue("column-gap") || style.getPropertyValue("gap") || "0");
-    const cardWidth = container.querySelector<HTMLElement>('[data-card="true"]')?.offsetWidth ?? 0;
+    const gap = parseFloat(
+      style.getPropertyValue("column-gap") ||
+        style.getPropertyValue("gap") ||
+        "0"
+    );
+    const cardWidth =
+      container.querySelector<HTMLElement>('[data-card="true"]')?.offsetWidth ??
+      0;
 
     if (cardWidth <= 0) return;
 
@@ -141,17 +157,23 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
     setActiveIndex(index);
   }, []);
 
-  const scrollByStep = useCallback((direction: 1 | -1, _cardWidth?: number) => {
-    const container = scrollRef.current;
-    if (!container) return;
+  const scrollByStep = useCallback(
+    (direction: 1 | -1, _cardWidth?: number) => {
+      const container = scrollRef.current;
+      if (!container) return;
 
-    const newIndex = Math.max(0, Math.min(items.length - 1, activeIndex + direction));
-    scrollToIndex(newIndex);
-    
-    // Pause auto-play when user manually navigates
-    setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 20000); // Resume after 20 seconds
-  }, [activeIndex, items.length, scrollToIndex]);
+      const newIndex = Math.max(
+        0,
+        Math.min(items.length - 1, activeIndex + direction)
+      );
+      scrollToIndex(newIndex);
+
+      // Pause auto-play when user manually navigates
+      setIsAutoPlaying(false);
+      setTimeout(() => setIsAutoPlaying(true), 20000); // Resume after 20 seconds
+    },
+    [activeIndex, items.length, scrollToIndex]
+  );
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -163,14 +185,14 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
         scrollByStep(-1);
       }
     },
-    [scrollByStep],
+    [scrollByStep]
   );
 
   const _handleCardClick = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
       scrollByStep(1, event.currentTarget.offsetWidth);
     },
-    [scrollByStep],
+    [scrollByStep]
   );
 
   const _handleCardKeyDown = useCallback(
@@ -180,22 +202,27 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
         scrollByStep(1, (event.currentTarget as HTMLDivElement).offsetWidth);
       }
     },
-    [scrollByStep],
+    [scrollByStep]
   );
 
   const { ratedCount: _ratedCount, avgRating: _avgRating } = useMemo(() => {
-    if (!items.length) return { ratedCount: 0, avgRating: null as number | null };
+    if (!items.length)
+      return { ratedCount: 0, avgRating: null as number | null };
     const sum = items.reduce((acc, review) => acc + review.rating, 0);
-    return { ratedCount: items.length, avgRating: Math.round((sum / items.length) * 10) / 10 };
+    return {
+      ratedCount: items.length,
+      avgRating: Math.round((sum / items.length) * 10) / 10,
+    };
   }, [items]);
 
   // Auto-play functionality
   const startAutoPlay = useCallback(() => {
     if (autoPlayRef.current) clearTimeout(autoPlayRef.current);
-    
+
     autoPlayRef.current = setTimeout(() => {
       if (isAutoPlaying) {
-        const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+        const nextIndex =
+          activeIndex === items.length - 1 ? 0 : activeIndex + 1;
         scrollToIndex(nextIndex);
       }
     }, 20000); // 20 seconds per slide
@@ -209,7 +236,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
   }, []);
 
   const _toggleAutoPlay = useCallback(() => {
-    setIsAutoPlaying(prev => !prev);
+    setIsAutoPlaying((prev) => !prev);
   }, []);
 
   // Touch/swipe gesture handlers
@@ -224,7 +251,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
 
   const handleTouchEnd = useCallback(() => {
     if (!touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > 50;
     const isRightSwipe = distance < -50;
@@ -243,21 +270,31 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
 
     const handleScroll = () => {
       const style = getComputedStyle(container);
-      const gap = parseFloat(style.getPropertyValue("column-gap") || style.getPropertyValue("gap") || "0");
-      const cardWidth = container.querySelector<HTMLElement>('[data-card="true"]')?.offsetWidth ?? 0;
-      
+      const gap = parseFloat(
+        style.getPropertyValue("column-gap") ||
+          style.getPropertyValue("gap") ||
+          "0"
+      );
+      const cardWidth =
+        container.querySelector<HTMLElement>('[data-card="true"]')
+          ?.offsetWidth ?? 0;
+
       if (cardWidth <= 0) return;
 
       const scrollLeft = container.scrollLeft;
       const newIndex = Math.round(scrollLeft / (cardWidth + gap));
-      
-      if (newIndex !== activeIndex && newIndex >= 0 && newIndex < items.length) {
+
+      if (
+        newIndex !== activeIndex &&
+        newIndex >= 0 &&
+        newIndex < items.length
+      ) {
         setActiveIndex(newIndex);
       }
     };
 
-    container.addEventListener('scroll', handleScroll);
-    return () => container.removeEventListener('scroll', handleScroll);
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
   }, [activeIndex, items.length]);
 
   // Auto-play effect
@@ -282,9 +319,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
           <p className="text-green-500 text-sm font-semibold uppercase tracking-wider mb-2">
             MY CLIENTS
           </p>
-          <h2 className="text-3xl font-bold text-gray-900">
-            Reviews
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900">Reviews</h2>
         </div>
 
         {/* Carousel Display - Single Review at a Time */}
@@ -310,33 +345,57 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({ items = DEMO_REVIEWS }) 
               </div>
             ))}
           </div>
-          
+
           {/* Navigation Arrows */}
           {items.length > 1 && (
             <>
               <button
                 onClick={() => scrollByStep(-1)}
                 className={`absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 sm:-translate-x-12 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center transition-all ${
-                  activeIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl'
+                  activeIndex === 0
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:shadow-xl"
                 }`}
                 disabled={activeIndex === 0}
                 aria-label="Previous testimonial"
               >
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <svg
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
                 </svg>
               </button>
-              
+
               <button
                 onClick={() => scrollByStep(1)}
                 className={`absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 sm:translate-x-12 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center transition-all ${
-                  activeIndex === items.length - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl'
+                  activeIndex === items.length - 1
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:shadow-xl"
                 }`}
                 disabled={activeIndex === items.length - 1}
                 aria-label="Next testimonial"
               >
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </button>
             </>

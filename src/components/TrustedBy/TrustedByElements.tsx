@@ -134,6 +134,7 @@ export const LogoCard = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0;
+  width: clamp(120px, 18vw, 200px);
   background: transparent;
   border: none;
   box-shadow: none;
@@ -143,18 +144,30 @@ export const LogoCard = styled.div`
   visibility: visible !important;
   opacity: 1 !important;
   transition: transform 0.3s ease;
+  aspect-ratio: 160 / 60;
+
+  picture {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
 
   &:hover {
     transform: translateY(-2px);
   }
 `;
 
-export const LogoImg = styled.img`
-  width: auto;
-  height: clamp(36px, 5vw, 52px);
-  min-width: 80px;
-  max-width: 180px;
+export const LogoImg = styled.img.attrs({
+  loading: 'lazy',
+  decoding: 'async'
+})`
   display: block;
+  width: 100%;
+  height: auto;
+  max-height: clamp(36px, 5vw, 52px);
+  aspect-ratio: 160 / 60;
   object-fit: contain;
   filter: grayscale(1);
   opacity: 0.8;

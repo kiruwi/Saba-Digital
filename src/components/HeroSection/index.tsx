@@ -1,49 +1,60 @@
-import styled, { keyframes, css } from 'styled-components';
-import React, { useState, useEffect, useRef, useCallback, FC } from 'react';
-import meImage from '../../images/me.png';
-import LightRays from '../LightRays';
-import { ServicesCardHover as ServiceCard, TextOverlay, ServicesH2, ServicesP, serviceBackgrounds, Slide } from '../Services/ServicesElements';
+import styled, { keyframes, css } from "styled-components";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  FC,
+  useMemo,
+} from "react";
+import meImage from "../../images/me.png";
+import LightRays from "../LightRays";
+import {
+  ServicesCardHover as ServiceCard,
+  TextOverlay,
+  ServicesH2,
+  ServicesP,
+  serviceBackgrounds,
+  Slide,
+} from "../Services/ServicesElements";
 
-import { useNavigate } from 'react-router-dom';
-import { FiArrowUpRight } from 'react-icons/fi';
-import { gsap } from 'gsap';
-import SplitText from 'gsap/SplitText';
-gsap.registerPlugin(SplitText);
+import { useNavigate } from "react-router-dom";
+import { FiArrowUpRight } from "react-icons/fi";
+import {
+  buildOptimizedImageUrl,
+  buildSrcSet,
+} from "../../utils/imageOptimizer";
+import { loadGsap } from "../../utils/gsapLoader";
 
 // Service items for the portfolio popup grid (first row visible, more rows lazy-load)
 export const SERVICE_ITEMS = [
   {
-    title: 'Product Design',
-    desc: 'Creating user-friendly and visually appealing interfaces.',
-    path: '/work/ux-ui',
+    title: "Product Design",
+    desc: "Creating user-friendly and visually appealing interfaces.",
+    path: "/work/ux-ui",
   },
   {
-    title: 'Website Development',
-    desc: 'Mocking up and developing websites for clients.',
-    path: '/work/web-dev',
+    title: "Website Development",
+    desc: "Mocking up and developing websites for clients.",
+    path: "/work/web-dev",
   },
   {
-    title: 'Branding',
-    desc: 'Creating visually stunning and engaging brand identities.',
-    path: '/work/graphics',
+    title: "Branding",
+    desc: "Creating visually stunning and engaging brand identities.",
+    path: "/work/graphics",
   },
 
   {
-    title: 'Ad Design',
-    desc: 'High-impact advert creatives for campaigns.',
-    path: '/work/ad-design',
+    title: "Ad Design",
+    desc: "High-impact advert creatives for campaigns.",
+    path: "/work/ad-design",
   },
   {
-    title: 'Motion Graphics',
-    desc: 'Engaging animations and motion design for storytelling.',
-    path: '/work/motion',
-  }
-
+    title: "Motion Graphics",
+    desc: "Engaging animations and motion design for storytelling.",
+    path: "/work/motion",
+  },
 ];
-
-
-
-
 
 /* ── layout grid ───────────────────────────────────── */
 export const HeroContainer = styled.section`
@@ -51,7 +62,7 @@ export const HeroContainer = styled.section`
   width: 100%;
   min-height: 100vh;
   background: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
+  color: ${({ theme }) => (theme.theme === "light" ? "#000" : "#fff")};
   overflow: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 
@@ -120,15 +131,22 @@ const baseTitle = `
   margin: 0;
 `;
 
+const HERO_IMAGE_WIDTHS = [480, 720, 960, 1280];
+const HERO_SIZES = "(max-width: 1000px) 85vw, 528px";
+const HERO_IMAGE_DIMENSION = 1200;
+
+type LoadedGsap = Awaited<ReturnType<typeof loadGsap>>;
+type GsapTween = InstanceType<LoadedGsap["gsap"]["core"]["Tween"]>;
+
 export const HeroTitleTop = styled.h1`
   ${baseTitle};
   font-size: clamp(4rem, 6vw, 6rem);
-  color: ${({ theme }) => theme?.colors?.primary || '#2db670'};
+  color: ${({ theme }) => theme?.colors?.primary || "#2db670"};
   width: 100%;
-  
+
   /* Ensure inline spans inside the title always use the theme green */
   & span {
-    color: ${({ theme }) => theme?.colors?.primary || '#2db670'};
+    color: ${({ theme }) => theme?.colors?.primary || "#2db670"};
   }
 
   /* Keep font-size consistent; adjust tracking on the second line to reach target width */
@@ -138,26 +156,24 @@ export const HeroTitleTop = styled.h1`
   }
 `;
 
-
-
 export const AccentGreen = styled.span`
-  color: ${({ theme }) => theme?.colors?.primary || '#2db670'};
-  font-family: 'Nohemi', sans-serif; /* Ensure hero phrase uses Nohemi instead of Satoshi */
+  color: ${({ theme }) => theme?.colors?.primary || "#2db670"};
+  font-family: "Nohemi", sans-serif; /* Ensure hero phrase uses Nohemi instead of Satoshi */
 `;
 
 /* Text span that forces Nohemi font while inheriting color */
 export const NohemiSpan = styled.span`
-  font-family: 'Nohemi', sans-serif;
+  font-family: "Nohemi", sans-serif;
   color: inherit; /* ensure global span color doesn't override HeroTitleTop color */
 `;
 
 /* Subtitle under the main hero title using paragraph font */
 export const HeroSubtitle = styled.h2`
-  font-family: 'Satoshi', 'Nohemi', sans-serif; /* match paragraph font */
+  font-family: "Satoshi", "Nohemi", sans-serif; /* match paragraph font */
   font-weight: 400;
   line-height: 1.1;
   margin: 0;
-  color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
+  color: ${({ theme }) => (theme.theme === "light" ? "#000" : "#fff")};
   width: 100%;
 `;
 
@@ -172,52 +188,57 @@ export const BtnWrap = styled.div`
 `;
 
 /* ── Portfolio CTA button ─────────────────────────── */
-export const PortfolioButton = styled.button<{ $expanded: boolean; $lowEnd?: boolean }>`
-  position: ${({ $expanded }) => ($expanded ? 'fixed' : 'relative')};
-  top: ${({ $expanded }) => ($expanded ? '50%' : 'auto')};
-  left: ${({ $expanded }) => ($expanded ? '50%' : 'auto')};
-  transform: ${({ $expanded }) => ($expanded ? 'translate(-50%, -50%)' : 'none')};
+export const PortfolioButton = styled.button<{
+  $expanded: boolean;
+  $lowEnd?: boolean;
+}>`
+  position: ${({ $expanded }) => ($expanded ? "fixed" : "relative")};
+  top: ${({ $expanded }) => ($expanded ? "50%" : "auto")};
+  left: ${({ $expanded }) => ($expanded ? "50%" : "auto")};
+  transform: ${({ $expanded }) =>
+    $expanded ? "translate(-50%, -50%)" : "none"};
 
-  width: ${({ $expanded }) => ($expanded ? '90vw' : 'auto')};
-  max-width: ${({ $expanded }) => ($expanded ? 'none' : '75rem')};
-  min-height: ${({ $expanded }) => ($expanded ? '500px' : 'auto')};
-  max-height: ${({ $expanded }) => ($expanded ? '90vh' : 'none')};
-  overflow-y: ${({ $expanded }) => ($expanded ? 'auto' : 'visible')};
+  width: ${({ $expanded }) => ($expanded ? "90vw" : "auto")};
+  max-width: ${({ $expanded }) => ($expanded ? "none" : "75rem")};
+  min-height: ${({ $expanded }) => ($expanded ? "500px" : "auto")};
+  max-height: ${({ $expanded }) => ($expanded ? "90vh" : "none")};
+  overflow-y: ${({ $expanded }) => ($expanded ? "auto" : "visible")};
   overscroll-behavior: contain;
 
   /* Full-screen overlay on small devices */
   @media (max-width: 1000px) {
-    ${({ $expanded }) => $expanded && css`
-      top: 0;
-      left: 0;
-      transform: none;
-      width: 100vw;
-      max-width: 100vw;
-      height: 100vh;
-      min-height: 100vh;
-      border-radius: 24px;
-      align-items: flex-start;
-      justify-content: flex-start;
-    `}
+    ${({ $expanded }) =>
+      $expanded &&
+      css`
+        top: 0;
+        left: 0;
+        transform: none;
+        width: 100vw;
+        max-width: 100vw;
+        height: 100vh;
+        min-height: 100vh;
+        border-radius: 24px;
+        align-items: flex-start;
+        justify-content: flex-start;
+      `}
   }
-  padding: ${({ $expanded }) => ($expanded ? 0 : '18px 64px 18px 32px')};
-
-
+  padding: ${({ $expanded }) => ($expanded ? 0 : "18px 64px 18px 32px")};
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   border: none;
-  border-radius: ${({ $expanded }) => ($expanded ? '32px' : '28px')};
-  background: ${({ $expanded, theme }) => ($expanded ? 'transparent' : theme.colors.primary)};
+  border-radius: ${({ $expanded }) => ($expanded ? "32px" : "28px")};
+  background: ${({ $expanded, theme }) =>
+    $expanded ? "transparent" : theme.colors.primary};
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   color: #fff;
-  font-size: ${({ $expanded }) => ($expanded ? 0 : '1rem')};
+  font-size: ${({ $expanded }) => ($expanded ? 0 : "1rem")};
   font-weight: 500; /* revert CTA label to normal weight */
   cursor: pointer;
-  z-index: ${({ $expanded }) => ($expanded ? 9999 : 'auto')};
+  z-index: ${({ $expanded }) => ($expanded ? 9999 : "auto")};
 
   will-change: transform, width, height;
   transition: none;
@@ -247,10 +268,7 @@ export const ArrowBadge = styled.span<{ $expanded: boolean }>`
   right: -14px;
 
   /* animate actual offsets (no transform jump) */
-  transition:
-    top 0.45s ease,
-    right 0.45s ease,
-    bottom 0.45s ease,
+  transition: top 0.45s ease, right 0.45s ease, bottom 0.45s ease,
     left 0.45s ease;
 
   ${({ $expanded }) =>
@@ -282,7 +300,8 @@ export const ArrowUpIcon = styled(FiArrowUpRight)<{ $expanded: boolean }>`
   font-size: 24px;
   color: #000;
   transition: transform 0.45s ease;
-  transform: ${({ $expanded }) => ($expanded ? 'rotate(-180deg)' : 'rotate(0deg)')};
+  transform: ${({ $expanded }) =>
+    $expanded ? "rotate(-180deg)" : "rotate(0deg)"};
 `;
 
 /* ── rail column ───────────────────────────────────── */
@@ -300,22 +319,47 @@ export const Rail = styled.div`
   flex: 1 1 auto;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
+`;
 
+export const PortraitPicture = styled.picture`
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+`;
 
+export const DesktopPortrait = styled(PortraitPicture)`
+  flex: 1 1 auto;
+`;
+
+export const MobilePortrait = styled(PortraitPicture)`
+  width: 100%;
+
+  @media (min-width: 1000px) {
+    display: none;
+  }
 `;
 
 /* images */
 export const DesktopImg = styled.img`
+  display: block;
   width: 100%;
+  height: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   flex-shrink: 0;
+  border-radius: 50%;
 `;
 
 export const MobileImg = styled.img`
+  display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  border-radius: 50%;
 
   @media (min-width: 1000px) {
     display: none;
@@ -386,23 +430,27 @@ export const SlideIndicator = styled.div<SlideDotProps>`
   cursor: pointer;
   background: ${({ $active, theme }) =>
     $active
-      ? theme.theme === 'light'
+      ? theme.theme === "light"
         ? theme.colors.primary
-        : '#fff'
-      : theme.theme === 'light'
-      ? 'rgba(0,0,0,0.3)'
-      : 'rgba(255,255,255,0.5)'};
+        : "#fff"
+      : theme.theme === "light"
+      ? "rgba(0,0,0,0.3)"
+      : "rgba(255,255,255,0.5)"};
   transition: background 0.3s ease;
 `;
-
 
 /* ---------- HERO SECTION COMPONENT ---------- */
 const totalSlides = 1; // Only profile slide
 const hasSlideNavigation = totalSlides > 1;
 
 const HeroSection: FC = () => {
-  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const lowEndDevice = prefersReducedMotion || ((navigator as any).deviceMemory && (navigator as any).deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const lowEndDevice =
+    prefersReducedMotion ||
+    ((navigator as any).deviceMemory && (navigator as any).deviceMemory <= 2) ||
+    (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
 
   const titleRef = useRef<HTMLHeadingElement>(null);
   const dragHintRef = useRef<HTMLDivElement>(null);
@@ -413,7 +461,81 @@ const HeroSection: FC = () => {
   // desktop drag-to-scroll hint for card grid
   const draggingCards = useRef(false);
   const [showDragHint, setShowDragHint] = useState(false);
-  const [dragHintPos, setDragHintPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [dragHintPos, setDragHintPos] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
+
+  const heroImageSources = useMemo(() => {
+    const fallbackSrc = buildOptimizedImageUrl(meImage, {
+      width: HERO_IMAGE_DIMENSION,
+      quality: 85,
+      fit: "cover",
+    });
+
+    const pngSrcSet = buildSrcSet(meImage, HERO_IMAGE_WIDTHS, {
+      quality: 85,
+      fit: "cover",
+    });
+
+    const webpSrcSet = buildSrcSet(meImage, HERO_IMAGE_WIDTHS, {
+      quality: 80,
+      fit: "cover",
+      format: "webp",
+    });
+
+    const avifSrcSet = buildSrcSet(meImage, HERO_IMAGE_WIDTHS, {
+      quality: 70,
+      fit: "cover",
+      format: "avif",
+    });
+
+    const preload = buildOptimizedImageUrl(meImage, {
+      width: HERO_IMAGE_DIMENSION,
+      quality: 75,
+      fit: "cover",
+      format: "avif",
+    });
+
+    return {
+      fallbackSrc,
+      pngSrcSet,
+      webpSrcSet,
+      avifSrcSet,
+      preload,
+      sizes: HERO_SIZES,
+      width: HERO_IMAGE_DIMENSION,
+      height: HERO_IMAGE_DIMENSION,
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    if (!heroImageSources.preload) return;
+    const existing = document.head.querySelector<HTMLLinkElement>(
+      'link[data-hero-preload="portrait"]'
+    );
+    if (existing) {
+      if (existing.href !== heroImageSources.preload) {
+        existing.href = heroImageSources.preload;
+      }
+      return;
+    }
+
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.href = heroImageSources.preload;
+    link.fetchPriority = "high";
+    link.setAttribute("data-hero-preload", "portrait");
+    document.head.appendChild(link);
+
+    return () => {
+      if (link.parentNode) {
+        link.parentNode.removeChild(link);
+      }
+    };
+  }, [heroImageSources.preload]);
 
   // Keep the drag hint following the cursor whenever it's visible
   useEffect(() => {
@@ -421,9 +543,9 @@ const HeroSection: FC = () => {
     const onPointerMove = (e: PointerEvent) => {
       setDragHintPos({ x: e.clientX, y: e.clientY });
     };
-    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener("pointermove", onPointerMove);
     return () => {
-      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener("pointermove", onPointerMove);
     };
   }, [showDragHint]);
 
@@ -433,72 +555,99 @@ const HeroSection: FC = () => {
     const titleEl = titleRef.current;
     if (!titleEl) return;
 
-    let split: any = null;
-    let animation: gsap.core.Tween | null = null;
     let cancelled = false;
+    let cleanup: (() => void) | undefined;
 
-    const setup = () => {
-      if (!titleRef.current) return;
-      split && split.revert();
-      animation && animation.revert();
-      split = SplitText.create(titleRef.current, { type: 'lines' });
-    };
+    loadGsap({ withSplitText: true })
+      .then(({ gsap, SplitText }) => {
+        if (cancelled || !SplitText) return;
 
-    const play = () => {
-      if (!split) return;
-      animation && animation.revert();
-      animation = gsap.from(split.lines, {
-        rotationX: -100,
-        transformOrigin: '50% 50% -20px',
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3',
-        stagger: 0.25,
+        let split: any = null;
+        let animation: GsapTween | null = null;
+
+        const setup = () => {
+          if (!titleRef.current) return;
+          split && split.revert();
+          animation && animation.revert();
+          split = SplitText.create(titleRef.current, { type: "lines" });
+        };
+
+        const play = () => {
+          if (!split) return;
+          animation && animation.revert();
+          animation = gsap.from(split.lines, {
+            rotationX: -100,
+            transformOrigin: "50% 50% -20px",
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3",
+            stagger: 0.25,
+          });
+        };
+
+        const start = () => {
+          if (cancelled) return;
+          setup();
+          play();
+          titleEl.addEventListener("click", play);
+          window.addEventListener("resize", setup);
+        };
+
+        const fontsReady = (document as any)?.fonts?.ready;
+        if (fontsReady && typeof fontsReady.then === "function") {
+          fontsReady.then(start).catch(start);
+        } else {
+          start();
+        }
+
+        cleanup = () => {
+          titleEl.removeEventListener("click", play);
+          window.removeEventListener("resize", setup);
+          split && split.revert();
+          animation && animation.revert();
+        };
+      })
+      .catch((error) => {
+        /* eslint-disable-next-line no-console */
+        console.warn("[HeroSection] Failed to load GSAP SplitText", error);
       });
-    };
-
-    const start = () => {
-      if (cancelled) return;
-      setup();
-      play();
-      titleEl.addEventListener('click', play);
-      window.addEventListener('resize', setup);
-    };
-    // Delay SplitText until fonts render to keep measurements stable
-    const fontsReady = (document as any)?.fonts?.ready;
-    if (fontsReady && typeof fontsReady.then === 'function') {
-      fontsReady.then(start).catch(start);
-    } else {
-      start();
-    }
 
     return () => {
       cancelled = true;
-      titleEl.removeEventListener('click', play);
-      window.removeEventListener('resize', setup);
-      split && split.revert();
-      animation && animation.revert();
+      cleanup?.();
     };
   }, [lowEndDevice]);
-      
-
 
   // glow pulse on drag hint while dragging
   useEffect(() => {
     if (lowEndDevice) return;
-    if (draggingCards.current && dragHintRef.current) {
-      const tween = gsap.to(dragHintRef.current, {
-        boxShadow: '0 0 16px rgba(255,255,255,0.5)',
-        duration: 0.6,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
+    if (!draggingCards.current || !dragHintRef.current) return;
+
+    let tween: GsapTween | undefined;
+    let cancelled = false;
+
+    loadGsap()
+      .then(({ gsap }) => {
+        if (cancelled || !dragHintRef.current) return;
+
+        tween = gsap.to(dragHintRef.current, {
+          boxShadow: "0 0 16px rgba(255,255,255,0.5)",
+          duration: 0.6,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
+      })
+      .catch((error) => {
+        /* eslint-disable-next-line no-console */
+        console.warn("[HeroSection] Failed to load GSAP for drag hint", error);
       });
-      return () => {
-        tween.kill();
-      };
-    }
-  }, [lowEndDevice]);
+
+    return () => {
+      cancelled = true;
+      tween?.kill();
+    };
+  }, [lowEndDevice, showDragHint]);
 
   // hide scroll arrow when popup expanded
   useEffect(() => {
@@ -530,8 +679,8 @@ const HeroSection: FC = () => {
         setVisibleCount((prev) => Math.min(prev + 3, SERVICE_ITEMS.length));
       }
     };
-    grid.addEventListener('scroll', onScroll);
-    return () => grid.removeEventListener('scroll', onScroll);
+    grid.addEventListener("scroll", onScroll);
+    return () => grid.removeEventListener("scroll", onScroll);
   }, [expanded]);
   const portfolioBtnRef = useRef<HTMLButtonElement | null>(null);
   const hasScrolled = useRef(false);
@@ -542,7 +691,10 @@ const HeroSection: FC = () => {
   const navigate = useNavigate();
 
   // navigate to page when card clicked inside portfolio popup
-  const handleServiceClick = (e: React.MouseEvent<HTMLDivElement>, path: string) => {
+  const handleServiceClick = (
+    e: React.MouseEvent<HTMLDivElement>,
+    path: string
+  ) => {
     // If the user has just dragged, ignore the click
     if (didDrag.current) {
       didDrag.current = false; // reset for next interaction
@@ -555,30 +707,27 @@ const HeroSection: FC = () => {
     setTimeout(() => window.scrollTo({ top: 0 }), 0);
   };
 
-  
   // Lock background scroll when popup is expanded (all viewports)
   useEffect(() => {
-
-
-    const event = new CustomEvent('portfolioExpanded', { detail: expanded });
+    const event = new CustomEvent("portfolioExpanded", { detail: expanded });
     window.dispatchEvent(event);
 
     if (expanded) {
-      document.body.style.overflow = 'hidden';
-      document.body.classList.add('portfolio-expanded');
+      document.body.style.overflow = "hidden";
+      document.body.classList.add("portfolio-expanded");
     } else {
-      document.body.style.overflow = '';
-      document.body.classList.remove('portfolio-expanded');
+      document.body.style.overflow = "";
+      document.body.classList.remove("portfolio-expanded");
     }
 
     // Listen for collapse requests from Navbar arrow
     const collapseHandler = () => setExpanded(false);
-    window.addEventListener('collapsePortfolio', collapseHandler);
+    window.addEventListener("collapsePortfolio", collapseHandler);
 
     // cleanup on unmount to be extra-safe
     return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('collapsePortfolio', collapseHandler);
+      document.body.style.overflow = "";
+      window.removeEventListener("collapsePortfolio", collapseHandler);
     };
   }, [expanded]);
 
@@ -616,7 +765,7 @@ const HeroSection: FC = () => {
       velocity: 0,
       lastX: 0,
       lastTime: 0,
-      dragDistance: 0
+      dragDistance: 0,
     };
 
     const snapToNearest = () => {
@@ -624,18 +773,20 @@ const HeroSection: FC = () => {
       const containerCenter = container.scrollLeft + container.offsetWidth / 2;
       let nearest = cards[0];
       let minDist = Infinity;
-      cards.forEach(card => {
+      cards.forEach((card) => {
         const cardCenter = card.offsetLeft + card.offsetWidth / 2;
         const dist = Math.abs(containerCenter - cardCenter);
-        if (dist < minDist) { 
-          minDist = dist; 
-          nearest = card; 
+        if (dist < minDist) {
+          minDist = dist;
+          nearest = card;
         }
       });
-      container.style.scrollSnapType = 'x mandatory';
-      container.scrollTo({ 
-        left: nearest.offsetLeft - (container.offsetWidth - nearest.offsetWidth) / 2, 
-        behavior: 'smooth' 
+      container.style.scrollSnapType = "x mandatory";
+      container.scrollTo({
+        left:
+          nearest.offsetLeft -
+          (container.offsetWidth - nearest.offsetWidth) / 2,
+        behavior: "smooth",
       });
     };
 
@@ -646,9 +797,9 @@ const HeroSection: FC = () => {
       state.lastX = e.pageX;
       state.lastTime = Date.now();
       state.dragDistance = 0;
-      container.style.scrollSnapType = 'none';
-      container.style.cursor = 'grabbing';
-      container.classList.add('dragging');
+      container.style.scrollSnapType = "none";
+      container.style.cursor = "grabbing";
+      container.classList.add("dragging");
       if (state.animationId) cancelAnimationFrame(state.animationId);
       didDrag.current = false;
       draggingCards.current = true;
@@ -662,34 +813,34 @@ const HeroSection: FC = () => {
       const walk = (state.startX - x) * 1.2;
       state.dragDistance = Math.abs(walk);
       container.scrollLeft = state.scrollLeft + walk;
-      
+
       // Calculate velocity for momentum
       const now = Date.now();
       const dt = now - state.lastTime;
       if (dt > 0) state.velocity = (e.pageX - state.lastX) / dt;
       state.lastX = e.pageX;
       state.lastTime = now;
-      
+
       // Mark as dragged if moved more than 5px
       if (state.dragDistance > 5) didDrag.current = true;
-      
+
       setDragHintPos({ x: e.clientX, y: e.clientY });
     };
 
     const handlePointerUp = (e: PointerEvent) => {
       if (!state.isDragging) return;
       state.isDragging = false;
-      container.style.cursor = 'grab';
-      container.classList.remove('dragging');
+      container.style.cursor = "grab";
+      container.classList.remove("dragging");
       draggingCards.current = false;
-      
+
       // Prevent click if dragged
       if (state.dragDistance > 5) {
         e.preventDefault();
         // Apply momentum
         const momentum = state.velocity * 300;
         const targetScroll = container.scrollLeft - momentum;
-        
+
         const animate = () => {
           const diff = targetScroll - container.scrollLeft;
           if (Math.abs(diff) > 1) {
@@ -697,13 +848,17 @@ const HeroSection: FC = () => {
             state.animationId = requestAnimationFrame(animate);
           } else {
             snapToNearest();
-            setTimeout(() => { didDrag.current = false; }, 100);
+            setTimeout(() => {
+              didDrag.current = false;
+            }, 100);
           }
         };
         state.animationId = requestAnimationFrame(animate);
       } else {
-        container.style.scrollSnapType = 'x mandatory';
-        setTimeout(() => { didDrag.current = false; }, 100);
+        container.style.scrollSnapType = "x mandatory";
+        setTimeout(() => {
+          didDrag.current = false;
+        }, 100);
       }
     };
 
@@ -721,20 +876,20 @@ const HeroSection: FC = () => {
       }
     };
 
-    container.addEventListener('mouseenter', handleMouseEnter);
-    container.addEventListener('mouseleave', handleMouseLeave);
-    container.addEventListener('pointerdown', handlePointerDown);
-    container.addEventListener('pointermove', handlePointerMove);
-    container.addEventListener('pointerup', handlePointerUp);
-    container.addEventListener('click', handleClickCapture, true);
+    container.addEventListener("mouseenter", handleMouseEnter);
+    container.addEventListener("mouseleave", handleMouseLeave);
+    container.addEventListener("pointerdown", handlePointerDown);
+    container.addEventListener("pointermove", handlePointerMove);
+    container.addEventListener("pointerup", handlePointerUp);
+    container.addEventListener("click", handleClickCapture, true);
 
     return () => {
-      container.removeEventListener('mouseenter', handleMouseEnter);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-      container.removeEventListener('pointerdown', handlePointerDown);
-      container.removeEventListener('pointermove', handlePointerMove);
-      container.removeEventListener('pointerup', handlePointerUp);
-      container.removeEventListener('click', handleClickCapture, true);
+      container.removeEventListener("mouseenter", handleMouseEnter);
+      container.removeEventListener("mouseleave", handleMouseLeave);
+      container.removeEventListener("pointerdown", handlePointerDown);
+      container.removeEventListener("pointermove", handlePointerMove);
+      container.removeEventListener("pointerup", handlePointerUp);
+      container.removeEventListener("click", handleClickCapture, true);
       if (state.animationId) cancelAnimationFrame(state.animationId);
     };
   }, [expanded]);
@@ -754,9 +909,9 @@ const HeroSection: FC = () => {
       // collapse and smooth scroll to services section
       setExpanded(false);
       if (window.innerWidth > 1000) {
-        const target = document.getElementById('services');
+        const target = document.getElementById("services");
         if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
+          target.scrollIntoView({ behavior: "smooth" });
         }
       }
     } else {
@@ -786,11 +941,13 @@ const HeroSection: FC = () => {
       const slideHeight = window.innerHeight;
       railRef.current.scrollTo({
         top: slideHeight * slideIndex,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
 
       // Reset scrolling flag after animation duration (~600ms)
-      setTimeout(() => { isScrolling.current = false; }, 700);
+      setTimeout(() => {
+        isScrolling.current = false;
+      }, 700);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -827,7 +984,7 @@ const HeroSection: FC = () => {
       if (isScrolling || window.innerWidth <= 1000) return;
 
       // Arrow Down or Page Down
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      if (e.key === "ArrowDown" || e.key === "PageDown") {
         e.preventDefault();
         if (currentSlide === totalSlides - 1) {
           scrollToSlide(totalSlides); // Go to footer
@@ -836,17 +993,17 @@ const HeroSection: FC = () => {
         }
       }
       // Arrow Up or Page Up
-      else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      else if (e.key === "ArrowUp" || e.key === "PageUp") {
         e.preventDefault();
         scrollToSlide(Math.max(0, currentSlide - 1));
       }
       // Home key
-      else if (e.key === 'Home') {
+      else if (e.key === "Home") {
         e.preventDefault();
         scrollToSlide(0);
       }
       // End key
-      else if (e.key === 'End') {
+      else if (e.key === "End") {
         e.preventDefault();
         scrollToSlide(totalSlides); // Go to footer
       }
@@ -891,16 +1048,16 @@ const HeroSection: FC = () => {
 
     const railElement = railRef.current;
     if (railElement) {
-      railElement.addEventListener('scroll', handleScroll);
-      document.addEventListener('wheel', wheelHandler, { passive: false });
-      document.addEventListener('keydown', handleKeyDown);
+      railElement.addEventListener("scroll", handleScroll);
+      document.addEventListener("wheel", wheelHandler, { passive: false });
+      document.addEventListener("keydown", handleKeyDown);
     }
 
     return () => {
       if (railElement) {
-        railElement.removeEventListener('scroll', handleScroll);
-        document.removeEventListener('wheel', wheelHandler);
-        document.removeEventListener('keydown', handleKeyDown);
+        railElement.removeEventListener("scroll", handleScroll);
+        document.removeEventListener("wheel", wheelHandler);
+        document.removeEventListener("keydown", handleKeyDown);
       }
     };
   }, [currentSlide, isScrolling, scrollToSlide]);
@@ -908,14 +1065,14 @@ const HeroSection: FC = () => {
   return (
     <HeroContainer id="home">
       <LightRaysWrapper>
-        <LightRays 
-          raysColor="#f0f4ff" 
-          raysSpeed={0.2} 
-          lightSpread={0.65} 
-          rayLength={0.7} 
-          pulsating={true} 
-          fadeDistance={1.0} 
-          saturation={0.3} 
+        <LightRays
+          raysColor="#f0f4ff"
+          raysSpeed={0.2}
+          lightSpread={0.65}
+          rayLength={0.7}
+          pulsating={true}
+          fadeDistance={1.0}
+          saturation={0.3}
           followMouse={true}
           mouseInfluence={0.1}
           noiseAmount={0.05}
@@ -928,7 +1085,8 @@ const HeroSection: FC = () => {
         <HeroText>
           <TitleBackground>
             <HeroTitleTop ref={titleRef} id="hero-title" className="hero-text">
-              <NohemiSpan>Built Different</NohemiSpan><br/>
+              <NohemiSpan>Built Different</NohemiSpan>
+              <br />
               <NohemiSpan>Designed Better</NohemiSpan>
             </HeroTitleTop>
             <HeroSubtitle>
@@ -952,32 +1110,45 @@ const HeroSection: FC = () => {
 
               {expanded && (
                 <CardGrid visible ref={cardGridRef}>
-                  {SERVICE_ITEMS.slice(0, visibleCount).map(({ title, desc, path }, i) => (
-                    <ServiceCard
-                      key={title}
-                      bg={serviceBackgrounds[i]}
-                      style={{
-                        flex: window.innerWidth <= 1000 ? '0 0 auto' : '0 0 320px',
-                        width: window.innerWidth <= 1000 ? '100%' : '320px',
-                        aspectRatio: '1 / 1',
-                        height: 'auto',
-                        minHeight: '0'
-                      }}
-                      onClick={(e) => handleServiceClick(e as React.MouseEvent<HTMLDivElement>, path)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          handleServiceClick(e as unknown as React.MouseEvent<HTMLDivElement>, path);
+                  {SERVICE_ITEMS.slice(0, visibleCount).map(
+                    ({ title, desc, path }, i) => (
+                      <ServiceCard
+                        key={title}
+                        bg={serviceBackgrounds[i]}
+                        style={{
+                          flex:
+                            window.innerWidth <= 1000
+                              ? "0 0 auto"
+                              : "0 0 320px",
+                          width: window.innerWidth <= 1000 ? "100%" : "320px",
+                          aspectRatio: "1 / 1",
+                          height: "auto",
+                          minHeight: "0",
+                        }}
+                        onClick={(e) =>
+                          handleServiceClick(
+                            e as React.MouseEvent<HTMLDivElement>,
+                            path
+                          )
                         }
-                      }}
-                    >
-                      <TextOverlay>
-                        <ServicesH2>{title}</ServicesH2>
-                        <ServicesP>{desc}</ServicesP>
-                      </TextOverlay>
-                    </ServiceCard>
-                  ))}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            handleServiceClick(
+                              e as unknown as React.MouseEvent<HTMLDivElement>,
+                              path
+                            );
+                          }
+                        }}
+                      >
+                        <TextOverlay>
+                          <ServicesH2>{title}</ServicesH2>
+                          <ServicesP>{desc}</ServicesP>
+                        </TextOverlay>
+                      </ServiceCard>
+                    )
+                  )}
                 </CardGrid>
               )}
             </PortfolioButton>
@@ -985,13 +1156,65 @@ const HeroSection: FC = () => {
         </HeroText>
 
         {/* mobile photo */}
-        <MobileImg src={meImage} alt="Ian Cheruiyot" />
+        <MobilePortrait>
+          {heroImageSources.avifSrcSet && (
+            <source
+              type="image/avif"
+              srcSet={heroImageSources.avifSrcSet}
+              sizes={heroImageSources.sizes}
+            />
+          )}
+          {heroImageSources.webpSrcSet && (
+            <source
+              type="image/webp"
+              srcSet={heroImageSources.webpSrcSet}
+              sizes={heroImageSources.sizes}
+            />
+          )}
+          <MobileImg
+            src={heroImageSources.fallbackSrc}
+            alt="Ian Cheruiyot"
+            srcSet={heroImageSources.pngSrcSet}
+            sizes={heroImageSources.sizes}
+            width={heroImageSources.width}
+            height={heroImageSources.height}
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
+        </MobilePortrait>
 
         <HeroRight>
           <Rail ref={railRef}>
             {/* Desktop portrait image as the first slide */}
             <Slide>
-              <DesktopImg src={meImage} alt="Ian Cheruiyot" />
+              <DesktopPortrait>
+                {heroImageSources.avifSrcSet && (
+                  <source
+                    type="image/avif"
+                    srcSet={heroImageSources.avifSrcSet}
+                    sizes={heroImageSources.sizes}
+                  />
+                )}
+                {heroImageSources.webpSrcSet && (
+                  <source
+                    type="image/webp"
+                    srcSet={heroImageSources.webpSrcSet}
+                    sizes={heroImageSources.sizes}
+                  />
+                )}
+                <DesktopImg
+                  src={heroImageSources.fallbackSrc}
+                  alt="Ian Cheruiyot"
+                  srcSet={heroImageSources.pngSrcSet}
+                  sizes={heroImageSources.sizes}
+                  width={heroImageSources.width}
+                  height={heroImageSources.height}
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
+                />
+              </DesktopPortrait>
             </Slide>
           </Rail>
         </HeroRight>
@@ -1024,7 +1247,7 @@ const HeroSection: FC = () => {
           dragging={draggingCards.current}
           style={{ top: dragHintPos.y, left: dragHintPos.x }}
         >
-          {draggingCards.current ? 'Drag to scroll' : 'Click and drag'}
+          {draggingCards.current ? "Drag to scroll" : "Click and drag"}
         </DragHint>
       )}
     </HeroContainer>
@@ -1086,19 +1309,16 @@ export const CardGrid = styled.div<{ visible: boolean }>`
     scroll-padding: 0;
   }
   opacity: ${({ visible }) => (visible ? 1 : 0)};
-  pointer-events: ${({ visible }) => (visible ? 'auto' : 'none')};
-
+  pointer-events: ${({ visible }) => (visible ? "auto" : "none")};
 
   border-radius: 24px;
   overflow: hidden;
 
   /* translucent backdrop behind cards */
-  background: ${({ theme }) => theme.theme === 'light' ? 'rgba(255,255,255,0.30)' : 'rgba(0,0,0,0.30)'};
+  background: ${({ theme }) =>
+    theme.theme === "light" ? "rgba(255,255,255,0.30)" : "rgba(0,0,0,0.30)"};
   backdrop-filter: blur(6px) saturate(140%);
   -webkit-backdrop-filter: blur(6px) saturate(140%);
-  
-
-
 `;
 
 export const DragHint = styled.div<{ dragging: boolean }>`
@@ -1110,7 +1330,8 @@ export const DragHint = styled.div<{ dragging: boolean }>`
   font-size: 0.75rem;
   border-radius: 8px;
   opacity: ${({ dragging }) => (dragging ? 0.95 : 0.8)};
-  transform: translate(-50%, -50%) scale(${({ dragging }) => (dragging ? 1.1 : 1)});
+  transform: translate(-50%, -50%)
+    scale(${({ dragging }) => (dragging ? 1.1 : 1)});
   transition: opacity 0.15s ease, transform 0.15s ease;
   white-space: nowrap;
   z-index: 99999;
@@ -1127,6 +1348,5 @@ export const Card = styled.div`
   font-weight: 600;
   text-align: center;
 `;
-
 
 export default HeroSection;
