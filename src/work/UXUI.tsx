@@ -5,7 +5,7 @@ import { uxProjects } from "../data/projects";
 import styled from "styled-components";
 import AnimatedSection from "../components/AnimatedSection";
 import { Link } from "react-router-dom";
-import ufanisiImg from "../images/ufanisi.jpg";
+import ufanisiImg from "../images/ufanisi.webp";
 
 // Import Ufanisi styled components for responsive layout
 import { UfanisiSideBySide, UfanisiMobileImageFirst, UfanisiMobileTextSecond } from "./UfanisiResortElements";

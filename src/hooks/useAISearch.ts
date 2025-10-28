@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, useCallback } from 'react';
 import Fuse from 'fuse.js';
 import { allProjects } from '../data/projects';
 import type { ProjectType } from '../data/projects';
-import AdDesignImg from '../images/addesign/eid.jpg';
+import AdDesignImg from '../images/addesign/eid.webp';
 
 // Enhanced search result interface for Fuse.js
 export interface SearchResult {

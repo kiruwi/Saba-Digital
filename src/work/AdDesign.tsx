@@ -4,14 +4,14 @@ import styled from 'styled-components';
 import { useTheme } from '../contexts/ThemeContext';
 
 // Import images from addesign folder
-import Artboard1 from '../images/addesign/artboard-1.jpg';
-import Asset5 from '../images/addesign/asset5-2x-100.jpg';
-import Asset6 from '../images/addesign/asset6-2x-100.jpg';
-import BrightSquad from '../images/addesign/bright-squad-cleaners.jpg';
-import EidAlAdha from '../images/addesign/eid.jpg';
-import Soc from '../images/addesign/sOC4x-100.jpg';
-import Ad1 from '../images/addesign/1st2x-100.jpg';
-import Ad2 from '../images/addesign/2nd2x-100.jpg';
+import Artboard1 from '../images/addesign/artboard-1.webp';
+import Asset5 from '../images/addesign/asset5-2x-100.webp';
+import Asset6 from '../images/addesign/asset6-2x-100.webp';
+import BrightSquad from '../images/addesign/bright-squad-cleaners.webp';
+import EidAlAdha from '../images/addesign/eid.webp';
+import Soc from '../images/addesign/sOC4x-100.webp';
+import Ad1 from '../images/addesign/1st2x-100.webp';
+import Ad2 from '../images/addesign/2nd2x-100.webp';
 
 const Main = styled.main`
   padding: 7rem 0 4rem;
