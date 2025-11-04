@@ -349,6 +349,7 @@ export const DesktopImg = styled.img`
   height: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  object-position: center top;
   flex-shrink: 0;
   border-radius: 50%;
 `;
@@ -359,6 +360,7 @@ export const MobileImg = styled.img`
   height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  object-position: center top;
   border-radius: 50%;
 
   @media (min-width: 1000px) {
