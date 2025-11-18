@@ -127,6 +127,24 @@ export const LogoTrack = styled.div`
   gap: clamp(2.25rem, 4vw, 4rem);
   width: max-content;
   will-change: transform;
+
+  /* Mobile fallback animation to keep marquee moving even if JS is throttled */
+  @keyframes marquee-slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (max-width: 768px) {
+    animation: marquee-slide 22s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+  }
 `;
 
 export const LogoCard = styled.div`
