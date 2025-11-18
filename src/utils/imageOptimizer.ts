@@ -11,8 +11,13 @@ export type ImageOptimizationOptions = {
 
 const ABSOLUTE_URL_REGEX = /^https?:\/\//i;
 
-const shouldOptimize = (): boolean =>
-  typeof window !== 'undefined' && process.env.NODE_ENV === 'production';
+// Disable CDN optimization by default; allow opt-in via env flag
+const shouldOptimize = (): boolean => {
+  if (process.env.REACT_APP_ENABLE_IMAGE_OPTIMIZATION === 'true') {
+    return typeof window !== 'undefined' && process.env.NODE_ENV === 'production';
+  }
+  return false;
+};
 
 const buildCdnUrl = (basePath: string, options: ImageOptimizationOptions): string => {
   const params = new URLSearchParams();
