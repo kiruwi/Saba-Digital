@@ -107,6 +107,7 @@ const TrustedBy: React.FC = () => {
     const prefersReducedMotion =
       typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) return; // rely on CSS marquee on mobile
 
     let cancelled = false;
     let cleanup: (() => void) | undefined;
