@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Clarity from "@microsoft/clarity";
 
 const CONSENT_KEY = "cookie_consent_v2";
 const CLARITY_ID = "s22e2bgovv";
@@ -57,41 +58,15 @@ function writeConsent(status: ConsentStatus) {
   localStorage.setItem(CONSENT_KEY, JSON.stringify(payload));
 }
 
-function clarityAvailable(): boolean {
-  return typeof (window as any).clarity === "function";
-}
+const clarityAvailable = () => typeof (window as any).clarity === "function";
 
-/** Inject Clarity tag only after consent, and only once. */
-function loadClarityScript() {
-  if (clarityAvailable()) return;
-  if (document.querySelector('script[data-clarity="true"]')) return;
-
-  const script: HTMLScriptElement = document.createElement("script");
-  script.async = true;
-  script.src = "https://www.clarity.ms/tag/" + CLARITY_ID;
-  script.setAttribute("data-clarity", "true");
-  script.referrerPolicy = "origin";
-
-  const firstScript = document.getElementsByTagName("script")[0];
-  if (firstScript?.parentNode) {
-    firstScript.parentNode.insertBefore(script, firstScript);
-  } else {
-    document.head?.appendChild(script);
-  }
-
-  // Queue calls until the loader runs
-  (window as any).clarity =
-    (window as any).clarity ||
-    function (...args: unknown[]) {
-      ((window as any).clarity.q = (window as any).clarity.q || []).push(args);
-    };
-}
-
-/** Initialize Clarity only after explicit consent (ConsentV2). */
+/** Initialize Clarity only after explicit consent. */
 function initClarityAfterConsent() {
   try {
-    loadClarityScript();
-    (window as any).clarity("consentv2", { analytics_Storage: "granted", ad_Storage: "denied" });
+    Clarity.init(CLARITY_ID);
+    // Grant consent and send a lightweight debug event to verify wiring in DevTools
+    (window as any).clarity?.("consent", true);
+    (window as any).clarity?.("event", "cookie_accept");
   } catch { /* no-op */ }
 }
 
@@ -99,7 +74,8 @@ function initClarityAfterConsent() {
 function setClarityDenied() {
   try {
     if (clarityAvailable()) {
-      (window as any).clarity("consentv2", { analytics_Storage: "denied", ad_Storage: "denied" });
+      (window as any).clarity("consent", false);
+      (window as any).clarity("event", "cookie_reject");
     }
   } catch { /* no-op */ }
 }
