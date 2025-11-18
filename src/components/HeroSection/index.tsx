@@ -1184,6 +1184,12 @@ const HeroSection: FC = () => {
             loading="eager"
             decoding="async"
             fetchPriority="high"
+            onError={(e) => {
+              if (e.currentTarget.src !== meImage) {
+                e.currentTarget.src = meImage; // fall back to bundled asset if CDN fails
+                e.currentTarget.srcset = "";
+              }
+            }}
           />
         </MobilePortrait>
 
@@ -1216,11 +1222,17 @@ const HeroSection: FC = () => {
                   loading="eager"
                   decoding="async"
                   fetchPriority="high"
+                  onError={(e) => {
+                    if (e.currentTarget.src !== meImage) {
+                      e.currentTarget.src = meImage; // fall back to bundled asset if CDN fails
+                      e.currentTarget.srcset = "";
+                    }
+                  }}
                 />
-              </DesktopPortrait>
-            </Slide>
-          </Rail>
-        </HeroRight>
+                </DesktopPortrait>
+              </Slide>
+            </Rail>
+          </HeroRight>
 
         {/* Slide indicators (desktop only) */}
         {hasSlideNavigation && (
