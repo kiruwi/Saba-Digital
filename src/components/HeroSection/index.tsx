@@ -131,9 +131,10 @@ const baseTitle = `
   margin: 0;
 `;
 
-const HERO_IMAGE_WIDTHS = [480, 720, 960, 1280];
+// Serve higher-res source sets to reduce aliasing on retina/large screens
+const HERO_IMAGE_WIDTHS = [480, 720, 960, 1280, 1600];
 const HERO_SIZES = "(max-width: 1000px) 85vw, 528px";
-const HERO_IMAGE_DIMENSION = 1200;
+const HERO_IMAGE_DIMENSION = 1600;
 
 type LoadedGsap = Awaited<ReturnType<typeof loadGsap>>;
 type GsapTween = InstanceType<LoadedGsap["gsap"]["core"]["Tween"]>;
@@ -471,31 +472,31 @@ const HeroSection: FC = () => {
   const heroImageSources = useMemo(() => {
     const fallbackSrc = buildOptimizedImageUrl(meImage, {
       width: HERO_IMAGE_DIMENSION,
-      quality: 85,
-      fit: "cover",
+      quality: 90,
+      fit: "inside",
     });
 
     const pngSrcSet = buildSrcSet(meImage, HERO_IMAGE_WIDTHS, {
-      quality: 85,
-      fit: "cover",
+      quality: 90,
+      fit: "inside",
     });
 
     const webpSrcSet = buildSrcSet(meImage, HERO_IMAGE_WIDTHS, {
-      quality: 80,
-      fit: "cover",
+      quality: 85,
+      fit: "inside",
       format: "webp",
     });
 
     const avifSrcSet = buildSrcSet(meImage, HERO_IMAGE_WIDTHS, {
-      quality: 70,
-      fit: "cover",
+      quality: 80,
+      fit: "inside",
       format: "avif",
     });
 
     const preload = buildOptimizedImageUrl(meImage, {
       width: HERO_IMAGE_DIMENSION,
-      quality: 75,
-      fit: "cover",
+      quality: 80,
+      fit: "inside",
       format: "avif",
     });
 
