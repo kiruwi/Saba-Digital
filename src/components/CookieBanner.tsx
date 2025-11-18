@@ -61,12 +61,37 @@ function clarityAvailable(): boolean {
   return typeof (window as any).clarity === "function";
 }
 
+/** Inject Clarity tag only after consent, and only once. */
+function loadClarityScript() {
+  if (clarityAvailable()) return;
+  if (document.querySelector('script[data-clarity="true"]')) return;
+
+  const script: HTMLScriptElement = document.createElement("script");
+  script.async = true;
+  script.src = "https://www.clarity.ms/tag/" + CLARITY_ID;
+  script.setAttribute("data-clarity", "true");
+  script.referrerPolicy = "origin";
+
+  const firstScript = document.getElementsByTagName("script")[0];
+  if (firstScript?.parentNode) {
+    firstScript.parentNode.insertBefore(script, firstScript);
+  } else {
+    document.head?.appendChild(script);
+  }
+
+  // Queue calls until the loader runs
+  (window as any).clarity =
+    (window as any).clarity ||
+    function (...args: unknown[]) {
+      ((window as any).clarity.q = (window as any).clarity.q || []).push(args);
+    };
+}
+
 /** Initialize Clarity only after explicit consent (ConsentV2). */
 function initClarityAfterConsent() {
   try {
-    if (!clarityAvailable()) return;
+    loadClarityScript();
     (window as any).clarity("consentv2", { analytics_Storage: "granted", ad_Storage: "denied" });
-    (window as any).clarity("init", CLARITY_ID);
   } catch { /* no-op */ }
 }
 
