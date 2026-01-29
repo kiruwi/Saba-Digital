@@ -52,6 +52,7 @@ const Stars: React.FC<{ rating: number }> = memo(({ rating }) => {
   return (
     <div
       className="flex items-center gap-1"
+      role="img"
       aria-label={`Rating: ${clamped} out of 5`}
     >
       {Array.from({ length: 5 }).map((_, idx) => (
@@ -340,6 +341,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
                 key={review.id}
                 data-card="true"
                 className="snap-center shrink-0 w-full"
+                role="listitem"
               >
                 <ReviewCard review={review} />
               </div>
@@ -408,13 +410,19 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
             <button
               key={index}
               onClick={() => scrollToIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === activeIndex
-                  ? "bg-green-600"
-                  : "bg-gray-300 hover:bg-gray-400"
-              }`}
+              className="group w-6 h-6 rounded-full transition-all duration-300 flex items-center justify-center"
               aria-label={`Go to slide ${index + 1}`}
-            />
+              aria-current={index === activeIndex ? "true" : undefined}
+            >
+              <span
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === activeIndex
+                    ? "bg-green-600"
+                    : "bg-gray-300 group-hover:bg-gray-400"
+                }`}
+                aria-hidden="true"
+              />
+            </button>
           ))}
         </div>
       </div>

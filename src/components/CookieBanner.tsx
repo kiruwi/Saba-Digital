@@ -19,7 +19,17 @@ const Banner = styled.div`
 `;
 
 const Msg = styled.span`
-  flex: 1 1 auto; color: #6c757d;
+  flex: 1 1 auto; color: #4b5563;
+`;
+
+const PolicyLink = styled(Link)`
+  color: #1f7a3a;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  &:hover {
+    color: #145a28;
+  }
 `;
 
 const Actions = styled.div`
@@ -30,8 +40,8 @@ const Actions = styled.div`
 const Btn = styled.button<{ $secondary?: boolean }>`
   padding: 8px 14px; font-size: 14px; border: 0; cursor: pointer;
   border-radius: 6px;
-  background: ${({ $secondary, theme }) =>
-    $secondary ? "rgba(0,0,0,0.05)" : (theme?.colors?.primary ?? "#0d6efd")};
+  background: ${({ $secondary }) =>
+    $secondary ? "rgba(0,0,0,0.06)" : "#1f7a3a"};
   color: ${({ $secondary }) => ($secondary ? "#121212" : "#fff")};
   transition: opacity 0.2s ease;
   &:hover { opacity: 0.9; }
@@ -191,8 +201,8 @@ const CookieBanner: React.FC = () => {
       <Msg>
         I use cookies to help my site work properly and learn how 
         you use it, so I can give you the best experience.{" "}
-        <Link to="/privacy">Privacy Policy </Link> ·{" "}
-        <Link to="/cookies">Cookie Policy</Link>
+        <PolicyLink to="/privacy">Privacy Policy </PolicyLink> ·{" "}
+        <PolicyLink to="/cookies">Cookie Policy</PolicyLink>
       </Msg>
       <Actions>
         <Btn onClick={accept}>Accept all</Btn>
