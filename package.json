@@ -68,6 +68,9 @@
     "inlineCss": true,
     "minifyHtml": true,
     "skipThirdPartyRequests": true,
+    "preconnectThirdParty": false,
+    "crawl": false,
+    "concurrency": 1,
     "puppeteerArgs": [
       "--no-sandbox",
       "--disable-setuid-sandbox"
