@@ -45,10 +45,19 @@ export const SidebarMenu = styled.ul`
   display: grid;
   grid-template-rows: repeat(6, 80px);
   text-align: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 
   @media screen and (max-width: 480px) {
     grid-template-rows: repeat(6, 60px);
   }
+`;
+
+export const SidebarMenuItem = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 // Define the theme interface for type safety

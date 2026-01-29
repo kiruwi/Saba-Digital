@@ -6,7 +6,7 @@ import SidebarContainer from "./SidebarContainer";
 import {
   SidebarWrapper,
   SidebarMenu,
-  SidebarLink,
+  SidebarMenuItem,
   SidebarRouterLink,
   SideBtnWrap,
 } from "./SidebarElements";
@@ -66,23 +66,29 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggle }) => {
   return (
     <SidebarContainer isOpen={isOpen} onClick={toggle}>
 
-      <SidebarWrapper>
+        <SidebarWrapper>
         <SidebarMenu>
-          <SidebarLink to='services' onClick={toggle}>Portfolio</SidebarLink>
-          <ResumeLink 
-            href='https://drive.google.com/file/d/1-LmqGJNPkNZ0naITKqTo5PrQsX7iNpYP/view?usp=sharing' 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            onClick={toggle} 
-          >
-            Résumé
-          </ResumeLink>
-          <SidebarRouterLink 
-            to='/contact' 
-            onClick={toggle} 
-          >
-            Contact Me
-          </SidebarRouterLink>
+          <SidebarMenuItem>
+            <SidebarRouterLink to="/#services" onClick={toggle}>Portfolio</SidebarRouterLink>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <ResumeLink 
+              href='https://drive.google.com/file/d/1-LmqGJNPkNZ0naITKqTo5PrQsX7iNpYP/view?usp=sharing' 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              onClick={toggle} 
+            >
+              Résumé
+            </ResumeLink>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarRouterLink 
+              to='/contact' 
+              onClick={toggle} 
+            >
+              Contact Me
+            </SidebarRouterLink>
+          </SidebarMenuItem>
         </SidebarMenu>
         <SideBtnWrap>
           <SidebarThemeToggle>
