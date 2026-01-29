@@ -56,7 +56,10 @@ export const GraphicsImageWrapper = styled.div`
   overflow: hidden;
 `;
 
-export const GraphicsProjectImage = styled.img`
+export const GraphicsProjectImage = styled.img.attrs({
+  loading: 'lazy',
+  decoding: 'async'
+})`
   width: 100%;
   height: 100%;
   object-fit: cover;

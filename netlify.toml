@@ -4,6 +4,7 @@
 
 [build.environment]
   CI = "false"
+  REACT_APP_ENABLE_IMAGE_OPTIMIZATION = "true"
 
 # Security headers configuration
 [[headers]]

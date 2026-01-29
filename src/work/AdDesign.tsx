@@ -83,7 +83,7 @@ const AdDesign: React.FC = () => {
         <MasonryGrid>
           {adImages.map((image, idx) => (
             <AdImageWrapper key={idx}>
-              <img src={image.src} alt={image.alt} />
+              <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
             </AdImageWrapper>
           ))}
         </MasonryGrid>

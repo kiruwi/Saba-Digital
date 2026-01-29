@@ -40,8 +40,6 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
     <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-    <link rel="preconnect" href="https://identity.netlify.com" crossorigin />
-    <link rel="dns-prefetch" href="https://identity.netlify.com" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -54,10 +52,8 @@
     <title>Ian K. Cheruiyot | Graphics & UX/UI Designer in Nairobi</title>
     
     <!-- Preload critical resources -->
-    <!-- preload removed -->
+    <link rel="preload" href="%PUBLIC_URL%/font/Nohemi-Medium.woff2" as="font" type="font/woff2" crossorigin />
     
-    <!-- Netlify Identity Widget -->
-    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     
     <!-- Structured Data - JSON-LD -->
     <script type="application/ld+json">
@@ -127,17 +123,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <!-- Netlify Identity redirect script -->
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
+    <!-- Netlify Identity is loaded only in /admin -->
   </body>
   </html>

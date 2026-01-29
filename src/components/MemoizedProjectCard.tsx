@@ -56,6 +56,7 @@ const MemoizedProjectCard: React.FC<MemoizedProjectCardProps> = memo(({
         src={project.image} 
         alt={`${project.title} project preview`}
         loading="lazy"
+        decoding="async"
         style={{ 
           width: '100%', 
           height: 'auto',

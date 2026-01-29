@@ -56,7 +56,10 @@ export const WebDevImageWrapper = styled.div`
   overflow: hidden;
 `;
 
-export const WebDevProjectImage = styled.img`
+export const WebDevProjectImage = styled.img.attrs({
+  loading: 'lazy',
+  decoding: 'async'
+})`
   width: 100%;
   height: 100%;
   object-fit: cover;

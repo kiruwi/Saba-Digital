@@ -173,6 +173,7 @@ const AccessibleImageGallery: React.FC<AccessibleImageGalleryProps> = memo(({
               src={image.src}
               alt={image.alt}
               loading="lazy"
+              decoding="async"
               style={{
                 width: '100%',
                 height: '200px',
@@ -230,6 +231,8 @@ const AccessibleImageGallery: React.FC<AccessibleImageGalleryProps> = memo(({
               <img
                 src={images[selectedIndex].src}
                 alt={images[selectedIndex].alt}
+                loading="eager"
+                decoding="async"
                 style={{
                   maxWidth: '80vw',
                   maxHeight: '70vh',

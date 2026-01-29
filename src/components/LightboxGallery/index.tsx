@@ -274,6 +274,8 @@ const LightboxGallery: React.FC<LightboxGalleryProps> = ({
           <img 
             src={images[activeIndex]} 
             alt={captions?.[activeIndex] ?? `Gallery item ${activeIndex + 1}`} 
+            loading="eager"
+            decoding="async"
           />
         </LightboxImage>
         

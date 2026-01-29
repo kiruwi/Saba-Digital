@@ -26,6 +26,7 @@
   "scripts": {
     "start": "cross-env REACT_APP_USE_TS=true react-scripts start",
     "build": "cross-env REACT_APP_USE_TS=true react-scripts build",
+    "postbuild": "react-snap",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -60,7 +61,33 @@
     "gh-pages": "^5.0.0",
     "gray-matter": "^4.0.3",
     "postcss": "^8.5.6",
+    "react-snap": "^1.23.0",
     "tailwindcss": "^3.4.17"
+  },
+  "reactSnap": {
+    "inlineCss": true,
+    "minifyHtml": true,
+    "skipThirdPartyRequests": true,
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox"
+    ],
+    "include": [
+      "/",
+      "/contact",
+      "/privacy",
+      "/cookies",
+      "/work/web-dev",
+      "/work/ux-ui",
+      "/work/graphics",
+      "/work/web-dev/makvo-llc",
+      "/work/web-dev/mutai-enterprises",
+      "/work/web-dev/eve-on-safari",
+      "/work/ux-ui/ufanisi-resort",
+      "/work/graphics/gsc-hauling",
+      "/work/graphics/osim-lai-branding",
+      "/work/graphics/synnefa-rebrand"
+    ]
   },
   "overrides": {
     "@svgr/plugin-svgo": "8.1.0",

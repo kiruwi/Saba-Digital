@@ -1,4 +1,4 @@
-/* Satoshi Font Definitions */
+/* Satoshi Font Definitions (trimmed for performance) */
 
 /* Satoshi Variable (Normal) */
 @font-face {
@@ -7,88 +7,5 @@
        url('./font/Satoshi/Satoshi-Variable.woff') format('woff');
   font-weight: 100 900;
   font-style: normal;
-  font-display: swap;
-}
-
-/* Satoshi Variable (Italic) */
-@font-face {
-  font-family: 'Satoshi';
-  src: url('./font/Satoshi/Satoshi-VariableItalic.woff2') format('woff2'),
-       url('./font/Satoshi/Satoshi-VariableItalic.woff') format('woff');
-  font-weight: 100 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Fallback static weights for broader browser support */
-@font-face {
-  font-family: 'Satoshi';
-  src: url('./font/Satoshi/Satoshi-Light.woff2') format('woff2'),
-       url('./font/Satoshi/Satoshi-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('./font/Satoshi/Satoshi-Regular.woff2') format('woff2'),
-       url('./font/Satoshi/Satoshi-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('./font/Satoshi/Satoshi-Medium.woff2') format('woff2'),
-       url('./font/Satoshi/Satoshi-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('./font/Satoshi/Satoshi-Bold.woff2') format('woff2'),
-       url('./font/Satoshi/Satoshi-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('./font/Satoshi/Satoshi-LightItalic.woff2') format('woff2'),
-       url('./font/Satoshi/Satoshi-LightItalic.woff') format('woff');
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('./font/Satoshi/Satoshi-Italic.woff2') format('woff2'),
-       url('./font/Satoshi/Satoshi-Italic.woff') format('woff');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('./font/Satoshi/Satoshi-MediumItalic.woff2') format('woff2'),
-       url('./font/Satoshi/Satoshi-MediumItalic.woff') format('woff');
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('./font/Satoshi/Satoshi-BoldItalic.woff2') format('woff2'),
-       url('./font/Satoshi/Satoshi-BoldItalic.woff') format('woff');
-  font-weight: 700;
-  font-style: italic;
   font-display: swap;
 }

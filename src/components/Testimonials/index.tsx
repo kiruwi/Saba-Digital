@@ -84,6 +84,8 @@ const ReviewCard: React.FC<{ review: Review }> = memo(({ review }) => (
             src={review.reviewerImage}
             alt={review.reviewerName}
             className="w-full h-full rounded-full object-cover"
+            loading="lazy"
+            decoding="async"
           />
         ) : (
           review.reviewerName.charAt(0).toUpperCase()
