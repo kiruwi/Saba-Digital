@@ -104,6 +104,11 @@ const WebDevProjectDetail: React.FC<WebDevProjectDetailProps> = ({ projects }) =
             Visit makvo.co.ke <FiArrowUpRight />
           </VisitSiteButton>
         )}
+        {project.id === 'eve-on-safari' && (
+          <VisitSiteButton as="a" href="https://www.eveonsafari.com/" target="_blank" rel="noopener noreferrer">
+            Visit eveonsafari.com <FiArrowUpRight />
+          </VisitSiteButton>
+        )}
       </div>
       
       {/* Hero Image with Title Overlay */}

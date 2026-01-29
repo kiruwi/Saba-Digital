@@ -339,6 +339,11 @@ const WebDevDetail: React.FC = () => {
                  Visit makvo.co.ke <FiArrowUpRight />
                </VisitSiteButton>
              )}
+             {project?.id === 'eve-on-safari' && (
+               <VisitSiteButton as="a" href="https://www.eveonsafari.com/" target="_blank" rel="noopener noreferrer">
+                 Visit eveonsafari.com <FiArrowUpRight />
+               </VisitSiteButton>
+             )}
           </BackButtonContainer>
         </ContentWrapper>
       </MainContainer>
