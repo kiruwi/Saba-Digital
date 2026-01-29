@@ -83,6 +83,8 @@ const SynnefaGallery: React.FC = () => {
         <img
           src={img('service3-bg.jpg')}
           alt="3D Product Visualization of FarmShield™"
+          loading="lazy"
+          decoding="async"
           style={{
             width: '100%',
             height: 'auto',

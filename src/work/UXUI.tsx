@@ -113,6 +113,8 @@ const UXUI: React.FC = () => {
                   <img 
                     src={ufanisiImg} 
                     alt="Ufanisi Design Transformation" 
+                    loading="lazy"
+                    decoding="async"
                     style={{ display: 'block', width: '100%', height: 'auto', objectFit: 'cover', maxHeight: '400px' }} 
                   />
                 </UfanisiMobileImageFirst>
