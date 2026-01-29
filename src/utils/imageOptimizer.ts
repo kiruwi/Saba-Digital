@@ -5,7 +5,7 @@ export type ImageOptimizationOptions = {
   height?: number;
   quality?: number;
   format?: ImageFormat;
-  fit?: 'cover' | 'contain' | 'inside';
+  fit?: 'cover' | 'contain' | 'fill' | 'inside';
   metadata?: 'keep' | 'strip';
 };
 
@@ -34,7 +34,10 @@ const buildCdnUrl = (basePath: string, options: ImageOptimizationOptions): strin
   if (options.width) params.set('w', String(options.width));
   if (options.height) params.set('h', String(options.height));
   if (options.quality) params.set('q', String(options.quality));
-  if (options.fit) params.set('fit', options.fit);
+  if (options.fit) {
+    const fit = options.fit === 'inside' ? 'contain' : options.fit;
+    params.set('fit', fit);
+  }
   if (options.format) params.set('fm', options.format);
   if (options.metadata) params.set('metadata', options.metadata);
 
