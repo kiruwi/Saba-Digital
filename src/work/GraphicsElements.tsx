@@ -58,7 +58,9 @@ export const GraphicsImageWrapper = styled.div`
 
 export const GraphicsProjectImage = styled.img.attrs({
   loading: 'lazy',
-  decoding: 'async'
+  decoding: 'async',
+  width: 600,
+  height: 400
 })`
   width: 100%;
   height: 100%;

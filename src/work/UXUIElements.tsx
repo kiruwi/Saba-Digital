@@ -59,7 +59,9 @@ export const UXUIImageWrapper = styled.div`
 
 export const UXUIProjectImage = styled.img.attrs({
   loading: 'lazy',
-  decoding: 'async'
+  decoding: 'async',
+  width: 600,
+  height: 400
 })`
   width: 100%;
   height: 100%;

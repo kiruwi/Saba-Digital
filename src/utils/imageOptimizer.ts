@@ -14,7 +14,15 @@ const ABSOLUTE_URL_REGEX = /^https?:\/\//i;
 // Disable CDN optimization by default; allow opt-in via env flag
 const shouldOptimize = (): boolean => {
   if (process.env.REACT_APP_ENABLE_IMAGE_OPTIMIZATION === 'true') {
-    return typeof window !== 'undefined' && process.env.NODE_ENV === 'production';
+    if (typeof window === 'undefined' || process.env.NODE_ENV !== 'production') {
+      return false;
+    }
+    // Avoid Netlify image proxy during local prerendering (react-snap uses localhost)
+    const host = window.location?.hostname;
+    if (host === 'localhost' || host === '127.0.0.1') {
+      return false;
+    }
+    return true;
   }
   return false;
 };
