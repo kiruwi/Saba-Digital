@@ -26,7 +26,7 @@
   "scripts": {
     "start": "cross-env REACT_APP_USE_TS=true react-scripts start",
     "build": "cross-env REACT_APP_USE_TS=true react-scripts build",
-    "postbuild": "react-snap",
+    "postbuild": "node scripts/run-react-snap.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
