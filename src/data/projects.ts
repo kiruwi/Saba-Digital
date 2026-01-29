@@ -126,6 +126,45 @@ export const webProjects: ProjectType[] = [
     ],
     year: "2025",
   },
+  {
+    id: "eve-on-safari",
+    title: "Eve On Safari",
+    shortDescription:
+      "Tanzania safari planning website with curated itineraries, travel styles, and custom trip requests.",
+    fullDescription:
+      "Eve On Safari is a Tanzania-based travel company that curates tailor-made safari experiences across the country. The website positions the brand as a trusted expert and planning hub for Tanzania travel, highlighting top destinations, flexible safari packages, and expert guide support while inviting visitors to plan a custom safari.",
+    fullDescription2:
+      "The site’s story emphasizes meaningful, immersive journeys that respect nature and local communities, framed by the brand promise “Where Grace Meets the Wild” and the founder’s message welcoming travelers to Tanzania.",
+    fullDescription3: [
+      {
+        heading: "Experience Highlights",
+        content:
+          "Homepage content spotlights Tanzania safari tours, Kilimanjaro treks, and Zanzibar holidays alongside destination overviews, package highlights, and trip-planning prompts for different traveler needs."
+      },
+      {
+        heading: "Trust & Support",
+        content:
+          "Key trust signals focus on expert travel advisors, transparent pricing, and 24/7 customer support, reinforcing the brand's commitment to smooth, well-guided adventures."
+      },
+      {
+        heading: "Brand Story",
+        content:
+          "The About page introduces Eve On Safari’s mission and vision around sustainable, transformative travel and shares founder Evaline Edward’s background as the company’s guiding voice."
+      }
+    ],
+    image: "/images/eosmockup.webp",
+    tags: ["Web Development", "Travel", "Responsive Design", "Content Strategy"],
+    category: "webdev",
+    features: [
+      "Destination-led safari planning content",
+      "Curated itinerary cards with highlights",
+      "Custom safari request calls-to-action",
+      "Traveler review highlights",
+      "Clear messaging on guides, pricing, and support",
+    ],
+    tools: ["HTML", "CSS", "JavaScript"],
+    year: "2025",
+  },
 ];
 
 // Graphics Design Projects
