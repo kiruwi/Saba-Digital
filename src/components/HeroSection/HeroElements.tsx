@@ -11,8 +11,8 @@ export const HeroContainer = styled.section`
   grid-template-columns: minmax(0, 1fr) 500px;
   min-height: 100vh;
   background: ${() => `
-    radial-gradient(circle at 70% 40%, #00adee 0%, #032648 70%),
-    radial-gradient(circle at 20% 85%, #28c76f 0%, #032648 70%)
+    radial-gradient(circle at 70% 40%, #000000 0%, #000000 70%),
+    radial-gradient(circle at 20% 85%, #28c76f 0%, #000000 70%)
   `};
   color: ${({ theme }) => (theme.theme === 'light' ? '#000' : '#fff')};
   overflow: hidden;
@@ -23,7 +23,7 @@ export const HeroContainer = styled.section`
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 75% 35%, rgba(0,173,238,0.45) 0%, transparent 60%),
+    background: radial-gradient(circle at 75% 35%, rgba(0,0,0,0.45) 0%, transparent 60%),
                 radial-gradient(circle at 20% 75%, rgba(40,199,111,0.4) 0%, transparent 65%);
     z-index: 0;
     pointer-events: none;
@@ -183,7 +183,7 @@ export const HeroRight = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(circle at center, #0b5d86 0%, transparent 70%);
+  background: radial-gradient(circle at center, #000000 0%, transparent 70%);
 
   @media (max-width: 1000px) {
     display: none;

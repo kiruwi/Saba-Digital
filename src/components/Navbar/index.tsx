@@ -287,7 +287,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
             >
               {theme === 'dark' 
                 ? <FaSun style={{color: '#F9D71C'}} /> 
-                : <FaMoon style={{color: '#032648'}} />}
+                : <FaMoon style={{color: '#000000'}} />}
             </ThemeToggleCircle>
           </MobileThemeToggle>
           {/* Mobile search trigger */}
@@ -325,7 +325,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
               >
                 {theme === 'dark' 
                   ? <FaSun style={{color: '#F9D71C'}} /> 
-                  : <FaMoon style={{color: '#032648'}} />}
+                  : <FaMoon style={{color: '#000000'}} />}
               </ThemeToggleCircle>
             </DesktopThemeToggle>
             <NavBtnLink 

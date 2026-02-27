@@ -17,7 +17,7 @@
 :root[data-theme="light"] {
   --background-color: #eefbff;
   --text-color: #343a40;
-  --link-color: #007bff;
+  --link-color: #000000;
   --navbar-bg: #eefbff;
   --navbar-text: #343a40;
   --card-bg: #eefbff;
@@ -27,10 +27,10 @@
 
 /* Dark theme variables */
 :root[data-theme="dark"] {
-  --background-color: #0e1322;
+  --background-color: #000000;
   --text-color: #f8f9fa;
-  --link-color: #00aeff;
-  --navbar-bg: #032648;
+  --link-color: #000000;
+  --navbar-bg: #000000;
   --navbar-text: #f8f9fa;
   --card-bg: #eefbff;
   --card-shadow: rgba(0, 0, 0, 0.5);
@@ -41,13 +41,13 @@
 body.light {
   --background-color: #f8f9fa;
   --text-color: #343a40;
-  --link-color: #007bff;
+  --link-color: #000000;
   transition: all 0.3s ease;
 }
 
 body.dark {
   --background-color: #000000;
   --text-color: #f8f9fa;
-  --link-color: #00aeff;
+  --link-color: #000000;
   transition: all 0.3s ease;
 }

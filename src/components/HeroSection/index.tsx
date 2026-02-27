@@ -1069,7 +1069,7 @@ const HeroSection: FC = () => {
     <HeroContainer id="home">
       <LightRaysWrapper>
         <LightRays
-          raysColor="#f0f4ff"
+          raysColor="#000000"
           raysSpeed={0.2}
           lightSpread={0.65}
           rayLength={0.7}

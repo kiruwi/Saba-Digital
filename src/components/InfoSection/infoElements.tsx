@@ -23,7 +23,7 @@ export const InfoContainer = styled.div<InfoContainerProps>`
     if (lightBg) {
       return theme?.theme === 'light' ? '#ffffff' : theme.colors.background;
     } else {
-      return theme?.theme === 'light' ? '#f8f9fa' : '#01244a';
+      return theme?.theme === 'light' ? '#f8f9fa' : '#000000';
     }
   }};
 
@@ -101,9 +101,9 @@ export const Heading = styled.h2<HeadingProps>`
   font-weight: 600;
   color: ${({ lightText, theme }) => {
     if (lightText) {
-      return theme?.theme === 'light' ? '#01244a' : '#fff';
+      return theme?.theme === 'light' ? '#000000' : '#fff';
     } else {
-      return theme?.theme === 'light' ? '#01244a' : '#fff';
+      return theme?.theme === 'light' ? '#000000' : '#fff';
     }
   }};
 
@@ -119,7 +119,7 @@ export const Subtitle = styled.p<SubtitleProps>`
   line-height: 24px;
   color: ${({ darkText, theme }) => {
     if (darkText) {
-      return theme?.theme === 'light' ? '#01244a' : '#fff';
+      return theme?.theme === 'light' ? '#000000' : '#fff';
     } else {
       return theme?.theme === 'light' ? '#fff' : '#e1e1e1';
     }
