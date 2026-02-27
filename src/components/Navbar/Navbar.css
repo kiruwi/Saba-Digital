@@ -1,5 +1,5 @@
 .navbar {
-  background: var(--navbar-bg, #032648);
+  background: var(--navbar-bg, #000000);
   height: 80px;
   margin-top: -80px;
   display: flex;
@@ -10,7 +10,7 @@
   top: 0;
   z-index: 10000; /* ensures navbar above portfolio overlay */
   transition: all 0.3s ease-in-out;
-  color: var(--text-color, #032648);
+  color: var(--text-color, #000000);
 }
 
 /* Transparent navbar on homepage before scroll */
@@ -22,7 +22,7 @@
 
 /* Apply consistent theming for scrolled navbar and on specific pages */
 .navbar.scrolled {
-  background: var(--navbar-bg, #032648);
+  background: var(--navbar-bg, #000000);
   /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); */
   color: var(--navbar-text, #ffffff);
 }
@@ -30,13 +30,13 @@
 /* Ensure consistent navbar styling for light theme */
 :root[data-theme="light"] .navbar.scrolled {
   background: #ffffff;
-  color: #032648;
+  color: #000000;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Ensure consistent navbar styling for dark theme */
 :root[data-theme="dark"] .navbar.scrolled {
-  background: #032648;
+  background: #000000;
   color: #f8f9fa;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5) 40%;
 }
@@ -47,7 +47,7 @@
 @media screen and (max-width: 768px) {
   .navbar {
     margin-top: 0;
-    background: var(--navbar-bg, #032648);
+    background: var(--navbar-bg, #000000);
   }
   .navbar {
     transition: 0.8s all ease;

@@ -15,9 +15,9 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { FiArrowUpRight } from 'react-icons/fi';
 import styled from 'styled-components';
 
-// Blue visit-site button styled on top of back button style
+// Black visit-site button styled on top of back button style
 const VisitSiteButton = styled(WebDevBackButton)`
-  background: #0d6efd; /* bootstrap blue */
+  background: #000000;
   color: #ffffff;
   padding: 0.4rem 0.9rem;
   margin-left: 1rem;

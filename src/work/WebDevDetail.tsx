@@ -174,12 +174,12 @@ const BackButton = styled.button`
   }
 `;
 
-// Visit site button styled using BackButton styles plus blue background
+// Visit site button styled using BackButton styles plus black background
 const VisitSiteButton = styled(BackButton)`
-  background-color: #0d6efd;
+  background-color: #000000;
   margin-left: 1rem;
   &:hover {
-    background-color: #0b5ed7;
+    background-color: #1a1a1a;
   }
 `;
 

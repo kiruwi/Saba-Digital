@@ -92,13 +92,13 @@ export const darkTheme: Theme = {
   colors: {
     primary: '#3db54e', // Darker green for better contrast with white text
     secondary: '#6c757d',
-    background: '#032648',
+    background: '#000000',
     text: '#f8f9fa',
     border: '#495057',
     shadow: 'rgba(0, 0, 0, 0.5) 40%',
     accent: '#3db54e', // Same darker green for accent
     error: '#e35d6a',
-    cardBackground: '#0e5d82', // Dark card background
+    cardBackground: '#000000', // Dark card background
     headingText: '#ffffff', // Light heading text for dark theme
     buttonText: '#ffffff' // White text for buttons
   },
