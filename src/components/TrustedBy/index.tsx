@@ -3,9 +3,6 @@ import { buildOptimizedImageUrl, buildSrcSet } from '../../utils/imageOptimizer'
 import { loadGsap } from '../../utils/gsapLoader';
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare const require: any;
-
 type LogoAsset = {
   key: string;
   alt: string;
@@ -16,69 +13,76 @@ type LogoAsset = {
   sizes: string;
   width: number;
   height: number;
-};
-
-type LogoContext = {
-  keys: () => string[];
-  (id: string): string | { default: string };
+  scale?: number;
 };
 
 const LOGO_TARGET_WIDTH = 180;
 const LOGO_TARGET_HEIGHT = 60;
 const LOGO_WIDTHS = [120, 160, 180];
 const LOGO_SIZES = '(max-width: 768px) 45vw, 160px';
+const PUBLIC_LOGO_DIRECTORY = '/images/company-logos';
+const PUBLIC_LOGO_FILENAMES = [
+  'Eve On Safari.webp',
+  'Fencooh Steel Works.png',
+  'Global Pathways Advisory.png',
+  'Joint Learning Network.png',
+  'Salama Boda.png',
+  'Silvershine Sacco.png',
+  'Solar Freeze.png',
+  'Solis Kenya.png',
+  'Synnefa.svg'
+];
+const LOGO_SCALE_OVERRIDES: Record<string, number> = {
+  'Eve On Safari.webp': 1.24
+};
+
+const buildPublicLogoPath = (filename: string): string => {
+  return `${PUBLIC_LOGO_DIRECTORY}/${encodeURIComponent(filename)}`;
+};
 
 const importLogos = (): LogoAsset[] => {
-  try {
-    const context = require.context('../../assets/logos', false, /\.(png|jpe?g|svg|webp|avif)$/) as LogoContext;
-    return context
-      .keys()
-      .map((key) => {
-        const asset = context(key);
-        const src = typeof asset === 'string' ? asset : asset?.default ?? '';
-        if (!src) return null;
-        const filename = key.replace('./', '');
-        const friendlyName = filename
-          .replace(/\.[^/.]+$/, '')
-          .replace(/[-_]+/g, ' ')
-          .replace(/\b\w/g, (char) => char.toUpperCase());
-        const pngSrcSet = buildSrcSet(src, LOGO_WIDTHS, {
-          quality: 70,
-          fit: 'contain'
-        });
-        const webpSrcSet = buildSrcSet(src, LOGO_WIDTHS, {
-          quality: 70,
-          fit: 'contain',
-          format: 'webp'
-        });
-        const avifSrcSet = buildSrcSet(src, LOGO_WIDTHS, {
-          quality: 65,
-          fit: 'contain',
-          format: 'avif'
-        });
-        return {
-          key: filename,
-          alt: `${friendlyName} logo`,
-          fallbackSrc: buildOptimizedImageUrl(src, {
-            width: LOGO_TARGET_WIDTH,
-            quality: 75,
-            fit: 'contain'
-          }),
-          pngSrcSet,
-          webpSrcSet,
-          avifSrcSet,
-          sizes: LOGO_SIZES,
+  return PUBLIC_LOGO_FILENAMES
+    .map((filename) => {
+      const src = buildPublicLogoPath(filename);
+      const friendlyName = filename
+        .replace(/\.[^/.]+$/, '')
+        .replace(/[-_]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/\b\w/g, (char) => char.toUpperCase());
+      const pngSrcSet = buildSrcSet(src, LOGO_WIDTHS, {
+        quality: 70,
+        fit: 'contain'
+      });
+      const webpSrcSet = buildSrcSet(src, LOGO_WIDTHS, {
+        quality: 70,
+        fit: 'contain',
+        format: 'webp'
+      });
+      const avifSrcSet = buildSrcSet(src, LOGO_WIDTHS, {
+        quality: 65,
+        fit: 'contain',
+        format: 'avif'
+      });
+
+      return {
+        key: filename,
+        alt: `${friendlyName} logo`,
+        fallbackSrc: buildOptimizedImageUrl(src, {
           width: LOGO_TARGET_WIDTH,
-          height: LOGO_TARGET_HEIGHT
-        };
-      })
-      .filter((logo): logo is LogoAsset => Boolean(logo))
-      .sort((a, b) => a.alt.localeCompare(b.alt));
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.warn('[TrustedBy] Unable to load logos from src/assets/logos', error);
-    return [];
-  }
+          quality: 75,
+          fit: 'contain'
+        }),
+        pngSrcSet,
+        webpSrcSet,
+        avifSrcSet,
+        sizes: LOGO_SIZES,
+        width: LOGO_TARGET_WIDTH,
+        height: LOGO_TARGET_HEIGHT,
+        scale: LOGO_SCALE_OVERRIDES[filename]
+      };
+    })
+    .sort((a, b) => a.alt.localeCompare(b.alt));
 };
 
 const TrustedBy: React.FC = () => {
@@ -107,7 +111,6 @@ const TrustedBy: React.FC = () => {
     const prefersReducedMotion =
       typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
-    if (typeof window !== 'undefined' && window.innerWidth <= 768) return; // rely on CSS marquee on mobile
 
     let cancelled = false;
     let cleanup: (() => void) | undefined;
@@ -137,6 +140,7 @@ const TrustedBy: React.FC = () => {
             }
 
             if (logos.length > 1) {
+              trackEl.classList.add('logo-track--js');
               const duration = Math.max(16, logos.length * 2.4);
               gsap.to(trackEl, {
                 xPercent: -50,
@@ -171,6 +175,7 @@ const TrustedBy: React.FC = () => {
       } else if (idleHandle !== undefined) {
         window.clearTimeout(idleHandle);
       }
+      trackEl.classList.remove('logo-track--js');
       cleanup?.();
     };
   }, [logos, isReady]);
@@ -184,7 +189,7 @@ const TrustedBy: React.FC = () => {
           <Subtext>but here are a few that <span>dared to work different.</span></Subtext>
         ) : (
           <Subtext>
-            Add your client logos to <code>src/assets/logos</code> to showcase them here.
+            Add your client logos to <code>public/images/company-logos</code> to showcase them here.
           </Subtext>
         )}
         {hasLogos && (
@@ -212,6 +217,7 @@ const TrustedBy: React.FC = () => {
                       />
                     )}
                     <LogoImg
+                      $scale={logo.scale}
                       src={logo.fallbackSrc}
                       alt={logo.alt}
                       srcSet={logo.pngSrcSet}

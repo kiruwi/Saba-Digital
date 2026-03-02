@@ -139,7 +139,9 @@ export const LogoTrack = styled.div`
   }
 
   @media (max-width: 768px) {
-    animation: marquee-slide 22s linear infinite;
+    &:not(.logo-track--js) {
+      animation: marquee-slide 22s linear infinite;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -180,19 +182,21 @@ export const LogoCard = styled.div`
 export const LogoImg = styled.img.attrs({
   loading: 'lazy',
   decoding: 'async'
-})`
+})<{ $scale?: number }>`
+  --logo-scale: ${({ $scale = 1 }) => $scale};
   display: block;
   width: 100%;
   height: auto;
   max-height: clamp(36px, 5vw, 52px);
   aspect-ratio: 160 / 60;
   object-fit: contain;
+  transform: scale(var(--logo-scale));
   filter: grayscale(1);
   opacity: 0.8;
   transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
 
   ${LogoCard}:hover & {
-    transform: scale(1.05);
+    transform: scale(calc(var(--logo-scale) * 1.05));
     filter: grayscale(0);
     opacity: 1;
   }
