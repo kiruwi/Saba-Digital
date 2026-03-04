@@ -7,6 +7,7 @@ import { webProjects } from "../data/projects";
 import WebDevProjectCard from "../components/ProjectCard/WebDevProjectCard";
 import styled from "styled-components";
 import AnimatedSection from "../components/AnimatedSection";
+import SEO from "../components/SEO";
 import { useTheme } from "../contexts/ThemeContext";
 
 const MainContent = styled.main`
@@ -17,7 +18,7 @@ const MainContent = styled.main`
 `;
 
 const SectionTitle = styled.h1`
-  font-size: 2.5rem;
+  font-size: clamp(3rem, 6vw, 5rem);
   margin-bottom: 2rem;
   color: ${({ theme }) => theme.theme === 'dark' ? theme.colors.headingText : theme.colors.primary};
   text-align: center;
@@ -41,6 +42,11 @@ const WebDev: React.FC = () => {
 
   return (
     <>
+      <SEO
+        title="Web Development Projects"
+        description="Web development portfolio by Saba Digital, including business websites and conversion-focused digital experiences."
+        canonical="https://iancheruiyot.work/work/web-dev"
+      />
 
       <MainContent>
         <ProjectsContainer>

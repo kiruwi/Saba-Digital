@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const PageWrap = styled.main`
   width: 100%;
@@ -74,13 +75,19 @@ const CookiePolicy: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <PageWrap>
-      <Container>
-        <BackRow>
-          <BackButton onClick={() => navigate(-1)} aria-label="Go back">
-            ← Back
-          </BackButton>
-        </BackRow>
+    <>
+      <SEO
+        title="Cookie Policy"
+        description="Cookie policy for Saba Digital and iancheruiyot.work."
+        canonical="https://iancheruiyot.work/cookies"
+      />
+      <PageWrap>
+        <Container>
+          <BackRow>
+            <BackButton onClick={() => navigate(-1)} aria-label="Go back">
+              ← Back
+            </BackButton>
+          </BackRow>
 
         <Title>Cookie Policy for iancheruiyot.work</Title>
         <P>This Cookie Policy explains how iancheruiyot.work uses cookies and similar technologies.</P>
@@ -127,8 +134,9 @@ const CookiePolicy: React.FC = () => {
         <P>
           We may update this Cookie Policy from time to time. Any changes will be posted on this page with the updated date.
         </P>
-      </Container>
-    </PageWrap>
+        </Container>
+      </PageWrap>
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const PageWrap = styled.main`
   width: 100%;
@@ -86,13 +87,19 @@ const PrivacyPolicy: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <PageWrap>
-      <Container>
-        <BackRow>
-          <BackButton onClick={() => navigate(-1)} aria-label="Go back">
-            ← Back
-          </BackButton>
-        </BackRow>
+    <>
+      <SEO
+        title="Privacy Policy"
+        description="Privacy policy for Saba Digital and iancheruiyot.work."
+        canonical="https://iancheruiyot.work/privacy"
+      />
+      <PageWrap>
+        <Container>
+          <BackRow>
+            <BackButton onClick={() => navigate(-1)} aria-label="Go back">
+              ← Back
+            </BackButton>
+          </BackRow>
 
         <Title>Privacy Policy for iancheruiyot.work</Title>
 
@@ -129,9 +136,10 @@ const PrivacyPolicy: React.FC = () => {
           with any privacy concerns or complaints. We’ll review and reply in writing with next steps.
         </P>
 
-        <FooterNote>© 2025 iancheruiyot.work, All rights reserved.</FooterNote>
-      </Container>
-    </PageWrap>
+          <FooterNote>© 2025 iancheruiyot.work, All rights reserved.</FooterNote>
+        </Container>
+      </PageWrap>
+    </>
   );
 };
 

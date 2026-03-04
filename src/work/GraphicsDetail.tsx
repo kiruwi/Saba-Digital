@@ -8,6 +8,7 @@ import AnimatedSection from "../components/AnimatedSection";
 import usePerformanceOptimization from "../hooks/usePerformanceOptimization";
 import LazyImage from "../components/LazyImage";
 import ZoomableGallery from "../components/ZoomableGallery";
+import SEO from "../components/SEO";
 import { useTheme } from "../contexts/ThemeContext";
 
 const MainContainer = styled.main`
@@ -189,6 +190,7 @@ const GraphicsDetail: React.FC = () => {
 
   const { id } = useParams<{ id: string }>();
   const [project, setProject] = useState<any>(null);
+  const canonicalUrl = `https://iancheruiyot.work/work/graphics/${id || ''}`.replace(/\/$/, '');
   
   // Theme is now passed as props
   
@@ -220,6 +222,12 @@ const GraphicsDetail: React.FC = () => {
   if (!project) {
     return (
       <>
+        <SEO
+          title="Project Not Found"
+          description="The requested graphics project could not be found."
+          canonical={canonicalUrl}
+          noIndex
+        />
 
         <MainContainer>
           <AnimatedSection animationType="fadeIn" duration={800}>
@@ -239,6 +247,12 @@ const GraphicsDetail: React.FC = () => {
   
   return (
     <>
+      <SEO
+        title={`${project.title} | Branding & Graphics Case Study`}
+        description={project.shortDescription || project.fullDescription || 'Graphics and branding project case study by Saba Digital.'}
+        canonical={canonicalUrl}
+        type="article"
+      />
 
       <MainContainer>
         <ContentWrapper>

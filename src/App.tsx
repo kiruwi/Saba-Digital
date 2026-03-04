@@ -24,6 +24,7 @@ import CookieBanner from "./components/CookieBanner";
 // Lazy load components for better code splitting
 const Home = lazy(() => import("./pages/index"));
 const ContactPage = lazy(() => import("./pages/contactus"));
+const Work = lazy(() => import("./pages/Work"));
 const UXUI = lazy(() => import("./work/UXUI"));
 const WebDev = lazy(() => import("./work/WebDev"));
 const Graphics = lazy(() => import("./work/Graphics"));
@@ -83,6 +84,11 @@ function AppContent() {
                 </Layout>
               } />
               <Route path="/contactus" element={<Navigate to="/contact" replace />} />
+              <Route path="/work" element={
+                <Layout>
+                  <Work />
+                </Layout>
+              } />
               <Route path="/work/ux-ui" element={
                 <Layout>
                   <UXUI />

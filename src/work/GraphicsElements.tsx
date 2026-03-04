@@ -88,6 +88,7 @@ export const GraphicsContentWrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  background: #000000;
   
   /* Animate content appearance with slight delay for a staggered effect */
   animation: graphicsContentFadeIn 0.8s forwards;

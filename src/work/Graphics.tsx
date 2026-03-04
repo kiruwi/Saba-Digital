@@ -7,6 +7,7 @@ import { graphicsProjects } from "../data/projects";
 import styled from "styled-components";
 import AnimatedSection from "../components/AnimatedSection";
 import usePerformanceOptimization from "../hooks/usePerformanceOptimization";
+import SEO from "../components/SEO";
 
 import { useTheme } from "../contexts/ThemeContext";
 import GraphicsProjectCard from "../components/ProjectCard/GraphicsProjectCard";
@@ -19,7 +20,7 @@ const MainContainer = styled.main`
 `;
 
 const PageTitle = styled.h1`
-  font-size: 2.5rem;
+  font-size: clamp(3rem, 6vw, 5rem);
   margin-bottom: 2rem;
   color: ${({ theme }) => theme.theme === 'dark' ? theme.colors.headingText : theme.colors.primary};
   text-align: center;
@@ -62,6 +63,11 @@ const Graphics: React.FC = () => {
 
   return (
     <>
+      <SEO
+        title="Branding & Graphics Projects"
+        description="Brand identity, visual design, and rebranding projects by Saba Digital."
+        canonical="https://iancheruiyot.work/work/graphics"
+      />
 
       <MainContainer>
         <AnimatedSection animationType="fadeInDown" duration={800}>
