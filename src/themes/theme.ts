@@ -78,10 +78,10 @@ export const lightTheme: Theme = {
     default: '0.3s ease'
   },
   meta: {
-    title: 'Ian K. Cheruiyot | Graphics & UX/UI Designer in Nairobi',
-    description: 'Ian K. Cheruiyot – Graphics Designer & UX/UI specialist in Nairobi. Portfolio of 3D visualization, brand identity and web design projects.',
+    title: 'Saba Digital',
+    description: 'Saba Digital is the portfolio of Ian K. Cheruiyot, showcasing UX/UI design, web development, branding, and motion graphics projects.',
     image: '/images/logo.png',
-    keywords: ['digital', 'web', 'design', 'development'],
+    keywords: ['Saba Digital', 'UX/UI Design', 'Web Development', 'Branding', 'Graphic Design', 'Nairobi'],
     url: 'https://iancheruiyot.work/'
   }
 };
@@ -92,13 +92,13 @@ export const darkTheme: Theme = {
   colors: {
     primary: '#3db54e', // Darker green for better contrast with white text
     secondary: '#6c757d',
-    background: '#000000',
+    background: '#1a1a1a', // 10% lighter than pure black
     text: '#f8f9fa',
     border: '#495057',
     shadow: 'rgba(0, 0, 0, 0.5) 40%',
     accent: '#3db54e', // Same darker green for accent
     error: '#e35d6a',
-    cardBackground: '#000000', // Dark card background
+    cardBackground: '#1a1a1a', // Keep cards aligned with softened dark background
     headingText: '#ffffff', // Light heading text for dark theme
     buttonText: '#ffffff' // White text for buttons
   },
@@ -121,10 +121,10 @@ export const darkTheme: Theme = {
     default: '0.3s ease'
   },
   meta: {
-    title: 'Ian K. Cheruiyot | Graphics & UX/UI Designer in Nairobi',
-    description: 'Ian K. Cheruiyot | Graphics Designer & UX/UI specialist in Nairobi. Portfolio of 3D visualization, brand identity and web design projects.',
+    title: 'Saba Digital',
+    description: 'Saba Digital is the portfolio of Ian K. Cheruiyot, showcasing UX/UI design, web development, branding, and motion graphics projects.',
     image: '/images/logo.png',
-    keywords: ['digital', 'web', 'design', 'development'],
+    keywords: ['Saba Digital', 'UX/UI Design', 'Web Development', 'Branding', 'Graphic Design', 'Nairobi'],
     url: 'https://iancheruiyot.work/'
   }
 };

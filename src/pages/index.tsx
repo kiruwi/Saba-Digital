@@ -9,7 +9,12 @@ import Testimonials from "../components/Testimonials";
 const Home = () => {
   return (
     <>
-      <SEO title="Home" description="Welcome to my portfolio" />
+      <SEO
+        title="Saba Digital | UX/UI, Web Development & Branding"
+        description="Saba Digital is the portfolio of Ian K. Cheruiyot, showcasing UX/UI design, web development, branding, ad design, and motion graphics work."
+        canonical="https://iancheruiyot.work/"
+        disableTitleTemplate
+      />
       <HeroSection />
       <TrustedBy />
       <Testimonials />

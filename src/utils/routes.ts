@@ -12,7 +12,9 @@ export enum RoutePaths {
   UXUIWork = '/work/ux-ui',
   UXUIDetail = '/work/ux-ui/:id',
   WebDevWork = '/work/web-dev',
-  WebDevDetail = '/work/web-dev/:id'
+  WebDevDetail = '/work/web-dev/:id',
+  AdDesignWork = '/work/ad-design',
+  MotionWork = '/work/motion'
 }
 
 /**
@@ -31,6 +33,8 @@ export const ROUTE_PATHS = {
   UXUIDetail: RoutePaths.UXUIDetail,
   WebDevWork: RoutePaths.WebDevWork,
   WebDevDetail: RoutePaths.WebDevDetail,
+  AdDesignWork: RoutePaths.AdDesignWork,
+  MotionWork: RoutePaths.MotionWork,
 };
 
 // Empty routes - routing is handled in App.tsx 
@@ -63,7 +67,12 @@ export const routes: RouteObject[] = [
     path: RoutePaths.WebDevDetail,
   },
   {
+    path: RoutePaths.AdDesignWork,
+  },
+  {
+    path: RoutePaths.MotionWork,
+  },
+  {
     path: RoutePaths.Error,
   },
 ];
-

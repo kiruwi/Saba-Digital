@@ -62,8 +62,9 @@ const Work: React.FC = () => {
   return (
     <WorkContainer>
       <SEO 
-        title="Our Work" 
-        description="Explore our portfolio of graphics, UX/UI, and web development projects" 
+        title="Work | Saba Digital Portfolio" 
+        description="Explore Saba Digital case studies across graphics, UX/UI, web development, ad design, and motion graphics." 
+        canonical="https://iancheruiyot.work/work"
       />
       <Title>Our Work</Title>
       <Description>
@@ -86,6 +87,16 @@ const Work: React.FC = () => {
         <CategoryCard to={RoutePaths.WebDevWork}>
           <h2>Web Development</h2>
           <p>Websites, web applications and digital platform development</p>
+        </CategoryCard>
+
+        <CategoryCard to={RoutePaths.AdDesignWork}>
+          <h2>Ad Design</h2>
+          <p>Campaign-ready ad creatives for social, print, and digital channels</p>
+        </CategoryCard>
+
+        <CategoryCard to={RoutePaths.MotionWork}>
+          <h2>Motion Graphics</h2>
+          <p>Animated visual storytelling and short-form motion content</p>
         </CategoryCard>
       </WorkCategories>
     </WorkContainer>

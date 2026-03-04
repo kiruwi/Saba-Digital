@@ -9,6 +9,7 @@ import AnimatedSection from "../components/AnimatedSection";
 import usePerformanceOptimization from "../hooks/usePerformanceOptimization";
 import LazyImage from "../components/LazyImage";
 import ZoomableGallery from "../components/ZoomableGallery";
+import SEO from "../components/SEO";
 import { useTheme } from "../contexts/ThemeContext";
 
 const MainContainer = styled.main`
@@ -209,6 +210,7 @@ const WebDevDetail: React.FC = () => {
 
   const { id } = useParams<{ id: string }>();
   const [project, setProject] = useState<ProjectType | null>(null);
+  const canonicalUrl = `https://iancheruiyot.work/work/web-dev/${id || ''}`.replace(/\/$/, '');
   
   // Find the project based on the ID parameter
   useEffect(() => {
@@ -238,6 +240,12 @@ const WebDevDetail: React.FC = () => {
   if (!project) {
     return (
       <>
+        <SEO
+          title="Project Not Found"
+          description="The requested web development project could not be found."
+          canonical={canonicalUrl}
+          noIndex
+        />
 
         <MainContainer>
           <AnimatedSection animationType="fadeIn" duration={800}>
@@ -257,6 +265,12 @@ const WebDevDetail: React.FC = () => {
   
   return (
     <>
+      <SEO
+        title={`${project.title} | Web Development Case Study`}
+        description={project.shortDescription || project.fullDescription}
+        canonical={canonicalUrl}
+        type="article"
+      />
 
       <MainContainer>
         <ContentWrapper>

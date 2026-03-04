@@ -5,6 +5,7 @@ import UXUIProjectDetail from "../components/ProjectDetail/UXUIProjectDetail";
 import { uxProjects } from "../data/projects";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import SEO from "../components/SEO";
 import { useTheme } from "../contexts/ThemeContext";
 
 const MainContent = styled.main`
@@ -27,6 +28,11 @@ const UXUIDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
+  const currentProject = uxProjects.find((project) => project.id === id)
+    || (location.pathname.includes('ufanisi-resort')
+      ? uxProjects.find((project) => project.id === 'ufanisi-resort')
+      : null);
+  const canonicalUrl = `https://iancheruiyot.work/work/ux-ui/${id || ''}`.replace(/\/$/, '');
   
   // Theme is now accessed from context
   
@@ -41,7 +47,7 @@ const UXUIDetail: React.FC = () => {
     // Reload the page if we detect URL issues with Ufanisi Resort
     if (id === 'ufanisi-resort' && !isUfanisiResort) {
       // Forcing refresh for Ufanisi Resort
-      navigate('/work/uxui/ufanisi-resort');
+      navigate('/work/ux-ui/ufanisi-resort');
     }
   }, [id, isUfanisiResort, navigate]);
 
@@ -52,6 +58,13 @@ const UXUIDetail: React.FC = () => {
 
   return (
     <>
+      <SEO
+        title={currentProject ? `${currentProject.title} | UX/UI Case Study` : "Project Not Found"}
+        description={currentProject?.shortDescription || "The requested UX/UI project could not be found."}
+        canonical={canonicalUrl}
+        type={currentProject ? 'article' : 'website'}
+        noIndex={!currentProject}
+      />
 
       <MainContent>
         <UXUIProjectDetail projects={uxProjects} />

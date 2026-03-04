@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import SEO from '../components/SEO';
 import { useTheme } from '../contexts/ThemeContext';
 
 // Import images from addesign folder
@@ -77,18 +78,25 @@ const AdDesign: React.FC = () => {
   ];
 
   return (
-    <Main>
-      <div style={{ padding: '0 1.5rem' }}>
-        <PageTitle>Ad Design</PageTitle>
-        <MasonryGrid>
-          {adImages.map((image, idx) => (
-            <AdImageWrapper key={idx}>
-              <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
-            </AdImageWrapper>
-          ))}
-        </MasonryGrid>
-      </div>
-    </Main>
+    <>
+      <SEO
+        title="Ad Design Projects"
+        description="Ad creative and campaign design portfolio from Saba Digital."
+        canonical="https://iancheruiyot.work/work/ad-design"
+      />
+      <Main>
+        <div style={{ padding: '0 1.5rem' }}>
+          <PageTitle>Ad Design</PageTitle>
+          <MasonryGrid>
+            {adImages.map((image, idx) => (
+              <AdImageWrapper key={idx}>
+                <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+              </AdImageWrapper>
+            ))}
+          </MasonryGrid>
+        </div>
+      </Main>
+    </>
   );
 };
 

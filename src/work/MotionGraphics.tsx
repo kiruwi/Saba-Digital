@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import SEO from '../components/SEO';
 import { useTheme } from '../contexts/ThemeContext';
 
 const Main = styled.main`
@@ -82,25 +83,32 @@ const MotionGraphics: React.FC = () => {
   ];
 
   return (
-    <Main>
-      <div style={{ padding: '0 1.5rem' }}>
-        <PageTitle>Motion Graphics</PageTitle>
-        <MasonryGrid>
-          {videos.map((video: Video) => (
-            <div className="youtube-container" key={video.id}>
-              <iframe
-                src={`https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1`}
-                title={video.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                style={{ width: '100%', aspectRatio: '9/16', borderRadius: '8px' }}
-              />
-              <VideoTitle>{video.title}</VideoTitle>
-            </div>
-          ))}
-        </MasonryGrid>
-      </div>
-    </Main>
+    <>
+      <SEO
+        title="Motion Graphics Projects"
+        description="Motion graphics and animation projects from Saba Digital."
+        canonical="https://iancheruiyot.work/work/motion"
+      />
+      <Main>
+        <div style={{ padding: '0 1.5rem' }}>
+          <PageTitle>Motion Graphics</PageTitle>
+          <MasonryGrid>
+            {videos.map((video: Video) => (
+              <div className="youtube-container" key={video.id}>
+                <iframe
+                  src={`https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1`}
+                  title={video.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ width: '100%', aspectRatio: '9/16', borderRadius: '8px' }}
+                />
+                <VideoTitle>{video.title}</VideoTitle>
+              </div>
+            ))}
+          </MasonryGrid>
+        </div>
+      </Main>
+    </>
   );
 };
 

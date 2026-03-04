@@ -33,6 +33,13 @@ const Footer: React.FC = () => {
               <FooterLink to="/contact">info@iancheruiyot.work</FooterLink>
             </FooterLinkItems>
             <FooterLinkItems>
+              <FooterLinkTitle>Explore</FooterLinkTitle>
+              <FooterLink to="/work">All Work</FooterLink>
+              <FooterLink to="/work/graphics">Branding</FooterLink>
+              <FooterLink to="/work/ux-ui">UX/UI Design</FooterLink>
+              <FooterLink to="/work/web-dev">Web Development</FooterLink>
+            </FooterLinkItems>
+            <FooterLinkItems>
               <FooterLinkTitle>Legal</FooterLinkTitle>
               <FooterLink to="/privacy">Privacy Policy</FooterLink>
               <FooterLink to="/cookies">Cookie Policy</FooterLink>

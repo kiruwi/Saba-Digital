@@ -335,6 +335,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
             >
               Résumé 
             </NavBtnLink>
+            <NavBtnLink to="/work">
+              Work
+            </NavBtnLink>
             <NavBtnLink to="/contact">
               Contact Me
             </NavBtnLink>

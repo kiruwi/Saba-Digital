@@ -41,7 +41,7 @@ export const ProcessStep = styled.div<ProcessStepProps>`
   margin-bottom: 4rem;
   display: flex;
   flex-direction: column;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#1a1a1a' : '#f8f8f8'};
+  background: ${({ theme }) => theme.theme === 'dark' ? '#000000' : '#f8f8f8'};
   border-radius: 0px;
   padding: 2rem;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
@@ -168,7 +168,7 @@ export const NextActions = styled.div`
   margin-top: 3rem;
   padding: 2rem;
   background: ${({ theme }) => theme.theme === 'dark' 
-    ? `linear-gradient(to right, #141414, ${theme.colors.cardBackground})` 
+    ? 'linear-gradient(to right, #000000, #000000)' 
     : 'linear-gradient(to right, #f0f0f0, #e8e8e8)'};
   border-left: 4px solid ${({ theme }) => theme.colors.primary};
   

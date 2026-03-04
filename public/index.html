@@ -13,11 +13,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" content="#2db670" />
-    <meta name="description" content="Ian K. Cheruiyot - Professional Graphics Designer & UX/UI specialist in Nairobi. Portfolio showcasing 3D visualization, brand identity, and web design projects." />
-    <meta name="keywords" content="UX/UI Design, Web Development, Graphic Design, Portfolio, Ian Cheruiyot" />
+    <meta name="description" content="Saba Digital by Ian K. Cheruiyot. UX/UI design, web development, branding, ad design, and motion graphics portfolio." />
+    <meta name="keywords" content="Saba Digital, UX/UI Design, Web Development, Branding, Graphic Design, Nairobi" />
     <meta name="author" content="Ian K. Cheruiyot" />
-    <meta property="og:title" content="Ian K. Cheruiyot | Graphics Designer & UX/UI Portfolio - Nairobi" />
-    <meta property="og:description" content="Professional Graphics Designer & UX/UI specialist in Nairobi. Portfolio showcasing 3D visualization, brand identity, and web design projects." />
+    <meta property="og:title" content="Saba Digital | UX/UI, Web Development & Branding" />
+    <meta property="og:description" content="Saba Digital by Ian K. Cheruiyot. UX/UI design, web development, branding, ad design, and motion graphics portfolio." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://iancheruiyot.work/" />
     
@@ -49,7 +49,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>Ian K. Cheruiyot | Graphics & UX/UI Designer in Nairobi</title>
+    <title>Saba Digital | UX/UI, Web Development & Branding</title>
     
     <!-- Preload critical resources -->
     <link rel="preload" href="%PUBLIC_URL%/font/Nohemi-Medium.woff2" as="font" type="font/woff2" crossorigin />
@@ -59,42 +59,57 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Ian K. Cheruiyot",
-      "url": "https://iancheruiyot.work/",
-      "jobTitle": "Graphics Designer",
-      "description": "UX/UI Designer, Web Developer, and Graphic Designer showcasing creative projects and professional work",
-      "sameAs": [
-        "https://www.linkedin.com/in/ian-cheruiyot/",
-        "https://www.behance.net/iancheruiyot"
-      ],
-      "knowsAbout": ["UX/UI Design", "Web Development", "Graphic Design", "Branding"],
-      "hasOccupation": {
-        "@type": "Occupation",
-        "name": "Graphics Designer",
-        "occupationLocation": {
-          "@type": "City",
-          "name": "Nairobi, Kenya"
-        }
-      },
-      "workExample": [
+      "@graph": [
         {
-          "@type": "CreativeWork",
-          "name": "Synnefa Rebrand & Brand Identity",
-          "description": "Complete rebrand and brand identity development for an AgriTech innovator in Africa.",
-          "url": "https://iancheruiyot.work/work/graphics/synnefa-rebrand"
+          "@type": "WebSite",
+          "@id": "https://iancheruiyot.work/#website",
+          "url": "https://iancheruiyot.work/",
+          "name": "Saba Digital",
+          "description": "Portfolio website for UX/UI design, web development, branding, ad design, and motion graphics.",
+          "inLanguage": "en",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://iancheruiyot.work/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
         },
         {
-          "@type": "CreativeWork",
-          "name": "Osim Lai Brand Identity",
-          "description": "Complete logo design and brand identity for a hospitality brand on Lake Naivasha.",
-          "url": "https://iancheruiyot.work/work/graphics/osim-lai-branding"
+          "@type": "Person",
+          "@id": "https://iancheruiyot.work/#person",
+          "name": "Ian K. Cheruiyot",
+          "url": "https://iancheruiyot.work/",
+          "jobTitle": "Graphics Designer",
+          "description": "UX/UI Designer, Web Developer, and Graphic Designer showcasing creative projects and professional work",
+          "sameAs": [
+            "https://www.linkedin.com/in/ian-cheruiyot/",
+            "https://www.behance.net/iancheruiyot"
+          ],
+          "knowsAbout": ["UX/UI Design", "Web Development", "Graphic Design", "Branding"],
+          "hasOccupation": {
+            "@type": "Occupation",
+            "name": "Graphics Designer",
+            "occupationLocation": {
+              "@type": "City",
+              "name": "Nairobi, Kenya"
+            }
+          }
         },
         {
-          "@type": "CreativeWork",
-          "name": "Ufanisi Resort",
-          "description": "User-focused interface for food delivery app.",
-          "url": "https://iancheruiyot.work/work/ux-ui/ufanisi-resort"
+          "@type": "ProfessionalService",
+          "@id": "https://iancheruiyot.work/#service",
+          "name": "Saba Digital",
+          "url": "https://iancheruiyot.work/",
+          "founder": {
+            "@id": "https://iancheruiyot.work/#person"
+          },
+          "areaServed": "Kenya",
+          "serviceType": [
+            "UX/UI Design",
+            "Web Development",
+            "Branding",
+            "Ad Design",
+            "Motion Graphics"
+          ]
         }
       ]
     }

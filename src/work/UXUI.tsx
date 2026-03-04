@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import { uxProjects } from "../data/projects";
 import styled from "styled-components";
 import AnimatedSection from "../components/AnimatedSection";
+import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
 import ufanisiImg from "../images/ufanisi.webp";
 
@@ -21,7 +22,7 @@ const MainContainer = styled.main`
 `;
 
 const PageTitle = styled.h1`
-  font-size: 2.5rem;
+  font-size: clamp(3rem, 6vw, 5rem);
   margin-bottom: 2rem;
   color: ${({ theme }) => theme.colors.primary};
   text-align: center;
@@ -82,6 +83,11 @@ const UXUI: React.FC = () => {
 
   return (
     <>
+      <SEO
+        title="UX/UI Projects"
+        description="UX/UI case studies by Saba Digital, including user research, product design, and interface redesign projects."
+        canonical="https://iancheruiyot.work/work/ux-ui"
+      />
 
       <MainContainer>
         <AnimatedSection animationType="fadeInDown" duration={800}>

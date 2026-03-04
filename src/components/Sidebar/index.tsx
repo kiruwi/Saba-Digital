@@ -69,7 +69,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggle }) => {
         <SidebarWrapper>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarRouterLink to="/#services" onClick={toggle}>Portfolio</SidebarRouterLink>
+            <SidebarRouterLink to="/work" onClick={toggle}>Portfolio</SidebarRouterLink>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <ResumeLink 
