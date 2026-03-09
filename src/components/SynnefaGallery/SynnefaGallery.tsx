@@ -5,7 +5,7 @@ import {
   DescriptionSection,
   TwoCol
 } from './SynnefaGalleryElements';
-import ZoomableGallery from '../ZoomableGallery';
+import ZoomableGallery from '../ZoomableGallery/ZoomableGallery';
 
 // Interface for gallery image data
 interface GalleryImage {

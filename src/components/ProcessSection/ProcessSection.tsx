@@ -1,4 +1,4 @@
-// src/components/ProcessSection/index.tsx
+// src/components/ProcessSection/ProcessSection.tsx
 import React from 'react';
 import { 
   FaUsers, 

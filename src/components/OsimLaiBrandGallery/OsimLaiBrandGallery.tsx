@@ -1,8 +1,8 @@
-// src/components/OsimLaiBrandGallery/index.tsx
+// src/components/OsimLaiBrandGallery/OsimLaiBrandGallery.tsx
 import React from 'react';
 import { GraphicsDetailSubtitle } from '../../work/GraphicsElements';
 import styled from 'styled-components';
-import ZoomableGallery from '../ZoomableGallery';
+import ZoomableGallery from '../ZoomableGallery/ZoomableGallery';
 
 // Interface for image data
 interface ImageData {

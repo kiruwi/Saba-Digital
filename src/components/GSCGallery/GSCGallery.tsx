@@ -1,4 +1,4 @@
-// src/components/GSCGallery/index.tsx
+// src/components/GSCGallery/GSCGallery.tsx
 import React, { useState } from 'react';
 import { GraphicsDetailSubtitle } from '../../work/GraphicsElements';
 import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';

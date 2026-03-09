@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { RoutePaths } from '../utils/routes';
-import ThemeToggle from './ThemeToggle/index';
+import ThemeToggle from './ThemeToggle/ThemeToggle';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
 const NavContainer = styled.nav`

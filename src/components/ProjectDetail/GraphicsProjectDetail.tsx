@@ -17,9 +17,9 @@ import { ProjectType } from '../../types';
 import { FaArrowLeft } from 'react-icons/fa';
 
 // Lazy load gallery components
-const OsimLaiBrandGallery = React.lazy(() => import('../OsimLaiBrandGallery'));
-const SynnefaGallery = React.lazy(() => import('../SynnefaGallery'));
-const GSCGallery = React.lazy(() => import('../GSCGallery'));
+const OsimLaiBrandGallery = React.lazy(() => import('../OsimLaiBrandGallery/OsimLaiBrandGallery'));
+const SynnefaGallery = React.lazy(() => import('../SynnefaGallery/SynnefaGallery'));
+const GSCGallery = React.lazy(() => import('../GSCGallery/GSCGallery'));
 
 interface GraphicsProjectDetailProps {
   projects: ProjectType[];

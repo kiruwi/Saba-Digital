@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import SEO from '../components/SEO';
 import { APP } from '../utils/constants';
-import LazyImage from '../components/LazyImage';
-import AnimatedSection from '../components/AnimatedSection';
+import LazyImage from '../components/LazyImage/LazyImage';
+import AnimatedSection from '../components/AnimatedSection/AnimatedSection';
 import usePerformanceOptimization from '../hooks/usePerformanceOptimization';
 import { preloadSectionImages } from '../utils/preloadImages';
 

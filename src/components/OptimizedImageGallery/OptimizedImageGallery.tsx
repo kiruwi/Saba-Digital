@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import LazyImage from '../LazyImage';
+import LazyImage from '../LazyImage/LazyImage';
 
 interface GalleryImage {
   src: string;
