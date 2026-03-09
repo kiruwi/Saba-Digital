@@ -1,4 +1,4 @@
-// src/components/Services/index.tsx
+// src/components/Services/Services.tsx
 import React, { useRef } from "react";
 import {
   ServicesContainer,

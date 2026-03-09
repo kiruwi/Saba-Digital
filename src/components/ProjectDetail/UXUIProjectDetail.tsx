@@ -27,8 +27,8 @@ import {
   UXUIList,
   UXUIListItem,
 } from '../../work/UXUIElements';
-import ProcessSection from '../ProcessSection';
-import ZoomableGallery from '../ZoomableGallery';
+import ProcessSection from '../ProcessSection/ProcessSection';
+import ZoomableGallery from '../ZoomableGallery/ZoomableGallery';
 
 interface ProjectType {
   id: string;

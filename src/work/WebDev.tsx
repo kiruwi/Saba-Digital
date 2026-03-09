@@ -1,12 +1,12 @@
 import React from "react";
 
-import Footer from "../components/Footer";
+import Footer from "../components/Footer/Footer";
 import { WebDevGrid } from "./WebDevElements";
 // Import hardcoded data
 import { webProjects } from "../data/projects";
 import WebDevProjectCard from "../components/ProjectCard/WebDevProjectCard";
 import styled from "styled-components";
-import AnimatedSection from "../components/AnimatedSection";
+import AnimatedSection from "../components/AnimatedSection/AnimatedSection";
 import SEO from "../components/SEO";
 import { useTheme } from "../contexts/ThemeContext";
 

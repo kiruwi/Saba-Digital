@@ -1,11 +1,11 @@
 import React from "react";
 
-import Footer from "../components/Footer";
+import Footer from "../components/Footer/Footer";
 import { GraphicsGrid } from "./GraphicsElements";
 // Import hardcoded data
 import { graphicsProjects } from "../data/projects";
 import styled from "styled-components";
-import AnimatedSection from "../components/AnimatedSection";
+import AnimatedSection from "../components/AnimatedSection/AnimatedSection";
 import usePerformanceOptimization from "../hooks/usePerformanceOptimization";
 import SEO from "../components/SEO";
 

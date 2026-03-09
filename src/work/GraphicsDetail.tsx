@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import Footer from "../components/Footer";
+import Footer from "../components/Footer/Footer";
 import { graphicsProjects } from "../data/projects";
 import styled from "styled-components";
-import AnimatedSection from "../components/AnimatedSection";
+import AnimatedSection from "../components/AnimatedSection/AnimatedSection";
 import usePerformanceOptimization from "../hooks/usePerformanceOptimization";
-import LazyImage from "../components/LazyImage";
-import ZoomableGallery from "../components/ZoomableGallery";
+import LazyImage from "../components/LazyImage/LazyImage";
+import ZoomableGallery from "../components/ZoomableGallery/ZoomableGallery";
 import SEO from "../components/SEO";
 import { useTheme } from "../contexts/ThemeContext";
 

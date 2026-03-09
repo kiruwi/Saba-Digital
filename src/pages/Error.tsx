@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../components/Button";
 import { uxProjects } from "../data/projects";
 
-import Footer from "../components/Footer";
+import Footer from "../components/Footer/Footer";
 import {
   ErrorMainContainer,
   ProjectContainer,

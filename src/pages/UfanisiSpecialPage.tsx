@@ -1,9 +1,9 @@
 import React from "react";
-import Footer from "../components/Footer";
+import Footer from "../components/Footer/Footer";
 
 import { uxProjects } from "../data/projects";
 import { useNavigate } from "react-router-dom";
-import ProcessSection from "../components/ProcessSection";
+import ProcessSection from "../components/ProcessSection/ProcessSection";
 import {
   SpecialMainContainer,
   Container,

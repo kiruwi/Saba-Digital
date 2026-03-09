@@ -1,9 +1,9 @@
 import React from "react";
 import SEO from "../components/SEO";
-import HeroSection from "../components/HeroSection";   // contains the Services rail
-import Footer from "../components/Footer";            // optional footer
-import TrustedBy from "../components/TrustedBy";
-import Testimonials from "../components/Testimonials";
+import HeroSection from "../components/HeroSection/HeroSection";   // contains the Services rail
+import Footer from "../components/Footer/Footer";                  // optional footer
+import TrustedBy from "../components/TrustedBy/TrustedBy";
+import Testimonials from "../components/Testimonials/Testimonials";
 
 // Main Home component that uses HeroSection for the profile layout
 const Home = () => {

@@ -14,7 +14,7 @@ import {
   BtnWrap,
   ImgWrap,
   Img,
-} from "./infoElements";
+} from "./InfoSectionElements";
 
 // Props interface for InfoSection component
 interface InfoSectionProps {

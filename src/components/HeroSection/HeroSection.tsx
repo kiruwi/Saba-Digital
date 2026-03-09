@@ -8,7 +8,7 @@ import React, {
   useMemo,
 } from "react";
 import meImage from "../../images/me.webp";
-import LightRays from "../LightRays";
+import LightRays from "../LightRays/LightRays";
 import {
   ServicesCardHover as ServiceCard,
   TextOverlay,

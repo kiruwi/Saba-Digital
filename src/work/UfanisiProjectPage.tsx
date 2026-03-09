@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Footer from "../components/Footer";
+import Footer from "../components/Footer/Footer";
 import { 
   ProjectDetailContainer, 
   DetailTitle, 
@@ -9,7 +9,7 @@ import {
   MobileImageFirst,
   MobileTextSecond
 } from '../components/ProjectCard/ProjectCardElements';
-import ProcessSection from '../components/ProcessSection';
+import ProcessSection from '../components/ProcessSection/ProcessSection';
 import { useNavigate } from 'react-router-dom';
 import { uxProjects } from "../data/projects";
 import {

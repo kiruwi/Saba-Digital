@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import Footer from "../components/Footer";
+import Footer from "../components/Footer/Footer";
 import UXUIProjectDetail from "../components/ProjectDetail/UXUIProjectDetail";
 import { uxProjects } from "../data/projects";
 import { useParams, useLocation, useNavigate } from "react-router-dom";

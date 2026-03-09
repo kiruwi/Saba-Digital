@@ -1,4 +1,4 @@
-// src/components/ProjectCard/index.tsx
+// src/components/ProjectCard/ProjectCard.tsx
 import React, { useRef, useEffect } from 'react';
 import {
   CardContainer,

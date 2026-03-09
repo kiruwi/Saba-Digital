@@ -9,8 +9,8 @@ import signature from "../../images/signature.svg";
 import styled from "styled-components";
 import "./Navbar.css";
 import { useTheme } from "../../contexts/ThemeContext"; // Import useTheme hook
-import AISearchTrigger from "../AISearchTrigger";
-import AISearch from "../AISearch";
+import AISearchTrigger from "../AISearchTrigger/AISearchTrigger";
+import AISearch from "../AISearch/AISearch";
 
 import {
   NavbarContainer,

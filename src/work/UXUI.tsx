@@ -1,9 +1,9 @@
 import React from "react";
 
-import Footer from "../components/Footer";
+import Footer from "../components/Footer/Footer";
 import { uxProjects } from "../data/projects";
 import styled from "styled-components";
-import AnimatedSection from "../components/AnimatedSection";
+import AnimatedSection from "../components/AnimatedSection/AnimatedSection";
 import SEO from "../components/SEO";
 import { Link } from "react-router-dom";
 import ufanisiImg from "../images/ufanisi.webp";

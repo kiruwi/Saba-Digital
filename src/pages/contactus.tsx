@@ -1,8 +1,8 @@
 // src/pages/ContactPage.tsx
 import React, { memo } from "react";
 
-import ContactUs from "../components/ContactUs";
-import Footer from "../components/Footer";
+import ContactUs from "../components/ContactUs/ContactUs";
+import Footer from "../components/Footer/Footer";
 import SEO from "../components/SEO";
 
 const ContactPage: React.FC = memo(() => {

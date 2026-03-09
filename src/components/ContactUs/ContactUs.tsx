@@ -1,4 +1,4 @@
-// src/components/ContactUs/index.tsx
+// src/components/ContactUs/ContactUs.tsx
 import React, { useState, useRef, useEffect } from "react";
 
 import {

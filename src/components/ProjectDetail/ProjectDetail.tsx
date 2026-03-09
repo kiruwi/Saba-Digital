@@ -1,4 +1,4 @@
-// src/components/ProjectDetail/index.tsx
+// src/components/ProjectDetail/ProjectDetail.tsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { 
@@ -14,8 +14,8 @@ import {
   MobileOnlyImage,
 
 } from '../ProjectCard/ProjectCardElements';
-import ProcessSection from '../ProcessSection';
-import OsimLaiBrandGallery from '../OsimLaiBrandGallery';
+import ProcessSection from '../ProcessSection/ProcessSection';
+import OsimLaiBrandGallery from '../OsimLaiBrandGallery/OsimLaiBrandGallery';
 import { FaArrowLeft } from 'react-icons/fa';
 
 interface ProjectDetailProps {
