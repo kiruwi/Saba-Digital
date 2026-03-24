@@ -26,12 +26,16 @@ const PUBLIC_LOGO_FILENAMES = [
   'Fencooh Steel Works.png',
   'Global Pathways Advisory.png',
   'Joint Learning Network.png',
+  'logoPATAMU@2x.webp',
   'Salama Boda.png',
   'Silvershine Sacco.png',
   'Solar Freeze.png',
   'Solis Kenya.png',
   'Synnefa.svg'
 ];
+const LOGO_NAME_OVERRIDES: Record<string, string> = {
+  'logoPATAMU@2x.webp': 'Patamu'
+};
 const LOGO_SCALE_OVERRIDES: Record<string, number> = {
   'Eve On Safari.webp': 1.24
 };
@@ -44,7 +48,7 @@ const importLogos = (): LogoAsset[] => {
   return PUBLIC_LOGO_FILENAMES
     .map((filename) => {
       const src = buildPublicLogoPath(filename);
-      const friendlyName = filename
+      const friendlyName = LOGO_NAME_OVERRIDES[filename] ?? filename
         .replace(/\.[^/.]+$/, '')
         .replace(/[-_]+/g, ' ')
         .replace(/\s+/g, ' ')
