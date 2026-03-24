@@ -4,11 +4,13 @@ import {
   ServicesContainer,
   ServicesWrapper,
   ServicesCardHover as Card,
+  ServiceVideoIcon,
+  ServiceVisualLayer,
   TextOverlay,
   ServicesH2,
   ServicesP,
   Slide,
-  serviceBackgrounds,
+  serviceVisuals,
   LearnMoreButton
 } from "./ServicesElements";
 import { useNavigate } from "react-router-dom";
@@ -121,7 +123,7 @@ const Services: React.FC = () => {
         {items.map(({ title, desc, path }, i) => (
           <div key={title} style={{ width: "100%" }}>
             <Card
-              bg={serviceBackgrounds[i]}
+              bg={serviceVisuals[i]?.kind === "image" ? serviceVisuals[i].src : undefined}
               role="button"
               tabIndex={0}
               draggable={false}
@@ -144,6 +146,11 @@ const Services: React.FC = () => {
                 }
               }}
             >
+              {serviceVisuals[i]?.kind === "icon" && (
+                <ServiceVisualLayer $iconOnly aria-hidden="true">
+                  <ServiceVideoIcon />
+                </ServiceVisualLayer>
+              )}
               <TextOverlay>
                 <ServicesH2>{title}</ServicesH2>
                 <ServicesP>{desc}</ServicesP>
@@ -244,7 +251,7 @@ export const ServicesRail: React.FC = () => {
         <Slide key={title}>
           <div style={{ width: "100%", height: "100%" }}>
             <Card
-              bg={serviceBackgrounds[i]}
+              bg={serviceVisuals[i]?.kind === "image" ? serviceVisuals[i].src : undefined}
               role="button"
               tabIndex={0}
               draggable={false}
@@ -262,6 +269,11 @@ export const ServicesRail: React.FC = () => {
                 }
               }}
             >
+              {serviceVisuals[i]?.kind === "icon" && (
+                <ServiceVisualLayer $iconOnly aria-hidden="true">
+                  <ServiceVideoIcon />
+                </ServiceVisualLayer>
+              )}
               <TextOverlay>
                 <ServicesH2>{title}</ServicesH2>
                 <ServicesP>{desc}</ServicesP>

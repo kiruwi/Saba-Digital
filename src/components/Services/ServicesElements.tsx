@@ -1,16 +1,21 @@
 // src/components/Services/ServicesElements.tsx
 import styled from "styled-components";
+import { FiPlayCircle } from "react-icons/fi";
 import Bg1 from "../../images/ufanisi.webp";
 import Bg2 from "../../images/service2-bg.webp";
 import Bg3 from "../../images/service3-bg.webp";
 
-/* make images available to Services/index.js */
-export const serviceBackgrounds = [
-  Bg1,
-  Bg2,
-  Bg3,
-  require("../../images/addesign/eid.webp"), // Ad Design background
-  'https://i.ytimg.com/vi/BVneKsVK1aY/maxresdefault.jpg' // Motion Graphics - Synnefa Rebrand Logo Animation thumbnail
+export type ServiceVisual =
+  | { kind: "image"; src: string }
+  | { kind: "icon"; icon: "video" };
+
+/* shared visuals for service cards across hero and services sections */
+export const serviceVisuals: ServiceVisual[] = [
+  { kind: "image", src: Bg1 },
+  { kind: "image", src: Bg2 },
+  { kind: "image", src: Bg3 },
+  { kind: "image", src: require("../../images/addesign/eid.webp") as string },
+  { kind: "icon", icon: "video" },
 ];
 
 /* ── outer containers ──────────────────────────────── */
@@ -131,6 +136,29 @@ export const ServicesCard = styled.div.withConfig(cardConfig)<CardProps>`
   &.is-dragging * {
     pointer-events: none !important;
   }
+`;
+
+export const ServiceVisualLayer = styled.div<{ $iconOnly?: boolean }>`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+  background: ${({ $iconOnly, theme }) =>
+    $iconOnly
+      ? theme.theme === "light"
+        ? "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(232, 245, 237, 0.92))"
+        : "linear-gradient(135deg, rgba(8, 18, 12, 0.9), rgba(20, 44, 31, 0.92))"
+      : "transparent"};
+`;
+
+export const ServiceVideoIcon = styled(FiPlayCircle)`
+  font-size: clamp(5rem, 10vw, 7rem);
+  color: ${({ theme }) => theme.colors.primary};
+  opacity: 0.95;
 `;
 
 /* ── overlay ───────────────────────────────────────── */

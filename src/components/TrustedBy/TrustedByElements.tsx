@@ -153,8 +153,8 @@ export const LogoCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  width: clamp(120px, 18vw, 200px);
+  padding: 0 clamp(1rem, 2vw, 1.75rem);
+  width: auto;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -164,12 +164,11 @@ export const LogoCard = styled.div`
   visibility: visible !important;
   opacity: 1 !important;
   transition: transform 0.3s ease;
-  aspect-ratio: 160 / 60;
 
   picture {
     display: flex;
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
     align-items: center;
     justify-content: center;
   }
@@ -185,10 +184,9 @@ export const LogoImg = styled.img.attrs({
 })<{ $scale?: number }>`
   --logo-scale: ${({ $scale = 1 }) => $scale};
   display: block;
-  width: 100%;
-  height: auto;
-  max-height: clamp(36px, 5vw, 52px);
-  aspect-ratio: 160 / 60;
+  width: auto;
+  height: clamp(36px, 5vw, 52px);
+  max-width: clamp(110px, 16vw, 180px);
   object-fit: contain;
   transform: scale(var(--logo-scale));
   filter: grayscale(1);
