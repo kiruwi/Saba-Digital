@@ -98,11 +98,12 @@ export const ServicesCard = styled.div.withConfig(cardConfig)<CardProps>`
   cursor: pointer;
 
   @media (max-width: 768px) {
-    /* dimensions for carousel slide */
-    flex: 0 0 80%;
-    width: 80%;
-    margin: 0 10%;
-    padding: 0;
+    flex: 0 0 auto;
+    width: min(100%, 320px);
+    min-height: 260px;
+    height: auto;
+    max-height: none;
+    margin: 0 auto;
   }
 
   &::before {
@@ -116,6 +117,13 @@ export const ServicesCard = styled.div.withConfig(cardConfig)<CardProps>`
     transform: scale(1.1);
     transition: transform 0.5s ease;
     z-index: 0;
+  }
+
+  @media (max-width: 768px) {
+    &::before {
+      transform: scale(1.02);
+      background-position: center center;
+    }
   }
 
   &:hover::before {
@@ -180,6 +188,14 @@ export const TextOverlay = styled.div`
   opacity: 0;
   transition: transform 0.4s ease, opacity 0.4s ease;
   z-index: 1;
+
+  @media (max-width: 768px) {
+    top: 12%;
+    right: 12%;
+    bottom: 12%;
+    left: 12%;
+    padding: 1.25rem;
+  }
 `;
 
 /* ── hover wrapper (still receives bg) ─────────────── */
