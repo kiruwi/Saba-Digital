@@ -420,6 +420,11 @@ const PortfolioCardImg = styled.img.attrs({
   ${ServiceCard}:hover & {
     transform: scale(1);
   }
+
+  @media (max-width: 1000px) {
+    transform: scale(1.02);
+    object-position: center center;
+  }
 `;
 
 /* ── scroll hint ───────────────────────────────────── */
@@ -1234,13 +1239,15 @@ export const CardTrack = styled.div`
   @media (max-width: 1000px) {
     display: grid;
     grid-template-columns: 1fr;
+    justify-items: center;
     gap: 24px;
     width: 100%;
-    padding: 80px 16px 48px;
+    padding: 80px 20px 48px;
 
     & > * {
-      width: 100% !important;
+      width: min(100%, 320px) !important;
       flex: 0 0 auto !important;
+      margin: 0 auto !important;
     }
   }
 `;
