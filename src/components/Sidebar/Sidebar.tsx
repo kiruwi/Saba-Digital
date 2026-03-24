@@ -69,9 +69,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggle }) => {
         <SidebarWrapper>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarRouterLink to="/work" onClick={toggle}>Portfolio</SidebarRouterLink>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
             <ResumeLink 
               href='https://drive.google.com/file/d/1-LmqGJNPkNZ0naITKqTo5PrQsX7iNpYP/view?usp=sharing' 
               target="_blank" 
