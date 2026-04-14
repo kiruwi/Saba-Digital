@@ -137,7 +137,6 @@ const baseTitle = `
 const HERO_IMAGE_WIDTHS = [480, 720, 960, 1280, 1600];
 const HERO_SIZES = "(max-width: 1000px) 85vw, 528px";
 const HERO_IMAGE_DIMENSION = 1600;
-const PORTFOLIO_CARD_WIDTHS = [320, 480, 640, 800];
 const PORTFOLIO_CARD_SIZES = "(max-width: 1000px) calc(100vw - 32px), 320px";
 const PORTFOLIO_CARD_IMAGE_DIMENSION = 800;
 type PortfolioCardImageAsset = {
@@ -560,34 +559,17 @@ const HeroSection: FC = () => {
       serviceVisuals.map((visual) => {
         if (visual.kind !== "image") return null;
 
+        // Keep portfolio card media identical across local and production.
+        // Netlify cover transforms can over-crop or degrade these square previews.
         return {
-          fallbackSrc: buildOptimizedImageUrl(visual.src, {
-            width: PORTFOLIO_CARD_IMAGE_DIMENSION,
-            quality: 78,
-            fit: "cover",
-          }),
-          pngSrcSet: buildSrcSet(visual.src, PORTFOLIO_CARD_WIDTHS, {
-            quality: 78,
-            fit: "cover",
-          }),
-          webpSrcSet: buildSrcSet(visual.src, PORTFOLIO_CARD_WIDTHS, {
-            quality: 76,
-            fit: "cover",
-            format: "webp",
-          }),
-          avifSrcSet: buildSrcSet(visual.src, PORTFOLIO_CARD_WIDTHS, {
-            quality: 72,
-            fit: "cover",
-            format: "avif",
-          }),
+          fallbackSrc: visual.src,
+          pngSrcSet: "",
+          webpSrcSet: "",
+          avifSrcSet: "",
           sizes: PORTFOLIO_CARD_SIZES,
           width: PORTFOLIO_CARD_IMAGE_DIMENSION,
           height: PORTFOLIO_CARD_IMAGE_DIMENSION,
-          preloadSrc: buildOptimizedImageUrl(visual.src, {
-            width: 640,
-            quality: 72,
-            fit: "cover",
-          }),
+          preloadSrc: visual.src,
         };
       }),
     []
