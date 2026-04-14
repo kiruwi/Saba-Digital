@@ -414,7 +414,7 @@ const PortfolioCardImg = styled.img.attrs({
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.08);
+  transform: scale(1.03);
   transition: transform 0.55s ease;
 
   ${ServiceCard}:hover & {
@@ -422,7 +422,7 @@ const PortfolioCardImg = styled.img.attrs({
   }
 
   @media (max-width: 1000px) {
-    transform: scale(1.02);
+    transform: scale(1);
     object-position: center center;
   }
 `;
@@ -1013,8 +1013,8 @@ const HeroSection: FC = () => {
                               flex:
                                 window.innerWidth <= 1000
                                   ? "0 0 auto"
-                                  : "0 0 320px",
-                              width: window.innerWidth <= 1000 ? "100%" : "320px",
+                                  : "0 0 280px",
+                              width: window.innerWidth <= 1000 ? "100%" : "280px",
                               aspectRatio: "1 / 1",
                               height: "auto",
                               minHeight: "0",
@@ -1245,7 +1245,7 @@ export const CardTrack = styled.div`
     padding: 80px 20px 48px;
 
     & > * {
-      width: min(100%, 320px) !important;
+      width: min(100%, 280px) !important;
       flex: 0 0 auto !important;
       margin: 0 auto !important;
     }
