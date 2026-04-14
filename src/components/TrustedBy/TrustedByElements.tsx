@@ -138,7 +138,7 @@ export const LogoTrack = styled.div`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1000px) {
     &:not(.logo-track--js) {
       animation: marquee-slide 22s linear infinite;
     }

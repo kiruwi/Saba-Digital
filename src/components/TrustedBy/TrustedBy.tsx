@@ -20,6 +20,7 @@ const LOGO_TARGET_WIDTH = 180;
 const LOGO_TARGET_HEIGHT = 60;
 const LOGO_WIDTHS = [120, 160, 180];
 const LOGO_SIZES = '(max-width: 768px) 45vw, 160px';
+const MOBILE_MARQUEE_BREAKPOINT = 1000;
 const PUBLIC_LOGO_DIRECTORY = '/images/company-logos';
 const PUBLIC_LOGO_FILENAMES = [
   'Eve On Safari.webp',
@@ -115,6 +116,13 @@ const TrustedBy: React.FC = () => {
     const prefersReducedMotion =
       typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
+
+    const isMobileViewport =
+      typeof window !== 'undefined' &&
+      window.matchMedia(`(max-width: ${MOBILE_MARQUEE_BREAKPOINT}px)`).matches;
+
+    // On mobile/tablet, rely on CSS marquee fallback for more reliable playback.
+    if (isMobileViewport) return;
 
     let cancelled = false;
     let cleanup: (() => void) | undefined;
