@@ -12,7 +12,7 @@
   "vars": {
     "ALLOWED_ORIGIN": "https://iankcheruiyot.work",
     "CONTACT_TO_EMAIL": "iankcheruiyot@gmail.com",
-    "CONTACT_FROM_EMAIL": "Saba Digital <contact@info.iankcheruiyot.work>",
+    "CONTACT_FROM_EMAIL": "Ian Cheruiyot <@info.iankcheruiyot.work>",
     "TURNSTILE_SITE_KEY": "0x4AAAAAADqcSVcD_4_DGAPg"
   }
 }
