@@ -2,14 +2,27 @@
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YQ8LPFFP43"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      window.gtag = gtag;
 
-      gtag('config', 'G-YQ8LPFFP43');
+      let analyticsConsent = 'denied';
+      try {
+        const storedConsent = JSON.parse(localStorage.getItem('cookie_consent_v2') || 'null');
+        if (storedConsent && storedConsent.status === 'accepted') analyticsConsent = 'granted';
+      } catch (_) {}
+
+      gtag('consent', 'default', {
+        ad_storage: analyticsConsent,
+        ad_user_data: analyticsConsent,
+        ad_personalization: analyticsConsent,
+        analytics_storage: analyticsConsent
+      });
+      gtag('js', new Date());
+      gtag('config', 'G-YQ8LPFFP43', { send_page_view: false });
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YQ8LPFFP43"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" content="#2db670" />
