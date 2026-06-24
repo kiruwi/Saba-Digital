@@ -1,6 +1,6 @@
 # Saba Digital portfolio
 
-React and TypeScript portfolio deployed as a static site on Cloudflare Pages.
+React and TypeScript portfolio deployed as static assets on Cloudflare Workers.
 
 ## Development
 
@@ -15,14 +15,15 @@ npm start
 npm run build
 ```
 
-Cloudflare Pages settings:
+Cloudflare build settings:
 
 - Build command: `npm run build`
 - Build output directory: `build`
 - Root directory: repository root
+- Deploy command: `npm run deploy`
 
-Cloudflare Pages reads `public/_headers` and `public/_redirects` into the
-production build. The redirect rules provide SPA routing for React Router.
+`wrangler.jsonc` serves the `build` directory and uses Cloudflare's
+`single-page-application` fallback for React Router routes.
 
 ## Other commands
 
