@@ -12,10 +12,18 @@ const Banner = styled.div`
   position: fixed; inset-inline: 0; bottom: 0;
   display: flex; align-items: center; gap: 12px;
   padding: 12px 16px; background: #fff; color: #121212;
+  min-height: 64px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.35;
   border-top: 1px solid rgba(0,0,0,0.08);
   box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
   z-index: 9999;
-  @media (max-width: 768px) { flex-direction: column; align-items: stretch; }
+  @media (max-width: 768px) {
+    min-height: 190px;
+    flex-direction: column;
+    align-items: stretch;
+  }
 `;
 
 const Msg = styled.span`
@@ -92,14 +100,13 @@ function setClarityDenied() {
 
 // ---- Component ----
 const CookieBanner: React.FC = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(() => readConsent() === null);
   const triggerRef = useRef<HTMLElement | null>(null); // to restore focus
   const bannerRef = useRef<HTMLDivElement>(null);
 
   // Show banner only if no stored choice
   useEffect(() => {
     const stored = readConsent();
-    if (!stored) setOpen(true);
     if (stored?.status === "accepted") initClarityAfterConsent();
     if (stored?.status === "rejected") setClarityDenied();
   }, []);

@@ -1,5 +1,4 @@
 import { Container, Heading, LogoCard, LogoImg, LogoTrack, Marquee, Section, Subtext } from './TrustedByElements';
-import { buildOptimizedImageUrl, buildSrcSet } from '../../utils/imageOptimizer';
 import { loadGsap } from '../../utils/gsapLoader';
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
@@ -7,9 +6,7 @@ type LogoAsset = {
   key: string;
   alt: string;
   fallbackSrc: string;
-  pngSrcSet: string;
   webpSrcSet: string;
-  avifSrcSet: string;
   sizes: string;
   width: number;
   height: number;
@@ -18,73 +15,52 @@ type LogoAsset = {
 
 const LOGO_TARGET_WIDTH = 180;
 const LOGO_TARGET_HEIGHT = 60;
-const LOGO_WIDTHS = [120, 160, 180];
 const LOGO_SIZES = '(max-width: 768px) 45vw, 160px';
 const MOBILE_MARQUEE_BREAKPOINT = 1000;
-const PUBLIC_LOGO_DIRECTORY = '/images/company-logos';
-const PUBLIC_LOGO_FILENAMES = [
-  'Eve On Safari.webp',
-  'Fencooh Steel Works.png',
-  'Global Pathways Advisory.png',
-  'Joint Learning Network.png',
-  'logoPATAMU@2x.webp',
-  'Salama Boda.png',
-  'Silvershine Sacco.png',
-  'Solar Freeze.png',
-  'Solis Kenya.png',
-  'Synnefa.svg'
+const OPTIMIZED_LOGO_DIRECTORY = '/images/optimized/logos';
+type LogoDefinition = {
+  slug: string;
+  name: string;
+  source?: string;
+};
+const LOGOS: readonly LogoDefinition[] = [
+  { slug: 'eve-on-safari', name: 'Eve On Safari' },
+  { slug: 'fencooh-steel-works', name: 'Fencooh Steel Works' },
+  { slug: 'global-pathways-advisory', name: 'Global Pathways Advisory' },
+  { slug: 'joint-learning-network', name: 'Joint Learning Network' },
+  { slug: 'patamu', name: 'Patamu' },
+  { slug: 'salama-boda', name: 'Salama Boda' },
+  { slug: 'silvershine-sacco', name: 'Silvershine Sacco' },
+  { slug: 'solar-freeze', name: 'Solar Freeze' },
+  { slug: 'solis-kenya', name: 'Solis Kenya' },
+  {
+    slug: 'synnefa',
+    name: 'Synnefa',
+    source: '/images/company-logos/Synnefa.svg'
+  },
 ];
-const LOGO_NAME_OVERRIDES: Record<string, string> = {
-  'logoPATAMU@2x.webp': 'Patamu'
-};
 const LOGO_SCALE_OVERRIDES: Record<string, number> = {
-  'Eve On Safari.webp': 1.24
-};
-
-const buildPublicLogoPath = (filename: string): string => {
-  return `${PUBLIC_LOGO_DIRECTORY}/${encodeURIComponent(filename)}`;
+  'eve-on-safari': 1.24
 };
 
 const importLogos = (): LogoAsset[] => {
-  return PUBLIC_LOGO_FILENAMES
-    .map((filename) => {
-      const src = buildPublicLogoPath(filename);
-      const friendlyName = LOGO_NAME_OVERRIDES[filename] ?? filename
-        .replace(/\.[^/.]+$/, '')
-        .replace(/[-_]+/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim()
-        .replace(/\b\w/g, (char) => char.toUpperCase());
-      const pngSrcSet = buildSrcSet(src, LOGO_WIDTHS, {
-        quality: 70,
-        fit: 'contain'
-      });
-      const webpSrcSet = buildSrcSet(src, LOGO_WIDTHS, {
-        quality: 70,
-        fit: 'contain',
-        format: 'webp'
-      });
-      const avifSrcSet = buildSrcSet(src, LOGO_WIDTHS, {
-        quality: 65,
-        fit: 'contain',
-        format: 'avif'
-      });
-
+  return LOGOS
+    .map(({ slug, name, source }) => {
       return {
-        key: filename,
-        alt: `${friendlyName} logo`,
-        fallbackSrc: buildOptimizedImageUrl(src, {
-          width: LOGO_TARGET_WIDTH,
-          quality: 75,
-          fit: 'contain'
-        }),
-        pngSrcSet,
-        webpSrcSet,
-        avifSrcSet,
+        key: slug,
+        alt: `${name} logo`,
+        fallbackSrc:
+          source ?? `${OPTIMIZED_LOGO_DIRECTORY}/${slug}-180.webp`,
+        webpSrcSet: source
+          ? ''
+          : [
+              `${OPTIMIZED_LOGO_DIRECTORY}/${slug}-180.webp 180w`,
+              `${OPTIMIZED_LOGO_DIRECTORY}/${slug}-360.webp 360w`
+            ].join(', '),
         sizes: LOGO_SIZES,
         width: LOGO_TARGET_WIDTH,
         height: LOGO_TARGET_HEIGHT,
-        scale: LOGO_SCALE_OVERRIDES[filename]
+        scale: LOGO_SCALE_OVERRIDES[slug]
       };
     })
     .sort((a, b) => a.alt.localeCompare(b.alt));
@@ -214,13 +190,6 @@ const TrustedBy: React.FC = () => {
                   aria-label={logo.alt}
                 >
                   <picture>
-                    {logo.avifSrcSet && (
-                      <source
-                        type="image/avif"
-                        srcSet={logo.avifSrcSet}
-                        sizes={logo.sizes}
-                      />
-                    )}
                     {logo.webpSrcSet && (
                       <source
                         type="image/webp"
@@ -232,7 +201,6 @@ const TrustedBy: React.FC = () => {
                       $scale={logo.scale}
                       src={logo.fallbackSrc}
                       alt={logo.alt}
-                      srcSet={logo.pngSrcSet}
                       sizes={logo.sizes}
                       width={logo.width}
                       height={logo.height}
