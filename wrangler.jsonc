@@ -1,9 +1,17 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "my-portfolio",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-06-24",
   "assets": {
     "directory": "./build",
-    "not_found_handling": "single-page-application"
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "ALLOWED_ORIGIN": "https://iancheruiyot.work",
+    "CONTACT_TO_EMAIL": "iankcheruiyot@gmail.com",
+    "CONTACT_FROM_EMAIL": "Saba Digital <contact@iancheruiyot.work>"
   }
 }

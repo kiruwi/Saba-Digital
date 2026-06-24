@@ -140,6 +140,16 @@ export const FormButton = styled.button`
   &:active {
     transform: scale(0.98);
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+`;
+
+export const TurnstileContainer = styled.div`
+  min-height: 65px;
+  margin: 0 0 8px;
 `;
 
 /* Back‑to‑hero link */
