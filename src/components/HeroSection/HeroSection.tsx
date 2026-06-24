@@ -204,6 +204,22 @@ export const HeroSubtitle = styled.h2`
   margin: 0;
   color: ${({ theme }) => (theme.theme === "light" ? "#000" : "#fff")};
   width: 100%;
+  max-width: 850px;
+  font-size: 3rem;
+
+  @media (max-width: 1400px) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 1000px) {
+    max-width: 34rem;
+    margin-inline: auto;
+    font-size: 2rem;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
+  }
 `;
 
 /* ── CTA wrapper ───────────────────────────────────── */
