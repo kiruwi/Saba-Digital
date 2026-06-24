@@ -80,7 +80,7 @@ export const lightTheme: Theme = {
   meta: {
     title: 'Saba Digital',
     description: 'Saba Digital is the portfolio of Ian K. Cheruiyot, showcasing UX/UI design, web development, branding, and motion graphics projects.',
-    image: '/images/logo.png',
+    image: '/logo.svg',
     keywords: ['Saba Digital', 'UX/UI Design', 'Web Development', 'Branding', 'Graphic Design', 'Nairobi'],
     url: 'https://iancheruiyot.work/'
   }
@@ -123,7 +123,7 @@ export const darkTheme: Theme = {
   meta: {
     title: 'Saba Digital',
     description: 'Saba Digital is the portfolio of Ian K. Cheruiyot, showcasing UX/UI design, web development, branding, and motion graphics projects.',
-    image: '/images/logo.png',
+    image: '/logo.svg',
     keywords: ['Saba Digital', 'UX/UI Design', 'Web Development', 'Branding', 'Graphic Design', 'Nairobi'],
     url: 'https://iancheruiyot.work/'
   }

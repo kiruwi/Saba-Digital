@@ -1,6 +1,5 @@
 const { spawn } = require('child_process');
 
-const isNetlify = process.env.NETLIFY === 'true';
 const allowFail = process.env.REACT_SNAP_ALLOW_FAIL === 'true';
 
 const child = spawn('npx', ['react-snap'], {
@@ -14,8 +13,7 @@ child.on('close', (code) => {
     process.exit(0);
   }
 
-  const shouldContinue = isNetlify || allowFail;
-  if (shouldContinue) {
+  if (allowFail) {
     console.warn('[react-snap] failed, continuing build (set REACT_SNAP_ALLOW_FAIL=false to enforce).');
     process.exit(0);
   }
