@@ -29,6 +29,7 @@ yarn-error.log*
 .claude/
 .codex
 lighthouse*.json
+*.build.log
 
 # Backup files
 *.backup
