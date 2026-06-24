@@ -23,7 +23,7 @@ const Home = () => {
       <SEO
         title="Saba Digital | UX/UI, Web Development & Branding"
         description="Saba Digital is the portfolio of Ian K. Cheruiyot, showcasing UX/UI design, web development, branding, ad design, and motion graphics work."
-        canonical="https://iancheruiyot.work/"
+        canonical="https://iankcheruiyot.work/"
         disableTitleTemplate
       />
       <HeroSection />

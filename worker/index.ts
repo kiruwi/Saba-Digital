@@ -175,11 +175,26 @@ const handleContact = async (
   });
 
   if (!resendResponse.ok) {
+    const resendErrorText = await resendResponse.text();
+    let clientMessage = "Email provider rejected the message.";
+
+    try {
+      const resendError = JSON.parse(resendErrorText) as { message?: string };
+      if (
+        resendResponse.status === 403 &&
+        resendError.message?.toLowerCase().includes("domain")
+      ) {
+        clientMessage = "The sender domain is not verified in Resend.";
+      }
+    } catch {
+      // Keep the generic client-safe message when Resend does not return JSON.
+    }
+
     console.error("Resend rejected contact email", {
       status: resendResponse.status,
-      body: await resendResponse.text(),
+      body: resendErrorText,
     });
-    return json({ error: "Message delivery failed." }, 502);
+    return json({ error: clientMessage }, 502);
   }
 
   return json({ ok: true });

@@ -11,7 +11,7 @@ const ContactPage: React.FC = memo(() => {
       <SEO
         title="Contact Saba Digital"
         description="Contact Ian K. Cheruiyot at Saba Digital for UX/UI design, web development, branding, ad design, and motion graphics projects."
-        canonical="https://iancheruiyot.work/contact"
+        canonical="https://iankcheruiyot.work/contact"
       />
 
       <main role="main">

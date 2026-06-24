@@ -82,7 +82,7 @@ const AdDesign: React.FC = () => {
       <SEO
         title="Ad Design Projects"
         description="Ad creative and campaign design portfolio from Saba Digital."
-        canonical="https://iancheruiyot.work/work/ad-design"
+        canonical="https://iankcheruiyot.work/work/ad-design"
       />
       <Main>
         <div style={{ padding: '0 1.5rem' }}>

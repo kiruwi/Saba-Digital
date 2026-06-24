@@ -32,19 +32,25 @@ Turnstile validates submissions and Resend delivers them by email.
 
 Before deploying:
 
-1. Create a Turnstile widget for `iancheruiyot.work`.
-2. Verify `iancheruiyot.work` as a sending domain in Resend.
+1. Create a Turnstile widget for `iankcheruiyot.work`.
+2. Verify `iankcheruiyot.work` as a sending domain in Resend.
 3. Add these secrets to the `my-portfolio` Worker:
 
 ```bash
 npx wrangler secret put RESEND_API_KEY
-npx wrangler secret put TURNSTILE_SITE_KEY
 npx wrangler secret put TURNSTILE_SECRET_KEY
 ```
 
-The committed Worker variables send enquiries to `iankcheruiyot@gmail.com`
-from `Saba Digital <contact@iancheruiyot.work>`. Update `wrangler.jsonc` if
-either address changes.
+The public Turnstile site key is committed in `wrangler.jsonc` so Git-based
+deployments keep it synchronized.
+
+Until the sending domain is verified, the Worker sends enquiries to
+`iankcheruiyot@gmail.com` from Resend's testing address
+`Saba Digital <onboarding@resend.dev>`. This only works when the destination
+matches the email address on the Resend account.
+
+After Resend verifies `iankcheruiyot.work`, change `CONTACT_FROM_EMAIL` in
+`wrangler.jsonc` to `Saba Digital <contact@iankcheruiyot.work>`.
 
 `ALLOWED_ORIGIN` may contain a comma-separated list of additional trusted
 origins. Same-origin submissions are always accepted, including Cloudflare

@@ -78,8 +78,8 @@ const CookiePolicy: React.FC = () => {
     <>
       <SEO
         title="Cookie Policy"
-        description="Cookie policy for Saba Digital and iancheruiyot.work."
-        canonical="https://iancheruiyot.work/cookies"
+        description="Cookie policy for Saba Digital and iankcheruiyot.work."
+        canonical="https://iankcheruiyot.work/cookies"
       />
       <PageWrap>
         <Container>
@@ -89,8 +89,8 @@ const CookiePolicy: React.FC = () => {
             </BackButton>
           </BackRow>
 
-        <Title>Cookie Policy for iancheruiyot.work</Title>
-        <P>This Cookie Policy explains how iancheruiyot.work uses cookies and similar technologies.</P>
+        <Title>Cookie Policy for iankcheruiyot.work</Title>
+        <P>This Cookie Policy explains how iankcheruiyot.work uses cookies and similar technologies.</P>
 
         <Subtitle>1. What are cookies?</Subtitle>
         <P>

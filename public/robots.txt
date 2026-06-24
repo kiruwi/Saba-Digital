@@ -9,4 +9,4 @@ Disallow: /content-api/
 Allow: /
 
 # Link to sitemap
-Sitemap: https://iancheruiyot.work/sitemap.xml
+Sitemap: https://iankcheruiyot.work/sitemap.xml

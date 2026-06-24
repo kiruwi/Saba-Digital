@@ -64,7 +64,7 @@ const Work: React.FC = () => {
       <SEO 
         title="Work | Saba Digital Portfolio" 
         description="Explore Saba Digital case studies across graphics, UX/UI, web development, ad design, and motion graphics." 
-        canonical="https://iancheruiyot.work/work"
+        canonical="https://iankcheruiyot.work/work"
       />
       <Title>Our Work</Title>
       <Description>

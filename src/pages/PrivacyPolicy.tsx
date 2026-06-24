@@ -90,8 +90,8 @@ const PrivacyPolicy: React.FC = () => {
     <>
       <SEO
         title="Privacy Policy"
-        description="Privacy policy for Saba Digital and iancheruiyot.work."
-        canonical="https://iancheruiyot.work/privacy"
+        description="Privacy policy for Saba Digital and iankcheruiyot.work."
+        canonical="https://iankcheruiyot.work/privacy"
       />
       <PageWrap>
         <Container>
@@ -101,7 +101,7 @@ const PrivacyPolicy: React.FC = () => {
             </BackButton>
           </BackRow>
 
-        <Title>Privacy Policy for iancheruiyot.work</Title>
+        <Title>Privacy Policy for iankcheruiyot.work</Title>
 
         <Subtitle>1. What information we collect</Subtitle>
         <P><strong>Log data:</strong> We automatically log your IP address, browser type, pages you visit, time and date, and duration on each page.</P>
@@ -112,7 +112,7 @@ const PrivacyPolicy: React.FC = () => {
         <P>We may disclose your data if required by law or to protect our legal rights.</P>
 
         <Subtitle>3. Ownership of information</Subtitle>
-        <P>iancheruiyot.work owns all data collected. We do not sell, rent, or share your data beyond what’s outlined here.</P>
+        <P>iankcheruiyot.work owns all data collected. We do not sell, rent, or share your data beyond what’s outlined here.</P>
 
         <Subtitle>4. Your choices and rights</Subtitle>
         <P>You can opt out of direct marketing or request restrictions on data use by contacting us.</P>
@@ -136,7 +136,7 @@ const PrivacyPolicy: React.FC = () => {
           with any privacy concerns or complaints. We’ll review and reply in writing with next steps.
         </P>
 
-          <FooterNote>© 2025 iancheruiyot.work, All rights reserved.</FooterNote>
+          <FooterNote>© 2025 iankcheruiyot.work, All rights reserved.</FooterNote>
         </Container>
       </PageWrap>
     </>
