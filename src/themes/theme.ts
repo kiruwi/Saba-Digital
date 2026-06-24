@@ -82,7 +82,7 @@ export const lightTheme: Theme = {
     description: 'Saba Digital is the portfolio of Ian K. Cheruiyot, showcasing UX/UI design, web development, branding, and motion graphics projects.',
     image: '/logo.svg',
     keywords: ['Saba Digital', 'UX/UI Design', 'Web Development', 'Branding', 'Graphic Design', 'Nairobi'],
-    url: 'https://iancheruiyot.work/'
+    url: 'https://iankcheruiyot.work/'
   }
 };
 
@@ -125,6 +125,6 @@ export const darkTheme: Theme = {
     description: 'Saba Digital is the portfolio of Ian K. Cheruiyot, showcasing UX/UI design, web development, branding, and motion graphics projects.',
     image: '/logo.svg',
     keywords: ['Saba Digital', 'UX/UI Design', 'Web Development', 'Branding', 'Graphic Design', 'Nairobi'],
-    url: 'https://iancheruiyot.work/'
+    url: 'https://iankcheruiyot.work/'
   }
 };

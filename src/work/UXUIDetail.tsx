@@ -32,7 +32,7 @@ const UXUIDetail: React.FC = () => {
     || (location.pathname.includes('ufanisi-resort')
       ? uxProjects.find((project) => project.id === 'ufanisi-resort')
       : null);
-  const canonicalUrl = `https://iancheruiyot.work/work/ux-ui/${id || ''}`.replace(/\/$/, '');
+  const canonicalUrl = `https://iankcheruiyot.work/work/ux-ui/${id || ''}`.replace(/\/$/, '');
   
   // Theme is now accessed from context
   

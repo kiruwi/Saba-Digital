@@ -66,7 +66,7 @@ const Graphics: React.FC = () => {
       <SEO
         title="Branding & Graphics Projects"
         description="Brand identity, visual design, and rebranding projects by Saba Digital."
-        canonical="https://iancheruiyot.work/work/graphics"
+        canonical="https://iankcheruiyot.work/work/graphics"
       />
 
       <MainContainer>

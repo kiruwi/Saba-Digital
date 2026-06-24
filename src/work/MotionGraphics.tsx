@@ -87,7 +87,7 @@ const MotionGraphics: React.FC = () => {
       <SEO
         title="Motion Graphics Projects"
         description="Motion graphics and animation projects from Saba Digital."
-        canonical="https://iancheruiyot.work/work/motion"
+        canonical="https://iankcheruiyot.work/work/motion"
       />
       <Main>
         <div style={{ padding: '0 1.5rem' }}>

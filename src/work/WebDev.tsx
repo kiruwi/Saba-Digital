@@ -45,7 +45,7 @@ const WebDev: React.FC = () => {
       <SEO
         title="Web Development Projects"
         description="Web development portfolio by Saba Digital, including business websites and conversion-focused digital experiences."
-        canonical="https://iancheruiyot.work/work/web-dev"
+        canonical="https://iankcheruiyot.work/work/web-dev"
       />
 
       <MainContent>

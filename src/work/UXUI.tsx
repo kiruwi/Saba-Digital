@@ -86,7 +86,7 @@ const UXUI: React.FC = () => {
       <SEO
         title="UX/UI Projects"
         description="UX/UI case studies by Saba Digital, including user research, product design, and interface redesign projects."
-        canonical="https://iancheruiyot.work/work/ux-ui"
+        canonical="https://iankcheruiyot.work/work/ux-ui"
       />
 
       <MainContainer>

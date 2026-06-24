@@ -190,7 +190,7 @@ const GraphicsDetail: React.FC = () => {
 
   const { id } = useParams<{ id: string }>();
   const [project, setProject] = useState<any>(null);
-  const canonicalUrl = `https://iancheruiyot.work/work/graphics/${id || ''}`.replace(/\/$/, '');
+  const canonicalUrl = `https://iankcheruiyot.work/work/graphics/${id || ''}`.replace(/\/$/, '');
   
   // Theme is now passed as props
   

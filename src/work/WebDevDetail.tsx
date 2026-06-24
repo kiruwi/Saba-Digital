@@ -210,7 +210,7 @@ const WebDevDetail: React.FC = () => {
 
   const { id } = useParams<{ id: string }>();
   const [project, setProject] = useState<ProjectType | null>(null);
-  const canonicalUrl = `https://iancheruiyot.work/work/web-dev/${id || ''}`.replace(/\/$/, '');
+  const canonicalUrl = `https://iankcheruiyot.work/work/web-dev/${id || ''}`.replace(/\/$/, '');
   
   // Find the project based on the ID parameter
   useEffect(() => {
