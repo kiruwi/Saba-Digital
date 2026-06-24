@@ -86,8 +86,17 @@ const handleContact = async (
   }
 
   const origin = request.headers.get("Origin");
-  if (env.ALLOWED_ORIGIN && origin && origin !== env.ALLOWED_ORIGIN) {
-    return json({ error: "Origin is not allowed." }, 403);
+  if (origin) {
+    const requestOrigin = new URL(request.url).origin;
+    const configuredOrigins = (env.ALLOWED_ORIGIN ?? "")
+      .split(",")
+      .map((value) => value.trim())
+      .filter(Boolean);
+    const allowedOrigins = new Set([requestOrigin, ...configuredOrigins]);
+
+    if (!allowedOrigins.has(origin)) {
+      return json({ error: "Origin is not allowed." }, 403);
+    }
   }
 
   const contentLength = Number(request.headers.get("Content-Length") ?? "0");

@@ -46,6 +46,10 @@ The committed Worker variables send enquiries to `iankcheruiyot@gmail.com`
 from `Saba Digital <contact@iancheruiyot.work>`. Update `wrangler.jsonc` if
 either address changes.
 
+`ALLOWED_ORIGIN` may contain a comma-separated list of additional trusted
+origins. Same-origin submissions are always accepted, including Cloudflare
+preview and `workers.dev` URLs.
+
 For local Worker development, copy `.dev.vars.example` to `.dev.vars` and
 provide development credentials. `.dev.vars` is ignored by Git.
 
