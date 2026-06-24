@@ -8,7 +8,6 @@ import React, {
   FC,
   useMemo,
 } from "react";
-import meImage from "../../images/me.webp";
 import LightRays from "../LightRays/LightRays";
 import {
   ServiceVideoIcon,
@@ -23,10 +22,6 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import { FiArrowUpRight } from "react-icons/fi";
-import {
-  buildOptimizedImageUrl,
-  buildSrcSet,
-} from "../../utils/imageOptimizer";
 
 // Service items for the portfolio popup grid (first row visible, more rows lazy-load)
 export const SERVICE_ITEMS = [
@@ -134,9 +129,15 @@ const baseTitle = `
 `;
 
 // Serve higher-res source sets to reduce aliasing on retina/large screens
-const HERO_IMAGE_WIDTHS = [480, 720, 960, 1280, 1600];
 const HERO_SIZES = "(max-width: 1000px) 85vw, 528px";
-const HERO_IMAGE_DIMENSION = 1600;
+const HERO_IMAGE_DIMENSION = 1200;
+const HERO_IMAGE_FALLBACK = "/images/optimized/portrait/ian-720.webp";
+const HERO_IMAGE_SRC_SET = [
+  "/images/optimized/portrait/ian-480.webp 480w",
+  "/images/optimized/portrait/ian-720.webp 720w",
+  "/images/optimized/portrait/ian-960.webp 960w",
+  "/images/optimized/portrait/ian-1200.webp 1200w",
+].join(", ");
 const PORTFOLIO_CARD_SIZES = "(max-width: 1000px) calc(100vw - 32px), 320px";
 const PORTFOLIO_CARD_IMAGE_DIMENSION = 800;
 type PortfolioCardImageAsset = {
@@ -147,7 +148,6 @@ type PortfolioCardImageAsset = {
   sizes: string;
   width: number;
   height: number;
-  preloadSrc: string;
 };
 type PortfolioCardVisualAsset = PortfolioCardImageAsset | null;
 
@@ -512,42 +512,9 @@ const HeroSection: FC = () => {
   const [, setScrollIndicatorVisible] = useState(true); // scroll indicator removed
 
   const heroImageSources = useMemo(() => {
-    const fallbackSrc = buildOptimizedImageUrl(meImage, {
-      width: HERO_IMAGE_DIMENSION,
-      quality: 90,
-      fit: "inside",
-    });
-
-    const pngSrcSet = buildSrcSet(meImage, HERO_IMAGE_WIDTHS, {
-      quality: 90,
-      fit: "inside",
-    });
-
-    const webpSrcSet = buildSrcSet(meImage, HERO_IMAGE_WIDTHS, {
-      quality: 85,
-      fit: "inside",
-      format: "webp",
-    });
-
-    const avifSrcSet = buildSrcSet(meImage, HERO_IMAGE_WIDTHS, {
-      quality: 80,
-      fit: "inside",
-      format: "avif",
-    });
-
-    const preload = buildOptimizedImageUrl(meImage, {
-      width: HERO_IMAGE_DIMENSION,
-      quality: 80,
-      fit: "inside",
-      format: "avif",
-    });
-
     return {
-      fallbackSrc,
-      pngSrcSet,
-      webpSrcSet,
-      avifSrcSet,
-      preload,
+      fallbackSrc: HERO_IMAGE_FALLBACK,
+      webpSrcSet: HERO_IMAGE_SRC_SET,
       sizes: HERO_SIZES,
       width: HERO_IMAGE_DIMENSION,
       height: HERO_IMAGE_DIMENSION,
@@ -569,81 +536,10 @@ const HeroSection: FC = () => {
           sizes: PORTFOLIO_CARD_SIZES,
           width: PORTFOLIO_CARD_IMAGE_DIMENSION,
           height: PORTFOLIO_CARD_IMAGE_DIMENSION,
-          preloadSrc: visual.src,
         };
       }),
     []
   );
-
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    if (!heroImageSources.preload) return;
-    const existing = document.head.querySelector<HTMLLinkElement>(
-      'link[data-hero-preload="portrait"]'
-    );
-    if (existing) {
-      if (existing.href !== heroImageSources.preload) {
-        existing.href = heroImageSources.preload;
-      }
-      return;
-    }
-
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "image";
-    link.href = heroImageSources.preload;
-    link.fetchPriority = "high";
-    link.setAttribute("data-hero-preload", "portrait");
-    document.head.appendChild(link);
-
-    return () => {
-      if (link.parentNode) {
-        link.parentNode.removeChild(link);
-      }
-    };
-  }, [heroImageSources.preload]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const preloadImages = () => {
-      portfolioCardImages.forEach((imageAsset) => {
-        if (!imageAsset?.preloadSrc) return;
-        const image = new Image();
-        image.decoding = "async";
-        image.src = imageAsset.preloadSrc;
-      });
-    };
-
-    let idleHandle: number | undefined;
-    const supportsIdleCallback = "requestIdleCallback" in window;
-
-    if (supportsIdleCallback) {
-      idleHandle = (
-        window as typeof window & {
-          requestIdleCallback: (callback: IdleRequestCallback) => number;
-        }
-      ).requestIdleCallback(() => preloadImages());
-    } else {
-      idleHandle = window.setTimeout(preloadImages, 300);
-    }
-
-    return () => {
-      if (
-        supportsIdleCallback &&
-        idleHandle !== undefined &&
-        "cancelIdleCallback" in window
-      ) {
-        (
-          window as typeof window & {
-            cancelIdleCallback: (handle: number) => void;
-          }
-        ).cancelIdleCallback(idleHandle);
-      } else if (idleHandle !== undefined) {
-        window.clearTimeout(idleHandle);
-      }
-    };
-  }, [portfolioCardImages]);
 
   // hide scroll arrow when popup expanded
   useEffect(() => {
@@ -1074,13 +970,6 @@ const HeroSection: FC = () => {
 
         {/* mobile photo */}
         <MobilePortrait>
-          {heroImageSources.avifSrcSet && (
-            <source
-              type="image/avif"
-              srcSet={heroImageSources.avifSrcSet}
-              sizes={heroImageSources.sizes}
-            />
-          )}
           {heroImageSources.webpSrcSet && (
             <source
               type="image/webp"
@@ -1091,19 +980,12 @@ const HeroSection: FC = () => {
           <MobileImg
             src={heroImageSources.fallbackSrc}
             alt="Ian Cheruiyot"
-            srcSet={heroImageSources.pngSrcSet}
             sizes={heroImageSources.sizes}
             width={heroImageSources.width}
             height={heroImageSources.height}
             loading="eager"
             decoding="async"
             fetchPriority="high"
-            onError={(e) => {
-              if (e.currentTarget.src !== meImage) {
-                e.currentTarget.src = meImage; // fall back to bundled asset if CDN fails
-                e.currentTarget.srcset = "";
-              }
-            }}
           />
         </MobilePortrait>
 
@@ -1112,13 +994,6 @@ const HeroSection: FC = () => {
             {/* Desktop portrait image as the first slide */}
             <Slide>
               <DesktopPortrait>
-                {heroImageSources.avifSrcSet && (
-                  <source
-                    type="image/avif"
-                    srcSet={heroImageSources.avifSrcSet}
-                    sizes={heroImageSources.sizes}
-                  />
-                )}
                 {heroImageSources.webpSrcSet && (
                   <source
                     type="image/webp"
@@ -1129,19 +1004,12 @@ const HeroSection: FC = () => {
                 <DesktopImg
                   src={heroImageSources.fallbackSrc}
                   alt="Ian Cheruiyot"
-                  srcSet={heroImageSources.pngSrcSet}
                   sizes={heroImageSources.sizes}
                   width={heroImageSources.width}
                   height={heroImageSources.height}
                   loading="eager"
                   decoding="async"
                   fetchPriority="high"
-                  onError={(e) => {
-                    if (e.currentTarget.src !== meImage) {
-                      e.currentTarget.src = meImage; // fall back to bundled asset if CDN fails
-                      e.currentTarget.srcset = "";
-                    }
-                  }}
                 />
                 </DesktopPortrait>
               </Slide>

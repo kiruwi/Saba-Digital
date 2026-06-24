@@ -6,9 +6,9 @@ import React, {
   useState,
   useEffect,
 } from "react";
-import reviewerImage1 from "../../images/testimonials/mark.jpg";
-import reviewerImage2 from "../../images/testimonials/taita.jpeg";
-import reviewerImage3 from "../../images/testimonials/kamau.jpeg";
+const reviewerImage1 = "/images/optimized/testimonials/mark-160.webp";
+const reviewerImage2 = "/images/optimized/testimonials/taita-160.webp";
+const reviewerImage3 = "/images/optimized/testimonials/kamau-160.webp";
 
 export type Review = {
   id: string;
@@ -86,6 +86,8 @@ const ReviewCard: React.FC<{ review: Review }> = memo(({ review }) => (
             className="w-full h-full rounded-full object-cover"
             loading="lazy"
             decoding="async"
+            width={160}
+            height={160}
           />
         ) : (
           review.reviewerName.charAt(0).toUpperCase()
