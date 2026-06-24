@@ -543,7 +543,6 @@ const HeroSection: FC = () => {
         if (visual.kind !== "image") return null;
 
         // Keep portfolio card media identical across local and production.
-        // Netlify cover transforms can over-crop or degrade these square previews.
         return {
           fallbackSrc: visual.src,
           pngSrcSet: "",

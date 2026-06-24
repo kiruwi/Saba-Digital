@@ -25,6 +25,11 @@ yarn-error.log*
 # Local Netlify folder
 .netlify
 
+# Local tool state and generated audits
+.claude/
+.codex
+lighthouse*.json
+
 # Backup files
 *.backup
 *.bak
