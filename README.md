@@ -44,13 +44,9 @@ npx wrangler secret put TURNSTILE_SECRET_KEY
 The public Turnstile site key is committed in `wrangler.jsonc` so Git-based
 deployments keep it synchronized.
 
-Until the sending domain is verified, the Worker sends enquiries to
-`iankcheruiyot@gmail.com` from Resend's testing address
-`Saba Digital <onboarding@resend.dev>`. This only works when the destination
-matches the email address on the Resend account.
-
-After Resend verifies `iankcheruiyot.work`, change `CONTACT_FROM_EMAIL` in
-`wrangler.jsonc` to `Saba Digital <contact@iankcheruiyot.work>`.
+The Worker sends enquiries to `iankcheruiyot@gmail.com` from the verified
+Resend subdomain address
+`Saba Digital <contact@info.iankcheruiyot.work>`.
 
 `ALLOWED_ORIGIN` may contain a comma-separated list of additional trusted
 origins. Same-origin submissions are always accepted, including Cloudflare
