@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Clarity from "@microsoft/clarity";
+import { updateGoogleConsent } from "../utils/analytics";
 
 const CONSENT_KEY = "cookie_consent_v2";
 const CLARITY_ID = "s22e2bgovv";
@@ -72,18 +73,24 @@ function readConsent(): StoredConsent | null {
 }
 
 function writeConsent(status: ConsentStatus) {
-  const payload: StoredConsent = { status, updatedAt: new Date().toISOString(), version: 1 };
+  const payload: StoredConsent = { status, updatedAt: new Date().toISOString(), version: 2 };
   localStorage.setItem(CONSENT_KEY, JSON.stringify(payload));
 }
 
 const clarityAvailable = () => typeof (window as any).clarity === "function";
 
+function setClarityConsent(status: "granted" | "denied") {
+  (window as any).clarity?.("consentv2", {
+    ad_Storage: status,
+    analytics_Storage: status,
+  });
+}
+
 /** Initialize Clarity only after explicit consent. */
 function initClarityAfterConsent() {
   try {
     Clarity.init(CLARITY_ID);
-    // Grant consent and send a lightweight debug event to verify wiring in DevTools
-    (window as any).clarity?.("consent", true);
+    setClarityConsent("granted");
     (window as any).clarity?.("event", "cookie_accept");
   } catch { /* no-op */ }
 }
@@ -92,7 +99,7 @@ function initClarityAfterConsent() {
 function setClarityDenied() {
   try {
     if (clarityAvailable()) {
-      (window as any).clarity("consent", false);
+      setClarityConsent("denied");
       (window as any).clarity("event", "cookie_reject");
     }
   } catch { /* no-op */ }
@@ -107,8 +114,14 @@ const CookieBanner: React.FC = () => {
   // Show banner only if no stored choice
   useEffect(() => {
     const stored = readConsent();
-    if (stored?.status === "accepted") initClarityAfterConsent();
-    if (stored?.status === "rejected") setClarityDenied();
+    if (stored?.status === "accepted") {
+      updateGoogleConsent(true);
+      initClarityAfterConsent();
+    }
+    if (stored?.status === "rejected") {
+      updateGoogleConsent(false);
+      setClarityDenied();
+    }
   }, []);
 
   // Focus trap + Esc (kept modal) + restore focus
@@ -174,12 +187,14 @@ const CookieBanner: React.FC = () => {
   const accept = () => {
     writeConsent("accepted");
     setOpen(false);
+    updateGoogleConsent(true);
     initClarityAfterConsent();
   };
 
   const reject = () => {
     writeConsent("rejected");
     setOpen(false);
+    updateGoogleConsent(false);
     setClarityDenied();
   };
 

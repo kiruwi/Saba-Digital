@@ -8,17 +8,22 @@ import { useLocation } from 'react-router-dom';
 // Extend the Window interface to include gtag
 declare global {
   interface Window {
-    gtag?: (
-      command: 'config' | 'event' | 'js' | 'set',
-      targetId: string | Date | Record<string, any>,
-      config?: Record<string, any>
-    ) => void;
+    gtag?: (...args: any[]) => void;
   }
 }
 
 interface EventParams {
   [key: string]: string | number | boolean;
 }
+
+export const updateGoogleConsent = (granted: boolean): void => {
+  window.gtag?.('consent', 'update', {
+    ad_storage: granted ? 'granted' : 'denied',
+    ad_user_data: granted ? 'granted' : 'denied',
+    ad_personalization: granted ? 'granted' : 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+  });
+};
 
 // Track page views in Google Analytics for SPAs
 export const trackPageView = (path: string): void => {
