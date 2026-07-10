@@ -28,25 +28,25 @@ Cloudflare build settings:
 ## Contact form
 
 The contact form posts to the Cloudflare Worker endpoint at `/api/contact`.
-Turnstile validates submissions and Resend delivers them by email.
+Turnstile validates submissions and Brevo SMTP delivers them by email.
 
 Before deploying:
 
 1. Create a Turnstile widget for `iankcheruiyot.work`.
-2. Verify `iankcheruiyot.work` as a sending domain in Resend.
+2. Verify `info@iankcheruiyot.work` as a sender in Brevo.
 3. Add these secrets to the `my-portfolio` Worker:
 
 ```bash
-npx wrangler secret put RESEND_API_KEY
+npx wrangler secret put SMTP_USERNAME
+npx wrangler secret put SMTP_PASSWORD
 npx wrangler secret put TURNSTILE_SECRET_KEY
 ```
 
 The public Turnstile site key is committed in `wrangler.jsonc` so Git-based
 deployments keep it synchronized.
 
-The Worker sends enquiries to `iankcheruiyot@gmail.com` from the verified
-Resend subdomain address
-`Saba Digital <contact@info.iankcheruiyot.work>`.
+The Worker sends enquiries from `info@iankcheruiyot.work` to
+`iankcheruiyot@gmail.com` through `smtp-relay.brevo.com:587` using STARTTLS.
 
 `ALLOWED_ORIGIN` may contain a comma-separated list of additional trusted
 origins. Same-origin submissions are always accepted, including Cloudflare

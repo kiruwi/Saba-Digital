@@ -12,7 +12,9 @@
   "vars": {
     "ALLOWED_ORIGIN": "https://iankcheruiyot.work",
     "CONTACT_TO_EMAIL": "iankcheruiyot@gmail.com",
-    "CONTACT_FROM_EMAIL": "Saba Digital <ian@info.iankcheruiyot.work>",
+    "CONTACT_FROM_EMAIL": "info@iankcheruiyot.work",
+    "SMTP_HOST": "smtp-relay.brevo.com",
+    "SMTP_PORT": "587",
     "TURNSTILE_SITE_KEY": "0x4AAAAAADqcSVcD_4_DGAPg"
   }
 }

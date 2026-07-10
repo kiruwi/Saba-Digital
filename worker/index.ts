@@ -1,14 +1,19 @@
+import { connect } from "cloudflare:sockets";
+
 interface AssetsBinding {
   fetch(request: Request): Promise<Response>;
 }
 
 interface Env {
   ASSETS: AssetsBinding;
-  RESEND_API_KEY?: string;
   TURNSTILE_SECRET_KEY?: string;
   TURNSTILE_SITE_KEY?: string;
   CONTACT_TO_EMAIL?: string;
   CONTACT_FROM_EMAIL?: string;
+  SMTP_HOST?: string;
+  SMTP_PORT?: string;
+  SMTP_USERNAME?: string;
+  SMTP_PASSWORD?: string;
   ALLOWED_ORIGIN?: string;
 }
 
@@ -46,6 +51,229 @@ const escapeHtml = (value: string): string =>
 const isValidEmail = (value: string): boolean =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
+const encoder = new TextEncoder();
+
+const toBase64 = (value: string): string => {
+  const bytes = encoder.encode(value);
+  let binary = "";
+
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte);
+  }
+
+  return btoa(binary);
+};
+
+const toBase64Lines = (value: string): string =>
+  toBase64(value).match(/.{1,76}/g)?.join("\r\n") ?? "";
+
+const createContactEmail = (
+  from: string,
+  to: string,
+  replyTo: string,
+  name: string,
+  subject: string,
+  message: string
+): string => {
+  const safeSubject = subject || "Portfolio enquiry";
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(replyTo);
+  const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
+  const text = `${safeSubject}\n\nFrom: ${name} <${replyTo}>\n\n${message}`;
+  const html = `
+    <h2>${escapeHtml(safeSubject)}</h2>
+    <p><strong>From:</strong> ${safeName} (${safeEmail})</p>
+    <p>${safeMessage}</p>
+  `;
+  const boundary = `contact-${crypto.randomUUID()}`;
+  const messageIdDomain = from.split("@")[1];
+
+  return [
+    `From: Saba Digital <${from}>`,
+    `To: ${to}`,
+    `Reply-To: ${replyTo}`,
+    `Subject: =?UTF-8?B?${toBase64(safeSubject)}?=`,
+    `Date: ${new Date().toUTCString()}`,
+    `Message-ID: <${crypto.randomUUID()}@${messageIdDomain}>`,
+    "MIME-Version: 1.0",
+    `Content-Type: multipart/alternative; boundary=\"${boundary}\"`,
+    "",
+    `--${boundary}`,
+    'Content-Type: text/plain; charset="UTF-8"',
+    "Content-Transfer-Encoding: base64",
+    "",
+    toBase64Lines(text),
+    `--${boundary}`,
+    'Content-Type: text/html; charset="UTF-8"',
+    "Content-Transfer-Encoding: base64",
+    "",
+    toBase64Lines(html),
+    `--${boundary}--`,
+    "",
+  ].join("\r\n");
+};
+
+interface SmtpResponse {
+  code: number;
+  lines: string[];
+}
+
+class SmtpSession {
+  private reader: ReadableStreamDefaultReader<Uint8Array>;
+  private writer: WritableStreamDefaultWriter<Uint8Array>;
+  private decoder = new TextDecoder();
+  private buffer = "";
+
+  constructor(
+    private socket: ReturnType<typeof connect>
+  ) {
+    this.reader = socket.readable.getReader();
+    this.writer = socket.writable.getWriter();
+  }
+
+  async close(): Promise<void> {
+    await this.socket.close();
+  }
+
+  async upgradeToTls(): Promise<SmtpSession> {
+    this.reader.releaseLock();
+    this.writer.releaseLock();
+    return new SmtpSession(this.socket.startTls());
+  }
+
+  async command(command: string): Promise<SmtpResponse> {
+    await this.writer.write(encoder.encode(`${command}\r\n`));
+    return this.readResponse();
+  }
+
+  async writeData(data: string): Promise<SmtpResponse> {
+    const dotStuffed = data.replace(/(^|\r\n)\./g, "$1..");
+    await this.writer.write(encoder.encode(`${dotStuffed}\r\n.\r\n`));
+    return this.readResponse();
+  }
+
+  private async readLine(): Promise<string> {
+    while (true) {
+      const lineEnd = this.buffer.indexOf("\r\n");
+      if (lineEnd !== -1) {
+        const line = this.buffer.slice(0, lineEnd);
+        this.buffer = this.buffer.slice(lineEnd + 2);
+        return line;
+      }
+
+      const { value, done } = await this.reader.read();
+      if (done) {
+        throw new Error("SMTP server closed the connection unexpectedly.");
+      }
+
+      this.buffer += this.decoder.decode(value, { stream: true });
+    }
+  }
+
+  async readResponse(): Promise<SmtpResponse> {
+    const lines: string[] = [];
+    const firstLine = await this.readLine();
+    const match = /^(\d{3})([ -])/.exec(firstLine);
+
+    if (!match) {
+      throw new Error("SMTP server returned an invalid response.");
+    }
+
+    const code = Number(match[1]);
+    lines.push(firstLine);
+
+    if (match[2] === "-") {
+      while (true) {
+        const line = await this.readLine();
+        lines.push(line);
+        if (line.startsWith(`${code} `)) break;
+      }
+    }
+
+    return { code, lines };
+  }
+}
+
+const expectSmtpResponse = (
+  response: SmtpResponse,
+  expectedCodes: number[]
+): void => {
+  if (!expectedCodes.includes(response.code)) {
+    throw new Error(`SMTP command failed with status ${response.code}.`);
+  }
+};
+
+const sendWithSmtp = async (
+  env: Env,
+  name: string,
+  email: string,
+  subject: string,
+  message: string
+): Promise<void> => {
+  const host = env.SMTP_HOST?.trim();
+  const port = Number(env.SMTP_PORT);
+  const from = env.CONTACT_FROM_EMAIL?.trim();
+  const to = env.CONTACT_TO_EMAIL?.trim();
+  const username = env.SMTP_USERNAME?.trim();
+  const password = env.SMTP_PASSWORD;
+
+  if (
+    !host ||
+    !Number.isInteger(port) ||
+    port < 1 ||
+    port > 65535 ||
+    !from ||
+    !isValidEmail(from) ||
+    !to ||
+    !isValidEmail(to) ||
+    !username ||
+    !password
+  ) {
+    throw new Error("SMTP is not configured.");
+  }
+
+  let session = new SmtpSession(
+    connect(
+      { hostname: host, port },
+      { secureTransport: "starttls" }
+    )
+  );
+
+  try {
+    expectSmtpResponse(await session.readResponse(), [220]);
+    const ehloResponse = await session.command("EHLO iankcheruiyot.work");
+    expectSmtpResponse(ehloResponse, [250]);
+
+    if (!ehloResponse.lines.some((line) => /\bSTARTTLS\b/i.test(line))) {
+      throw new Error("SMTP server does not support STARTTLS.");
+    }
+
+    expectSmtpResponse(await session.command("STARTTLS"), [220]);
+    session = await session.upgradeToTls();
+
+    expectSmtpResponse(
+      await session.command("EHLO iankcheruiyot.work"),
+      [250]
+    );
+    expectSmtpResponse(await session.command("AUTH LOGIN"), [334]);
+    expectSmtpResponse(await session.command(toBase64(username)), [334]);
+    expectSmtpResponse(await session.command(toBase64(password)), [235]);
+
+    expectSmtpResponse(await session.command(`MAIL FROM:<${from}>`), [250]);
+    expectSmtpResponse(await session.command(`RCPT TO:<${to}>`), [250, 251]);
+    expectSmtpResponse(await session.command("DATA"), [354]);
+    expectSmtpResponse(
+      await session.writeData(
+        createContactEmail(from, to, email, name, subject, message)
+      ),
+      [250]
+    );
+    expectSmtpResponse(await session.command("QUIT"), [221]);
+  } finally {
+    await session.close().catch(() => undefined);
+  }
+};
+
 const verifyTurnstile = async (
   token: string,
   request: Request,
@@ -77,10 +305,13 @@ const handleContact = async (
   env: Env
 ): Promise<Response> => {
   if (
-    !env.RESEND_API_KEY ||
     !env.TURNSTILE_SECRET_KEY ||
     !env.CONTACT_TO_EMAIL ||
-    !env.CONTACT_FROM_EMAIL
+    !env.CONTACT_FROM_EMAIL ||
+    !env.SMTP_HOST ||
+    !env.SMTP_PORT ||
+    !env.SMTP_USERNAME ||
+    !env.SMTP_PASSWORD
   ) {
     return json({ error: "Contact service is not configured." }, 503);
   }
@@ -149,52 +380,14 @@ const handleContact = async (
     return json({ error: "Security verification failed." }, 400);
   }
 
-  const safeName = escapeHtml(name);
-  const safeEmail = escapeHtml(email);
-  const safeSubject = escapeHtml(subject || "Portfolio enquiry");
-  const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
-
-  const resendResponse = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${env.RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: env.CONTACT_FROM_EMAIL,
-      to: [env.CONTACT_TO_EMAIL],
-      reply_to: email,
-      subject: `Portfolio enquiry: ${subject || "New message"}`,
-      html: `
-        <h2>${safeSubject}</h2>
-        <p><strong>From:</strong> ${safeName} (${safeEmail})</p>
-        <p>${safeMessage}</p>
-      `,
-      text: `${subject || "Portfolio enquiry"}\n\nFrom: ${name} <${email}>\n\n${message}`,
-    }),
-  });
-
-  if (!resendResponse.ok) {
-    const resendErrorText = await resendResponse.text();
-    let clientMessage = "Email provider rejected the message.";
-
-    try {
-      const resendError = JSON.parse(resendErrorText) as { message?: string };
-      if (
-        resendResponse.status === 403 &&
-        resendError.message?.toLowerCase().includes("domain")
-      ) {
-        clientMessage = "The sender domain is not verified in Resend.";
-      }
-    } catch {
-      // Keep the generic client-safe message when Resend does not return JSON.
-    }
-
-    console.error("Resend rejected contact email", {
-      status: resendResponse.status,
-      body: resendErrorText,
-    });
-    return json({ error: clientMessage }, 502);
+  try {
+    await sendWithSmtp(env, name, email, subject, message);
+  } catch (error) {
+    console.error(
+      "Brevo SMTP rejected contact email",
+      error instanceof Error ? error.message : "Unknown SMTP error"
+    );
+    return json({ error: "Email delivery failed. Please try again later." }, 502);
   }
 
   return json({ ok: true });
