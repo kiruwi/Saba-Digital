@@ -29,8 +29,8 @@ const Footer: React.FC = () => {
             </FooterLinkItems>
             <FooterLinkItems>
               <FooterLinkTitle>Lets Talk</FooterLinkTitle>
-              <FooterLink to="/contact">+254 704 456 165</FooterLink>
-              <FooterLink to="/contact">iankcheruiyot@gmail.com</FooterLink>
+              <FooterLink to="/contact">+254 710 911 168</FooterLink>
+              <FooterLink to="/contact">info@iankcheruiyot.work</FooterLink>
             </FooterLinkItems>
             <FooterLinkItems>
               <FooterLinkTitle>Explore</FooterLinkTitle>
