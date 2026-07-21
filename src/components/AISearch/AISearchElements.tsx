@@ -112,7 +112,10 @@ export const SuggestionsContainer = styled.div<{ theme?: any }>`
   overflow-y: auto;
 `;
 
-export const SuggestionItem = styled.div<{ theme?: any }>`
+export const SuggestionItem = styled.button.attrs({ type: 'button' })<{ theme?: any }>`
+  width: 100%;
+  border: 0;
+  text-align: left;
   padding: 12px 20px;
   color: ${props => props.theme?.colors?.text || '#333'};
   cursor: pointer;
@@ -143,7 +146,8 @@ export const FilterBar = styled.div<{ theme?: any }>`
     : 'rgba(0, 0, 0, 0.02)'};
 `;
 
-export const FilterChip = styled.div<{ theme?: any }>`
+export const FilterChip = styled.button.attrs({ type: 'button' })<{ theme?: any }>`
+  border: 0;
   background: ${props => props.theme?.colors?.primary || '#2db670'};
   color: white;
   padding: 6px 12px;
@@ -195,6 +199,22 @@ export const ResultCard = styled.div<{ theme?: any }>`
   &:last-child {
     border-bottom: none;
   }
+`;
+
+export const DialogCloseButton = styled.button.attrs({ type: 'button' })<{ theme?: any }>`
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  border: 0;
+  border-radius: 50%;
+  color: ${props => props.theme?.colors?.text || '#333'};
+  background: ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
+    ? 'rgba(255, 255, 255, 0.08)'
+    : 'rgba(0, 0, 0, 0.06)'};
 `;
 
 export const ResultImage = styled.img<{ theme?: any }>`

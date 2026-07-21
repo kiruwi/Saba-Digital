@@ -9,3 +9,15 @@
   X-Permitted-Cross-Domain-Policies: none
   Permissions-Policy: camera=(), microphone=(), geolocation=(), fullscreen=(), payment=()
   Content-Security-Policy: default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://*.googletagmanager.com https://www.youtube.com https://www.youtube-nocookie.com https://www.clarity.ms https://scripts.clarity.ms https://challenges.cloudflare.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://i.ytimg.com https://bat.bing.com https://*.clarity.ms; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.youtube.com https://www.youtube-nocookie.com https://*.clarity.ms https://bat.bing.com https://challenges.cloudflare.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://challenges.cloudflare.com; upgrade-insecure-requests;
+
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/font/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+/assets/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/images/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400

@@ -29,8 +29,7 @@ export const preloadSectionImages = async (section: string): Promise<void> => {
   try {
     await preloadImages(sources);
   } catch (error) {
-    if (process.env.NODE_ENV === "development") {
-      // eslint-disable-next-line no-console
+    if (import.meta.env.DEV) {
       console.warn(`Failed to preload images for ${section}:`, error);
     }
   }

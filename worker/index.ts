@@ -1,3 +1,5 @@
+/// <reference types="@cloudflare/workers-types" />
+
 import { connect } from "cloudflare:sockets";
 
 interface AssetsBinding {
@@ -26,6 +28,132 @@ interface ContactPayload {
   website?: unknown;
 }
 
+interface RouteMetadata {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  type?: "website" | "article";
+  noIndex?: boolean;
+}
+
+const SITE_URL = "https://iankcheruiyot.work";
+const SOCIAL_IMAGE = `${SITE_URL}/images/optimized/portrait/ian-1200.webp`;
+const DEFAULT_KEYWORDS =
+  "Saba Digital, UX/UI Design, Web Development, Branding, Graphic Design, Nairobi";
+
+const routeMetadata: Record<string, RouteMetadata> = {
+  "/": {
+    title: "Saba Digital | UX/UI, Web Development & Branding",
+    description:
+      "Saba Digital is the portfolio of Ian K. Cheruiyot, showcasing UX/UI design, web development, branding, ad design, and motion graphics work.",
+    canonicalPath: "/",
+  },
+  "/work": {
+    title: "Work | Saba Digital Portfolio",
+    description:
+      "Explore Saba Digital case studies across graphics, UX/UI, web development, ad design, and motion graphics.",
+    canonicalPath: "/work",
+  },
+  "/work/graphics": {
+    title: "Branding & Graphics Projects",
+    description:
+      "Brand identity, visual design, and rebranding projects by Saba Digital.",
+    canonicalPath: "/work/graphics",
+  },
+  "/work/ux-ui": {
+    title: "UX/UI Projects",
+    description:
+      "UX/UI case studies by Saba Digital, including user research, product design, and interface redesign projects.",
+    canonicalPath: "/work/ux-ui",
+  },
+  "/work/web-dev": {
+    title: "Web Development Projects",
+    description:
+      "Web development portfolio by Saba Digital, including business websites and conversion-focused digital experiences.",
+    canonicalPath: "/work/web-dev",
+  },
+  "/work/ad-design": {
+    title: "Ad Design Projects",
+    description: "Ad creative and campaign design portfolio from Saba Digital.",
+    canonicalPath: "/work/ad-design",
+  },
+  "/work/motion": {
+    title: "Motion Graphics Projects",
+    description: "Motion graphics and animation projects from Saba Digital.",
+    canonicalPath: "/work/motion",
+  },
+  "/contact": {
+    title: "Contact Saba Digital",
+    description:
+      "Contact Ian K. Cheruiyot at Saba Digital for UX/UI design, web development, branding, ad design, and motion graphics projects.",
+    canonicalPath: "/contact",
+  },
+  "/contactus": {
+    title: "Contact Saba Digital",
+    description:
+      "Contact Ian K. Cheruiyot at Saba Digital for UX/UI design, web development, branding, ad design, and motion graphics projects.",
+    canonicalPath: "/contact",
+  },
+  "/privacy": {
+    title: "Privacy Policy",
+    description: "Privacy policy for Saba Digital and iankcheruiyot.work.",
+    canonicalPath: "/privacy",
+  },
+  "/cookies": {
+    title: "Cookie Policy",
+    description: "Cookie policy for Saba Digital and iankcheruiyot.work.",
+    canonicalPath: "/cookies",
+  },
+  "/work/ux-ui/ufanisi-resort": {
+    title: "Ufanisi Resort | UX/UI Case Study",
+    description:
+      "A UX/UI redesign case study for Ufanisi Resort covering research, prototyping, usability, and visual design.",
+    canonicalPath: "/work/ux-ui/ufanisi-resort",
+    type: "article",
+  },
+  "/work/web-dev/makvo-llc": {
+    title: "Makvo LLC | Web Development Case Study",
+    description:
+      "Corporate website for Makvo with responsive design and modern UI elements.",
+    canonicalPath: "/work/web-dev/makvo-llc",
+    type: "article",
+  },
+  "/work/web-dev/mutai-enterprises": {
+    title: "Mutai Enterprises Limited | Web Development Case Study",
+    description:
+      "Freight forwarding and logistics website for a Kenyan transport company.",
+    canonicalPath: "/work/web-dev/mutai-enterprises",
+    type: "article",
+  },
+  "/work/web-dev/eve-on-safari": {
+    title: "Eve On Safari | Web Development Case Study",
+    description:
+      "Tanzania safari planning website with curated itineraries, travel styles, and custom trip requests.",
+    canonicalPath: "/work/web-dev/eve-on-safari",
+    type: "article",
+  },
+  "/work/graphics/gsc-hauling": {
+    title: "GSC Hauling | Branding & Graphics Case Study",
+    description:
+      "In-house graphic design and brand identity work for a professional hauling company.",
+    canonicalPath: "/work/graphics/gsc-hauling",
+    type: "article",
+  },
+  "/work/graphics/osim-lai-branding": {
+    title: "Osim Lai Brand Identity | Branding & Graphics Case Study",
+    description: "Complete brand identity design for a lifestyle company.",
+    canonicalPath: "/work/graphics/osim-lai-branding",
+    type: "article",
+  },
+  "/work/graphics/synnefa-rebrand": {
+    title: "Synnefa Rebrand & 3D | Branding & Graphics Case Study",
+    description:
+      "A technology brand refresh with identity design and 3D product visualization.",
+    canonicalPath: "/work/graphics/synnefa-rebrand",
+    type: "article",
+  },
+};
+
 const json = (body: unknown, status = 200): Response =>
   Response.json(body, {
     status,
@@ -47,6 +175,53 @@ const escapeHtml = (value: string): string =>
         "'": "&#039;",
       })[character] ?? character
   );
+
+const normalizePathname = (pathname: string): string => {
+  if (pathname === "/index.html") return "/";
+  if (pathname.length > 1 && pathname.endsWith("/")) {
+    return pathname.slice(0, -1);
+  }
+  return pathname;
+};
+
+const renderMetadata = (metadata: RouteMetadata): string => {
+  const canonicalUrl = `${SITE_URL}${metadata.canonicalPath}`;
+  const title = escapeHtml(metadata.title);
+  const description = escapeHtml(metadata.description);
+  const robots = metadata.noIndex ? "noindex, nofollow" : "index, follow";
+
+  return [
+    `<title>${title}</title>`,
+    `<meta name="description" content="${description}">`,
+    `<meta name="keywords" content="${DEFAULT_KEYWORDS}">`,
+    `<meta name="robots" content="${robots}">`,
+    `<link rel="canonical" href="${canonicalUrl}">`,
+    `<meta property="og:title" content="${title}">`,
+    `<meta property="og:description" content="${description}">`,
+    `<meta property="og:type" content="${metadata.type ?? "website"}">`,
+    `<meta property="og:url" content="${canonicalUrl}">`,
+    `<meta property="og:image" content="${SOCIAL_IMAGE}">`,
+    '<meta name="twitter:card" content="summary_large_image">',
+    `<meta name="twitter:title" content="${title}">`,
+    `<meta name="twitter:description" content="${description}">`,
+    `<meta name="twitter:image" content="${SOCIAL_IMAGE}">`,
+  ].join("");
+};
+
+const applyRouteMetadata = (html: string, metadata: RouteMetadata): string => {
+  const withoutManagedMetadata = html
+    .replace(/<title>[\s\S]*?<\/title>/i, "")
+    .replace(
+      /<meta\s+[^>]*(?:name|property)=["'](?:description|keywords|robots|og:title|og:description|og:type|og:url|og:image|twitter:card|twitter:title|twitter:description|twitter:image)["'][^>]*>/gi,
+      ""
+    )
+    .replace(/<link\s+[^>]*rel=["']canonical["'][^>]*>/gi, "");
+
+  return withoutManagedMetadata.replace(
+    "</head>",
+    `${renderMetadata(metadata)}</head>`
+  );
+};
 
 const isValidEmail = (value: string): boolean =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -235,7 +410,7 @@ const sendWithSmtp = async (
   let session = new SmtpSession(
     connect(
       { hostname: host, port },
-      { secureTransport: "starttls" }
+      { secureTransport: "starttls", allowHalfOpen: false }
     )
   );
 
@@ -413,6 +588,36 @@ export default {
       return json({ error: "Not found." }, 404);
     }
 
-    return env.ASSETS.fetch(request);
+    const assetResponse = await env.ASSETS.fetch(request);
+    const contentType = assetResponse.headers.get("Content-Type") ?? "";
+    const isHtml = contentType.includes("text/html");
+    const isStandaloneHtml = ["/security-policy", "/security-policy.html"].includes(
+      url.pathname
+    );
+
+    if (!isHtml || isStandaloneHtml || !["GET", "HEAD"].includes(request.method)) {
+      return assetResponse;
+    }
+
+    const pathname = normalizePathname(url.pathname);
+    const metadata = routeMetadata[pathname] ?? {
+      title: "Page Not Found | Saba Digital",
+      description: "The requested page could not be found.",
+      canonicalPath: pathname,
+      noIndex: true,
+    };
+    const status = routeMetadata[pathname] ? assetResponse.status : 404;
+    const headers = new Headers(assetResponse.headers);
+
+    if (request.method === "HEAD") {
+      return new Response(null, { status, headers });
+    }
+
+    const html = await assetResponse.text();
+    headers.delete("Content-Length");
+    return new Response(applyRouteMetadata(html, metadata), {
+      status,
+      headers,
+    });
   },
 };

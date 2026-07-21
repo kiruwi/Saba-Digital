@@ -83,7 +83,7 @@ export const createIntersectionObserver = (
  * @param callback Function to execute and measure
  */
 export const measureRenderTime = (componentName: string, callback: () => void): void => {
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.DEV) {
     // Performance timing removed for ESLint compliance
     // Consider using Performance API or React DevTools for profiling
     callback();

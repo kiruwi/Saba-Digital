@@ -111,6 +111,7 @@ const LazyImage: React.FC<LazyImageProps> = ({
           src={src}
           alt={alt}
           onLoad={handleImageLoad}
+          loading="lazy"
           decoding="async"
         />
       )}

@@ -65,8 +65,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = () => {
         window.dispatchEvent(new Event('storage'));
       }
     } catch (error) {
-      if (process.env.NODE_ENV === 'development') {
-        // eslint-disable-next-line no-console
+      if (import.meta.env.DEV) {
         console.error('❌ Error in theme toggle:', error);
       }
       alert('Error toggling theme. See console for details.');

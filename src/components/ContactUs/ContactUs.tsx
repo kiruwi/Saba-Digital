@@ -15,9 +15,9 @@ import {
   TurnstileContainer,
 } from "./ContactElements";
 
-const Result: React.FC = () => <p>Your message has been successfully sent! I'll get back to you soon.</p>;
+const Result: React.FC = () => <p role="status">Your message has been successfully sent! I'll get back to you soon.</p>;
 const ErrorResult: React.FC<{ message: string }> = ({ message }) => (
-  <p style={{ color: "red" }}>{message}</p>
+  <p role="alert" style={{ color: "red" }}>{message}</p>
 );
 
 interface TurnstileApi {
@@ -68,7 +68,6 @@ const ContactUs: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [turnstileSiteKey, setTurnstileSiteKey] = useState<string>("");
   const [turnstileToken, setTurnstileToken] = useState<string>("");
-  const submitTimeRef = useRef<number>(Date.now());
   const turnstileContainerRef = useRef<HTMLDivElement>(null);
   const turnstileWidgetRef = useRef<string | null>(null);
   const [formState, setFormState] = useState<FormState>({
@@ -77,11 +76,6 @@ const ContactUs: React.FC = () => {
     subject: "",
     message: ""
   });
-
-  // Anti-spam timing measure
-  useEffect(() => {
-    submitTimeRef.current = Date.now();
-  }, []);
 
   useEffect(() => {
     const loadConfiguration = async () => {
@@ -226,18 +220,6 @@ const ContactUs: React.FC = () => {
       return;
     }
     
-    // Anti-spam timing check
-    const timeSinceLoad = Date.now() - submitTimeRef.current;
-    if (timeSinceLoad < 1500) {
-      // Form submitted too quickly - likely a bot
-      // Silent bot detection - no logging needed
-      setTimeout(() => {
-        showResult(true);
-        setTimeout(() => showResult(false), 5000);
-      }, 1000);
-      return;
-    }
-
     if (!turnstileToken) {
       showError("Please complete the security verification.");
       return;
@@ -323,8 +305,10 @@ const ContactUs: React.FC = () => {
 
             <FieldsColumn>
 
-            {formErrors.name && <p style={{ color: 'red', fontSize: '12px', margin: '0' }}>{formErrors.name}</p>}
+            <label className="sr-only" htmlFor="contact-name">Your name</label>
+            {formErrors.name && <p id="contact-name-error" role="alert" style={{ color: 'red', fontSize: '12px', margin: '0' }}>{formErrors.name}</p>}
             <FormInput 
+              id="contact-name"
               type="text" 
               name="name" 
               placeholder="Your Name"
@@ -333,9 +317,13 @@ const ContactUs: React.FC = () => {
               maxLength={50}
               value={formState.name}
               onChange={handleChange}
+              aria-invalid={Boolean(formErrors.name)}
+              aria-describedby={formErrors.name ? "contact-name-error" : undefined}
             />
-            {formErrors.email && <p style={{ color: 'red', fontSize: '12px', margin: '0' }}>{formErrors.email}</p>}
+            <label className="sr-only" htmlFor="contact-email">Your email</label>
+            {formErrors.email && <p id="contact-email-error" role="alert" style={{ color: 'red', fontSize: '12px', margin: '0' }}>{formErrors.email}</p>}
             <FormInput 
+              id="contact-email"
               type="email" 
               name="email" 
               placeholder="Your Email"
@@ -345,18 +333,26 @@ const ContactUs: React.FC = () => {
               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
               value={formState.email}
               onChange={handleChange}
+              aria-invalid={Boolean(formErrors.email)}
+              aria-describedby={formErrors.email ? "contact-email-error" : undefined}
             />
-            {formErrors.subject && <p style={{ color: 'red', fontSize: '12px', margin: '0' }}>{formErrors.subject}</p>}
+            <label className="sr-only" htmlFor="contact-subject">Subject</label>
+            {formErrors.subject && <p id="contact-subject-error" role="alert" style={{ color: 'red', fontSize: '12px', margin: '0' }}>{formErrors.subject}</p>}
             <FormInput 
+              id="contact-subject"
               type="text" 
               name="subject" 
               placeholder="Subject" 
               maxLength={100}
               value={formState.subject}
               onChange={handleChange}
+              aria-invalid={Boolean(formErrors.subject)}
+              aria-describedby={formErrors.subject ? "contact-subject-error" : undefined}
             />
-            {formErrors.message && <p style={{ color: 'red', fontSize: '12px', margin: '0' }}>{formErrors.message}</p>}
+            <label className="sr-only" htmlFor="contact-message">Your message</label>
+            {formErrors.message && <p id="contact-message-error" role="alert" style={{ color: 'red', fontSize: '12px', margin: '0' }}>{formErrors.message}</p>}
             <FormInput 
+              id="contact-message"
               as="textarea" 
               rows={5} 
               name="message" 
@@ -365,6 +361,8 @@ const ContactUs: React.FC = () => {
               maxLength={5000}
               value={formState.message}
               onChange={handleChange}
+              aria-invalid={Boolean(formErrors.message)}
+              aria-describedby={formErrors.message ? "contact-message-error" : undefined}
               style={{ 
                 minHeight: '120px', 
                 resize: 'vertical', 
@@ -382,7 +380,7 @@ const ContactUs: React.FC = () => {
               {isSubmitting ? "Sending..." : "Send"}
             </FormButton>
 
-            <FormLabel>
+            <FormLabel as="div" aria-live="polite" aria-atomic="true">
               {result && <Result />}
               {error && <ErrorResult message={error} />}
             </FormLabel>

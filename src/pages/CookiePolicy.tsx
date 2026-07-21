@@ -116,18 +116,19 @@ const CookiePolicy: React.FC = () => {
           <li><strong>Analytics</strong>, Collect anonymous statistics to help us improve the site (e.g. Google Analytics, Microsoft Clarity).</li>
           <li><strong>Performance</strong>, Measure how well pages load and how users interact.</li>
           <li><strong>Advertising</strong>, Used by third-party services (e.g. Microsoft Advertising, Bing) to deliver relevant ads.</li>
+          <li><strong>Embedded media</strong>, YouTube videos are loaded from the privacy-enhanced domain only after you choose to play them.</li>
         </List>
 
         <Subtitle>4. Managing cookies</Subtitle>
         <P>
-          You can control cookies through your browser settings. You can block or delete cookies, but some parts of the site may not
-          function properly if you do.
+          Use the Cookie settings button on this site to accept or reject non-essential analytics. You can also block or delete cookies
+          through your browser settings, although some preferences may no longer be remembered.
         </P>
 
         <Subtitle>5. Consent</Subtitle>
         <P>
-          By using this website, you consent to the use of cookies as outlined in this policy. If you do not agree, you should adjust your
-          browser settings or stop using the site.
+          Necessary storage is used to remember your cookie choice. Google Analytics and Microsoft Clarity are enabled only after you
+          select Accept all; selecting Reject all keeps analytics consent denied.
         </P>
 
         <Subtitle>6. Updates</Subtitle>

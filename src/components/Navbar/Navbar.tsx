@@ -121,7 +121,7 @@ interface MobileDropdownIconProps {
 }
 
 // Styled component for mobile dropdown icon
-const MobileDropdownIcon = styled.div<MobileDropdownIconProps>`
+const MobileDropdownIcon = styled.button<MobileDropdownIconProps>`
   display: none;
   
   @media screen and (max-width: 768px) {
@@ -136,6 +136,8 @@ const MobileDropdownIcon = styled.div<MobileDropdownIconProps>`
     width: 24px;
     height: 24px;
     background-color: transparent;
+    border: 0;
+    padding: 0;
     border-radius: 50%;
     /* Use headingText in light mode for better contrast, and normal text color in dark mode */
     color: ${({ theme }) => theme.theme === 'light' ? theme.colors.headingText : theme.colors.text};
@@ -298,7 +300,15 @@ const Navbar: React.FC<NavbarProps> = ({ toggle, isOpen }) => {
               <FiSearch />
             </MobileSearchButton>
           </MobileSearchTrigger>
-          <MobileDropdownIcon className="mobile-dropdown-icon" $isOpen={isOpen} onClick={toggle}>
+          <MobileDropdownIcon
+            type="button"
+            className="mobile-dropdown-icon"
+            $isOpen={isOpen}
+            onClick={toggle}
+            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+          >
             <FaChevronDown />
           </MobileDropdownIcon>
           <NavMenu>

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import SEO from '../components/SEO';
+import Footer from '../components/Footer/Footer';
 import { useTheme } from '../contexts/ThemeContext';
 
 // Import images from addesign folder
@@ -96,6 +97,7 @@ const AdDesign: React.FC = () => {
           </MasonryGrid>
         </div>
       </Main>
+      <Footer />
     </>
   );
 };

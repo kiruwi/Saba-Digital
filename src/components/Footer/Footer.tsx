@@ -9,6 +9,7 @@ import {
   FooterLinkItems,
   FooterLinkTitle,
   FooterLink,
+  FooterExternalLink,
   SocialMedia,
   SocialMediaWrap,
   WebsiteRights,
@@ -29,8 +30,8 @@ const Footer: React.FC = () => {
             </FooterLinkItems>
             <FooterLinkItems>
               <FooterLinkTitle>Lets Talk</FooterLinkTitle>
-              <FooterLink to="/contact">+254 710 911 168</FooterLink>
-              <FooterLink to="/contact">info@iankcheruiyot.work</FooterLink>
+              <FooterExternalLink href="tel:+254710911168">+254 710 911 168</FooterExternalLink>
+              <FooterExternalLink href="mailto:info@iankcheruiyot.work">info@iankcheruiyot.work</FooterExternalLink>
             </FooterLinkItems>
             <FooterLinkItems>
               <FooterLinkTitle>Explore</FooterLinkTitle>

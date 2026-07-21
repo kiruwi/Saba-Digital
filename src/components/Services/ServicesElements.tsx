@@ -4,6 +4,7 @@ import { FiPlayCircle } from "react-icons/fi";
 import Bg1 from "../../images/ufanisi.webp";
 import Bg2 from "../../images/service2-bg.webp";
 import Bg3 from "../../images/service3-bg.webp";
+import AdDesignImage from "../../images/addesign/eid.webp";
 
 export type ServiceVisual =
   | { kind: "image"; src: string }
@@ -14,7 +15,7 @@ export const serviceVisuals: ServiceVisual[] = [
   { kind: "image", src: Bg1 },
   { kind: "image", src: Bg2 },
   { kind: "image", src: Bg3 },
-  { kind: "image", src: require("../../images/addesign/eid.webp") as string },
+  { kind: "image", src: AdDesignImage },
   { kind: "icon", icon: "video" },
 ];
 

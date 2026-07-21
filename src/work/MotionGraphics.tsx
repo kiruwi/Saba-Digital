@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import SEO from '../components/SEO';
+import Footer from '../components/Footer/Footer';
 import { useTheme } from '../contexts/ThemeContext';
 
 const Main = styled.main`
@@ -47,6 +48,38 @@ const VideoTitle = styled.h3`
   color: ${({ theme }) => theme.colors.text};
 `;
 
+const VideoPlaceholder = styled.button`
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 9 / 16;
+  background: #111;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+`;
+
+const PlayBadge = styled.span`
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-size: 1.7rem;
+`;
+
 // Define types for our YouTube video data
 interface Video {
   id: string;
@@ -57,6 +90,11 @@ interface Video {
 const MotionGraphics: React.FC = () => {
   // Get theme context for styling
   useTheme(); // subscribes to theme context without unused variable
+  const [loadedVideos, setLoadedVideos] = useState<Set<string>>(() => new Set());
+
+  const loadVideo = (id: string) => {
+    setLoadedVideos(current => new Set(current).add(id));
+  };
   
   // Static video data - YouTube Shorts from user's channel
   const videos: Video[] = [
@@ -95,19 +133,32 @@ const MotionGraphics: React.FC = () => {
           <MasonryGrid>
             {videos.map((video: Video) => (
               <div className="youtube-container" key={video.id}>
-                <iframe
-                  src={`https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1`}
-                  title={video.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  style={{ width: '100%', aspectRatio: '9/16', borderRadius: '8px' }}
-                />
+                {loadedVideos.has(video.id) ? (
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${video.id}?rel=0&modestbranding=1&autoplay=1`}
+                    title={video.title}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ width: '100%', aspectRatio: '9/16', border: 0, borderRadius: '8px' }}
+                  />
+                ) : (
+                  <VideoPlaceholder
+                    type="button"
+                    onClick={() => loadVideo(video.id)}
+                    aria-label={`Play ${video.title}`}
+                  >
+                    <img src={video.thumbnail} alt="" loading="lazy" decoding="async" />
+                    <PlayBadge aria-hidden="true">▶</PlayBadge>
+                  </VideoPlaceholder>
+                )}
                 <VideoTitle>{video.title}</VideoTitle>
               </div>
             ))}
           </MasonryGrid>
         </div>
       </Main>
+      <Footer />
     </>
   );
 };

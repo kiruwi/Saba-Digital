@@ -68,6 +68,18 @@ export const FooterLink = styled(Link)`
      transition: 0.3s ease-out;
  }
 `
+
+export const FooterExternalLink = styled.a`
+ color: ${({ theme }) => theme.colors.text};
+ text-decoration: none;
+ margin-bottom: 0.5rem;
+ font-size: 14px;
+
+ &:hover {
+   color: ${({ theme }) => theme.colors.primary};
+   transition: 0.3s ease-out;
+ }
+`
 export const SocialMedia = styled.section`
  max-width: 1000px;
  width: 100%;

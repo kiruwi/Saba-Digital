@@ -24,7 +24,8 @@ import {
   FilterBar,
   FilterChip,
   SearchStats,
-  SearchOverlay
+  SearchOverlay,
+  DialogCloseButton
 } from './AISearchElements';
 
 // Helper function for route segments
@@ -46,6 +47,8 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
   const theme = useStyledTheme();
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedResultIndex, setSelectedResultIndex] = useState(-1);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
@@ -92,14 +95,21 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
     inputRef.current?.focus();
   };
 
-  // Focus input when search opens
+  // Focus the search input, prevent background scrolling, and restore focus on close.
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
-      if (initialQuery) {
-        setQuery(initialQuery);
-      }
-    }
+    if (!isOpen) return;
+
+    previouslyFocusedRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    inputRef.current?.focus();
+    if (initialQuery) setQuery(initialQuery);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      previouslyFocusedRef.current?.focus();
+    };
   }, [isOpen, initialQuery, setQuery]);
 
   // Handle keyboard shortcuts and navigation
@@ -109,6 +119,22 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
       
       if (e.key === 'Escape') {
         onClose();
+      } else if (e.key === 'Tab') {
+        const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), input:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+        );
+        const elements = focusable ? Array.from(focusable) : [];
+        if (elements.length > 0) {
+          const first = elements[0];
+          const last = elements[elements.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
         if (showSuggestions && suggestions.length > 0) {
@@ -167,23 +193,34 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
 
   return (
     <SearchOverlay theme={theme} onClick={handleOverlayClick}>
-      <SearchContainer theme={theme}>
+      <SearchContainer
+        ref={dialogRef}
+        theme={theme}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="portfolio-search-title"
+      >
+        <h2 id="portfolio-search-title" className="sr-only">Search portfolio projects</h2>
         <SearchBar theme={theme}>
           <SearchIcon theme={theme}><FiSearch /></SearchIcon>
           <SearchInput
             ref={inputRef}
             type="text"
             placeholder="Search projects..."
+            aria-label="Search portfolio projects"
             value={query}
             onChange={handleInputChange}
             onFocus={() => setShowSuggestions(true)}
             theme={theme}
           />
           {query && (
-            <ClearButton theme={theme} onClick={handleClearSearch}>
+            <ClearButton theme={theme} onClick={handleClearSearch} aria-label="Clear search">
               <FiX />
             </ClearButton>
           )}
+          <DialogCloseButton theme={theme} onClick={onClose} aria-label="Close search">
+            <FiX />
+          </DialogCloseButton>
         </SearchBar>
 
         {/* Search Suggestions */}
@@ -195,6 +232,7 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                 theme={theme}
                 onClick={() => handleSuggestionClick(suggestion)}
                 onMouseEnter={() => setSelectedSuggestionIndex(index)}
+                aria-label={`Search for ${suggestion}`}
                 style={{
                   backgroundColor: selectedSuggestionIndex === index ? 
                     (theme.theme === 'dark' ? 'rgba(45, 182, 112, 0.2)' : 'rgba(45, 182, 112, 0.1)') : 
@@ -283,6 +321,15 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                       }
                     }}
                     onMouseEnter={() => setSelectedResultIndex(index)}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Open ${displayTitle}`}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        event.currentTarget.click();
+                      }
+                    }}
                     style={{
                       backgroundColor: selectedResultIndex === index ? 
                         (theme.theme === 'dark' ? 'rgba(45, 182, 112, 0.1)' : 'rgba(45, 182, 112, 0.05)') : 

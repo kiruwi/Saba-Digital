@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../components/Button";
+import SEO from "../components/SEO";
 import { uxProjects } from "../data/projects";
 
 import Footer from "../components/Footer/Footer";
@@ -98,11 +99,19 @@ const ErrorPage: React.FC<ErrorProps> = ({
 
   // Regular error page
   return (
-    <ErrorFullPageContainer>
-      <ErrorHeading>Error {code}</ErrorHeading>
-      <ErrorMessage>{message}</ErrorMessage>
-      <Button onClick={handleGoHome}>Return to Home</Button>
-    </ErrorFullPageContainer>
+    <>
+      <SEO
+        title={`Error ${code} | Saba Digital`}
+        description={message}
+        canonical={`https://iankcheruiyot.work${location.pathname}`}
+        noIndex
+      />
+      <ErrorFullPageContainer>
+        <ErrorHeading>Error {code}</ErrorHeading>
+        <ErrorMessage>{message}</ErrorMessage>
+        <Button onClick={handleGoHome}>Return to Home</Button>
+      </ErrorFullPageContainer>
+    </>
   );
 };
 

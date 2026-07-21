@@ -142,7 +142,6 @@ const TrustedBy: React.FC = () => {
           cleanup = () => ctx.revert();
         })
         .catch((error) => {
-          /* eslint-disable-next-line no-console */
           console.warn('[TrustedBy] Failed to load GSAP', error);
         });
     };

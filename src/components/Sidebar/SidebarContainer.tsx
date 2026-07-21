@@ -30,12 +30,19 @@ const StyledContainer = styled.aside<{ $isOpen: boolean }>`
   transition: 0.3s ease-in-out;
   opacity: ${({ $isOpen }) => ($isOpen ? "100%" : "0")};
   top: ${({ $isOpen }) => ($isOpen ? "0" : "-100%")};   /* slide top → down */
+  visibility: ${({ $isOpen }) => ($isOpen ? "visible" : "hidden")};
+  pointer-events: ${({ $isOpen }) => ($isOpen ? "auto" : "none")};
 `;
 
 // Create a React component wrapper
 const SidebarContainer: React.FC<SidebarContainerProps> = ({ isOpen, onClick, children }) => {
   return (
-    <StyledContainer $isOpen={isOpen} onClick={onClick}>
+    <StyledContainer
+      id="mobile-navigation"
+      $isOpen={isOpen}
+      onClick={onClick}
+      aria-hidden={!isOpen}
+    >
       {children}
     </StyledContainer>
   );

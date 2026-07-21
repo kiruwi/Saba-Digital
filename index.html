@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      let analyticsConsent = "denied";
+      try {
+        const storedConsent = JSON.parse(localStorage.getItem("cookie_consent_v2") || "null");
+        if (storedConsent?.status === "accepted") analyticsConsent = "granted";
+      } catch (_) {}
+      gtag("consent", "default", {
+        ad_storage: analyticsConsent,
+        ad_user_data: analyticsConsent,
+        ad_personalization: analyticsConsent,
+        analytics_storage: analyticsConsent
+      });
+      gtag("js", new Date());
+      gtag("config", "G-YQ8LPFFP43", { send_page_view: false });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YQ8LPFFP43"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#2db670" />
+    <meta name="description" content="Saba Digital by Ian K. Cheruiyot. UX/UI design, web development, branding, ad design, and motion graphics portfolio." />
+    <meta name="keywords" content="Saba Digital, UX/UI Design, Web Development, Branding, Graphic Design, Nairobi" />
+    <meta name="author" content="Ian K. Cheruiyot" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Saba Digital | UX/UI, Web Development & Branding" />
+    <meta property="og:description" content="Saba Digital by Ian K. Cheruiyot. UX/UI design, web development, branding, ad design, and motion graphics portfolio." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://iankcheruiyot.work/" />
+    <meta property="og:image" content="https://iankcheruiyot.work/images/optimized/portrait/ian-1200.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Saba Digital | UX/UI, Web Development & Branding" />
+    <meta name="twitter:description" content="Saba Digital by Ian K. Cheruiyot. UX/UI design, web development, branding, ad design, and motion graphics portfolio." />
+    <meta name="twitter:image" content="https://iankcheruiyot.work/images/optimized/portrait/ian-1200.webp" />
+    <link rel="canonical" href="https://iankcheruiyot.work/" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    <link rel="preload" href="/font/Nohemi-Medium.woff2" as="font" type="font/woff2" crossorigin />
+    <style>
+      @font-face { font-family: "Nohemi"; src: url("/font/Nohemi-Regular.woff2") format("woff2"); font-weight: 400; font-display: optional; }
+      @font-face { font-family: "Nohemi"; src: url("/font/Nohemi-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+      @font-face { font-family: "Nohemi"; src: url("/font/Nohemi-Bold.woff2") format("woff2"); font-weight: 700; font-display: optional; }
+      @font-face { font-family: "Satoshi"; src: url("/font/Satoshi-Variable.woff2") format("woff2"); font-weight: 100 900; font-display: optional; }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://iankcheruiyot.work/#website",
+            "url": "https://iankcheruiyot.work/",
+            "name": "Saba Digital",
+            "description": "Portfolio website for UX/UI design, web development, branding, ad design, and motion graphics.",
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://iankcheruiyot.work/#person",
+            "name": "Ian K. Cheruiyot",
+            "url": "https://iankcheruiyot.work/",
+            "jobTitle": "Designer and Web Developer",
+            "sameAs": [
+              "https://www.linkedin.com/in/ian-cheruiyot/",
+              "https://www.behance.net/iancheruiyot1"
+            ],
+            "knowsAbout": ["UX/UI Design", "Web Development", "Graphic Design", "Branding"]
+          },
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://iankcheruiyot.work/#service",
+            "name": "Saba Digital",
+            "url": "https://iankcheruiyot.work/",
+            "founder": { "@id": "https://iankcheruiyot.work/#person" },
+            "areaServed": "Kenya",
+            "serviceType": ["UX/UI Design", "Web Development", "Branding", "Ad Design", "Motion Graphics"]
+          }
+        ]
+      }
+    </script>
+    <title>Saba Digital | UX/UI, Web Development & Branding</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app. Please enable it to continue.</noscript>
+    <div id="lightbox-root"></div>
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>

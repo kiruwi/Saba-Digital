@@ -21,9 +21,11 @@ export const GalleryGrid = styled.div`
   }
 `;
 
-export const GalleryItem = styled.div`
+export const GalleryItem = styled.button`
   display: inline-block; /* Needed for CSS columns */
   width: 100%;
+  padding: 0;
+  border: 0;
   margin: 0 0 16px; /* bottom margin acts as gap between masonry items */
   position: relative;
   overflow: hidden;
@@ -41,6 +43,7 @@ export const GalleryItem = styled.div`
 export const GalleryItemImage = styled.img`
   width: 100%;
   height: auto;
+  display: block;
   object-fit: cover;
   transition: transform 0.5s ease;
 
@@ -69,7 +72,9 @@ export const GalleryHeading = styled.h3`
 `;
 
 export const FullScreenOverlay = styled.div.attrs({
-  className: 'lightbox-overlay'
+  className: 'lightbox-overlay',
+  role: 'dialog',
+  'aria-modal': 'true'
 })`
   position: fixed;
   inset: 0;

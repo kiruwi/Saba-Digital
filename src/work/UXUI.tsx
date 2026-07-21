@@ -12,8 +12,6 @@ import ufanisiImg from "../images/ufanisi.webp";
 import { UfanisiSideBySide, UfanisiMobileImageFirst, UfanisiMobileTextSecond } from "./UfanisiResortElements";
 import { useTheme } from "../contexts/ThemeContext";
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 const MainContainer = styled.main`
   padding: 7rem 1.5rem 4rem 1.5rem;
   margin-top: 10px;
@@ -69,10 +67,7 @@ const ButtonLink = styled(Link)`
 // Using ThemeContext directly - no props needed
 
 const UXUI: React.FC = () => {
-  // Get theme from context - even though we don't use these variables directly,
-  // destructuring them ensures the component subscribes to context changes
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-  const { theme } = useTheme();
+  useTheme();
   
   
 

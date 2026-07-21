@@ -17,8 +17,7 @@ export function lazyLoad<T extends ComponentType<any>>(
     // Preload section images if a section was specified
     if (section) {
       preloadSectionImages(section).catch(err => {
-        if (process.env.NODE_ENV === 'development') {
-          // eslint-disable-next-line no-console
+        if (import.meta.env.DEV) {
           console.error('Failed to preload section images:', err);
         }
       });
@@ -39,8 +38,7 @@ export function lazyLoad<T extends ComponentType<any>>(
 export const prefetchComponent = (factory: () => Promise<any>): void => {
   // Start loading the component in the background
   factory().catch(error => {
-    if (process.env.NODE_ENV === 'development') {
-      // eslint-disable-next-line no-console
+    if (import.meta.env.DEV) {
       console.warn('Failed to prefetch component:', error);
     }
   });

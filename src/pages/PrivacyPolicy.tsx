@@ -105,10 +105,10 @@ const PrivacyPolicy: React.FC = () => {
 
         <Subtitle>1. What information we collect</Subtitle>
         <P><strong>Log data:</strong> We automatically log your IP address, browser type, pages you visit, time and date, and duration on each page.</P>
-        <P><strong>Enquiry form data:</strong> When you use the contact form, we collect your name, email address, phone number (if provided), and details about your request.</P>
+        <P><strong>Enquiry form data:</strong> When you use the contact form, we collect your name, email address, subject, and message.</P>
 
         <Subtitle>2. How we use and share your data</Subtitle>
-        <P>We share your information with third parties only as needed to provide our services: hosting providers, IT support, payment processors, etc.</P>
+        <P>We share information only when needed to operate the website and respond to enquiries, including with our hosting, analytics, security-verification, and email-delivery providers.</P>
         <P>We may disclose your data if required by law or to protect our legal rights.</P>
 
         <Subtitle>3. Ownership of information</Subtitle>
@@ -127,7 +127,7 @@ const PrivacyPolicy: React.FC = () => {
         </List>
 
         <Subtitle>5. Consent</Subtitle>
-        <P>By using the site, you consent to data collection, storage, use, and disclosure as stated here. If you're under 18, you must have permission from a parent or guardian to use the site and provide personal data.</P>
+        <P>Non-essential analytics are used only after you accept them through the cookie banner. You can change that choice at any time using Cookie settings. If you're under 18, you must have permission from a parent or guardian before providing personal data.</P>
 
         <Subtitle>6. Complaints</Subtitle>
         <P>
@@ -136,7 +136,7 @@ const PrivacyPolicy: React.FC = () => {
           with any privacy concerns or complaints. We’ll review and reply in writing with next steps.
         </P>
 
-          <FooterNote>© 2025 iankcheruiyot.work, All rights reserved.</FooterNote>
+          <FooterNote>© {new Date().getFullYear()} iankcheruiyot.work, All rights reserved.</FooterNote>
         </Container>
       </PageWrap>
     </>

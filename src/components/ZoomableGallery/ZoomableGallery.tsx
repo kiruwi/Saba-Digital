@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import {
   GalleryContainer,
@@ -44,9 +44,13 @@ const ZoomableGallery: React.FC<ZoomableGalleryProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
 
   /* ----------------------------- open / close ----------------------------- */
   const openFullScreen = (index: number) => {
+    previouslyFocusedRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setCurrentIndex(index);
     setIsFullScreen(true);
 
@@ -63,6 +67,7 @@ const ZoomableGallery: React.FC<ZoomableGalleryProps> = ({
     document.body.style.overflow = document.body.dataset.overflow || '';
     document.body.classList.remove('lightbox-open');
     delete document.body.dataset.overflow;
+    previouslyFocusedRef.current?.focus();
   }, []);
 
   /* --------------------------- navigation helpers ------------------------- */
@@ -82,6 +87,23 @@ const ZoomableGallery: React.FC<ZoomableGalleryProps> = ({
       if (e.key === 'Escape') closeFullScreen();
       if (e.key === 'ArrowRight') goToNextImage();
       if (e.key === 'ArrowLeft') goToPrevImage();
+      if (e.key === 'Tab') {
+        const focusable = overlayRef.current?.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
+        );
+        const elements = focusable ? Array.from(focusable) : [];
+        if (elements.length > 0) {
+          const first = elements[0];
+          const last = elements[elements.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -114,14 +136,28 @@ const ZoomableGallery: React.FC<ZoomableGalleryProps> = ({
 
       <GalleryGrid>
         {imageSlides.map((img, idx) => (
-          <GalleryItem key={idx} onClick={() => openFullScreen(idx)}>
-            <GalleryItemImage src={img.src} alt={img.alt || `Image ${idx + 1}`} />
+          <GalleryItem
+            key={idx}
+            type="button"
+            onClick={() => openFullScreen(idx)}
+            aria-label={`Open ${img.alt || `image ${idx + 1}`} in full screen`}
+          >
+            <GalleryItemImage
+              src={img.src}
+              alt={img.alt || `Image ${idx + 1}`}
+              loading="lazy"
+              decoding="async"
+            />
           </GalleryItem>
         ))}
       </GalleryGrid>
 
       {isFullScreen && createPortal(
-        <FullScreenOverlay onClick={closeFullScreen}>
+        <FullScreenOverlay
+          ref={overlayRef}
+          onClick={closeFullScreen}
+          aria-label={title ? `${title} image viewer` : "Image viewer"}
+        >
           <ZoomableContainer
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
@@ -140,6 +176,7 @@ const ZoomableGallery: React.FC<ZoomableGalleryProps> = ({
 
           <NavigationArrow
             className="prev"
+            aria-label="Previous image"
             onClick={e => {
               e.stopPropagation();
               goToPrevImage();
@@ -150,6 +187,7 @@ const ZoomableGallery: React.FC<ZoomableGalleryProps> = ({
 
           <NavigationArrow
             className="next"
+            aria-label="Next image"
             onClick={e => {
               e.stopPropagation();
               goToNextImage();
@@ -163,6 +201,8 @@ const ZoomableGallery: React.FC<ZoomableGalleryProps> = ({
               <NavigationDot
                 key={idx}
                 $active={idx === currentIndex}
+                aria-label={`Show image ${idx + 1}`}
+                aria-current={idx === currentIndex ? "true" : undefined}
                 onClick={e => {
                   e.stopPropagation();
                   setCurrentIndex(idx);
@@ -171,7 +211,11 @@ const ZoomableGallery: React.FC<ZoomableGalleryProps> = ({
             ))}
           </NavigationControls>
 
-          <CloseButton onClick={e => { e.stopPropagation(); closeFullScreen(); }}>
+          <CloseButton
+            autoFocus
+            aria-label="Close image viewer"
+            onClick={e => { e.stopPropagation(); closeFullScreen(); }}
+          >
             <FaTimes />
           </CloseButton>
         </FullScreenOverlay>,
