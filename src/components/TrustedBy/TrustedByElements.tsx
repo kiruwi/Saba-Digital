@@ -1,4 +1,14 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const marqueeSlide = keyframes`
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+`;
 
 export const Section = styled.section`
   width: 100%;
@@ -122,27 +132,13 @@ export const Marquee = styled.div`
 `;
 
 export const LogoTrack = styled.div`
+  --logo-gap: clamp(2.25rem, 4vw, 4rem);
   display: flex;
   align-items: center;
-  gap: clamp(2.25rem, 4vw, 4rem);
+  gap: var(--logo-gap);
   width: max-content;
   will-change: transform;
-
-  /* Mobile fallback animation to keep marquee moving even if JS is throttled */
-  @keyframes marquee-slide {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
-  @media (max-width: 1000px) {
-    &:not(.logo-track--js) {
-      animation: marquee-slide 22s linear infinite;
-    }
-  }
+  animation: ${marqueeSlide} 24s linear infinite;
 
   @media (prefers-reduced-motion: reduce) {
     animation: none !important;

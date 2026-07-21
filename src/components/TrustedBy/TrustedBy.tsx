@@ -16,7 +16,6 @@ type LogoAsset = {
 const LOGO_TARGET_WIDTH = 180;
 const LOGO_TARGET_HEIGHT = 60;
 const LOGO_SIZES = '(max-width: 768px) 45vw, 160px';
-const MOBILE_MARQUEE_BREAKPOINT = 1000;
 const OPTIMIZED_LOGO_DIRECTORY = '/images/optimized/logos';
 type LogoDefinition = {
   slug: string;
@@ -93,13 +92,6 @@ const TrustedBy: React.FC = () => {
       typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    const isMobileViewport =
-      typeof window !== 'undefined' &&
-      window.matchMedia(`(max-width: ${MOBILE_MARQUEE_BREAKPOINT}px)`).matches;
-
-    // On mobile/tablet, rely on CSS marquee fallback for more reliable playback.
-    if (isMobileViewport) return;
-
     let cancelled = false;
     let cleanup: (() => void) | undefined;
 
@@ -126,17 +118,6 @@ const TrustedBy: React.FC = () => {
                 }
               );
             }
-
-            if (logos.length > 1) {
-              trackEl.classList.add('logo-track--js');
-              const duration = Math.max(16, logos.length * 2.4);
-              gsap.to(trackEl, {
-                xPercent: -50,
-                duration,
-                ease: 'none',
-                repeat: -1
-              });
-            }
           }, marqueeEl);
 
           cleanup = () => ctx.revert();
@@ -162,7 +143,6 @@ const TrustedBy: React.FC = () => {
       } else if (idleHandle !== undefined) {
         window.clearTimeout(idleHandle);
       }
-      trackEl.classList.remove('logo-track--js');
       cleanup?.();
     };
   }, [logos, isReady]);
