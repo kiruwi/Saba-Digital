@@ -76,7 +76,7 @@ const SectionTitle = styled.h3`
   font-size: 0.9rem;
   margin: 0 0 0.5rem 0;
   color: ${({ theme }) => theme.colors.text};
-  font-weight: 600;
+  font-weight: 500;
 `;
 
 const ReportItem = styled.div<{ status: 'pass' | 'fail' | 'warning' }>`

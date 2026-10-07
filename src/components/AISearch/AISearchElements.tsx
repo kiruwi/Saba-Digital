@@ -153,7 +153,7 @@ export const FilterChip = styled.button.attrs({ type: 'button' })<{ theme?: any 
   padding: 6px 12px;
   border-radius: 0;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -238,7 +238,7 @@ export const ResultTitle = styled.h3<{ theme?: any }>`
   margin: 0 0 8px 0;
   color: ${props => props.theme?.colors?.text || '#333'};
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   display: flex;
   align-items: center;
   line-height: 1.3;

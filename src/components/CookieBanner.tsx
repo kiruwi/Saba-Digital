@@ -32,7 +32,7 @@ const Msg = styled.span`
 
 const PolicyLink = styled(Link)`
   color: #121212;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: underline;
   text-underline-offset: 2px;
   &:hover {

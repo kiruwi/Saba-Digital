@@ -61,7 +61,7 @@ const Category = styled.span`
   font-size: .95rem; margin-top: .6rem;
 `;
 const Action = styled.span`
-  display: flex; align-items: center; justify-content: space-between; margin-top: auto; font-weight: 600;
+  display: flex; align-items: center; justify-content: space-between; margin-top: auto; font-weight: 500;
   svg { color: ${({ theme }) => theme.colors.primary}; font-size: 1.4rem; }
 `;
 const PortfolioGrid: React.FC<{ items: PortfolioItem[]; featured?: boolean }> = ({ items, featured = false }) => (
