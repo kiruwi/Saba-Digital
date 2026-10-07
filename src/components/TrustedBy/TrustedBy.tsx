@@ -151,9 +151,9 @@ const TrustedBy: React.FC = () => {
   return (
     <Section aria-label="Trusted By">
       <Container>
-        <Heading>Logos don't tell the whole story,</Heading>
+        <Heading>People I’ve worked with</Heading>
         {hasLogos ? (
-          <Subtext>but here are a few that <span>dared to work different.</span></Subtext>
+          <Subtext>Across brands, products, and websites.</Subtext>
         ) : (
           <Subtext>
             Add your client logos to <code>public/images/company-logos</code> to showcase them here.

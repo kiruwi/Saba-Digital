@@ -346,10 +346,8 @@ export const UXUIProcessSection = styled.div`
 export const UXUIProcessStep = styled.div`
   margin-bottom: 2.5rem;
   padding-bottom: 2.5rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   
   &:last-child {
-    border-bottom: none;
     margin-bottom: 0;
     padding-bottom: 0;
   }
@@ -403,6 +401,8 @@ export const UXUISectionMd = styled.div`
 
 export const UXUISectionLg = styled.div`
   margin: 3rem 0;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: ${({ theme }) => theme.theme === 'light' ? '#f5f6f3' : theme.colors.cardBackground};
 `;
 
 export const UXUISectionHeading = styled.p`

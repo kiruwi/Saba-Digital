@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 import Footer from "../components/Footer/Footer";
 import { graphicsProjects } from "../data/projects";
@@ -141,7 +141,20 @@ const ProjectDescription = styled.div`
   white-space: pre-wrap;
 `;
 
+const ProjectSummary = styled.div`
+  background: ${({ theme }) => theme.theme === 'light' ? '#f5f6f3' : theme.colors.cardBackground};
+  scroll-margin-top: 100px;
+  margin-bottom: 2.5rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  > p { max-width: 48rem; font-size: 1.2rem; margin-bottom: 1.5rem; }
+  dl { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 1.5rem; }
+  dt { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: ${({ theme }) => theme.colors.primary}; margin-bottom: .5rem; }
+  dd { margin: 0; }
+  @media (max-width: 600px) { dl { grid-template-columns: 1fr; } }
+`;
+
 const AdditionalImagesContainer = styled.div`
+  scroll-margin-top: 100px;
   margin-top: 3rem;
   width: 100%;
   
@@ -183,10 +196,11 @@ const BackButton = styled.button`
 
 const GraphicsDetail: React.FC = () => {
   useTheme();
+  const navigate = useNavigate();
 
 
   const { id } = useParams<{ id: string }>();
-  const [project, setProject] = useState<any>(null);
+  const project = graphicsProjects.find(item => item.id === id);
   const canonicalUrl = `https://iankcheruiyot.work/work/graphics/${id || ''}`.replace(/\/$/, '');
   
   // Theme is now passed as props
@@ -196,12 +210,6 @@ const GraphicsDetail: React.FC = () => {
     // Always scroll to top first to ensure proper position
     window.scrollTo({ top: 0, behavior: 'auto' });
     
-    if (id) {
-      const foundProject = graphicsProjects.find(p => p.id === id);
-      if (foundProject) {
-        setProject(foundProject);
-      }
-    }
   }, [id]);
   
   // Use our performance optimization hook for image preloading
@@ -213,7 +221,7 @@ const GraphicsDetail: React.FC = () => {
   
   // Handle back button click
   const handleBack = () => {
-    window.history.back();
+    navigate('/work/graphics');
   };
 
   if (!project) {
@@ -258,6 +266,15 @@ const GraphicsDetail: React.FC = () => {
               <ProjectTitle>{project.title}</ProjectTitle>
             </ProjectHeader>
           </AnimatedSection>
+          <ProjectSummary>
+            <p>{project.shortDescription}</p>
+            <dl>
+              <div><dt>My role</dt><dd>{project.id === 'gsc-hauling' ? 'In-house graphic designer' : 'Brand & visual designer'}</dd></div>
+              <div><dt>Year</dt><dd>{project.year}</dd></div>
+              <div><dt>Deliverables</dt><dd>{project.tags.join(' · ')}</dd></div>
+            </dl>
+            <Link to="#project-gallery" style={{ display: 'inline-block', marginTop: '1rem', textUnderlineOffset: '4px' }}>Explore the project visuals ↓</Link>
+          </ProjectSummary>
           
           {/* Wrapper div for content with clearfix */}
           <div style={{ overflow: 'hidden' }}>
@@ -315,7 +332,7 @@ const GraphicsDetail: React.FC = () => {
                         {/* image */}
                         <Synnefa3DImageContainer>
                           <LazyImage
-                            src="/assets/projects/3d-graphics/synnefa-images/service3-bg.jpg"
+                            src="/assets/projects/3d-graphics/synnefa-images/service3-bg.webp"
                             alt="3D Product Visualization"
                             threshold={0.1}
                             rootMargin="200px"
@@ -379,7 +396,7 @@ const GraphicsDetail: React.FC = () => {
           {/* Additional images gallery */}
           {project.additionalImages && project.additionalImages.length > 0 && (
             <AnimatedSection animationType="fadeInUp" delay={600} duration={1000}>
-              <AdditionalImagesContainer>
+              <AdditionalImagesContainer id="project-gallery">
                 <h2>Project Gallery</h2>
                 <ZoomableGallery 
                   images={project.additionalImages.map((image: string, index: number) => ({
@@ -396,7 +413,7 @@ const GraphicsDetail: React.FC = () => {
           {/* Gallery images */}
           {project && (project as any).gallery && (project as any).gallery.length > 0 && (
             <AnimatedSection animationType="fadeInUp" delay={600} duration={1000}>
-              <AdditionalImagesContainer>
+              <AdditionalImagesContainer id="project-gallery">
                 <h2>Project Gallery</h2>
                 <ZoomableGallery 
                   images={(project as any).gallery.map((item: {src: string; alt: string}) => ({

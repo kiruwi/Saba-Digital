@@ -155,7 +155,7 @@ const UXUIProjectDetail: React.FC<UXUIProjectDetailProps> = ({ projects }) => {
                 {/* Show the image above the heading for "Previous Design Issues" on mobile */}
                 {isPreviousDesignIssues && (
                   <UXUIMobileOnlyImage>
-                    <UXUIDetailImage src="/assets/projects/ux-ui/u-r.jpg" alt="Previous design issues" />
+                    <UXUIDetailImage src="/assets/projects/ux-ui/u-r.webp" alt="Previous design issues" />
                   </UXUIMobileOnlyImage>
                 )}
                 

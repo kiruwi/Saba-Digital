@@ -13,7 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   // Keep useTheme import for future use without destructuring
   useTheme();
   
-  const toggle = () => setIsOpen(!isOpen);
+  const toggle = React.useCallback(() => setIsOpen(open => !open), []);
 
   return (
     <>

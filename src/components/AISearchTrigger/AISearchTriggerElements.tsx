@@ -14,10 +14,10 @@ export const SearchTriggerButton = styled.button<{ theme?: any }>`
   display: flex;
   align-items: center;
   background: ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
-    ? 'rgba(255, 255, 255, 0.05)' 
+    ? 'rgba(255, 255, 255, 0.05)'
     : 'rgba(0, 0, 0, 0.05)'};
   border: 1px solid ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
-    ? 'rgba(255, 255, 255, 0.15)' 
+    ? 'rgba(255, 255, 255, 0.15)'
     : 'rgba(0, 0, 0, 0.15)'};
   border-radius: 25px;
   padding: 10px 14px;
@@ -32,13 +32,13 @@ export const SearchTriggerButton = styled.button<{ theme?: any }>`
 
   &:hover {
     background: ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
-      ? 'rgba(255, 255, 255, 0.08)' 
+      ? 'rgba(255, 255, 255, 0.08)'
       : 'rgba(0, 0, 0, 0.08)'};
-    border-color: ${props => props.theme?.colors?.primary || '#2db670'};
+    border-color: ${props => props.theme?.colors?.primary || '#3db54e'};
     transform: translateY(-1px);
     box-shadow: ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
-      ? '0 4px 20px rgba(45, 182, 112, 0.3)' 
-      : '0 4px 20px rgba(45, 182, 112, 0.2)'};
+      ? '0 4px 20px rgba(61, 181, 78, 0.3)'
+      : '0 4px 20px rgba(61, 181, 78, 0.2)'};
 
     &::before {
       content: '';
@@ -50,7 +50,7 @@ export const SearchTriggerButton = styled.button<{ theme?: any }>`
       background: linear-gradient(
         90deg,
         transparent,
-        rgba(45, 182, 112, 0.1),
+        rgba(61, 181, 78, 0.1),
         transparent
       );
       background-size: 200% 100%;
@@ -65,7 +65,7 @@ export const SearchTriggerButton = styled.button<{ theme?: any }>`
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 3px ${props => props.theme?.colors?.primary || '#2db670'}33;
+    box-shadow: 0 0 0 3px ${props => props.theme?.colors?.primary || '#3db54e'}33;
   }
 
   @media screen and (max-width: 768px) {
@@ -136,11 +136,11 @@ export const SearchTriggerShortcut = styled.span<{ theme?: any }>`
 export const SearchTriggerButtonCompact = styled(SearchTriggerButton)`
   min-width: auto;
   padding: 8px;
-  
+
   ${SearchTriggerText} {
     display: none;
   }
-  
+
   ${SearchTriggerShortcut} {
     display: none;
   }
@@ -157,8 +157,8 @@ export const SearchTriggerFAB = styled(SearchTriggerButton)`
   height: 56px;
   min-width: auto;
   padding: 0;
-  box-shadow: ${props => props.theme.isDark 
-    ? '0 4px 20px rgba(0, 0, 0, 0.3)' 
+  box-shadow: ${props => props.theme.isDark
+    ? '0 4px 20px rgba(0, 0, 0, 0.3)'
     : '0 4px 20px rgba(0, 0, 0, 0.15)'};
 
   ${SearchTriggerText}, ${SearchTriggerShortcut} {

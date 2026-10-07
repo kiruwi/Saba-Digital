@@ -42,18 +42,19 @@ export interface Theme {
 }
 
 export type ThemeType = 'light' | 'dark';
+export const BRAND_GREEN = '#3db54e';
 
 // Light theme configuration
 export const lightTheme: Theme = {
   theme: 'light',
   colors: {
-    primary: '#3db54e', // Darker green for better contrast with white text
+    primary: BRAND_GREEN,
     secondary: '#6c757d',
-    background: '#eefbff',
+    background: '#ffffff',
     text: '#000000',
-    border: '#dee2e6',
+    border: '#dce2dc',
     shadow: 'rgba(0, 0, 0, 0.1) 40%',
-    accent: '#3db54e', // Same darker green for accent
+    accent: BRAND_GREEN,
     error: '#dc3545',
     cardBackground: '#ffffff', // Light card background
     headingText: '#000000', // Pure black heading text for light theme
@@ -90,13 +91,13 @@ export const lightTheme: Theme = {
 export const darkTheme: Theme = {
   theme: 'dark',
   colors: {
-    primary: '#3db54e', // Darker green for better contrast with white text
+    primary: BRAND_GREEN,
     secondary: '#6c757d',
     background: '#1a1a1a', // 10% lighter than pure black
     text: '#f8f9fa',
     border: '#495057',
     shadow: 'rgba(0, 0, 0, 0.5) 40%',
-    accent: '#3db54e', // Same darker green for accent
+    accent: BRAND_GREEN,
     error: '#e35d6a',
     cardBackground: '#1a1a1a', // Keep cards aligned with softened dark background
     headingText: '#ffffff', // Light heading text for dark theme

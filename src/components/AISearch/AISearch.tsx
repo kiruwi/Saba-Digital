@@ -52,7 +52,7 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedResultIndex, setSelectedResultIndex] = useState(-1);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
-  
+
   const {
     query,
     setQuery,
@@ -116,7 +116,7 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
-      
+
       if (e.key === 'Escape') {
         onClose();
       } else if (e.key === 'Tab') {
@@ -138,22 +138,22 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
         if (showSuggestions && suggestions.length > 0) {
-          setSelectedSuggestionIndex(prev => 
+          setSelectedSuggestionIndex(prev =>
             prev < suggestions.length - 1 ? prev + 1 : 0
           );
         } else if (hasResults) {
-          setSelectedResultIndex(prev => 
+          setSelectedResultIndex(prev =>
             prev < Math.min(results.length - 1, 7) ? prev + 1 : 0
           );
         }
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         if (showSuggestions && suggestions.length > 0) {
-          setSelectedSuggestionIndex(prev => 
+          setSelectedSuggestionIndex(prev =>
             prev > 0 ? prev - 1 : suggestions.length - 1
           );
         } else if (hasResults) {
-          setSelectedResultIndex(prev => 
+          setSelectedResultIndex(prev =>
             prev > 0 ? prev - 1 : Math.min(results.length - 1, 7)
           );
         }
@@ -234,8 +234,8 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                 onMouseEnter={() => setSelectedSuggestionIndex(index)}
                 aria-label={`Search for ${suggestion}`}
                 style={{
-                  backgroundColor: selectedSuggestionIndex === index ? 
-                    (theme.theme === 'dark' ? 'rgba(45, 182, 112, 0.2)' : 'rgba(45, 182, 112, 0.1)') : 
+                  backgroundColor: selectedSuggestionIndex === index ?
+                    (theme.theme === 'dark' ? 'rgba(61, 181, 78, 0.2)' : 'rgba(61, 181, 78, 0.1)') :
                     'transparent',
                   outline: selectedSuggestionIndex === index ? '2px solid ' + theme.colors.primary : 'none',
                 }}
@@ -301,7 +301,7 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                 const displayTitle = item.title;
                 const displayDescription = isProject && item.project ? item.project.shortDescription : item.description;
                 const displayImage = item.image || (isProject && item.project ? item.project.image : '');
-                
+
                 return (
                   <ResultCard
                     key={item.id}
@@ -331,8 +331,8 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                       }
                     }}
                     style={{
-                      backgroundColor: selectedResultIndex === index ? 
-                        (theme.theme === 'dark' ? 'rgba(45, 182, 112, 0.1)' : 'rgba(45, 182, 112, 0.05)') : 
+                      backgroundColor: selectedResultIndex === index ?
+                        (theme.theme === 'dark' ? 'rgba(61, 181, 78, 0.1)' : 'rgba(61, 181, 78, 0.05)') :
                         'transparent',
                       outline: selectedResultIndex === index ? '2px solid ' + theme.colors.primary : 'none',
                       transform: selectedResultIndex === index ? 'scale(1.02)' : 'scale(1)',
@@ -346,12 +346,12 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                     />
                     <ResultContent theme={theme}>
                       <ResultTitle theme={theme}>
-                        <span dangerouslySetInnerHTML={{ 
-                          __html: highlightMatch(displayTitle, query) 
+                        <span dangerouslySetInnerHTML={{
+                          __html: highlightMatch(displayTitle, query)
                         }} />
-                        <span style={{ 
-                          fontSize: '12px', 
-                          opacity: 0.7, 
+                        <span style={{
+                          fontSize: '12px',
+                          opacity: 0.7,
                           marginLeft: '8px',
                           textTransform: 'uppercase'
                         }}>
@@ -359,8 +359,8 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
                         </span>
                       </ResultTitle>
                       <ResultDescription theme={theme}>
-                        <span dangerouslySetInnerHTML={{ 
-                          __html: highlightMatch(displayDescription || '', query) 
+                        <span dangerouslySetInnerHTML={{
+                          __html: highlightMatch(displayDescription || '', query)
                         }} />
                       </ResultDescription>
                       <ResultTags theme={theme}>
@@ -406,10 +406,10 @@ export const AISearch: React.FC<AISearchProps> = ({ isOpen, onClose, initialQuer
               <p style={{ color: theme.colors.text, opacity: 0.8 }}>
                 Use natural language to find projects, skills, and work samples
               </p> */}
-              <div style={{ 
-                display: 'flex', 
-                flexWrap: 'wrap', 
-                gap: '8px', 
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '8px',
                 justifyContent: 'center',
                 marginTop: '20px'
               }}>

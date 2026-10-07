@@ -1,6 +1,7 @@
 // src/components/ProjectCard/GraphicsProjectCard.tsx
 import React, { useState, useEffect, useRef, FC } from "react";
 import { ProjectType } from "../../types";
+import { getProjectPreview } from '../../data/projectPreviews';
 import {
   GraphicsCardContainer,
   GraphicsImageWrapper,
@@ -71,7 +72,8 @@ const GraphicsProjectCard: FC<GraphicsProjectCardProps> = ({ project }) => {
     >
       <GraphicsImageWrapper>
         <GraphicsProjectImage 
-          src={project.image} 
+          {...getProjectPreview(project.id, project.image)}
+          sizes="(max-width: 700px) calc(100vw - 6rem), 400px"
           alt={project.title} 
         />
       </GraphicsImageWrapper>

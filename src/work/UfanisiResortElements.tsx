@@ -160,6 +160,8 @@ export const UfanisiSection = styled.div`
 
 // Side-by-side layout
 export const UfanisiSideBySide = styled.div`
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: ${({ theme }) => theme.theme === 'light' ? '#f5f6f3' : theme.colors.cardBackground};
   display: flex;
   flex-direction: column;
   gap: 2rem;

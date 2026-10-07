@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 
 // Grid layout for the Graphics projects page
 export const GraphicsGrid = styled.div`
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: ${({ theme }) => theme.theme === 'light' ? '#f5f6f3' : theme.colors.background};
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 2rem;
   width: 100%;
   max-width: 1200px;
@@ -88,7 +90,7 @@ export const GraphicsContentWrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: #000000;
+  background: ${({ theme }) => theme.colors.cardBackground};
   
   /* Animate content appearance with slight delay for a staggered effect */
   animation: graphicsContentFadeIn 0.8s forwards;

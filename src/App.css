@@ -15,12 +15,12 @@
 
 /* Light theme variables */
 :root[data-theme="light"] {
-  --background-color: #eefbff;
+  --background-color: #ffffff;
   --text-color: #343a40;
   --link-color: #000000;
-  --navbar-bg: #eefbff;
+  --navbar-bg: #ffffff;
   --navbar-text: #343a40;
-  --card-bg: #eefbff;
+  --card-bg: #ffffff;
   --card-shadow: rgba(0, 0, 0, 0.1);
   transition: all var(--transition-speed);
 }

@@ -107,7 +107,7 @@ const ProcessSection: React.FC = () => {
           <BeforeAfterPanel label="BEFORE">
             <img src={placeholderImgUrl} alt="Before: Complex ordering flow" />
           </BeforeAfterPanel>
-          <BeforeAfterPanel label="AFTER" labelBg="#2db670">
+          <BeforeAfterPanel label="AFTER" labelBg="#3db54e">
             <img src={placeholderImgUrl} alt="After: Streamlined ordering flow" />
           </BeforeAfterPanel>
         </BeforeAfterContainer>
@@ -281,7 +281,7 @@ const ProcessSection: React.FC = () => {
           <BeforeAfterPanel label="BEFORE">
             <img src={placeholderImgUrl} alt="Before: Complex onboarding" />
           </BeforeAfterPanel>
-          <BeforeAfterPanel label="AFTER" labelBg="#2db670">
+          <BeforeAfterPanel label="AFTER" labelBg="#3db54e">
             <img src={placeholderImgUrl} alt="After: Streamlined onboarding" />
           </BeforeAfterPanel>
         </BeforeAfterContainer>

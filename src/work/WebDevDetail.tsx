@@ -72,6 +72,8 @@ const ProjectDescription = styled.div`
 
 const TechStackContainer = styled.div`
   margin-top: 2rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: ${({ theme }) => theme.theme === 'light' ? '#f5f6f3' : theme.colors.cardBackground};
 `;
 
 const TechStackTitle = styled.h3`

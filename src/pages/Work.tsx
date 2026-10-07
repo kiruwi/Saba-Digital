@@ -1,106 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { RoutePaths } from '../utils/routes';
+import PortfolioGrid, { portfolioItems, categoryLabels, PortfolioCategory } from '../components/ProjectCard/PortfolioGrid';
+import Footer from '../components/Footer/Footer';
 
-const WorkContainer = styled.div`
-  min-height: 100vh;
-  padding: 4rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  color: ${props => props.theme.colors.text};
+const Main = styled.main`
+  min-height: 70vh;
 `;
-
-const Title = styled.h1`
-  font-size: 3rem;
-  margin-bottom: 2rem;
-  color: ${props => props.theme.colors.primary};
+const Header = styled.header`
+  max-width: 1250px; margin: auto; padding: 3rem 1.5rem 1.5rem;
+  h1 { font-size: clamp(3rem, 6vw, 5rem); letter-spacing: -.04em; }
+  > p { max-width: 38rem; font-size: 1.2rem; margin: 1rem 0 2rem; }
 `;
-
-const Description = styled.p`
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  color: ${props => props.theme.colors.text};
+const Projects = styled.section`
+  background: ${({ theme }) => theme.theme === 'light' ? '#f5f6f3' : theme.colors.background};
+  padding: 3rem 1.5rem 4rem;
+  > div { max-width: 1202px; margin: auto; }
 `;
-
-const WorkCategories = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+const Filters = styled.div`
+  display: flex; flex-wrap: wrap; gap: .65rem; margin-bottom: 1.5rem;
 `;
-
-const CategoryCard = styled(Link)`
-  display: block;
-  background: ${props => props.theme.colors.background};
-  border: 1px solid ${props => props.theme.colors.border};
-  border-radius: 8px;
-  padding: 2rem;
-  text-align: center;
-  text-decoration: none;
-  box-shadow: 0 4px 6px ${props => props.theme.colors.shadow};
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px ${props => props.theme.colors.shadow};
-  }
-  
-  h2 {
-    margin-bottom: 1rem;
-    color: ${props => props.theme.colors.primary};
-  }
-  
-  p {
-    color: ${props => props.theme.colors.text};
-  }
+const Filter = styled.button`
+  min-height: 44px; padding: .65rem 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.border}; border-radius: 4px;
+  background: transparent; color: ${({ theme }) => theme.colors.text}; cursor: pointer;
+  &[aria-pressed='true'] { background: #161916; color: #ffffff; border-color: transparent; }
+  &:hover { border-color: ${({ theme }) => theme.colors.primary}; }
 `;
-
-const Work: React.FC = () => {
-  return (
-    <WorkContainer>
-      <SEO 
-        title="Work | Saba Digital Portfolio" 
-        description="Explore Saba Digital case studies across graphics, UX/UI, web development, ad design, and motion graphics." 
-        canonical="https://iankcheruiyot.work/work"
-      />
-      <Title>Our Work</Title>
-      <Description>
-        Explore our portfolio of creative solutions across different disciplines.
-        From visual designs and user experiences to web applications, we take pride in
-        delivering high-quality work that meets our clients' needs.
-      </Description>
-      
-      <WorkCategories>
-        <CategoryCard to={RoutePaths.GraphicsWork}>
-          <h2>Graphics</h2>
-          <p>Branding, illustrations, print designs and visual identity projects</p>
-        </CategoryCard>
-        
-        <CategoryCard to={RoutePaths.UXUIWork}>
-          <h2>UX/UI Design</h2>
-          <p>User experience research, interface designs and prototypes</p>
-        </CategoryCard>
-        
-        <CategoryCard to={RoutePaths.WebDevWork}>
-          <h2>Web Development</h2>
-          <p>Websites, web applications and digital platform development</p>
-        </CategoryCard>
-
-        <CategoryCard to={RoutePaths.AdDesignWork}>
-          <h2>Ad Design</h2>
-          <p>Campaign-ready ad creatives for social, print, and digital channels</p>
-        </CategoryCard>
-
-        <CategoryCard to={RoutePaths.MotionWork}>
-          <h2>Motion Graphics</h2>
-          <p>Animated visual storytelling and short-form motion content</p>
-        </CategoryCard>
-      </WorkCategories>
-    </WorkContainer>
-  );
+const Count = styled.p`font-size: .85rem; margin-bottom: 1.5rem;`;
+const Work = () => {
+  const [category, setCategory] = useState<PortfolioCategory | 'all'>('all');
+  const items = category === 'all' ? portfolioItems : portfolioItems.filter(item => item.category === category);
+  return <>
+    <SEO title="Work | Saba Digital Portfolio" description="Explore Ian Cheruiyot’s branding, UX/UI, web development, ad design, and motion graphics work." canonical="https://iankcheruiyot.work/work" />
+    <Main>
+      <Header>
+      <h1>Work that speaks.</h1>
+      <p>A selection of brands, digital products, and websites I’ve designed and built.</p>
+      <Filters role="group" aria-label="Filter work by discipline">
+        <Filter aria-pressed={category === 'all'} onClick={() => setCategory('all')}>All work</Filter>
+        {(Object.keys(categoryLabels) as PortfolioCategory[]).map(key => <Filter key={key} aria-pressed={category === key} onClick={() => setCategory(key)}>{categoryLabels[key]}</Filter>)}
+      </Filters>
+      <Count role="status">{items.length} {items.length === 1 ? 'project or collection' : 'projects and collections'}</Count>
+      </Header>
+      <Projects aria-label="Portfolio projects"><div><PortfolioGrid items={items} /></div></Projects>
+    </Main>
+    <Footer offWhite={false} />
+  </>;
 };
-
 export default Work;

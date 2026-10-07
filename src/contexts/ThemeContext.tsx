@@ -20,14 +20,14 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   // Helper function to get initial theme from localStorage or system preference
   const getInitialTheme = (): ThemeType => {
     // Check if theme is saved in localStorage
-    const savedTheme = localStorage.getItem('theme') as ThemeType;
+    const savedTheme = localStorage.getItem('theme_white_green') as ThemeType;
     
     if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
       return savedTheme;
     }
     
-    // Default to dark theme
-    return 'dark';
+    // Start the redesigned site in white, including for previous dark-mode visitors.
+    return 'light';
   };
 
   // Initialize theme state
@@ -37,7 +37,7 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
+    localStorage.setItem('theme_white_green', newTheme);
     
     // Apply theme class directly to document
     document.documentElement.setAttribute('data-theme', newTheme);

@@ -18,9 +18,9 @@ export const preloadImages = async (sources: string[]): Promise<void[]> => {
 export const preloadSectionImages = async (section: string): Promise<void> => {
   const imagesBySection: Record<string, string[]> = {
     home: ["/images/optimized/portrait/ian-720.webp"],
-    graphics: ["/assets/projects/3d-graphics/synnefa-images/banner.jpg"],
-    webdev: ["/assets/projects/web-dev/app1.jpg"],
-    uxui: ["/assets/projects/ux-ui/u-r.jpg"],
+    graphics: ["/assets/projects/3d-graphics/synnefa-images/banner.webp"],
+    webdev: ["/assets/projects/web-dev/app1.webp"],
+    uxui: ["/assets/projects/ux-ui/u-r.webp"],
   };
 
   const sources = imagesBySection[section];

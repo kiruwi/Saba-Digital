@@ -1,25 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){window.dataLayer.push(arguments);}
-      window.gtag = gtag;
-      let analyticsConsent = "denied";
-      try {
-        const storedConsent = JSON.parse(localStorage.getItem("cookie_consent_v2") || "null");
-        if (storedConsent?.status === "accepted") analyticsConsent = "granted";
-      } catch (_) {}
-      gtag("consent", "default", {
-        ad_storage: analyticsConsent,
-        ad_user_data: analyticsConsent,
-        ad_personalization: analyticsConsent,
-        analytics_storage: analyticsConsent
-      });
-      gtag("js", new Date());
-      gtag("config", "G-YQ8LPFFP43", { send_page_view: false });
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YQ8LPFFP43"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#2db670" />
@@ -42,10 +23,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
-    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
     <link rel="preload" href="/font/Nohemi-Medium.woff2" as="font" type="font/woff2" crossorigin />
     <style>
       @font-face { font-family: "Nohemi"; src: url("/font/Nohemi-Regular.woff2") format("woff2"); font-weight: 400; font-display: optional; }

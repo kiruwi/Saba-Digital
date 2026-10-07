@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 
 // Grid layout for the WebDev projects page
 export const WebDevGrid = styled.div`
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: ${({ theme }) => theme.theme === 'light' ? '#f5f6f3' : theme.colors.background};
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 2rem;
   width: 100%;
   max-width: 1200px;

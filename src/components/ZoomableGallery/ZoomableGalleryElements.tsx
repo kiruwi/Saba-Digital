@@ -147,20 +147,20 @@ export const NavigationDot = styled.button<{ $active: boolean }>`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: ${({ $active }) => ($active ? '#2db670' : 'rgba(255, 255, 255, 0.5)')};
+  background: ${({ $active }) => ($active ? '#3db54e' : 'rgba(255, 255, 255, 0.5)')};
   border: none;
   padding: 0;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.3s ease;
   
   &:hover {
-    background: ${({ $active }) => ($active ? '#2db670' : 'rgba(255, 255, 255, 0.8)')};
+    background: ${({ $active }) => ($active ? '#3db54e' : 'rgba(255, 255, 255, 0.8)')};
     transform: scale(1.2);
   }
 `;
 
 export const NavigationArrow = styled.button`
-  background: rgba(45, 182, 112, 0.7);
+  background: rgba(61, 181, 78, 0.7);
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -178,7 +178,7 @@ export const NavigationArrow = styled.button`
   transition: background 0.3s ease, opacity 0.3s ease;
   
   &:hover {
-    background: rgba(45, 182, 112, 0.9);
+    background: rgba(61, 181, 78, 0.9);
   }
   
   &.prev {
@@ -200,7 +200,7 @@ export const CloseButton = styled.button`
   position: absolute;
   top: 20px;
   right: 20px;
-  background: rgba(45, 182, 112, 0.7);
+  background: rgba(61, 181, 78, 0.7);
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -215,7 +215,7 @@ export const CloseButton = styled.button`
   transition: background 0.3s ease;
   
   &:hover {
-    background: rgba(45, 182, 112, 0.9);
+    background: rgba(61, 181, 78, 0.9);
   }
 `;
 

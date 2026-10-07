@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const FooterContainer = styled.footer`
- background-color: ${({ theme }) => theme.colors.background};
+export const FooterContainer = styled.footer<{ $offWhite: boolean }>`
+ background-color: ${({ theme, $offWhite }) => theme.theme === 'light' && $offWhite ? '#f5f6f3' : theme.colors.background};
  width: 100%;
  margin: 0;
  padding: 0;
@@ -51,7 +51,7 @@ export const FooterLinkItems = styled.div`
      width: 100%
  }
 `
-export const FooterLinkTitle = styled.h1`
+export const FooterLinkTitle = styled.h2`
  font-size: 14px;
  margin-bottom: 16px;
  color: ${({ theme }) => theme.colors.text};

@@ -1,6 +1,7 @@
 // src/components/ProjectCard/WebDevProjectCard.tsx
 import React, { useState, useEffect, useRef, FC } from "react";
 import { ProjectType } from "../../types";
+import { getProjectPreview } from '../../data/projectPreviews';
 import {
   WebDevCardContainer,
   WebDevImageWrapper,
@@ -71,7 +72,7 @@ const WebDevProjectCard: FC<WebDevProjectCardProps> = ({ project }) => {
       className={isVisible ? 'visible' : ''}
     >
       <WebDevImageWrapper>
-        <WebDevProjectImage src={project.image} alt={project.title} />
+        <WebDevProjectImage {...getProjectPreview(project.id, project.image)} sizes="(max-width: 700px) calc(100vw - 6rem), 400px" alt={project.title} />
       </WebDevImageWrapper>
       <WebDevContentWrapper>
         <WebDevProjectTitle>{project.title}</WebDevProjectTitle>

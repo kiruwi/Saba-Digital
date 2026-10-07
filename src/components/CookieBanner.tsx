@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Clarity from "@microsoft/clarity";
+import { afterPageLoad } from "../utils/afterPageLoad";
 import { updateGoogleConsent } from "../utils/analytics";
 
 const CONSENT_KEY = "cookie_consent_v2";
@@ -14,14 +14,13 @@ const Banner = styled.div`
   display: flex; align-items: center; gap: 12px;
   padding: 12px 16px; background: #fff; color: #121212;
   min-height: 64px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
   line-height: 1.35;
-  border-top: 1px solid rgba(0,0,0,0.08);
   box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
   z-index: 9999;
   @media (max-width: 768px) {
-    min-height: 190px;
+    min-height: auto;
     flex-direction: column;
     align-items: stretch;
   }
@@ -32,26 +31,27 @@ const Msg = styled.span`
 `;
 
 const PolicyLink = styled(Link)`
-  color: #1f7a3a;
+  color: #121212;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 2px;
   &:hover {
-    color: #145a28;
+    color: #121212;
   }
 `;
 
 const Actions = styled.div`
   display: flex; gap: 8px;
-  @media (max-width: 768px) { width: 100%; flex-direction: column; }
+  @media (max-width: 768px) { width: 100%; }
+  button { height: 44px; flex: 0 0 auto; white-space: nowrap; }
 `;
 
 const Btn = styled.button<{ $secondary?: boolean }>`
   padding: 8px 14px; font-size: 14px; border: 0; cursor: pointer;
   border-radius: 6px;
   background: ${({ $secondary }) =>
-    $secondary ? "rgba(0,0,0,0.06)" : "#1f7a3a"};
-  color: ${({ $secondary }) => ($secondary ? "#121212" : "#fff")};
+    $secondary ? "rgba(0,0,0,0.06)" : "#3db54e"};
+  color: #121212;
   transition: opacity 0.2s ease;
   &:hover { opacity: 0.9; }
 `;
@@ -59,7 +59,10 @@ const Btn = styled.button<{ $secondary?: boolean }>`
 const FloatingSettings = styled.button`
   position: fixed; left: 12px; bottom: 12px; z-index: 9998;
   padding: 6px 10px; font-size: 13px; border: 0; cursor: pointer;
-  border-radius: 999px; background: rgba(0,0,0,0.06); color: #121212;
+  border-radius: 999px;
+  background: ${({ theme }) => theme.colors.cardBackground};
+  color: ${({ theme }) => theme.colors.text};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   backdrop-filter: blur(8px);
 `;
 
@@ -87,20 +90,25 @@ function setClarityConsent(status: "granted" | "denied") {
 }
 
 /** Initialize Clarity only after explicit consent. */
+let clarityInitialized = false;
+let cancelClarityLoad: (() => void) | undefined;
 function initClarityAfterConsent() {
-  try {
-    Clarity.init(CLARITY_ID);
-    setClarityConsent("granted");
-    (window as any).clarity?.("event", "cookie_accept");
-  } catch { /* no-op */ }
+  cancelClarityLoad?.();
+  cancelClarityLoad = afterPageLoad(() => {
+    void import('@microsoft/clarity').then(({ default: Clarity }) => {
+      if (readConsent()?.status !== 'accepted') return;
+      if (!clarityInitialized) { Clarity.init(CLARITY_ID); clarityInitialized = true; }
+      setClarityConsent('granted');
+    }).catch(() => { /* analytics must not interrupt the site */ });
+  });
 }
 
 /** Deny consent defensively if script is present. */
 function setClarityDenied() {
+  cancelClarityLoad?.();
   try {
     if (clarityAvailable()) {
       setClarityConsent("denied");
-      (window as any).clarity("event", "cookie_reject");
     }
   } catch { /* no-op */ }
 }
@@ -221,8 +229,7 @@ const CookieBanner: React.FC = () => {
       ref={bannerRef}
     >
       <Msg>
-        I use cookies to help my site work properly and learn how 
-        you use it, so I can give you the best experience.{" "}
+        I use cookies to understand how this site is used. You can accept or reject optional cookies.{" "}
         <PolicyLink to="/privacy">Privacy Policy </PolicyLink> ·{" "}
         <PolicyLink to="/cookies">Cookie Policy</PolicyLink>
       </Msg>

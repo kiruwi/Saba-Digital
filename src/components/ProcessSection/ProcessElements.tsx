@@ -41,7 +41,7 @@ export const ProcessStep = styled.div<ProcessStepProps>`
   margin-bottom: 4rem;
   display: flex;
   flex-direction: column;
-  background: ${({ theme }) => theme.theme === 'dark' ? '#000000' : '#f8f8f8'};
+  background: ${({ theme }) => theme.theme === 'dark' ? '#000000' : '#f5f6f3'};
   border-radius: 0px;
   padding: 2rem;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};

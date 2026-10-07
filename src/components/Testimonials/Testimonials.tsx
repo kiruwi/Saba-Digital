@@ -6,6 +6,18 @@ import React, {
   useState,
   useEffect,
 } from "react";
+import styled from 'styled-components';
+
+const ReviewSection = styled.section`
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  background: ${({ theme }) => theme.theme === 'light' ? '#f5f6f3' : theme.colors.background};
+  .bg-white { background: ${({ theme }) => theme.theme === 'dark' ? '#242824' : '#ffffff'}; }
+  [data-card='true'] > div { border: 1px solid ${({ theme }) => theme.colors.border}; border-radius: 4px; box-shadow: none; }
+  h2, h3, .text-gray-900 { color: ${({ theme }) => theme.colors.headingText}; }
+  p, .text-gray-600, .text-gray-700 { color: ${({ theme }) => theme.colors.text}; }
+  h2 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.03em; }
+  .text-green-500 { color: ${({ theme }) => theme.theme === 'light' ? '#3db54e' : theme.colors.primary}; }
+`;
 const reviewerImage1 = "/images/optimized/testimonials/mark-160.webp";
 const reviewerImage2 = "/images/optimized/testimonials/taita-160.webp";
 const reviewerImage3 = "/images/optimized/testimonials/kamau-160.webp";
@@ -59,7 +71,7 @@ const Stars: React.FC<{ rating: number }> = memo(({ rating }) => {
         <svg
           key={idx}
           className={`w-3 h-3 ${
-            idx < clamped ? "text-yellow-400" : "text-gray-300"
+            idx < clamped ? "text-[#3db54e]" : "text-gray-300"
           }`}
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -78,7 +90,7 @@ const ReviewCard: React.FC<{ review: Review }> = memo(({ review }) => (
     {/* Left side - Reviewer Info */}
     <div className="flex flex-col items-center min-w-[120px] sm:min-w-[150px]">
       {/* Profile Image Placeholder */}
-      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-xl sm:text-2xl font-semibold mb-3">
+      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#3db54e] flex items-center justify-center text-white text-xl sm:text-2xl font-semibold mb-3">
         {review.reviewerImage ? (
           <img
             src={review.reviewerImage}
@@ -136,7 +148,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
@@ -175,7 +187,6 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
 
       // Pause auto-play when user manually navigates
       setIsAutoPlaying(false);
-      setTimeout(() => setIsAutoPlaying(true), 20000); // Resume after 20 seconds
     },
     [activeIndex, items.length, scrollToIndex]
   );
@@ -314,17 +325,14 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
   }, [isAutoPlaying, activeIndex, items.length, startAutoPlay, pauseAutoPlay]);
 
   return (
-    <section
+    <ReviewSection
       aria-label="Testimonials"
-      className="relative w-full bg-gradient-to-tl from-sky-100/100 to-white/100 py-16"
+      className="relative w-full"
     >
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-green-500 text-sm font-semibold uppercase tracking-wider mb-2">
-            MY CLIENTS
-          </p>
-          <h2 className="text-3xl font-bold text-gray-900">Reviews</h2>
+          <h2 className="text-3xl font-bold text-gray-900">In my clients’ words</h2>
         </div>
 
         {/* Carousel Display - Single Review at a Time */}
@@ -357,7 +365,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
             <>
               <button
                 onClick={() => scrollByStep(-1)}
-                className={`absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 sm:-translate-x-12 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center transition-all ${
+                className={`absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center transition-all ${
                   activeIndex === 0
                     ? "opacity-50 cursor-not-allowed"
                     : "hover:shadow-xl"
@@ -382,7 +390,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
 
               <button
                 onClick={() => scrollByStep(1)}
-                className={`absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 sm:translate-x-12 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center transition-all ${
+                className={`absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center transition-all ${
                   activeIndex === items.length - 1
                     ? "opacity-50 cursor-not-allowed"
                     : "hover:shadow-xl"
@@ -421,7 +429,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
               <span
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   index === activeIndex
-                    ? "bg-green-600"
+                    ? "bg-[#3db54e]"
                     : "bg-gray-300 group-hover:bg-gray-400"
                 }`}
                 aria-hidden="true"
@@ -430,7 +438,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
           ))}
         </div>
       </div>
-    </section>
+    </ReviewSection>
   );
 };
 

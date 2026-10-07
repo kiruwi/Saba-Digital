@@ -4,11 +4,14 @@
  */
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { afterPageLoad } from './afterPageLoad';
 
 // Extend the Window interface to include gtag
 declare global {
   interface Window {
     gtag?: (...args: any[]) => void;
+    dataLayer?: unknown[];
+    'ga-disable-G-YQ8LPFFP43'?: boolean;
   }
 }
 
@@ -16,7 +19,41 @@ interface EventParams {
   [key: string]: string | number | boolean;
 }
 
+const MEASUREMENT_ID = 'G-YQ8LPFFP43';
+let consentGranted = false;
+let initialized = false;
+let cancelLoad: (() => void) | undefined;
+
+const consentSettings = (granted: boolean) => ({
+  ad_storage: granted ? 'granted' : 'denied',
+  ad_user_data: granted ? 'granted' : 'denied',
+  ad_personalization: granted ? 'granted' : 'denied',
+  analytics_storage: granted ? 'granted' : 'denied',
+});
+
 export const updateGoogleConsent = (granted: boolean): void => {
+  consentGranted = granted;
+  window['ga-disable-G-YQ8LPFFP43'] = !granted;
+  cancelLoad?.();
+  cancelLoad = undefined;
+  if (granted && !initialized) {
+    cancelLoad = afterPageLoad(() => {
+      if (!consentGranted || initialized) return;
+      initialized = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer?.push(arguments); };
+      window.gtag('consent', 'default', consentSettings(false));
+      window.gtag('consent', 'update', consentSettings(true));
+      window.gtag('js', new Date());
+      window.gtag('config', MEASUREMENT_ID, { send_page_view: false });
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`;
+      document.head.appendChild(script);
+      trackPageView(window.location.pathname + window.location.search);
+    });
+    return;
+  }
   window.gtag?.('consent', 'update', {
     ad_storage: granted ? 'granted' : 'denied',
     ad_user_data: granted ? 'granted' : 'denied',
@@ -27,7 +64,7 @@ export const updateGoogleConsent = (granted: boolean): void => {
 
 // Track page views in Google Analytics for SPAs
 export const trackPageView = (path: string): void => {
-  if (window.gtag) {
+  if (consentGranted && window.gtag) {
     // Skip on localhost to keep GA clean (optional)
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') return;
     
@@ -43,7 +80,7 @@ export const trackPageView = (path: string): void => {
 
 // Track custom events in Google Analytics
 export const trackEvent = (eventName: string, eventParams: EventParams = {}): void => {
-  if (window.gtag) {
+  if (consentGranted && window.gtag) {
     window.gtag('event', eventName, eventParams);
   }
 };

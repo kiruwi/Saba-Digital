@@ -13,7 +13,7 @@ const GlobalStyles = createGlobalStyle`
   
   /* Enhanced focus styles for keyboard navigation */
   :focus {
-    outline: 2px solid #007e41;
+    outline: 2px solid #3db54e;
     outline-offset: 2px;
   }
   
@@ -23,7 +23,7 @@ const GlobalStyles = createGlobalStyle`
   }
   
   :focus-visible {
-    outline: 2px solid #007e41;
+    outline: 2px solid #3db54e;
     outline-offset: 2px;
   }
 
@@ -136,7 +136,7 @@ const GlobalStyles = createGlobalStyle`
 
   /* Link accessibility */
   a {
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.text};
     text-decoration: underline;
     transition: color 0.2s ease;
     

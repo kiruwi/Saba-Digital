@@ -177,9 +177,9 @@ export const BackButton = styled(Link)`
   top: 24px;
   left: 24px;
   padding: 10px 20px;
-  border: 2px solid #2db670;
+  border: 2px solid #3db54e;
   background: transparent;
-  color: #2db670;
+  color: #3db54e;
   font-size: 14px;
   text-decoration: none;
   cursor: pointer;
@@ -188,7 +188,7 @@ export const BackButton = styled(Link)`
   letter-spacing: 1px;
 
   &:hover {
-    background: #2db670;
+    background: #3db54e;
     color: #000;
   }
 `;

@@ -1,100 +1,36 @@
-import React from "react";
-import ThemeToggle from "../ThemeToggle";
-import styled from "styled-components";
-import { useTheme } from "../../contexts/ThemeContext";
-import SidebarContainer from "./SidebarContainer";
-import {
-  SidebarWrapper,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarRouterLink,
-  SideBtnWrap,
-} from "./SidebarElements";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
-// Define theme type for styled components
-interface ThemeType {
-  colors: {
-    text: string;
-    primary: string;
-    background: string;
-  };
-}
-
-// Styled component for the theme toggle container in sidebar
-const SidebarThemeToggle = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  
-  button {
-    padding: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    
-    &:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-  }
+const Panel = styled.nav`
+  position: fixed; inset: 80px 0 0; z-index: 9999;
+  background: ${({ theme }) => theme.colors.background};
+  padding: 2rem 1.5rem; overflow-y: auto;
+  a { display: block; font-size: 2rem; padding: 1rem; text-decoration: none; }
+  a:hover, a.active { color: ${({ theme }) => theme.colors.primary}; }
+  @media (min-width: 769px) { display: none; }
 `;
-
-// Define the resume link styles as a component
-const ResumeLink = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  text-decoration: none;
-  list-style: none;
-  transition: 0.2s ease-in-out;
-  color: ${({ theme }: { theme: ThemeType }) => theme.colors.text};
-  cursor: pointer;
-
-  &:hover {
-    color: ${({ theme }: { theme: ThemeType }) => theme.colors.primary};
-    transition: 0.2s ease-in-out;
-  }
-`;
-
-interface SidebarProps {
-  isOpen: boolean;
-  toggle: () => void;
-}
-
+interface SidebarProps { isOpen: boolean; toggle: () => void; }
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggle }) => {
-  const { theme, toggleTheme } = useTheme();
-  
-  return (
-    <SidebarContainer isOpen={isOpen} onClick={toggle}>
-
-        <SidebarWrapper>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <ResumeLink 
-              href='https://drive.google.com/file/d/1-LmqGJNPkNZ0naITKqTo5PrQsX7iNpYP/view?usp=sharing' 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              onClick={toggle} 
-            >
-              Résumé
-            </ResumeLink>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarRouterLink 
-              to='/contact' 
-              onClick={toggle} 
-            >
-              Contact Me
-            </SidebarRouterLink>
-          </SidebarMenuItem>
-        </SidebarMenu>
-        <SideBtnWrap>
-          <SidebarThemeToggle>
-            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-          </SidebarThemeToggle>
-        </SideBtnWrap>
-      </SidebarWrapper>
-    </SidebarContainer>
-  );
-}
-
+  useEffect(() => {
+    if (!isOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        toggle();
+        document.querySelector<HTMLButtonElement>('[aria-controls="mobile-navigation"]')?.focus();
+      }
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => { document.body.style.overflow = previous; window.removeEventListener('keydown', closeOnEscape); };
+  }, [isOpen, toggle]);
+  if (!isOpen) return null;
+  return <Panel id="mobile-navigation" aria-label="Mobile navigation">
+    <NavLink to="/work" onClick={toggle}>Work</NavLink>
+    <NavLink to="/about" onClick={toggle}>About</NavLink>
+    <NavLink to="/contact" onClick={toggle}>Contact</NavLink>
+    <a href="https://drive.google.com/file/d/1-LmqGJNPkNZ0naITKqTo5PrQsX7iNpYP/view?usp=sharing" target="_blank" rel="noopener noreferrer" onClick={toggle}>Résumé ↗</a>
+  </Panel>;
+};
 export default Sidebar;

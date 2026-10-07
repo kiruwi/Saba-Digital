@@ -8,7 +8,7 @@ const PageWrap = styled.main`
   display: flex;
   justify-content: center;
   padding: 64px 16px;
-  background: ${({ theme }) => theme.colors?.background ?? '#ffffff'};
+  background: ${({ theme }) => theme.theme === 'light' ? '#f5f6f3' : theme.colors.background};
   color: ${({ theme }) => theme.colors?.text ?? '#121212'};
 `;
 
@@ -61,7 +61,7 @@ const BackButton = styled.button`
   appearance: none;
   border: none;
   border-radius: 8px;
-  background: ${({ theme }) => theme.colors?.primary ?? '#00cf95'};
+  background: ${({ theme }) => theme.colors?.primary ?? '#3db54e'};
   color: ${({ theme }) => theme.colors?.buttonText ?? '#fff'};
   padding: 8px 12px;
   font-size: 0.95rem;

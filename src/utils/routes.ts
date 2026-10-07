@@ -3,6 +3,7 @@ import { RouteObject } from 'react-router-dom';
 // Define route paths enum for consistency
 export enum RoutePaths {
   Home = '/',
+  About = '/about',
   Contact = '/contact',
   Error = '/404',
   // Work routes
@@ -24,6 +25,7 @@ export enum RoutePaths {
  */
 export const ROUTE_PATHS = {
   Home: RoutePaths.Home,
+  About: RoutePaths.About,
   Contact: RoutePaths.Contact,
   Error: RoutePaths.Error,
   Work: RoutePaths.Work,
@@ -39,6 +41,7 @@ export const ROUTE_PATHS = {
 
 // Empty routes - routing is handled in App.tsx 
 export const routes: RouteObject[] = [
+  { path: RoutePaths.About },
   {
     path: RoutePaths.Home,
   },

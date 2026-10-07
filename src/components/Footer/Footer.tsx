@@ -17,19 +17,18 @@ import {
   SocialIconLink,
 } from "./FooterElements";
 
-const Footer: React.FC = () => {
+const Footer: React.FC<{ offWhite?: boolean }> = ({ offWhite = true }) => {
   return (
-    <FooterContainer>
+    <FooterContainer $offWhite={offWhite}>
       <FooterWrap>
         <FooterLinksContainer>
           <FooterLinksWrapper>
             <FooterLinkItems>
               <FooterLinkTitle>Nairobi</FooterLinkTitle>
               <FooterLink to="/contact">Kilimani, Naivasha Rd</FooterLink>
-              <FooterLink to="/contact">305</FooterLink>
             </FooterLinkItems>
             <FooterLinkItems>
-              <FooterLinkTitle>Lets Talk</FooterLinkTitle>
+              <FooterLinkTitle>Let’s Talk</FooterLinkTitle>
               <FooterExternalLink href="tel:+254710911168">+254 710 911 168</FooterExternalLink>
               <FooterExternalLink href="mailto:info@iankcheruiyot.work">info@iankcheruiyot.work</FooterExternalLink>
             </FooterLinkItems>

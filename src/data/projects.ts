@@ -1,6 +1,6 @@
 // src/data/projects.ts - Updated Ufanisi Resort content
-import uxImage1 from "../assets/projects/ux-ui/u-r.jpg";
-import webImage from "../assets/projects/web-dev/app1.jpg";
+import uxImage1 from "../assets/projects/ux-ui/u-r.webp";
+import webImage from "../assets/projects/web-dev/app1.webp";
 import mutaiImage from "../images/service2-bg.webp";
 
 // Define types for the project data structure
@@ -76,9 +76,9 @@ export const webProjects: ProjectType[] = [
       "This was my first web development project, created for Makvo company. The website was built with a focus on responsive design principles and modern UI components. I implemented a clean, professional layout that effectively showcases the company's services and portfolio. The site features cross-browser compatibility, optimized performance, and SEO-friendly structure to improve search engine visibility.",
     image: webImage,
     additionalImages: [
-      "/assets/projects/web-dev/app1.jpg",
-      "/assets/projects/web-dev/app1.jpg",
-      "/assets/projects/web-dev/app1.jpg"
+      "/assets/projects/web-dev/app1.webp",
+      "/assets/projects/web-dev/app1.webp",
+      "/assets/projects/web-dev/app1.webp"
     ],
     tags: ["jQuery", "Bootstrap", "Apache"],
     category: "webdev",
@@ -104,7 +104,7 @@ export const webProjects: ProjectType[] = [
     shortDescription: "Freight forwarding & logistics solutions website for a Kenyan transport company.",
     fullDescription: "Mutai Enterprises Limited entrusted me to design and develop a modern website that showcases their freight forwarding, bulk transport and logistics services across Kenya and Uganda. The site emphasises their trusted reputation built since 1970, provides clear CTAs for quote requests, and highlights key service corridors such as Nairobi – Mombasa – Kampala.",
     fullDescription2: "Built with Next.js and React, styled using Tailwind CSS, and deployed on Vercel’s edge network. The project uses Webpack for efficient bundling, implements Priority Hints, and integrates Google Analytics & Google Tag Manager for insights, all contributing to 90+ Lighthouse performance scores and strong SEO.",
-    image: "/images/m2.png",
+    image: "/images/m2.webp",
     additionalImages: [mutaiImage],
     tags: ["Next.js", "Tailwind CSS", "React", "Vercel"],
     category: "webdev",
@@ -179,15 +179,15 @@ export const graphicsProjects: ProjectType[] = [
       { heading: "Brand Development", content: "Working closely with the company leadership, I developed a bold, distinctive logo that incorporates visual elements suggesting movement and transportation while maintaining a professional appearance. The color palette features different shades of green that convey trust and energy, essential qualities for a hauling service." },
       { heading: "Visual Identity", content: "I established brand guidelines to ensure the GSC visual identity would be instantly recognizable across all touchpoints. As the company's graphic designer, I created a system of complementary graphic elements that could be applied consistently across different media while maintaining brand recognition." },
       { heading: "Advertising Materials", content: "I managed the design and production of all print and digital advertising materials featuring the new branding. This included vehicle wraps, business cards, flyers, social media graphics, and billboard designs that created a cohesive visual presence across all customer touchpoints." },
-      { heading: "Impact", content: "Since implementing the new branding and visual system, GSC Hauling has experienced a significant increase in brand recognition and customer engagement. The company has expanded its fleet and service area, with the new visual identity playing a key role in their growth strategy." }
+      { heading: "Delivered", content: "The finished identity brings GSC Hauling’s logo, vehicle graphics, print materials, and digital advertising into one consistent visual system." }
     ],
-    image: "/assets/projects/3d-graphics/gsc-images/gsc-water.jpg",
+    image: "/assets/projects/3d-graphics/gsc-images/gsc-water.webp",
     additionalImages: [
-      "/assets/projects/3d-graphics/gsc-images/gsc-logo.jpg",
+      "/assets/projects/3d-graphics/gsc-images/gsc-logo.webp",
       "/assets/projects/3d-graphics/gsc-images/gsc-AD.png",
-      "/assets/projects/3d-graphics/gsc-images/gsc-water.jpg",
-      "/assets/projects/3d-graphics/gsc-images/john-front.jpg",
-      "/assets/projects/3d-graphics/gsc-images/john-gsc.jpg"
+      "/assets/projects/3d-graphics/gsc-images/gsc-water.webp",
+      "/assets/projects/3d-graphics/gsc-images/john-front.webp",
+      "/assets/projects/3d-graphics/gsc-images/john-gsc.webp"
     ],
     tags: ["Brand Identity", "Logo Design", "Advertising Design"],
     category: "graphics",
@@ -213,14 +213,14 @@ export const graphicsProjects: ProjectType[] = [
       { heading: "Brand Guidelines", content: "I created comprehensive brand guidelines documenting proper logo usage, color specifications, typography rules, and application examples. These guidelines ensure consistent brand presentation across all media and provide clear direction for future brand extensions." },
       { heading: "Applications", content: "The brand identity was applied across various touchpoints including business cards, letterhead, packaging design, social media templates, and website elements. Each application maintains brand consistency while being optimized for its specific use case." }
     ],
-    image: "/assets/projects/3d-graphics/osim-lai-images/logo-page2x-100.jpg",
+    image: "/assets/projects/3d-graphics/osim-lai-images/logo-page2x-100.webp",
     additionalImages: [
-      "/assets/projects/3d-graphics/osim-lai-images/logo-page2x-100.jpg",
-      "/assets/projects/3d-graphics/osim-lai-images/logo-design2x-100.jpg",
-      "/assets/projects/3d-graphics/osim-lai-images/color-and-mockup.2x-100.jpg",
-      "/assets/projects/3d-graphics/osim-lai-images/Font-type2x-100.jpg",
-      "/assets/projects/3d-graphics/osim-lai-images/assets2x-100.jpg",
-      "/assets/projects/3d-graphics/osim-lai-images/mockup2x-100.jpg"
+      "/assets/projects/3d-graphics/osim-lai-images/logo-page2x-100.webp",
+      "/assets/projects/3d-graphics/osim-lai-images/logo-design2x-100.webp",
+      "/assets/projects/3d-graphics/osim-lai-images/color-and-mockup.2x-100.webp",
+      "/assets/projects/3d-graphics/osim-lai-images/Font-type2x-100.webp",
+      "/assets/projects/3d-graphics/osim-lai-images/assets2x-100.webp",
+      "/assets/projects/3d-graphics/osim-lai-images/mockup2x-100.webp"
     ],
     tags: ["Brand Identity", "Logo Design", "Style Guide"],
     category: "graphics",
@@ -246,31 +246,31 @@ export const graphicsProjects: ProjectType[] = [
       { heading: "3D Product Visualization", content: "For the FarmShield™ device, I created highly detailed 3D models and renderings that showcase the product from multiple angles. These visualizations were used in marketing materials, investor presentations, and on the company website to help potential clients understand the product's design and functionality." },
       { heading: "Implementation", content: "The new brand identity was implemented across all company touchpoints including website, marketing materials, product packaging, and trade show displays. The cohesive visual system has helped Synnefa establish a strong market presence and attract new clients and investors." }
     ],
-    image: "/assets/projects/3d-graphics/synnefa-images/banner.jpg",
+    image: "/assets/projects/3d-graphics/synnefa-images/banner.webp",
     additionalImages: [],
     gallery: [
       {
-        src: '/assets/projects/3d-graphics/synnefa-images/mind-map.jpg',
+        src: '/assets/projects/3d-graphics/synnefa-images/mind-map.webp',
         alt: 'Brief & Brand Concept Mind Map'
       },
       {
-        src: '/assets/projects/3d-graphics/synnefa-images/mood-board.jpg',
+        src: '/assets/projects/3d-graphics/synnefa-images/mood-board.webp',
         alt: 'Mood Board and Visual Direction'
       },
       {
-        src: '/assets/projects/3d-graphics/synnefa-images/design-process.jpg',
+        src: '/assets/projects/3d-graphics/synnefa-images/design-process.webp',
         alt: 'Design Process and Development'
       },
       {
-        src: '/assets/projects/3d-graphics/synnefa-images/logo-variations.jpg',
+        src: '/assets/projects/3d-graphics/synnefa-images/logo-variations.webp',
         alt: 'Logo Variations and Style Exploration'
       },
       {
-        src: '/assets/projects/3d-graphics/synnefa-images/synnefa-logo.jpg',
+        src: '/assets/projects/3d-graphics/synnefa-images/synnefa-logo.webp',
         alt: 'Final Synnefa Logo Design'
       },
       {
-        src: '/assets/projects/3d-graphics/synnefa-images/service3-bg.jpg',
+        src: '/assets/projects/3d-graphics/synnefa-images/service3-bg.webp',
         alt: '3D Product Visualization for FarmShield™ Device'
       }
 

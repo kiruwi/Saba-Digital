@@ -148,7 +148,7 @@ export const FilterBar = styled.div<{ theme?: any }>`
 
 export const FilterChip = styled.button.attrs({ type: 'button' })<{ theme?: any }>`
   border: 0;
-  background: ${props => props.theme?.colors?.primary || '#2db670'};
+  background: ${props => props.theme?.colors?.primary || '#3db54e'};
   color: white;
   padding: 6px 12px;
   border-radius: 20px;
@@ -160,7 +160,7 @@ export const FilterChip = styled.button.attrs({ type: 'button' })<{ theme?: any 
   
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(45, 182, 112, 0.3);
+    box-shadow: 0 2px 8px rgba(61, 181, 78, 0.3);
   }
 `;
 
@@ -307,7 +307,7 @@ export const LoadingSpinner = styled.div<{ theme?: any }>`
   border: 2px solid ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
     ? 'rgba(255, 255, 255, 0.3)' 
     : 'rgba(0, 0, 0, 0.3)'};
-  border-top: 2px solid ${props => props.theme?.colors?.primary || '#2db670'};
+  border-top: 2px solid ${props => props.theme?.colors?.primary || '#3db54e'};
   border-radius: 50%;
   animation: ${spin} 1s linear infinite;
 `;

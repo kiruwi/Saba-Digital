@@ -26,11 +26,7 @@ export const Section = styled.section`
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(
-      circle at center,
-      rgba(45, 182, 112, 0.03) 0%,
-      transparent 70%
-    );
+    background: transparent;
     animation: pulse 15s ease-in-out infinite;
     pointer-events: none;
   }
@@ -64,7 +60,7 @@ export const Heading = styled.h2`
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 500;
   line-height: 1.3;
-  color: ${({ theme }) => theme.colors.accent || theme.colors.primary};
+  color: #161916;
   letter-spacing: -0.02em;
   position: relative;
   
@@ -83,8 +79,8 @@ export const Heading = styled.h2`
 export const Subtext = styled.p`
   margin: 0.01rem 0 3rem 0;
   max-width: 1000px;
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 700;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 400;
   line-height: 1.4;
   color: #000000ff;
   position: relative;
@@ -102,8 +98,8 @@ export const Subtext = styled.p`
 
   code {
     font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-    background: linear-gradient(135deg, rgba(45, 182, 112, 0.1), rgba(45, 182, 112, 0.05));
-    border: 1px solid rgba(45, 182, 112, 0.2);
+    background: linear-gradient(135deg, rgba(61, 181, 78, 0.1), rgba(61, 181, 78, 0.05));
+    border: 1px solid rgba(61, 181, 78, 0.2);
     border-radius: 6px;
     padding: 0.15rem 0.5rem;
     font-size: 0.9em;

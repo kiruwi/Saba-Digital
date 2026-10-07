@@ -8,7 +8,7 @@ const PageWrap = styled.main`
   display: flex;
   justify-content: center;
   padding: 64px 16px;
-  background: ${({ theme }) => theme.colors?.background ?? '#ffffff'};
+  background: ${({ theme }) => theme.theme === 'light' ? '#f5f6f3' : theme.colors.background};
   color: ${({ theme }) => theme.colors?.text ?? '#121212'};
 `;
 
@@ -61,7 +61,7 @@ const BackButton = styled.button`
   appearance: none;
   border: none;
   border-radius: 8px;
-  background: ${({ theme }) => theme.colors?.primary ?? '#00cf95'};
+  background: ${({ theme }) => theme.colors?.primary ?? '#3db54e'};
   color: ${({ theme }) => theme.colors?.buttonText ?? '#fff'};
   padding: 8px 12px;
   font-size: 0.95rem;
@@ -74,13 +74,12 @@ const BackButton = styled.button`
 const FooterNote = styled.footer`
   margin-top: 24px;
   padding-top: 12px;
-  border-top: 1px solid ${({ theme }) => theme.colors?.border ?? 'rgba(0,0,0,0.1)'};
   font-size: 0.9rem;
   color: ${({ theme }) => theme.colors?.secondary ?? '#6c757d'};
 `;
 
 const LinkA = styled.a`
-  color: ${({ theme }) => theme.colors?.accent ?? '#007e41'};
+  color: ${({ theme }) => theme.colors?.accent ?? '#3db54e'};
 `;
 
 const PrivacyPolicy: React.FC = () => {

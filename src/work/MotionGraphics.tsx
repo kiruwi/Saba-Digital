@@ -21,6 +21,8 @@ const PageTitle = styled.h1`
 `;
 
 const MasonryGrid = styled.div`
+  padding: clamp(1rem, 3vw, 2rem);
+  background: ${({ theme }) => theme.theme === 'light' ? '#f5f6f3' : theme.colors.background};
   width: 100%;
   column-count: 4;
   column-gap: 1rem;
