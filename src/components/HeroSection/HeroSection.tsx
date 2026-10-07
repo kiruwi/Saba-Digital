@@ -9,7 +9,7 @@ const Hero = styled.section`
   padding: clamp(3rem, 6vw, 5rem) 1.5rem 3rem;
   display: flex; flex-direction: column; align-items: flex-start; gap: 2rem;
   position: relative; isolation: isolate; min-height: 600px; justify-content: center;
-  @media (max-width: 700px) { min-height: auto; gap: 1.5rem; }
+  @media (max-width: 700px) { min-height: auto; gap: 1.5rem; align-items: center; text-align: center; }
 `;
 const Title = styled.h1`
   position: relative; z-index: 1; pointer-events: none;
@@ -24,6 +24,7 @@ const Title = styled.h1`
 const Actions = styled.div`
   position: relative; z-index: 1;
   display: flex; flex-wrap: wrap; align-items: center; gap: 1rem;
+  @media (max-width: 700px) { justify-content: center; }
 `;
 export const WorkLink = styled(Link)`
   display: inline-flex; align-items: center; justify-content: center; gap: 1rem;
