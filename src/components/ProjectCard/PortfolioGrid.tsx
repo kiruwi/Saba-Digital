@@ -29,34 +29,35 @@ const Grid = styled.div<{ $featured: boolean }>`
     grid-template-columns: repeat(2, minmax(0, 1fr));
     > a:first-child {
       grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      align-items: center;
+      min-height: 520px;
     }
     > a:first-child h3 { font-size: clamp(2rem, 4vw, 3rem); }
   `}
   @media (max-width: 1000px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  @media (max-width: 600px) { grid-template-columns: 1fr; > a:first-child { display: flex; grid-column: auto; } }
+  @media (max-width: 600px) { grid-template-columns: 1fr; > a:first-child { grid-column: auto; min-height: 420px; } }
 `;
 const Card = styled(Link)`
-  display: flex; flex-direction: column;
-  padding-bottom: 1rem;
-  overflow: hidden; text-decoration: none; color: ${({ theme }) => theme.colors.text};
+  position: relative; display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: 420px;
+  overflow: hidden; text-decoration: none; color: #fff;
   background: ${({ theme }) => theme.colors.cardBackground};
-  &:hover h3 { color: ${({ theme }) => theme.colors.primary}; }
-  &:hover img { transform: scale(1.035); }
+  &:focus-visible { outline: 3px solid ${({ theme }) => theme.colors.primary}; outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) { img { transition: none; } }
 `;
 const Image = styled.div`
-  aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; background: ${({ theme }) => theme.colors.border};
-  img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+  position: absolute; inset: 0; overflow: hidden; border-radius: 0; background: ${({ theme }) => theme.colors.border};
+  img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1); transition: transform .5s ease; }
 `;
 const Copy = styled.div`
-  padding: 1.5rem 1rem; flex: 1; display: flex; flex-direction: column;
+  position: relative; z-index: 1; padding: 5rem 1.5rem 1.5rem; display: flex; flex-direction: column;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .35) 40%, rgba(0, 0, 0, .65));
+  &, h3, p, span { color: #fff; }
+  h3, p { max-width: 38rem; }
   p { line-height: 1.6; margin: .75rem 0 1.25rem; font-size: .95rem; }
   h3 { font-size: 1.5rem; letter-spacing: -.02em; }
 `;
 const Category = styled.span`
-  color: ${({ theme }) => theme.colors.text};
+  color: #fff;
   font-size: .95rem; margin-top: .6rem;
 `;
 const Action = styled.span`
@@ -67,7 +68,7 @@ const PortfolioGrid: React.FC<{ items: PortfolioItem[]; featured?: boolean }> = 
   <Grid $featured={featured}>
     {items.map((item, index) => <Card key={item.id} to={item.path}>
       <Image><img {...getProjectPreview(item.id, item.image)} sizes={featured
-        ? `(max-width: 600px) calc(100vw - 3rem), (max-width: 1000px) calc((100vw - 4.5rem) / 2), ${index === 0 ? '720px' : '590px'}`
+        ? index === 0 ? '(max-width: 600px) calc(100vw - 3rem), 1200px' : '(max-width: 600px) calc(100vw - 3rem), (max-width: 1000px) calc((100vw - 4.5rem) / 2), 590px'
         : '(max-width: 600px) calc(100vw - 3rem), (max-width: 1000px) calc((100vw - 4.5rem) / 2), 384px'} alt={`${item.title} project preview`} loading="lazy" decoding="async" width={800} height={600} /></Image>
       <Copy>
         <h3>{item.title}</h3>

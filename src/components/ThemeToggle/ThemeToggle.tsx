@@ -14,7 +14,7 @@ const ToggleButton = styled.button<ToggleButtonProps>`
   background: ${({ $isDark }) => ($isDark ? '#333' : '#fff')};
   color: ${({ $isDark }) => ($isDark ? '#fff' : '#333')};
   border: 2px solid ${({ theme }) => theme.colors.primary};
-  border-radius: 30px;
+  border-radius: 0;
   cursor: pointer;
   display: flex;
   align-items: center;

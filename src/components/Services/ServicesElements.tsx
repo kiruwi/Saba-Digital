@@ -88,7 +88,7 @@ interface CardProps {
 export const ServicesCard = styled.div.withConfig(cardConfig)<CardProps>`
   position: relative;
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: 0;
   width: 90%;
   aspect-ratio: 1 / 1;
   margin: auto;
@@ -111,7 +111,7 @@ export const ServicesCard = styled.div.withConfig(cardConfig)<CardProps>`
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: inherit;
+    border-radius: 0;
      background-image: ${({ bg }) => (bg ? `url(${bg})` : 'none')};
     background-position: center;
     background-size: cover;
@@ -153,7 +153,7 @@ export const ServiceVisualLayer = styled.div<{ $iconOnly?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: inherit;
+  border-radius: 0;
   z-index: 0;
   pointer-events: none;
   background: ${({ $iconOnly, theme }) =>
@@ -184,7 +184,7 @@ export const TextOverlay = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding: 2rem;
-  border-radius: 24px;
+  border-radius: 0;
   transform: translateY(100%);
   opacity: 0;
   transition: transform 0.4s ease, opacity 0.4s ease;
@@ -230,7 +230,7 @@ export const LearnMoreButton = styled.button`
   background-color: ${({ theme }) => theme.colors.primary};
   color: #ffffff;
   border: none;
-  border-radius: 4px;
+  border-radius: 0;
   padding: 0.5rem 1rem;
   font-size: 0.9rem;
   font-weight: 500;

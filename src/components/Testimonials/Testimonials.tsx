@@ -12,7 +12,7 @@ const ReviewSection = styled.section`
   padding: clamp(3rem, 6vw, 5rem) 0;
   background: ${({ theme }) => theme.theme === 'light' ? '#f5f6f3' : theme.colors.background};
   .bg-white { background: ${({ theme }) => theme.theme === 'dark' ? '#242824' : '#ffffff'}; }
-  [data-card='true'] > div { border: 1px solid ${({ theme }) => theme.colors.border}; border-radius: 4px; box-shadow: none; }
+  [data-card='true'] > div { border: 1px solid ${({ theme }) => theme.colors.border}; border-radius: 0; box-shadow: none; }
   h2, h3, .text-gray-900 { color: ${({ theme }) => theme.colors.headingText}; }
   p, .text-gray-600, .text-gray-700 { color: ${({ theme }) => theme.colors.text}; }
   h2 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.03em; }
@@ -86,16 +86,16 @@ const Stars: React.FC<{ rating: number }> = memo(({ rating }) => {
 Stars.displayName = "Stars";
 
 const ReviewCard: React.FC<{ review: Review }> = memo(({ review }) => (
-  <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 p-6 sm:p-8 bg-white rounded-lg shadow-sm">
+  <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 p-6 sm:p-8 bg-white rounded-none shadow-sm">
     {/* Left side - Reviewer Info */}
     <div className="flex flex-col items-center min-w-[120px] sm:min-w-[150px]">
       {/* Profile Image Placeholder */}
-      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#3db54e] flex items-center justify-center text-white text-xl sm:text-2xl font-semibold mb-3">
+      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-none bg-[#3db54e] flex items-center justify-center text-white text-xl sm:text-2xl font-semibold mb-3">
         {review.reviewerImage ? (
           <img
             src={review.reviewerImage}
             alt={review.reviewerName}
-            className="w-full h-full rounded-full object-cover"
+            className="w-full h-full rounded-none object-cover"
             loading="lazy"
             decoding="async"
             width={160}
@@ -365,7 +365,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
             <>
               <button
                 onClick={() => scrollByStep(-1)}
-                className={`absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center transition-all ${
+                className={`absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-none bg-white shadow-lg flex items-center justify-center transition-all ${
                   activeIndex === 0
                     ? "opacity-50 cursor-not-allowed"
                     : "hover:shadow-xl"
@@ -390,7 +390,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
 
               <button
                 onClick={() => scrollByStep(1)}
-                className={`absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg flex items-center justify-center transition-all ${
+                className={`absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-none bg-white shadow-lg flex items-center justify-center transition-all ${
                   activeIndex === items.length - 1
                     ? "opacity-50 cursor-not-allowed"
                     : "hover:shadow-xl"
@@ -422,12 +422,12 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
             <button
               key={index}
               onClick={() => scrollToIndex(index)}
-              className="group w-6 h-6 rounded-full transition-all duration-300 flex items-center justify-center"
+              className="group w-6 h-6 rounded-none transition-all duration-300 flex items-center justify-center"
               aria-label={`Go to slide ${index + 1}`}
               aria-current={index === activeIndex ? "true" : undefined}
             >
               <span
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                className={`w-2 h-2 rounded-none transition-all duration-300 ${
                   index === activeIndex
                     ? "bg-[#3db54e]"
                     : "bg-gray-300 group-hover:bg-gray-400"

@@ -19,12 +19,12 @@ const Container = styled.article`
   color: ${({ theme }) => theme.colors?.text ?? '#121212'};
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   border: 1px solid ${({ theme }) => theme.colors?.border ?? 'rgba(0,0,0,0.1)'};
-  border-radius: 16px;
+  border-radius: 0;
   padding: 32px;
 
   @media (max-width: 768px) {
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 0;
   }
 `;
 
@@ -60,7 +60,7 @@ const BackRow = styled.div`
 const BackButton = styled.button`
   appearance: none;
   border: none;
-  border-radius: 8px;
+  border-radius: 0;
   background: ${({ theme }) => theme.colors?.primary ?? '#3db54e'};
   color: ${({ theme }) => theme.colors?.buttonText ?? '#fff'};
   padding: 8px 12px;

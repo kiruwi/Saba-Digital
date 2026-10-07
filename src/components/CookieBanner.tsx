@@ -48,7 +48,7 @@ const Actions = styled.div`
 
 const Btn = styled.button<{ $secondary?: boolean }>`
   padding: 8px 14px; font-size: 14px; border: 0; cursor: pointer;
-  border-radius: 6px;
+  border-radius: 0;
   background: ${({ $secondary }) =>
     $secondary ? "rgba(0,0,0,0.06)" : "#3db54e"};
   color: #121212;
@@ -59,7 +59,7 @@ const Btn = styled.button<{ $secondary?: boolean }>`
 const FloatingSettings = styled.button`
   position: fixed; left: 12px; bottom: 12px; z-index: 9998;
   padding: 6px 10px; font-size: 13px; border: 0; cursor: pointer;
-  border-radius: 999px;
+  border-radius: 0;
   background: ${({ theme }) => theme.colors.cardBackground};
   color: ${({ theme }) => theme.colors.text};
   border: 1px solid ${({ theme }) => theme.colors.border};

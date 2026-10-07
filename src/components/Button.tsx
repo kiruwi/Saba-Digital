@@ -20,7 +20,7 @@ const ButtonStyled = styled.button<ButtonProps>`
   font-size: ${({ size }) =>
     size === "small" ? "0.875rem" : size === "large" ? "1.125rem" : "1rem"};
   border: none;
-  border-radius: 4px;
+  border-radius: 0;
   cursor: pointer;
   transition: all 0.2s ease;
   background-color: ${({ theme, variant }) =>

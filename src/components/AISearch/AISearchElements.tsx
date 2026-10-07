@@ -34,7 +34,7 @@ export const SearchContainer = styled.div<{ theme?: any }>`
   width: 100%;
   max-width: 800px;
   background: ${props => props.theme?.colors?.background || '#fff'};
-  border-radius: 32px;
+  border-radius: 0;
   box-shadow: none;
   border: 1px solid ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
     ? 'rgba(255, 255, 255, 0.1)' 
@@ -89,7 +89,7 @@ export const ClearButton = styled.button<{ theme?: any }>`
   border: none;
   padding: 8px;
   margin-left: 8px;
-  border-radius: 6px;
+  border-radius: 0;
   color: ${props => props.theme?.colors?.text || '#333'};
   opacity: 0.6;
   cursor: pointer;
@@ -151,7 +151,7 @@ export const FilterChip = styled.button.attrs({ type: 'button' })<{ theme?: any 
   background: ${props => props.theme?.colors?.primary || '#3db54e'};
   color: white;
   padding: 6px 12px;
-  border-radius: 20px;
+  border-radius: 0;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -210,7 +210,7 @@ export const DialogCloseButton = styled.button.attrs({ type: 'button' })<{ theme
   justify-content: center;
   margin-left: 8px;
   border: 0;
-  border-radius: 50%;
+  border-radius: 0;
   color: ${props => props.theme?.colors?.text || '#333'};
   background: ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
     ? 'rgba(255, 255, 255, 0.08)'
@@ -221,7 +221,7 @@ export const ResultImage = styled.img<{ theme?: any }>`
   width: 80px;
   height: 80px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 0;
   margin-right: 16px;
   flex-shrink: 0;
   border: 1px solid ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
@@ -269,7 +269,7 @@ export const Tag = styled.span<{ theme?: any }>`
     : 'rgba(0, 0, 0, 0.08)'};
   color: ${props => props.theme?.colors?.text || '#333'};
   padding: 3px 8px;
-  border-radius: 12px;
+  border-radius: 0;
   font-size: 11px;
   opacity: 0.8;
 `;
@@ -308,7 +308,7 @@ export const LoadingSpinner = styled.div<{ theme?: any }>`
     ? 'rgba(255, 255, 255, 0.3)' 
     : 'rgba(0, 0, 0, 0.3)'};
   border-top: 2px solid ${props => props.theme?.colors?.primary || '#3db54e'};
-  border-radius: 50%;
+  border-radius: 0;
   animation: ${spin} 1s linear infinite;
 `;
 

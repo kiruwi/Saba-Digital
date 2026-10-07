@@ -46,7 +46,7 @@ export const ProjectImage = styled.img`
   width: 100%;
   max-height: 500px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 0;
   margin-bottom: 2rem;
 `;
 
@@ -67,7 +67,7 @@ export const Tag = styled.span`
   background-color: ${({ theme }) => theme.colors.primary};
   color: white; /* ensure contrast on primary */
   padding: 0.5rem 1rem;
-  border-radius: 20px;
+  border-radius: 0;
   font-size: 0.9rem;
 `;
 

@@ -49,7 +49,7 @@ const ButtonLink = styled(Link)`
   background: ${({ theme }) => theme.colors.primary};
   color: #fff;
   padding: 0.8rem 1.5rem;
-  border-radius: 4px;
+  border-radius: 0;
   text-decoration: none;
   font-weight: bold;
   margin-top: 1rem;

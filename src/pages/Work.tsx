@@ -22,7 +22,7 @@ const Filters = styled.div`
 `;
 const Filter = styled.button`
   min-height: 44px; padding: .65rem 1rem;
-  border: 1px solid ${({ theme }) => theme.colors.border}; border-radius: 4px;
+  border: 1px solid ${({ theme }) => theme.colors.border}; border-radius: 0;
   background: transparent; color: ${({ theme }) => theme.colors.text}; cursor: pointer;
   &[aria-pressed='true'] { background: #161916; color: #ffffff; border-color: transparent; }
   &:hover { border-color: ${({ theme }) => theme.colors.primary}; }

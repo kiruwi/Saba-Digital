@@ -29,7 +29,7 @@ export const GalleryItem = styled.button`
   margin: 0 0 16px; /* bottom margin acts as gap between masonry items */
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 0;
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
@@ -53,7 +53,7 @@ export const GalleryItemImage = styled.img`
 `;
 
 export const ImageItem = styled.div`
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 4px 12px ${({ theme }) => theme.colors.shadow};
   transition: transform 0.3s ease;
@@ -126,7 +126,7 @@ export const ImageCounter = styled.div`
   background: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 5px 10px;
-  border-radius: 20px;
+  border-radius: 0;
   font-size: 0.9rem;
   z-index: 10001;
 `;
@@ -146,7 +146,7 @@ export const NavigationControls = styled.div`
 export const NavigationDot = styled.button<{ $active: boolean }>`
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: 0;
   background: ${({ $active }) => ($active ? '#3db54e' : 'rgba(255, 255, 255, 0.5)')};
   border: none;
   padding: 0;
@@ -162,7 +162,7 @@ export const NavigationDot = styled.button<{ $active: boolean }>`
 export const NavigationArrow = styled.button`
   background: rgba(61, 181, 78, 0.7);
   border: none;
-  border-radius: 50%;
+  border-radius: 0;
   width: 40px;
   height: 40px;
   display: flex;
@@ -202,7 +202,7 @@ export const CloseButton = styled.button`
   right: 20px;
   background: rgba(61, 181, 78, 0.7);
   border: none;
-  border-radius: 50%;
+  border-radius: 0;
   width: 40px;
   height: 40px;
   display: flex;
@@ -226,7 +226,7 @@ export const GalleryInstructions = styled.div`
   gap: 0.5rem;
   margin-bottom: 1rem;
   padding: 0.75rem 1.5rem;
-  border-radius: 4px;
+  border-radius: 0;
   font-size: 0.95rem;
   color: ${({ theme }) => theme.colors.text};
   background: ${({ theme }) => theme.colors.cardBackground};

@@ -30,7 +30,7 @@ const ErrorBoundaryContainer = styled.div<{ theme: Theme }>`
     background-color: ${({ theme }) => theme.colors.primary};
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 0;
     cursor: pointer;
     transition: background-color ${({ theme }) => theme.transitions.default};
 

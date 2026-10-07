@@ -104,7 +104,7 @@ export const SideBtnWrap = styled.div`
 
 // Define button styled component for CTA buttons
 export const SidebarButton = styled(LinkR)`
-  border-radius: 50px;
+  border-radius: 0;
   background: ${({ theme }: { theme: ThemeType }) => theme.colors.primary};
   white-space: nowrap;
   padding: 16px 64px;

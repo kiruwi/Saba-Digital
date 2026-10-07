@@ -16,15 +16,18 @@ export const GraphicsGrid = styled.div`
 
 // Styling for individual Graphics project cards
 export const GraphicsCardContainer = styled(Link)`
+  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
+  min-height: 420px;
   background: ${({ theme }) => theme.colors.cardBackground};
-  border-radius: 24px;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
   transition: all 0.5s ease-in-out;
   text-decoration: none;
-  color: ${({ theme }) => theme.colors.text};
+  color: #fff;
   height: 100%;
   opacity: 0.9;
   transform: translateY(10px);
@@ -53,8 +56,10 @@ export const GraphicsCardContainer = styled(Link)`
 `;
 
 export const GraphicsImageWrapper = styled.div`
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 200px;
+  height: 100%;
   overflow: hidden;
 `;
 
@@ -71,47 +76,29 @@ export const GraphicsProjectImage = styled.img.attrs({
   filter: saturate(1); /* Ensure normal saturation */
   image-rendering: auto;
   
-  /* Initial animation */
-  animation: graphicsImageScale 1.2s forwards;
-  
-  /* Hover effect */
-  ${GraphicsCardContainer}:hover & {
-    transform: scale(1.05);
-  }
-  
-  @keyframes graphicsImageScale {
-    from { transform: scale(1); }
-    to { transform: scale(1.05); }
-  }
+  transform: scale(1);
+  @media (prefers-reduced-motion: reduce) { transition: none; }
 `;
 
 export const GraphicsContentWrapper = styled.div`
-  padding: 1.5rem;
-  flex: 1;
+  position: relative;
+  z-index: 1;
+  padding: 5rem 1.5rem 1.5rem;
   display: flex;
   flex-direction: column;
-  background: ${({ theme }) => theme.colors.cardBackground};
-  
-  /* Animate content appearance with slight delay for a staggered effect */
-  animation: graphicsContentFadeIn 0.8s forwards;
-  animation-delay: 0.3s;  /* Slight delay after card appears */
-  opacity: 0;
-  
-  @keyframes graphicsContentFadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  background: linear-gradient(transparent, rgba(0, 0, 0, .35) 40%, rgba(0, 0, 0, .65));
+  &, h3, p, span { color: #fff; }
 `;
 
 export const GraphicsProjectTitle = styled.h3`
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: ${({ theme }) => theme.colors.headingText};
+  color: #fff;
 `;
 
 export const GraphicsProjectDescription = styled.p`
   font-size: 0.9rem;
-  color: ${({ theme }) => theme.colors.text};
+  color: #fff;
   margin-bottom: 1rem;
 `;
 
@@ -124,10 +111,10 @@ export const GraphicsProjectTags = styled.div`
 
 export const GraphicsTag = styled.span`
   padding: 0.25rem 0.75rem;
-  background: ${({ theme }) => theme.colors.cardBackground};
-  border-radius: 4px;
+  background: rgba(255, 255, 255, .14);
+  border-radius: 0;
   font-size: 0.75rem;
-  color: ${({ theme }) => theme.colors.primary};
+  color: #fff;
 `;
 
 // Styling for the Graphics project detail page
@@ -136,7 +123,7 @@ export const GraphicsDetailContainer = styled.div`
   margin: 0 auto;
   padding: 2rem;
   background: ${({ theme }) => theme.colors.cardBackground};
-  border-radius: 24px;
+  border-radius: 0;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
 `;
 

@@ -32,13 +32,13 @@ const Group = styled.div`
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding-bottom: 16px;
 `;
 const Tile = styled.div`
-  aspect-ratio: 4 / 3; overflow: hidden; border-radius: 8px; background: #f5f6f3;
+  aspect-ratio: 4 / 3; overflow: hidden; border-radius: 0; background: #f5f6f3;
   box-shadow: 0 8px 24px rgba(22,25,22,.1);
   img { width: 100%; height: 100%; object-fit: cover; display: block; }
 `;
 const Toggle = styled.button`
   position: absolute; right: 2.5rem; bottom: 1rem; z-index: 3;
-  width: 36px; height: 36px; border: 0; border-radius: 50%; cursor: pointer;
+  width: 36px; height: 36px; border: 0; border-radius: 0; cursor: pointer;
   background: #fff; color: #161916; box-shadow: 0 2px 12px rgba(0,0,0,.1);
   display: grid; place-items: center;
   @media (prefers-reduced-motion: reduce) { display: none; }

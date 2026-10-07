@@ -55,7 +55,7 @@ const VideoPlaceholder = styled.button`
   width: 100%;
   padding: 0;
   border: 0;
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   aspect-ratio: 9 / 16;
   background: #111;
@@ -76,7 +76,7 @@ const PlayBadge = styled.span`
   place-items: center;
   width: 64px;
   height: 64px;
-  border-radius: 50%;
+  border-radius: 0;
   background: rgba(0, 0, 0, 0.78);
   color: #fff;
   font-size: 1.7rem;
@@ -142,7 +142,7 @@ const MotionGraphics: React.FC = () => {
                     loading="lazy"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    style={{ width: '100%', aspectRatio: '9/16', border: 0, borderRadius: '8px' }}
+                    style={{ width: '100%', aspectRatio: '9/16', border: 0, borderRadius: 0 }}
                   />
                 ) : (
                   <VideoPlaceholder

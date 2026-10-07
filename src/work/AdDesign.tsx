@@ -45,7 +45,7 @@ const MasonryGrid = styled.div`
 
 const AdImageWrapper = styled.div`
   width: 100%;
-  border-radius: 8px;
+  border-radius: 0;
   margin-bottom: 1rem;
   overflow: hidden;
   break-inside: avoid;
@@ -54,7 +54,7 @@ const AdImageWrapper = styled.div`
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 8px;
+    border-radius: 0;
     transition: transform 0.3s ease;
   }
   

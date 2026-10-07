@@ -25,7 +25,7 @@ const TestContainer = styled.div<{ isVisible: boolean }>`
   right: 20px;
   background: ${({ theme }) => theme.colors.cardBackground};
   border: 2px solid ${({ theme }) => theme.colors.border};
-  border-radius: 8px;
+  border-radius: 0;
   padding: 1rem;
   max-width: 300px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -47,7 +47,7 @@ const ToggleButton = styled.button`
   background: ${({ theme }) => theme.colors.primary};
   color: white;
   border: none;
-  border-radius: 50%;
+  border-radius: 0;
   width: 50px;
   height: 50px;
   cursor: pointer;

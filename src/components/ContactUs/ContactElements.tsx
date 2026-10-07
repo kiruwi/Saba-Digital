@@ -50,7 +50,7 @@ export const Form = styled.form`
     grid-template-columns: 1fr;
   }
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: 8px;
+  border-radius: 0;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 
@@ -121,7 +121,7 @@ export const FormInput = styled.input`
 export const FormButton = styled.button`
   padding: 16px 0;
   border: 2px solid ${({ theme }) => theme.colors.primary};
-  border-radius: 28px;
+  border-radius: 0;
   background: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.buttonText};
   font-size: 18px;

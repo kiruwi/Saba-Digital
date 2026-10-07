@@ -147,7 +147,7 @@ const GlobalStyles = createGlobalStyle`
     &:focus-visible {
       outline: 2px solid ${({ theme }) => theme.colors.primary};
       outline-offset: 2px;
-      border-radius: 2px;
+      border-radius: 0;
     }
   }
 
@@ -193,7 +193,7 @@ const GlobalStyles = createGlobalStyle`
     background-color: ${({ theme }) => theme.theme === 'dark' ? '#2a2a2a' : '#f5f5f5'};
     color: ${({ theme }) => theme.theme === 'dark' ? '#e3e3e3' : '#333'};
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    border-radius: 4px;
+    border-radius: 0;
     padding: 0.25em 0.5em;
   }
 

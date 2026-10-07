@@ -27,7 +27,7 @@ const Actions = styled.div`
 `;
 export const WorkLink = styled(Link)`
   display: inline-flex; align-items: center; justify-content: center; gap: 1rem;
-  min-height: 48px; padding: .9rem 1.5rem; border-radius: 4px;
+  min-height: 48px; padding: .9rem 1.5rem; border-radius: 0;
   background: #161916; color: #ffffff;
   font-weight: 700; text-decoration: none;
   svg { color: inherit; }

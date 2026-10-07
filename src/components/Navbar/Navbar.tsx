@@ -29,7 +29,7 @@ const Links = styled.div`
 const Controls = styled.div`display: flex; align-items: center; gap: .5rem;`;
 const IconButton = styled.button`
   display: grid; place-items: center; width: 44px; height: 44px;
-  border: 0; border-radius: 4px;
+  border: 0; border-radius: 0;
   background: transparent; color: ${({ theme }) => theme.colors.text}; cursor: pointer;
   svg { color: inherit; font-size: 1.2rem; }
   &:hover { border-color: ${({ theme }) => theme.colors.primary}; }

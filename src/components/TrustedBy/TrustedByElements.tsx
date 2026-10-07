@@ -100,7 +100,7 @@ export const Subtext = styled.p`
     font-family: 'JetBrains Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
     background: linear-gradient(135deg, rgba(61, 181, 78, 0.1), rgba(61, 181, 78, 0.05));
     border: 1px solid rgba(61, 181, 78, 0.2);
-    border-radius: 6px;
+    border-radius: 0;
     padding: 0.15rem 0.5rem;
     font-size: 0.9em;
     color: ${({ theme }) => theme.colors.accent || theme.colors.primary};

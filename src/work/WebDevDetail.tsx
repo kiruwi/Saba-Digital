@@ -46,7 +46,7 @@ const ProjectContent = styled.div`
 
 const ProjectImageContainer = styled.div`
   flex: 1;
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
   
@@ -94,7 +94,7 @@ const TechItem = styled.div`
   align-items: center;
   padding: 1rem;
   background: ${({ theme }) => theme.colors.cardBackground};
-  border-radius: 8px;
+  border-radius: 0;
   transition: transform 0.3s ease;
   
   &:hover {
@@ -128,7 +128,7 @@ const ImagesGrid = styled.div`
 /* Commented out to fix unused variable warning
 const ImageItem = styled.div`
   .image-item {
-    border-radius: 8px;
+    border-radius: 0;
     overflow: hidden;
     box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
     transition: transform 0.3s ease;
@@ -163,7 +163,7 @@ const BackButton = styled.button`
   background-color: ${({ theme }) => theme.colors.primary};
   color: white;
   border: none;
-  border-radius: 28px;
+  border-radius: 0;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;

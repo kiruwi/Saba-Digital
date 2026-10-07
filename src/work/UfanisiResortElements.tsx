@@ -103,7 +103,7 @@ export const UfanisiTag = styled.span`
   background-color: ${({ theme }) => theme.colors.primary};
   color: white; /* Always white text on primary color buttons */
   padding: 0.5rem 1rem;
-  border-radius: 20px;
+  border-radius: 0;
   font-size: 0.9rem;
 `;
 
@@ -139,7 +139,7 @@ export const UfanisiToolsContainer = styled.div`
 export const UfanisiTool = styled.div`
   display: inline-block;
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 0;
   background-color: ${({ theme }) => theme.colors.cardBackground};
   color: ${({ theme }) => theme.colors.text};
   font-size: 0.9rem;
@@ -297,6 +297,6 @@ export const FoodDeliveryContent = styled.p`
 export const FoodDeliveryImage = styled.img`
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;

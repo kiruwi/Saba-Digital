@@ -19,7 +19,7 @@ export const SearchTriggerButton = styled.button<{ theme?: any }>`
   border: 1px solid ${props => (props.theme?.theme === 'dark' || props.theme?.isDark)
     ? 'rgba(255, 255, 255, 0.15)'
     : 'rgba(0, 0, 0, 0.15)'};
-  border-radius: 25px;
+  border-radius: 0;
   padding: 10px 14px;
   color: ${props => props.theme?.colors?.text || '#333'};
   cursor: pointer;
@@ -109,7 +109,7 @@ export const SearchTriggerShortcut = styled.span<{ theme?: any }>`
     : 'rgba(0, 0, 0, 0.06)'};
   color: ${props => props.theme?.colors?.text || '#333'};
   padding: 3px 6px;
-  border-radius: 4px;
+  border-radius: 0;
   font-size: 11px;
   font-weight: 500;
   opacity: 0.9;
@@ -152,7 +152,7 @@ export const SearchTriggerFAB = styled(SearchTriggerButton)`
   bottom: 24px;
   right: 24px;
   z-index: 1000;
-  border-radius: 50%;
+  border-radius: 0;
   width: 56px;
   height: 56px;
   min-width: auto;

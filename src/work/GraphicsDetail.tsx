@@ -47,7 +47,7 @@ const ProjectContent = styled.div`
 
 const ProjectImageContainer = styled.div`
   flex: 1;
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
   
@@ -180,7 +180,7 @@ const BackButton = styled.button`
   background-color: ${({ theme }) => theme.colors.primary};
   color: white;
   border: none;
-  border-radius: 28px;
+  border-radius: 0;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
