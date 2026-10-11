@@ -15,7 +15,7 @@ const Main = styled.main`
   grid-template-columns: 1fr 1.3fr;
   align-items: center;
   gap: clamp(2rem, 6vw, 5rem);
-  h1 { font-size: clamp(3rem, 6vw, 5.5rem); letter-spacing: -.035em; font-weight: 500; margin-bottom: 1.5rem; }
+  h1 { font-size: clamp(3rem, 6vw, 5.5rem); letter-spacing: -.035em; font-weight: 700; margin-bottom: 1.5rem; }
   h1 span { color: ${({ theme }) => theme.colors.primary}; font-family: inherit; }
   p { font-size: 1.1rem; line-height: 1.7; margin-bottom: 1.5rem; }
   @media (max-width: 700px) { grid-template-columns: 1fr; }

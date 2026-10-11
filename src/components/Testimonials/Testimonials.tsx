@@ -107,7 +107,7 @@ const ReviewCard: React.FC<{ review: Review }> = memo(({ review }) => (
       </div>
 
       {/* Reviewer Name */}
-      <h3 className="text-gray-900 font-medium text-sm text-center mb-1">
+      <h3 className="text-gray-900 font-bold text-sm text-center mb-1">
         {review.reviewerName}
       </h3>
 
@@ -332,7 +332,7 @@ const Testimonials: React.FC<{ items?: Review[] }> = ({
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-medium text-gray-900">In my clients’ words</h2>
+          <h2 className="text-3xl font-bold text-gray-900">In my clients’ words</h2>
         </div>
 
         {/* Carousel Display - Single Review at a Time */}

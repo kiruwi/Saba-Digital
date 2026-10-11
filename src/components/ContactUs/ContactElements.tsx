@@ -63,7 +63,7 @@ export const FormH1 = styled.h2`
   margin-bottom: 40px;
   color: ${({ theme }) => theme.colors.headingText};
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 700;
   text-align: center;
   line-height: 1.4;
   position: relative;

@@ -58,7 +58,7 @@ const Copy = styled.div`
 `;
 const Category = styled.span`
   color: #fff;
-  font-size: .95rem; margin-top: .6rem;
+  font-size: .95rem; margin-top: .6rem; font-weight: 700;
 `;
 const Action = styled.span`
   display: flex; align-items: center; justify-content: space-between; margin-top: auto; font-weight: 500;

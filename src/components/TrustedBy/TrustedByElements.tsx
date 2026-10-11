@@ -58,7 +58,7 @@ export const Container = styled.div`
 export const Heading = styled.h2`
   margin: 0;
   font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.3;
   color: #161916;
   letter-spacing: -0.02em;
