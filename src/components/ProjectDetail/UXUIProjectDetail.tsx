@@ -1,5 +1,5 @@
 // src/components/ProjectDetail/UXUIProjectDetail.tsx
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { 
   UXUIDetailContainer, 
@@ -14,9 +14,10 @@ import {
   UXUIHeroOverlay,
   UXUIHeroTitle,
   UXUIHeroTitleBand,
+  UXUIPageTitle,
+  UXUIIntroduction,
   UXUISideBySideContainer,
   UXUIMobileImageFirst,
-  UXUIMobileOnlyImage,
   UXUITextContent,
   UXUIDetailParagraph,
   UXUIHeading,
@@ -26,6 +27,11 @@ import {
   UXUISectionHeading,
   UXUIList,
   UXUIListItem,
+  UXUIProcessTimeline,
+  UXUIProcessTimelineStep,
+  UXUIProcessTimelineNumber,
+  UXUIProcessTimelineTitle,
+  UXUIProcessTimelineDescription,
 } from '../../work/UXUIElements';
 import ProcessSection from '../ProcessSection/ProcessSection';
 import ZoomableGallery from '../ZoomableGallery/ZoomableGallery';
@@ -54,23 +60,6 @@ const UXUIProjectDetail: React.FC<UXUIProjectDetailProps> = ({ projects }) => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const location = useLocation();
-  const [isMobile, setIsMobile] = useState(false);
-  
-  // Set up mobile detection
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    // Initial check
-    checkIsMobile();
-    
-    // Add resize listener
-    window.addEventListener('resize', checkIsMobile);
-    
-    // Cleanup
-    return () => window.removeEventListener('resize', checkIsMobile);
-  }, []);
   
   // Find the project by id
   let project = null;
@@ -101,10 +90,9 @@ const UXUIProjectDetail: React.FC<UXUIProjectDetailProps> = ({ projects }) => {
       </UXUIBackButton>
       
       {/* Hero Image with Title Overlay */}
-      <UXUIHeroContainer>
+      <UXUIHeroContainer style={project.id === 'ufanisi-resort' ? { marginBottom: '3rem' } : undefined}>
         <UXUIHeroInner>
-          {/* For Ufanisi project on desktop, don't show the image in the hero section */}
-          {project.id !== 'ufanisi-resort' || isMobile ? (
+          {project.id !== 'ufanisi-resort' ? (
             <>
               <UXUIDetailImage 
                 src={project.image} 
@@ -115,17 +103,39 @@ const UXUIProjectDetail: React.FC<UXUIProjectDetailProps> = ({ projects }) => {
               </UXUIHeroOverlay>
             </>
           ) : (
-            <UXUIHeroTitleBand>
-              <UXUIDetailTitle>{project.title}</UXUIDetailTitle>
-            </UXUIHeroTitleBand>
+            <>
+              <UXUIHeroTitleBand>
+                <UXUIPageTitle>{project.title}</UXUIPageTitle>
+              </UXUIHeroTitleBand>
+            </>
           )}
         </UXUIHeroInner>
       </UXUIHeroContainer>
 
+      {project.id === 'ufanisi-resort' && (
+        <UXUIIntroduction>
+          <UXUIDetailImage
+            src={project.image}
+            alt="Ufanisi Resort food delivery app interface"
+            decoding="async"
+          />
+          <div>
+            <UXUISectionHeading as="h2">Ufanisi Resort Food Delivery App</UXUISectionHeading>
+            <UXUIDetailParagraph>{project.fullDescription}</UXUIDetailParagraph>
+            {project.fullDescription3?.filter(section => section.heading !== 'My Design Process').map(section => (
+              <UXUISectionMd key={section.heading}>
+                <UXUISectionHeading as="h2">{section.heading}</UXUISectionHeading>
+                <UXUIDetailParagraph>{section.content}</UXUIDetailParagraph>
+              </UXUISectionMd>
+            ))}
+          </div>
+        </UXUIIntroduction>
+      )}
+
       {/* Project Content Below Image */}
       <UXUIDetailHeader>
-        <UXUIDetailDescription>
-          {project.fullDescription.split('\n\n').map((paragraph, index) => {
+        <UXUIDetailDescription as="div">
+          {project.id !== 'ufanisi-resort' && project.fullDescription.split('\n\n').map((paragraph, index) => {
             // Check if this paragraph is a heading or number marker
             const isHeading = /^\d+\.?$/.test(paragraph.trim());
             
@@ -146,25 +156,36 @@ const UXUIProjectDetail: React.FC<UXUIProjectDetailProps> = ({ projects }) => {
             </UXUIDetailParagraph>
           )}
           
-          {project.fullDescription3 && Array.isArray(project.fullDescription3) && project.fullDescription3.map((section, index) => {
-            // Check if this is the "Previous Design Issues" section
-            const isPreviousDesignIssues = section.heading === "Previous Design Issues";
-            
+          {project.fullDescription3?.filter(section => project.id !== 'ufanisi-resort' || section.heading === 'My Design Process').map((section, index) => {
             return (
               <UXUISectionMd key={`section-${index}`}>
-                {/* Show the image above the heading for "Previous Design Issues" on mobile */}
-                {isPreviousDesignIssues && (
-                  <UXUIMobileOnlyImage>
-                    <UXUIDetailImage src="/assets/projects/ux-ui/u-r.webp" alt="Previous design issues" />
-                  </UXUIMobileOnlyImage>
-                )}
-                
-                <UXUISectionHeading>
+                <UXUISectionHeading as="h2">
                   {section.heading}
                 </UXUISectionHeading>
-                <UXUIDetailParagraph>
-                  {section.content}
-                </UXUIDetailParagraph>
+                {section.heading === 'My Design Process' ? (
+                  <UXUIProcessTimeline role="list" aria-label="My Design Process">
+                    {section.content.split('\n').filter(step => step.trim()).map((step, stepIndex) => {
+                      const content = step.replace(/^\s*\d+\.\s*/, '');
+                      const separatorIndex = content.indexOf(' - ');
+                      const title = separatorIndex === -1 ? content : content.slice(0, separatorIndex);
+                      const description = separatorIndex === -1 ? '' : content.slice(separatorIndex + 3);
+
+                      return (
+                        <UXUIProcessTimelineStep key={title}>
+                          <UXUIProcessTimelineNumber aria-hidden="true">{stepIndex + 1}</UXUIProcessTimelineNumber>
+                          <div>
+                            <UXUIProcessTimelineTitle>{title}</UXUIProcessTimelineTitle>
+                            {description && <UXUIProcessTimelineDescription>{description}</UXUIProcessTimelineDescription>}
+                          </div>
+                        </UXUIProcessTimelineStep>
+                      );
+                    })}
+                  </UXUIProcessTimeline>
+                ) : (
+                  <UXUIDetailParagraph>
+                    {section.content}
+                  </UXUIDetailParagraph>
+                )}
               </UXUISectionMd>
             );
           })}
@@ -179,21 +200,18 @@ const UXUIProjectDetail: React.FC<UXUIProjectDetailProps> = ({ projects }) => {
               <UXUIDetailImage src="/assets/projects/ux-ui/ufanisi.jpg" alt="Previous design issues" />
             </UXUIMobileImageFirst>
             <UXUITextContent>
-              <UXUIHeading>My Design Transformation</UXUIHeading>
+              <UXUIHeading>Refining the Interface</UXUIHeading>
               <UXUIDetailParagraph>
-                My previous design suffered from fundamental flaws in typography and layout that I needed to address. My original interface 
-                featured a chaotic mix of font families, I had combined serif, sans-serif, and decorative fonts without clear purpose. 
-                Font weights varied randomly throughout sections, which created visual confusion and made content hierarchy unclear.
+                The initial interface lacked a consistent type hierarchy, spacing system, and clear navigation.
+                I focused the redesign on making content easier to scan and the ordering flow easier to follow.
               </UXUIDetailParagraph>
               <UXUIDetailParagraph $hasTopMargin>
-                Spacing was problematic throughout my first attempt, with inconsistent margins and padding that failed to create logical 
-                relationships between elements. My excessive reliance on center alignment for nearly all elements created an 
-                unbalanced layout that ignored natural reading patterns and made scanning difficult for users.
+                I replaced competing font styles with a consistent type system, grouped related content with deliberate spacing,
+                and used alignment to establish a clearer reading order.
               </UXUIDetailParagraph>
               <UXUIDetailParagraph $hasTopMargin>
-                User-unfriendly elements were abundant in my initial work, buttons lacked proper affordances, interactive elements had insufficient 
-                contrast, and the navigation required users to hunt for basic functions. This second project served as a refresher for me, allowing me to 
-                implement a consistent type system, thoughtful spacing hierarchy, and intuitive interaction patterns in my redesign.
+                Clearer button styling and stronger contrast gave key actions more prominence.
+                The aim was to help users recognise their next step without searching through the interface.
               </UXUIDetailParagraph>
             </UXUITextContent>
           </UXUISideBySideContainer>
@@ -221,7 +239,13 @@ const UXUIProjectDetail: React.FC<UXUIProjectDetailProps> = ({ projects }) => {
       )}
       
       <UXUISection>
-        <UXUIHeading>Features</UXUIHeading>
+        <UXUIHeading>{project.id === 'ufanisi-resort' ? 'Prototype Features' : 'Features'}</UXUIHeading>
+        {project.id === 'ufanisi-resort' && (
+          <UXUIDetailParagraph>
+            These features describe the proposed app experience. The three-tap ordering flow is a design target,
+            rather than a measured improvement in a live product.
+          </UXUIDetailParagraph>
+        )}
         <UXUIList>
           {project.features && project.features.map((feature, index) => (
             <UXUIListItem key={index}>{feature}</UXUIListItem>

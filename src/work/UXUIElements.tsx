@@ -133,7 +133,7 @@ export const UXUITag = styled.span`
 export const UXUIDetailContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: clamp(1rem, 4vw, 2rem);
   background: ${({ theme }) => theme.colors.cardBackground};
   border-radius: 0px;
   box-shadow: 0 5px 15px ${({ theme }) => theme.colors.shadow};
@@ -159,6 +159,7 @@ export const UXUIDetailDescription = styled.p`
 `;
 
 export const UXUIDetailImage = styled.img`
+  display: block;
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -194,9 +195,32 @@ export const UXUIHeroTitle = styled(UXUIDetailTitle)`
 `;
 
 export const UXUIHeroTitleBand = styled.div`
-  padding: 2rem 0;
   background-color: ${({ theme }) => theme.colors.cardBackground};
   text-align: center;
+`;
+
+export const UXUIPageTitle = styled.h1`
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: ${({ theme }) => theme.colors.primary};
+`;
+
+export const UXUIIntroduction = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+
+  > img {
+    margin: 0;
+    max-height: 36rem;
+  }
+
+  @media screen and (min-width: 900px) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 4vw, 4rem);
+  }
 `;
 
 export const UXUIBackButton = styled.button`
@@ -420,4 +444,63 @@ export const UXUIList = styled.ul`
 export const UXUIListItem = styled.li`
   margin-bottom: 0.5rem;
   color: ${({ theme }) => theme.colors.text};
+`;
+
+export const UXUIProcessTimeline = styled.ol`
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  max-width: 720px;
+`;
+
+export const UXUIProcessTimelineStep = styled.li`
+  position: relative;
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+
+  &:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    bottom: 0;
+    left: calc(1rem - 0.5px);
+    width: 1px;
+    background: ${({ theme }) => theme.colors.primary};
+    opacity: 0.25;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+`;
+
+export const UXUIProcessTimelineNumber = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid ${({ theme }) => theme.colors.primary};
+  border-radius: 50%;
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1;
+`;
+
+export const UXUIProcessTimelineTitle = styled.h4`
+  margin: 0 0 0.25rem;
+  color: ${({ theme }) => theme.colors.headingText};
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 2rem;
+`;
+
+export const UXUIProcessTimelineDescription = styled.p`
+  margin: 0;
+  color: ${({ theme }) => theme.colors.text};
+  font-size: 0.95rem;
+  line-height: 1.6;
 `;
